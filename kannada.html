@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ಕನ್ನಡ ಮಧ್ಯಾವಧಿ ಪರೀಕ್ಷೆ - Class 3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Noto Sans Kannada', 'Tunga', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); min-height: 100vh; padding: 12px; color: #333; padding-bottom: 100px; }
+  .app { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
+  header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 18px 16px; text-align: center; position: relative; }
+  header a.back { position: absolute; left: 12px; top: 12px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+  header h1 { font-size: 22px; margin-bottom: 6px; }
+  header p { font-size: 13px; opacity: 0.95; }
+  .score-bar { background: #fff8e7; padding: 12px; display: flex; justify-content: space-around; border-bottom: 3px solid #ffd93d; font-weight: bold; }
+  .score-bar .item { text-align: center; }
+  .score-bar .big { font-size: 24px; color: #ff6b6b; }
+  .score-bar .lbl { font-size: 11px; color: #666; }
+  .tabs { display: flex; overflow-x: auto; background: #f8f9fa; border-bottom: 2px solid #ddd; }
+  .tab { flex: 0 0 auto; padding: 12px 12px; cursor: pointer; border: none; background: transparent; font-family: inherit; font-size: 12px; font-weight: bold; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; }
+  .tab.active { color: #764ba2; border-bottom-color: #764ba2; background: #fff; }
+  .section { padding: 16px; display: none; }
+  .section.active { display: block; }
+  .section h2 { color: #764ba2; font-size: 18px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px dashed #ffd93d; }
+  .hint { background: #e3f2fd; padding: 10px; border-radius: 10px; font-size: 13px; color: #1565c0; margin: 10px 0; }
+  .exercise { background: #fafafa; border-radius: 12px; padding: 14px; margin: 12px 0; border-left: 5px solid #ff9a56; }
+  .exercise h3 { font-size: 15px; margin-bottom: 10px; }
+  .exercise .word { text-align: center; font-size: 26px; font-weight: bold; margin: 8px 0; color: #764ba2; }
+  .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+  .option-btn { padding: 12px 8px; background: #fff; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .option-btn.correct { background: #4caf50; color: #fff; border-color: #388e3c; }
+  .option-btn.wrong { background: #f44336; color: #fff; border-color: #d32f2f; }
+  .option-btn:disabled { cursor: not-allowed; opacity: 0.85; }
+  .btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; margin: 6px 4px; box-shadow: 0 3px 8px rgba(118,75,162,0.3); }
+  .btn.small { padding: 8px 14px; font-size: 12px; }
+  .btn.green { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); }
+  .btn.orange { background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%); }
+  .qa-box { background: #fff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #764ba2; }
+  .qa-box .q { font-weight: bold; margin-bottom: 8px; }
+  .a { color: #2e7d32; margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 8px; display: none; font-weight: bold; line-height: 1.6; }
+  .a.show { display: block; }
+  .poem { background: #fff5e6; padding: 14px; border-radius: 10px; margin: 10px 0; line-height: 1.8; font-size: 16px; text-align: center; }
+
+  /* Writing practice */
+  .write-box { background: #fff; padding: 14px; border-radius: 10px; margin: 10px 0; text-align: center; }
+  .write-box .prompt { font-size: 20px; margin-bottom: 8px; font-weight: bold; color: #764ba2; }
+  .write-box .target { font-size: 32px; font-weight: bold; margin: 10px 0; color: #333; letter-spacing: 3px; }
+  .write-input { width: 100%; padding: 12px; font-size: 26px; text-align: center; border: 3px dashed #764ba2; border-radius: 10px; font-family: inherit; background: #fff9c4; }
+  .write-input.correct { background: #c8e6c9; border-color: #4caf50; border-style: solid; }
+  .write-input.wrong { background: #ffcdd2; border-color: #f44336; border-style: solid; }
+  .kbd-toggle { position: fixed; bottom: 12px; right: 12px; z-index: 90; background: #764ba2; color: #fff; border: none; padding: 12px 18px; border-radius: 50px; font-size: 14px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; }
+
+  /* Virtual Keyboard */
+  .keyboard { position: fixed; bottom: 0; left: 0; right: 0; background: #2c2c54; color: #fff; padding: 10px 8px; box-shadow: 0 -5px 20px rgba(0,0,0,0.3); z-index: 100; max-height: 60vh; overflow-y: auto; display: none; }
+  .keyboard.show { display: block; }
+  .kbd-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+  .kbd-tab { flex: 1; padding: 6px; background: #40407a; color: #fff; border: none; border-radius: 6px; font-family: inherit; font-size: 12px; font-weight: bold; cursor: pointer; }
+  .kbd-tab.active { background: #ffd93d; color: #2c2c54; }
+  .kbd-panel { display: none; }
+  .kbd-panel.active { display: block; }
+  .kbd-grid { display: grid; gap: 4px; }
+  .kbd-grid.v { grid-template-columns: repeat(5, 1fr); }
+  .kbd-grid.c { grid-template-columns: repeat(6, 1fr); }
+  .kbd-grid.m { grid-template-columns: repeat(4, 1fr); }
+  .kbd-key { padding: 10px 4px; background: #fff; color: #333; border: none; border-radius: 6px; font-family: inherit; font-size: 18px; font-weight: bold; cursor: pointer; min-height: 40px; }
+  .kbd-key:active { background: #ffd93d; }
+  .kbd-key.wide { grid-column: span 2; background: #ff6b6b; color: #fff; font-size: 14px; }
+  .kbd-key.action { background: #ffa500; color: #fff; font-size: 14px; }
+  .kbd-close { position: absolute; top: 4px; right: 8px; background: transparent; color: #fff; border: none; font-size: 22px; cursor: pointer; }
+
+  .celebration { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; z-index: 200; display: none; }
+  .celebration.show { display: block; animation: pop 0.4s; }
+  @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+  .celebration .emoji { font-size: 55px; }
+  .celebration h2 { color: #764ba2; margin: 8px 0; }
+  .footer { text-align: center; padding: 12px; font-size: 12px; color: #999; background: #f8f9fa; }
+  .q-count { display: inline-block; background: #764ba2; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 8px; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <a href="index.html" class="back">← Home</a>
+    <h1>🌸 ಕನ್ನಡ ಮಧ್ಯಾವಧಿ ಅಭ್ಯಾಸ 🌸</h1>
+    <p>Class 3 — All MCQ + Writing Practice</p>
+  </header>
+
+  <div class="score-bar">
+    <div class="item"><div class="big" id="scoreVal">0</div><div class="lbl">⭐ ಅಂಕ</div></div>
+    <div class="item"><div class="big" id="correctVal">0</div><div class="lbl">✅ ಸರಿ</div></div>
+    <div class="item"><div class="big" id="attemptVal">0</div><div class="lbl">📝 ಪ್ರಯತ್ನ</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('s1', this)">1. ಸ್ವರ</button>
+    <button class="tab" onclick="showSection('s2', this)">2. ವ್ಯಂಜನ</button>
+    <button class="tab" onclick="showSection('s3', this)">3. ಕಾಗುಣಿತ</button>
+    <button class="tab" onclick="showSection('s4', this)">4. ಒತ್ತಕ್ಷರ-1</button>
+    <button class="tab" onclick="showSection('s5', this)">5. ಒತ್ತಕ್ಷರ-2</button>
+    <button class="tab" onclick="showSection('s6', this)">6. ಒತ್ತಕ್ಷರ-3</button>
+    <button class="tab" onclick="showSection('s7', this)">7. ಚಿಟ್ಟೆ ಪದ್ಯ</button>
+    <button class="tab" onclick="showSection('s8', this)">8. ✍️ ಬರೆಯಿರಿ</button>
+  </div>
+
+  <div class="section active" id="s1"><h2>ಸ್ವರಗಳು (Vowels) <span class="q-count">10 ಪ್ರಶ್ನೆ</span></h2>
+    <div class="hint">💡 ಸ್ವರಗಳು ಒಟ್ಟು 15: ಅ ಆ ಇ ಈ ಉ ಊ ಋ ಎ ಏ ಐ ಒ ಓ ಔ ಅಂ ಅಃ</div>
+    <div id="q_vowels"></div>
+  </div>
+
+  <div class="section" id="s2"><h2>ವ್ಯಂಜನಗಳು (Consonants) <span class="q-count">10 ಪ್ರಶ್ನೆ</span></h2>
+    <div class="hint">💡 ಕ ಖ ಗ ಘ ಙ | ಚ ಛ ಜ ಝ ಞ | ಟ ಠ ಡ ಢ ಣ | ತ ಥ ದ ಧ ನ | ಪ ಫ ಬ ಭ ಮ | ಯ ರ ಲ ವ ಶ ಷ ಸ ಹ ಳ</div>
+    <div id="q_consonants"></div>
+  </div>
+
+  <div class="section" id="s3"><h2>ಕಾಗುಣಿತ (ಕ, ಚ, ತ, ಬ, ಲ) <span class="q-count">12 ಪ್ರಶ್ನೆ</span></h2>
+    <div class="hint">💡 ವ್ಯಂಜನ + ಸ್ವರ = ಕಾಗುಣಿತ. ಉದಾ: ಕ + ಆ = ಕಾ</div>
+    <div id="q_kagunita"></div>
+  </div>
+
+  <div class="section" id="s4"><h2>ಒತ್ತಕ್ಷರ - ಪಾಠ 1 (ಜ್ಜ ಟ್ಟ ಣ್ಣ ಬ್ಬ ವ್ವ) <span class="q-count">12 ಪ್ರಶ್ನೆ</span></h2>
+    <div class="hint">💡 ಪದದಲ್ಲಿ ಇರುವ ಒತ್ತಕ್ಷರ ಗುರುತಿಸಿ</div>
+    <div id="q_ott1"></div>
+  </div>
+
+  <div class="section" id="s5"><h2>ಒತ್ತಕ್ಷರ - ಪಾಠ 2 (ಕ್ಕ ಗ್ಗ ಚ್ಚ ಡ್ಡ ದ್ದ ಪ್ಪ ಸ್ಸ ಳ್ಳ) <span class="q-count">18 ಪ್ರಶ್ನೆ</span></h2>
+    <div class="hint">💡 ಎಲ್ಲಾ ಪಠ್ಯಪುಸ್ತಕದ ಪದಗಳು</div>
+    <div id="q_ott2"></div>
+  </div>
+
+  <div class="section" id="s6"><h2>ಒತ್ತಕ್ಷರ - ಪಾಠ 3 (ತ್ರ ನ್ನ ಮ್ಮ ಯ್ಯ ಲ್ಲ) <span class="q-count">10 ಪ್ರಶ್ನೆ</span></h2>
+    <div class="hint">💡 ಈ ಒತ್ತಕ್ಷರಗಳ ಪದಗಳು</div>
+    <div id="q_ott3"></div>
+  </div>
+
+  <div class="section" id="s7"><h2>ಪದ್ಯ 3: ಚಿಟ್ಟೆ 🦋 <span class="q-count">15 ಪ್ರಶ್ನೆ</span></h2>
+    <div class="hint">💡 ಪದ್ಯ ಓದಿ, ಎಲ್ಲಾ ಉತ್ತರ MCQ</div>
+    <div class="poem">
+      ಚಿಟ್ಟೆ ಚಿಟ್ಟೆ ಚಂದದ ಚಿಟ್ಟೆ<br>
+      ಕೊಟ್ಟವರ್ಯಾರೇ ಬಣ್ಣದ ಬಟ್ಟೆ?<br><br>
+      ಮುಟ್ಟಲು ಬಂದರೆ<br>ತಟ್ಟನೆ ಹಾರಿ<br>ದೂರಕೆ ಓಡುವೆ<br>ಏತಕೆ ಪೋರಿ?<br><br>
+      ಸುಮ್ಮನೆ ನನ್ನಲಿ<br>ತೋರುವೆ ಸಿಟ್ಟು<br>ಹೂವಿನ ಹತ್ತಿರ<br>ಏನದು ಗುಟ್ಟು?<br><br>
+      ಬಾ ಬಾ ಒಳಗೆ<br>ಕೊಡುವೆನು ನಾನು<br>ಬಿಸಿ ಬಿಸಿ ದೋಸೆ<br>ಸಿಹಿ ಸಿಹಿ ಜೇನು<br><br>
+      <em>- ಡಾ. ಪಿ. ನಾರಾಯಣ ಭಟ್</em>
+    </div>
+    <div id="q_poem"></div>
+  </div>
+
+  <div class="section" id="s8"><h2>✍️ ಬರೆಯುವ ಅಭ್ಯಾಸ (Writing Practice)</h2>
+    <div class="hint">💡 ಕೀಬೋರ್ಡ್ ಬಳಸಿ ಕನ್ನಡ ಪದಗಳನ್ನು ಬರೆಯಿರಿ. Type Kannada words using the keyboard!</div>
+    <p style="text-align:center; margin:12px 0;">
+      <button class="btn" onclick="toggleKeyboard()">⌨️ ಕೀಬೋರ್ಡ್ ತೆರೆ / ಮುಚ್ಚು</button>
+    </p>
+    <div id="q_write"></div>
+  </div>
+
+  <div class="footer">⭐ ಚೆನ್ನಾಗಿ ಅಭ್ಯಾಸ ಮಾಡಿ! ⭐<br>
+    <button class="btn small orange" onclick="resetAll()">🔄 ಎಲ್ಲಾ ಮತ್ತೆ ಪ್ರಾರಂಭಿಸಿ</button>
+  </div>
+</div>
+
+<button class="kbd-toggle" onclick="toggleKeyboard()" id="kbdToggle">⌨️ ಕೀಬೋರ್ಡ್</button>
+
+<div class="keyboard" id="kbd">
+  <button class="kbd-close" onclick="toggleKeyboard()">✖</button>
+  <div class="kbd-tabs">
+    <button class="kbd-tab active" onclick="kbdTab('kv', this)">ಸ್ವರ (Vowels)</button>
+    <button class="kbd-tab" onclick="kbdTab('kc', this)">ವ್ಯಂಜನ (Consonants)</button>
+    <button class="kbd-tab" onclick="kbdTab('km', this)">ಗುರುತು (Signs)</button>
+  </div>
+  <div class="kbd-panel active" id="kv">
+    <div class="kbd-grid v" id="kbdVowels"></div>
+  </div>
+  <div class="kbd-panel" id="kc">
+    <div class="kbd-grid c" id="kbdConsonants"></div>
+  </div>
+  <div class="kbd-panel" id="km">
+    <div class="kbd-grid m" id="kbdMatras"></div>
+    <p style="font-size:11px; margin-top:8px; text-align:center; opacity:0.8;">Sign attaches to previous letter</p>
+  </div>
+  <div style="display:flex; gap:6px; margin-top:8px;">
+    <button class="kbd-key action" onclick="typeChar(' ')" style="flex:2;">Space</button>
+    <button class="kbd-key action" onclick="backspace()" style="flex:1;">⌫ Back</button>
+    <button class="kbd-key wide" onclick="clearInput()" style="flex:1;">Clear</button>
+  </div>
+</div>
+
+<div class="celebration" id="celebration">
+  <div class="emoji">🎉</div>
+  <h2 id="celebTitle">ಶಭಾಷ್!</h2>
+  <p id="celebMsg">+10 ಅಂಕ!</p>
+  <button class="btn" onclick="closeCeleb()">ಮುಂದೆ</button>
+</div>
+
+<script>
+// ================= QUESTIONS DATA =================
+const Q = {
+  vowels: [
+    { q: "ಕನ್ನಡದಲ್ಲಿ ಒಟ್ಟು ಸ್ವರಗಳು ಎಷ್ಟು?", opts: ["10", "12", "15", "18"], ans: "15" },
+    { q: "ಮೊದಲ ಸ್ವರ ಯಾವುದು?", opts: ["ಈ", "ಅ", "ಉ", "ಎ"], ans: "ಅ" },
+    { q: "'ಅ' ನಂತರ ಬರುವ ಸ್ವರ?", opts: ["ಆ", "ಇ", "ಎ", "ಉ"], ans: "ಆ" },
+    { q: "'ಇ' ನಂತರ ಬರುವ ಸ್ವರ?", opts: ["ಈ", "ಉ", "ಎ", "ಒ"], ans: "ಈ" },
+    { q: "'ಉ' ನಂತರ ಬರುವ ಸ್ವರ?", opts: ["ಎ", "ಊ", "ಇ", "ಒ"], ans: "ಊ" },
+    { q: "'ಎ' ನಂತರ ಬರುವ ಸ್ವರ?", opts: ["ಏ", "ಐ", "ಒ", "ಓ"], ans: "ಏ" },
+    { q: "'ಒ' ನಂತರ ಬರುವ ಸ್ವರ?", opts: ["ಔ", "ಓ", "ಆ", "ಐ"], ans: "ಓ" },
+    { q: "'ಓ' ನಂತರ ಬರುವ ಸ್ವರ?", opts: ["ಇ", "ಐ", "ಔ", "ಅ"], ans: "ಔ" },
+    { q: "ಕೊನೆಯ ಸ್ವರ ಯಾವುದು?", opts: ["ಔ", "ಅಂ", "ಅಃ", "ಓ"], ans: "ಅಃ" },
+    { q: "'ಋ' ನಂತರ ಬರುವ ಸ್ವರ?", opts: ["ಎ", "ಇ", "ಒ", "ಔ"], ans: "ಎ" }
+  ],
+  consonants: [
+    { q: "ವ್ಯಂಜನಗಳ ಮೊದಲ ಅಕ್ಷರ?", opts: ["ಅ", "ಕ", "ಚ", "ತ"], ans: "ಕ" },
+    { q: "'ಕ' ವರ್ಗದ ಎರಡನೆ ಅಕ್ಷರ?", opts: ["ಗ", "ಖ", "ಘ", "ಙ"], ans: "ಖ" },
+    { q: "'ಚ' ವರ್ಗದ ಅಕ್ಷರ ಯಾವುದು?", opts: ["ಟ", "ಪ", "ಜ", "ದ"], ans: "ಜ" },
+    { q: "'ಟ' ವರ್ಗದ ಅಕ್ಷರ ಯಾವುದು?", opts: ["ಠ", "ಪ", "ಚ", "ಖ"], ans: "ಠ" },
+    { q: "'ತ' ವರ್ಗದ ಅಕ್ಷರ ಯಾವುದು?", opts: ["ಕ", "ಚ", "ದ", "ಪ"], ans: "ದ" },
+    { q: "'ಪ' ವರ್ಗದ ಕೊನೆಯ ಅಕ್ಷರ?", opts: ["ಪ", "ಫ", "ಬ", "ಮ"], ans: "ಮ" },
+    { q: "ಕೊನೆಯ ವ್ಯಂಜನ ಅಕ್ಷರ?", opts: ["ಸ", "ಹ", "ಳ", "ಕ್ಷ"], ans: "ಳ" },
+    { q: "ಯ, ರ, ಲ, ವ - ಇವು ಯಾವ ವರ್ಗ?", opts: ["ಸ್ವರ", "ವ್ಯಂಜನ", "ಒತ್ತಕ್ಷರ", "ಸಂಖ್ಯೆ"], ans: "ವ್ಯಂಜನ" },
+    { q: "'ಶ' ನಂತರ ಬರುವ ಅಕ್ಷರ?", opts: ["ಸ", "ಷ", "ಹ", "ಳ"], ans: "ಷ" },
+    { q: "'ರ' ನಂತರ ಬರುವ ಅಕ್ಷರ?", opts: ["ಲ", "ಯ", "ವ", "ಶ"], ans: "ಲ" }
+  ],
+  kagunita: [
+    { q: "ಕ + ಆ = ?", opts: ["ಕಿ", "ಕಾ", "ಕು", "ಕೆ"], ans: "ಕಾ" },
+    { q: "ಕ + ಇ = ?", opts: ["ಕಾ", "ಕಿ", "ಕೀ", "ಕು"], ans: "ಕಿ" },
+    { q: "ಕ + ಉ = ?", opts: ["ಕೆ", "ಕೂ", "ಕು", "ಕೊ"], ans: "ಕು" },
+    { q: "ಕ + ಎ = ?", opts: ["ಕೆ", "ಕೇ", "ಕಿ", "ಕಾ"], ans: "ಕೆ" },
+    { q: "ಕ + ಒ = ?", opts: ["ಕೋ", "ಕೊ", "ಕೌ", "ಕು"], ans: "ಕೊ" },
+    { q: "ಚ + ಆ = ?", opts: ["ಚಿ", "ಚಾ", "ಚು", "ಚೆ"], ans: "ಚಾ" },
+    { q: "ಚ + ಎ = ?", opts: ["ಚಾ", "ಚಿ", "ಚೆ", "ಚು"], ans: "ಚೆ" },
+    { q: "ತ + ಈ = ?", opts: ["ತಿ", "ತೀ", "ತು", "ತಾ"], ans: "ತೀ" },
+    { q: "ತ + ಆ = ?", opts: ["ತಾ", "ತಿ", "ತು", "ತೆ"], ans: "ತಾ" },
+    { q: "ಬ + ಆ = ?", opts: ["ಬಿ", "ಬಾ", "ಬು", "ಬೆ"], ans: "ಬಾ" },
+    { q: "ಲ + ಆ = ?", opts: ["ಲಿ", "ಲಾ", "ಲು", "ಲೆ"], ans: "ಲಾ" },
+    { q: "ಬ + ಎ = ?", opts: ["ಬಾ", "ಬಿ", "ಬೆ", "ಬು"], ans: "ಬೆ" }
+  ],
+  ott1: [
+    { word: "ಅಜ್ಜಿ", opts: ["ಜ್ಜ", "ಟ್ಟ", "ಣ್ಣ", "ವ್ವ"], ans: "ಜ್ಜ" },
+    { word: "ಬೆಟ್ಟ", opts: ["ಟ್ಟ", "ಜ್ಜ", "ಬ್ಬ", "ಣ್ಣ"], ans: "ಟ್ಟ" },
+    { word: "ಕಣ್ಣು", opts: ["ಜ್ಜ", "ಣ್ಣ", "ವ್ವ", "ಟ್ಟ"], ans: "ಣ್ಣ" },
+    { word: "ಕಬ್ಬು", opts: ["ಬ್ಬ", "ಣ್ಣ", "ಟ್ಟ", "ವ್ವ"], ans: "ಬ್ಬ" },
+    { word: "ಅವ್ವ", opts: ["ಜ್ಜ", "ಬ್ಬ", "ವ್ವ", "ಣ್ಣ"], ans: "ವ್ವ" },
+    { word: "ಮಜ್ಜಿಗೆ", opts: ["ಟ್ಟ", "ಜ್ಜ", "ಬ್ಬ", "ವ್ವ"], ans: "ಜ್ಜ" },
+    { word: "ಬಣ್ಣ", opts: ["ಬ್ಬ", "ಟ್ಟ", "ಣ್ಣ", "ಜ್ಜ"], ans: "ಣ್ಣ" },
+    { word: "ಹಣ್ಣು", opts: ["ಣ್ಣ", "ಜ್ಜ", "ವ್ವ", "ಟ್ಟ"], ans: "ಣ್ಣ" },
+    { word: "ಪಟ್ಟ", opts: ["ಜ್ಜ", "ಟ್ಟ", "ವ್ವ", "ಬ್ಬ"], ans: "ಟ್ಟ" },
+    { word: "ಕಜ್ಜಾಯ", opts: ["ಟ್ಟ", "ಬ್ಬ", "ಜ್ಜ", "ಣ್ಣ"], ans: "ಜ್ಜ" },
+    { word: "ಸಜ್ಜನ", opts: ["ಜ್ಜ", "ಟ್ಟ", "ಣ್ಣ", "ವ್ವ"], ans: "ಜ್ಜ" },
+    { word: "ಹಬ್ಬ", opts: ["ಟ್ಟ", "ಜ್ಜ", "ಬ್ಬ", "ಣ್ಣ"], ans: "ಬ್ಬ" }
+  ],
+  ott2: [
+    { word: "ಅಕ್ಕ", opts: ["ಕ್ಕ", "ಗ್ಗ", "ಪ್ಪ", "ಚ್ಚ"], ans: "ಕ್ಕ" },
+    { word: "ಸಕ್ಕರೆ", opts: ["ಪ್ಪ", "ಕ್ಕ", "ದ್ದ", "ಗ್ಗ"], ans: "ಕ್ಕ" },
+    { word: "ಹಕ್ಕಿ", opts: ["ಗ್ಗ", "ಕ್ಕ", "ಚ್ಚ", "ಡ್ಡ"], ans: "ಕ್ಕ" },
+    { word: "ಮಕ್ಕಳು", opts: ["ಕ್ಕ", "ಳ್ಳ", "ಗ್ಗ", "ಪ್ಪ"], ans: "ಕ್ಕ" },
+    { word: "ಹಗ್ಗ", opts: ["ಕ್ಕ", "ಗ್ಗ", "ಚ್ಚ", "ಡ್ಡ"], ans: "ಗ್ಗ" },
+    { word: "ಮಗ್ಗ", opts: ["ಗ್ಗ", "ಕ್ಕ", "ಡ್ಡ", "ಪ್ಪ"], ans: "ಗ್ಗ" },
+    { word: "ಹೆಚ್ಚು", opts: ["ಕ್ಕ", "ಚ್ಚ", "ಗ್ಗ", "ಡ್ಡ"], ans: "ಚ್ಚ" },
+    { word: "ಮೆಚ್ಚು", opts: ["ಗ್ಗ", "ಪ್ಪ", "ಚ್ಚ", "ಸ್ಸ"], ans: "ಚ್ಚ" },
+    { word: "ಗಡ್ಡ", opts: ["ದ್ದ", "ಡ್ಡ", "ಗ್ಗ", "ಪ್ಪ"], ans: "ಡ್ಡ" },
+    { word: "ಲಡ್ಡು", opts: ["ಳ್ಳ", "ಡ್ಡ", "ದ್ದ", "ಗ್ಗ"], ans: "ಡ್ಡ" },
+    { word: "ಹದ್ದು", opts: ["ಡ್ಡ", "ದ್ದ", "ಪ್ಪ", "ಚ್ಚ"], ans: "ದ್ದ" },
+    { word: "ಗದ್ದೆ", opts: ["ಗ್ಗ", "ದ್ದ", "ಡ್ಡ", "ಪ್ಪ"], ans: "ದ್ದ" },
+    { word: "ಅಪ್ಪ", opts: ["ಪ್ಪ", "ಬ್ಬ", "ಕ್ಕ", "ಚ್ಚ"], ans: "ಪ್ಪ" },
+    { word: "ತುಪ್ಪ", opts: ["ದ್ದ", "ಗ್ಗ", "ಪ್ಪ", "ಚ್ಚ"], ans: "ಪ್ಪ" },
+    { word: "ಬಸ್ಸು", opts: ["ಪ್ಪ", "ಕ್ಕ", "ಸ್ಸ", "ಗ್ಗ"], ans: "ಸ್ಸ" },
+    { word: "ಮನಸ್ಸು", opts: ["ಸ್ಸ", "ದ್ದ", "ಪ್ಪ", "ಚ್ಚ"], ans: "ಸ್ಸ" },
+    { word: "ಹಳ್ಳ", opts: ["ಕ್ಕ", "ಳ್ಳ", "ಚ್ಚ", "ದ್ದ"], ans: "ಳ್ಳ" },
+    { word: "ಬೆಳ್ಳಿ", opts: ["ಗ್ಗ", "ಳ್ಳ", "ಡ್ಡ", "ಪ್ಪ"], ans: "ಳ್ಳ" }
+  ],
+  ott3: [
+    { word: "ಅನ್ನ", opts: ["ಮ್ಮ", "ನ್ನ", "ಲ್ಲ", "ಯ್ಯ"], ans: "ನ್ನ" },
+    { word: "ಅಮ್ಮ", opts: ["ನ್ನ", "ಮ್ಮ", "ಯ್ಯ", "ಲ್ಲ"], ans: "ಮ್ಮ" },
+    { word: "ಎಮ್ಮೆ", opts: ["ಲ್ಲ", "ಮ್ಮ", "ನ್ನ", "ಯ್ಯ"], ans: "ಮ್ಮ" },
+    { word: "ಬೆಲ್ಲ", opts: ["ನ್ನ", "ಮ್ಮ", "ಲ್ಲ", "ಯ್ಯ"], ans: "ಲ್ಲ" },
+    { word: "ಹಲ್ಲು", opts: ["ಲ್ಲ", "ಮ್ಮ", "ನ್ನ", "ತ್ರ"], ans: "ಲ್ಲ" },
+    { word: "ಉಯ್ಯಾಲೆ", opts: ["ಲ್ಲ", "ಯ್ಯ", "ಮ್ಮ", "ನ್ನ"], ans: "ಯ್ಯ" },
+    { word: "ಕನ್ನಡಿ", opts: ["ಮ್ಮ", "ನ್ನ", "ಲ್ಲ", "ತ್ರ"], ans: "ನ್ನ" },
+    { word: "ಜನ್ಮ", opts: ["ಲ್ಲ", "ಯ್ಯ", "ನ್ಮ", "ಮ್ಮ"], ans: "ನ್ಮ" },
+    { word: "ಸತ್ಯ", opts: ["ತ್ಯ", "ನ್ನ", "ಮ್ಮ", "ಲ್ಲ"], ans: "ತ್ಯ" },
+    { word: "ಪುಸ್ತಕ", opts: ["ಮ್ಮ", "ಸ್ತ", "ನ್ನ", "ತ್ರ"], ans: "ಸ್ತ" }
+  ],
+  poem: [
+    { q: "ಪದ್ಯದ ಹೆಸರು ಏನು?", opts: ["ಹೂವು", "ಚಿಟ್ಟೆ", "ಹಕ್ಕಿ", "ಜೇನು"], ans: "ಚಿಟ್ಟೆ" },
+    { q: "ಪದ್ಯ ಬರೆದವರು ಯಾರು?", opts: ["ಕುವೆಂಪು", "ಪಿ. ನಾರಾಯಣ ಭಟ್", "ಕಾರಂತ", "ಬೇಂದ್ರೆ"], ans: "ಪಿ. ನಾರಾಯಣ ಭಟ್" },
+    { q: "ಚಿಟ್ಟೆ ಚಿಟ್ಟೆ ___ ಚಿಟ್ಟೆ", opts: ["ಬಣ್ಣದ", "ಚಂದದ", "ಪುಟ್ಟ", "ಬಿಸಿ"], ans: "ಚಂದದ" },
+    { q: "ಕೊಟ್ಟವರ್ಯಾರೇ ___ ಬಟ್ಟೆ?", opts: ["ಚಂದದ", "ಬಣ್ಣದ", "ಪುಟ್ಟ", "ಸಿಹಿ"], ans: "ಬಣ್ಣದ" },
+    { q: "ಮುಟ್ಟಲು ಬಂದರೆ ___ ಹಾರಿ", opts: ["ನಿಧಾನ", "ತಟ್ಟನೆ", "ದೂರ", "ಬೇಗ"], ans: "ತಟ್ಟನೆ" },
+    { q: "ದೂರಕೆ ___", opts: ["ಓಡುವೆ", "ಹಾರುವೆ", "ನಿಲ್ಲುವೆ", "ಬರುವೆ"], ans: "ಓಡುವೆ" },
+    { q: "ತೋರುವೆ ___", opts: ["ನಗು", "ಸಿಟ್ಟು", "ಬಣ್ಣ", "ಗುಟ್ಟು"], ans: "ಸಿಟ್ಟು" },
+    { q: "ಹೂವಿನ ಹತ್ತಿರ ಏನದು ___?", opts: ["ಗುಟ್ಟು", "ಸಿಟ್ಟು", "ಬಟ್ಟೆ", "ಜೇನು"], ans: "ಗುಟ್ಟು" },
+    { q: "ಬಿಸಿ ಬಿಸಿ ___", opts: ["ಜೇನು", "ದೋಸೆ", "ಹಾಲು", "ನೀರು"], ans: "ದೋಸೆ" },
+    { q: "ಸಿಹಿ ಸಿಹಿ ___", opts: ["ಜೇನು", "ದೋಸೆ", "ಬೆಲ್ಲ", "ಸಕ್ಕರೆ"], ans: "ಜೇನು" },
+    { q: "'ತಟ್ಟನೆ' ಎಂದರೆ?", opts: ["ನಿಧಾನ", "ಕೂಡಲೆ", "ದೂರ", "ಸುಂದರ"], ans: "ಕೂಡಲೆ" },
+    { q: "'ಪೋರಿ' ಎಂದರೆ?", opts: ["ಹೂವು", "ಚಿಟ್ಟೆ", "ತುಂಟಿ", "ಜೇನು"], ans: "ತುಂಟಿ" },
+    { q: "'ಗುಟ್ಟು' ಎಂದರೆ?", opts: ["ಬಣ್ಣ", "ರಹಸ್ಯ", "ಸಿಹಿ", "ದೋಸೆ"], ans: "ರಹಸ್ಯ" },
+    { q: "'ಸುಮ್ಮನೆ' ಎಂದರೆ?", opts: ["ಕಾರಣವಿಲ್ಲದೆ", "ಸಿಟ್ಟಿನಿಂದ", "ಬೇಗ", "ದೂರ"], ans: "ಕಾರಣವಿಲ್ಲದೆ" },
+    { q: "'ಚಿಟ್ಟೆ' ಪದದ ಪ್ರಾಸ ಪದ ಯಾವುದು?", opts: ["ಜೇನು", "ಬಟ್ಟೆ", "ಹಾರಿ", "ನಾನು"], ans: "ಬಟ್ಟೆ" }
+  ]
+};
+
+const writingWords = [
+  { hint: "grandmother (English)", target: "ಅಜ್ಜಿ" },
+  { hint: "eye (English)", target: "ಕಣ್ಣು" },
+  { hint: "frog (English)", target: "ಕಪ್ಪೆ" },
+  { hint: "cat (English)", target: "ಬೆಕ್ಕು" },
+  { hint: "sugar (English)", target: "ಸಕ್ಕರೆ" },
+  { hint: "mother (English)", target: "ಅಮ್ಮ" }
+];
+
+// ================= KEYBOARD DATA =================
+const kbdData = {
+  vowels: ["ಅ","ಆ","ಇ","ಈ","ಉ","ಊ","ಋ","ಎ","ಏ","ಐ","ಒ","ಓ","ಔ","ಅಂ","ಅಃ"],
+  consonants: ["ಕ","ಖ","ಗ","ಘ","ಙ","ಚ","ಛ","ಜ","ಝ","ಞ","ಟ","ಠ","ಡ","ಢ","ಣ","ತ","ಥ","ದ","ಧ","ನ","ಪ","ಫ","ಬ","ಭ","ಮ","ಯ","ರ","ಲ","ವ","ಶ","ಷ","ಸ","ಹ","ಳ"],
+  matras: [
+    {label:"ಾ (aa)", char:"ಾ"}, {label:"ಿ (i)", char:"ಿ"}, {label:"ೀ (ii)", char:"ೀ"}, {label:"ು (u)", char:"ು"},
+    {label:"ೂ (uu)", char:"ೂ"}, {label:"ೃ (ru)", char:"ೃ"}, {label:"ೆ (e)", char:"ೆ"}, {label:"ೇ (ee)", char:"ೇ"},
+    {label:"ೈ (ai)", char:"ೈ"}, {label:"ೊ (o)", char:"ೊ"}, {label:"ೋ (oo)", char:"ೋ"}, {label:"ೌ (au)", char:"ೌ"},
+    {label:"ಂ (m)", char:"ಂ"}, {label:"ಃ (h)", char:"ಃ"}, {label:"್ (halant)", char:"್"}
+  ]
+};
+
+// ================= STATE =================
+let score = 0, correct = 0, attempts = 0, activeInput = null;
+
+function updateScore() {
+  document.getElementById('scoreVal').textContent = score;
+  document.getElementById('correctVal').textContent = correct;
+  document.getElementById('attemptVal').textContent = attempts;
+}
+function celebrate(t, m) {
+  document.getElementById('celebTitle').textContent = t;
+  document.getElementById('celebMsg').textContent = m;
+  document.getElementById('celebration').classList.add('show');
+}
+function closeCeleb() { document.getElementById('celebration').classList.remove('show'); }
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ================= MCQ RENDERER =================
+function renderMCQ(containerId, questions, isWordQ) {
+  const c = document.getElementById(containerId);
+  let html = '';
+  questions.forEach((item, idx) => {
+    html += `<div class="exercise"><h3>ಪ್ರಶ್ನೆ ${idx+1}:</h3>`;
+    if (isWordQ) {
+      html += `<p style="margin:6px 0;">ಈ ಪದದಲ್ಲಿ ಇರುವ ಒತ್ತಕ್ಷರ?</p>`;
+      html += `<div class="word">${item.word}</div>`;
+    } else {
+      html += `<p style="margin:6px 0; font-size:15px;">${item.q}</p>`;
+    }
+    html += `<div class="options">`;
+    item.opts.forEach(opt => {
+      const isCorrect = (opt === item.ans);
+      html += `<button class="option-btn" onclick="checkMCQ(this, ${isCorrect})">${opt}</button>`;
+    });
+    html += `</div></div>`;
+  });
+  c.innerHTML = html;
+}
+
+function checkMCQ(btn, isCorrect) {
+  if (btn.disabled) return;
+  attempts++;
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+  if (isCorrect) {
+    btn.classList.add('correct');
+    correct++;
+    score += 10;
+    celebrate('ಸರಿ! ✅', '+10 ಅಂಕ!');
+  } else {
+    btn.classList.add('wrong');
+    parent.querySelectorAll('.option-btn').forEach(b => {
+      if (b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+    });
+  }
+  updateScore();
+}
+
+// ================= WRITING PRACTICE =================
+function renderWriting() {
+  const c = document.getElementById('q_write');
+  let html = '';
+  writingWords.forEach((w, idx) => {
+    html += `<div class="write-box">
+      <div class="prompt">ಪ್ರಶ್ನೆ ${idx+1}: Type this word in Kannada</div>
+      <div class="target">${w.target}</div>
+      <p style="font-size:12px; color:#666; margin:6px 0;">${w.hint}</p>
+      <input class="write-input" data-target="${w.target}" placeholder="ಇಲ್ಲಿ ಬರೆಯಿರಿ..." onfocus="setActiveInput(this)">
+      <p style="margin-top:8px;"><button class="btn small green" onclick="checkWrite(this)">✓ ಪರಿಶೀಲಿಸು</button>
+      <button class="btn small orange" onclick="this.parentElement.previousElementSibling.value=''">🔄 Clear</button></p>
+    </div>`;
+  });
+  c.innerHTML = html;
+}
+function checkWrite(btn) {
+  const inp = btn.parentElement.previousElementSibling;
+  attempts++;
+  if (inp.value.trim() === inp.dataset.target) {
+    inp.classList.remove('wrong'); inp.classList.add('correct');
+    correct++; score += 20;
+    celebrate('ಶಭಾಷ್! 🎉', 'ಸರಿಯಾಗಿ ಬರೆದಿದ್ದೀರಿ! +20 ಅಂಕ!');
+  } else {
+    inp.classList.remove('correct'); inp.classList.add('wrong');
+  }
+  updateScore();
+}
+
+// ================= KEYBOARD =================
+function buildKeyboard() {
+  const v = document.getElementById('kbdVowels');
+  v.innerHTML = kbdData.vowels.map(c => `<button class="kbd-key" onclick="typeChar('${c}')">${c}</button>`).join('');
+  const cn = document.getElementById('kbdConsonants');
+  cn.innerHTML = kbdData.consonants.map(c => `<button class="kbd-key" onclick="typeChar('${c}')">${c}</button>`).join('');
+  const m = document.getElementById('kbdMatras');
+  m.innerHTML = kbdData.matras.map(x => `<button class="kbd-key" onclick="typeChar('${x.char}')" style="font-size:13px;">${x.label}</button>`).join('');
+}
+function toggleKeyboard() {
+  document.getElementById('kbd').classList.toggle('show');
+}
+function kbdTab(id, btn) {
+  document.querySelectorAll('.kbd-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.kbd-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function setActiveInput(inp) { activeInput = inp; }
+function typeChar(ch) {
+  if (!activeInput) {
+    // Find first write-input on visible section
+    const inputs = document.querySelectorAll('#s8 .write-input');
+    if (inputs.length > 0) { activeInput = inputs[0]; activeInput.focus(); }
+    else return;
+  }
+  const start = activeInput.selectionStart || activeInput.value.length;
+  const end = activeInput.selectionEnd || activeInput.value.length;
+  const val = activeInput.value;
+  activeInput.value = val.slice(0, start) + ch + val.slice(end);
+  const newPos = start + ch.length;
+  activeInput.focus();
+  activeInput.setSelectionRange(newPos, newPos);
+}
+function backspace() {
+  if (!activeInput) return;
+  const val = activeInput.value;
+  const start = activeInput.selectionStart || val.length;
+  if (start > 0) {
+    activeInput.value = val.slice(0, start - 1) + val.slice(start);
+    activeInput.focus();
+    activeInput.setSelectionRange(start - 1, start - 1);
+  }
+}
+function clearInput() { if (activeInput) { activeInput.value = ''; activeInput.focus(); } }
+
+function resetAll() {
+  if (!confirm('ಎಲ್ಲಾ ಅಂಕಗಳು ಅಳಿಸಲ್ಪಡುತ್ತವೆ. ಮುಂದುವರೆಯಬೇಕೇ?')) return;
+  location.reload();
+}
+
+// ================= INIT =================
+renderMCQ('q_vowels', Q.vowels, false);
+renderMCQ('q_consonants', Q.consonants, false);
+renderMCQ('q_kagunita', Q.kagunita, false);
+renderMCQ('q_ott1', Q.ott1, true);
+renderMCQ('q_ott2', Q.ott2, true);
+renderMCQ('q_ott3', Q.ott3, true);
+renderMCQ('q_poem', Q.poem, false);
+renderWriting();
+buildKeyboard();
+updateScore();
+</script>
+
+</body>
+</html>

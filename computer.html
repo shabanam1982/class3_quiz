@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Practice - Class 3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); min-height: 100vh; padding: 12px; color: #333; }
+  .app { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
+  header { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); color: #fff; padding: 18px 16px; text-align: center; position: relative; }
+  header a.back { position: absolute; left: 12px; top: 12px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+  header h1 { font-size: 21px; margin-bottom: 6px; }
+  header p { font-size: 13px; opacity: 0.95; }
+  .score-bar { background: #fff8e7; padding: 12px; display: flex; justify-content: space-around; border-bottom: 3px solid #ffd93d; font-weight: bold; }
+  .score-bar .item { text-align: center; }
+  .score-bar .big { font-size: 24px; color: #ff6b6b; }
+  .score-bar .lbl { font-size: 11px; color: #666; }
+  .tabs { display: flex; overflow-x: auto; background: #f8f9fa; border-bottom: 2px solid #ddd; }
+  .tab { flex: 0 0 auto; padding: 12px 12px; cursor: pointer; border: none; background: transparent; font-family: inherit; font-size: 12px; font-weight: bold; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; }
+  .tab.active { color: #8e2de2; border-bottom-color: #8e2de2; background: #fff; }
+  .section { padding: 16px; display: none; }
+  .section.active { display: block; }
+  .section h2 { color: #8e2de2; font-size: 18px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px dashed #ffd93d; }
+  .hint { background: #f3e5f5; padding: 10px; border-radius: 10px; font-size: 13px; color: #6a1b9a; margin: 10px 0; line-height: 1.5; }
+  .exercise { background: #fafafa; border-radius: 12px; padding: 14px; margin: 12px 0; border-left: 5px solid #8e2de2; }
+  .exercise h3 { font-size: 15px; margin-bottom: 10px; color: #4a00e0; }
+  .options { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+  .options.two { grid-template-columns: repeat(2, 1fr); }
+  .option-btn { padding: 12px; background: #fff; border: 2px solid #ddd; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; font-family: inherit; transition: all 0.2s; text-align: left; }
+  .options.two .option-btn { text-align: center; }
+  .option-btn.correct { background: #4caf50; color: #fff; border-color: #388e3c; }
+  .option-btn.wrong { background: #f44336; color: #fff; border-color: #d32f2f; }
+  .option-btn:disabled { cursor: not-allowed; opacity: 0.85; }
+  .btn { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; margin: 6px 4px; }
+  .qa-box { background: #fff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #8e2de2; }
+  .qa-box .q { font-weight: bold; margin-bottom: 8px; }
+  .a { color: #2e7d32; margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 8px; display: none; font-weight: bold; line-height: 1.6; }
+  .a.show { display: block; }
+  .readbox { background: #fff8e1; padding: 14px; border-radius: 10px; margin: 10px 0; line-height: 1.7; font-size: 14px; border-left: 4px solid #ffa500; }
+  .celebration { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; z-index: 200; display: none; }
+  .celebration.show { display: block; animation: pop 0.4s; }
+  @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+  .celebration .emoji { font-size: 55px; }
+  .celebration h2 { color: #8e2de2; margin: 8px 0; }
+  .footer { text-align: center; padding: 12px; font-size: 12px; color: #999; background: #f8f9fa; }
+  .q-count { display: inline-block; background: #8e2de2; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 8px; }
+  .match-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+  .match-item { padding: 10px 8px; background: #fff; border: 2px solid #ddd; border-radius: 8px; text-align: center; font-weight: bold; cursor: pointer; font-size: 13px; }
+  .match-item.selected { background: #ffd93d; border-color: #ffa500; }
+  .match-item.matched { background: #c8e6c9; border-color: #4caf50; cursor: default; }
+  .demo { background: #fff; padding: 12px; border-radius: 8px; margin: 8px 0; border: 1px solid #ddd; }
+  .demo .b { font-weight: bold; }
+  .demo .i { font-style: italic; }
+  .demo .u { text-decoration: underline; }
+  .demo .big { font-size: 22px; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <a href="index.html" class="back">← Home</a>
+    <h1>💻 Computer Practice</h1>
+    <p>Class 3 — Unit 2 & Unit 3</p>
+  </header>
+
+  <div class="score-bar">
+    <div class="item"><div class="big" id="scoreVal">0</div><div class="lbl">⭐ Score</div></div>
+    <div class="item"><div class="big" id="correctVal">0</div><div class="lbl">✅ Correct</div></div>
+    <div class="item"><div class="big" id="attemptVal">0</div><div class="lbl">📝 Tries</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('s1', this)">U2: Newsletter</button>
+    <button class="tab" onclick="showSection('s2', this)">U2: Practice Q</button>
+    <button class="tab" onclick="showSection('s3', this)">U3: Chronicle</button>
+    <button class="tab" onclick="showSection('s4', this)">U3: Practice Q</button>
+  </div>
+
+  <!-- UNIT 2 CONCEPTS -->
+  <div class="section active" id="s1">
+    <h2>Unit 2: School Newsletter 📰 <span class="q-count">22 Q</span></h2>
+    <div class="readbox">
+      <strong>Quick Tips from the book:</strong><br>
+      • Larger fonts are used for important text<br>
+      • Choose fonts that are easier to read<br>
+      • Do NOT use more than <strong>four</strong> types of fonts on the same page<br>
+      • To highlight text, use <strong>bold</strong>, <em>italics</em>, or <u>underline</u><br>
+      • Some commonly used fonts are <strong>Arial</strong> and <strong>Times New Roman</strong><br>
+      • We use <strong>LibreOffice Writer</strong> to create the newsletter
+    </div>
+    <div class="demo">
+      <strong>See the difference:</strong><br>
+      <span class="b">This is Bold text</span><br>
+      <span class="i">This is Italic text</span><br>
+      <span class="u">This is Underlined text</span><br>
+      <span class="big">This is a Larger font size</span><br>
+      This is Regular text
+    </div>
+    <div id="q1"></div>
+  </div>
+
+  <!-- UNIT 2 PRACTICE -->
+  <div class="section" id="s2">
+    <h2>Unit 2: Practice Questions ✏️ <span class="q-count">20 Q</span></h2>
+    <div class="hint">💡 All the practice questions from your book — circle the correct option, True/False, and Match.</div>
+    <div id="q2"></div>
+    <div class="exercise"><h3>🔗 Match the Following (Book Q3)</h3>
+      <p style="font-size:13px; margin-bottom:8px;">Tap an item on the left, then its match on the right.</p>
+      <div class="match-list" id="matchArea1"></div>
+      <p id="matchStatus1" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p>
+    </div>
+    <div class="exercise"><h3>📖 Activity Questions</h3>
+      <div class="qa-box"><div class="q">1. List some features of a newsletter that you like.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. It contains an image that clearly shows the purpose of the newsletter.<br>2. There are separate sections for each part, which makes it easy to read.<br>3. Images and logos make the newsletter look more attractive.</div></div>
+      <div class="qa-box"><div class="q">2. Which parts of a newsletter should have a bigger font size?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The title (heading) and the important headings of each section should have a bigger font size, because larger fonts catch the reader's attention.</div></div>
+      <div class="qa-box"><div class="q">3. What should a sports week newsletter include?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Importance of sports<br>2. Events to be held<br>3. Pictures of the events</div></div>
+    </div>
+  </div>
+
+  <!-- UNIT 3 CONCEPTS -->
+  <div class="section" id="s3">
+    <h2>Unit 3: Class Calendar Chronicle 📅 <span class="q-count">22 Q</span></h2>
+    <div class="readbox">
+      <strong>What is a chronicle?</strong><br>
+      A chronicle is a <strong>record of events that took place in the past</strong>. It is arranged in the order in which the events happened — this is called <strong>chronological order</strong>.<br><br>
+      <strong>Quick Tips — A table is useful for:</strong><br>
+      • Arranging information in rows and columns<br>
+      • Finding information easily<br>
+      • Comparing different information<br>
+      • Catching the attention of the reader<br><br>
+      <strong>Two types of lists:</strong><br>
+      • <strong>Bulleted list</strong> — uses dots, squares, arrows, ticks (order does NOT matter)<br>
+      • <strong>Numbered list</strong> — uses 1, 2, 3 / a, b, c / i, ii, iii (order DOES matter)
+    </div>
+    <div id="q3"></div>
+  </div>
+
+  <!-- UNIT 3 PRACTICE -->
+  <div class="section" id="s4">
+    <h2>Unit 3: Practice Questions ✏️ <span class="q-count">18 Q</span></h2>
+    <div class="hint">💡 All the practice questions from your book — True/False, list types, and table questions.</div>
+    <div id="q4"></div>
+    <div class="exercise"><h3>🔗 Match: Musical Instruments by Type</h3>
+      <p style="font-size:13px; margin-bottom:8px;">Tap an instrument on the left, then its type on the right.</p>
+      <div class="match-list" id="matchArea2"></div>
+      <p id="matchStatus2" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p>
+    </div>
+    <div class="exercise"><h3>📖 Activity Questions</h3>
+      <div class="qa-box"><div class="q">1. List the features of old chronicles that you like the most.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. They provide information in chronological order.<br>2. A few chronicles are handwritten.<br>3. A few are in the form of a sculpture, painting or an art.<br>4. They give a record of important events.</div></div>
+      <div class="qa-box"><div class="q">2. Make a list of four activities that are part of gardening.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">• Watering<br>• Sowing<br>• Planting<br>• Collecting flowers</div></div>
+      <div class="qa-box"><div class="q">3. Did the table help you answer the question? If yes, how?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Yes, the table helped us answer the question because it had all the information arranged neatly in rows and columns, so we could find and add the numbers easily.</div></div>
+      <div class="qa-box"><div class="q">4. Which topic would you choose for your own calendar chronicle?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Some good topics are: Games, Animals, Cities, Festivals, Seasons, or Famous People. (Any sensible topic is correct!)</div></div>
+      <div class="qa-box"><div class="q">5. What are the fun things you can do in a timetable using a word processor?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">You can add pictures to your timetable! For example, add a picture of a sport instead of writing PT/PE, or add a picture of a tiffin box to show recess.</div></div>
+    </div>
+  </div>
+
+  <div class="footer">⭐ Keep practising on the computer! ⭐<br>
+    <button class="btn" onclick="resetAll()">🔄 Restart All</button></div>
+</div>
+
+<div class="celebration" id="celebration">
+  <div class="emoji">🎉</div><h2 id="celebTitle">Well done!</h2>
+  <p id="celebMsg">+10 points!</p>
+  <button class="btn" onclick="closeCeleb()">Next</button>
+</div>
+
+<script>
+const Q = {
+  q1: [
+    { q: "Which software do we use to create the newsletter?", opts: ["LibreOffice Calc", "LibreOffice Writer", "LibreOffice Impress", "LibreOffice Draw"], ans: "LibreOffice Writer" },
+    { q: "LibreOffice Writer is a type of:", opts: ["Spreadsheet", "Word processor", "Presentation", "Paint program"], ans: "Word processor" },
+    { q: "Larger fonts are used for:", opts: ["Unimportant text", "Important text", "Page numbers", "Nothing"], ans: "Important text" },
+    { q: "How many types of fonts should you use on the same page (maximum)?", opts: ["Two", "Three", "Four", "Ten"], ans: "Four" },
+    { q: "Which of these is a commonly used font?", opts: ["Arial", "Rainbow", "Sunshine", "Pencil"], ans: "Arial" },
+    { q: "Which of these is a commonly used font?", opts: ["Blue Sky", "Times New Roman", "Big Text", "Sports"], ans: "Times New Roman" },
+    { q: "To highlight text, we should use:", opts: ["Regular font only", "Bold, italics or underline", "Very small font", "Random colours"], ans: "Bold, italics or underline" },
+    { q: "Which font style makes text look slanted?", opts: ["Bold", "Italics", "Underline", "Regular"], ans: "Italics" },
+    { q: "Which font style makes text look thick and dark?", opts: ["Italics", "Bold", "Underline", "Regular"], ans: "Bold" },
+    { q: "Which font style puts a line under the text?", opts: ["Bold", "Italics", "Underline", "Regular"], ans: "Underline" },
+    { q: "What is the keyboard shortcut for BOLD?", opts: ["Ctrl + B", "Ctrl + I", "Ctrl + U", "Ctrl + S"], ans: "Ctrl + B" },
+    { q: "What is the keyboard shortcut for ITALICS?", opts: ["Ctrl + B", "Ctrl + I", "Ctrl + U", "Ctrl + C"], ans: "Ctrl + I" },
+    { q: "What is the keyboard shortcut for UNDERLINE?", opts: ["Ctrl + B", "Ctrl + I", "Ctrl + U", "Ctrl + P"], ans: "Ctrl + U" },
+    { q: "A newsletter should have images because:", opts: ["It makes the file bigger", "It makes it look more attractive", "It saves paper", "It is compulsory"], ans: "It makes it look more attractive" },
+    { q: "In this unit, we create a newsletter for:", opts: ["The annual sports week", "The exam results", "A birthday party", "A shopping list"], ans: "The annual sports week" },
+    { q: "Which of these should be a part of the sports week newsletter?", opts: ["A shopping list", "Importance of sports", "Homework answers", "Phone numbers"], ans: "Importance of sports" },
+    { q: "Which activity belongs in a school SPORTS week?", opts: ["Watering plants", "Running race", "Cooking food", "Reading a book"], ans: "Running race" },
+    { q: "Which activity belongs in a school SPORTS week?", opts: ["Gardening", "Football", "Sweeping", "Painting a wall"], ans: "Football" },
+    { q: "Which is NOT a sports week activity?", opts: ["Boxing", "Running", "Watering plants", "Football"], ans: "Watering plants" },
+    { q: "What can you add to a document to make it look more appealing?", opts: ["Only text", "Shapes, images and colours", "Blank pages", "More spaces"], ans: "Shapes, images and colours" },
+    { q: "In the Build activity, after adding a shape you can:", opts: ["Fill it with your favourite colour", "Delete the document", "Print it 10 times", "Close the program"], ans: "Fill it with your favourite colour" },
+    { q: "What effect can you give to a shape in LibreOffice Writer?", opts: ["Sound effect", "3D effect", "Music effect", "Smell effect"], ans: "3D effect" }
+  ],
+  q2: [
+    { q: "Circle the BOLD word: edit, copy, paste, cut, save", opts: ["edit and save", "copy and cut", "paste and save", "edit and paste"], ans: "copy and cut" },
+    { q: "Circle the ITALIC words: print, open, close, edit, new", opts: ["print and new", "open, close and edit", "new only", "print only"], ans: "open, close and edit" },
+    { q: "Which words are NOT underlined: red, blue, purple, grey, white", opts: ["red and grey", "blue and white", "purple only", "all of them"], ans: "blue and white" },
+    { q: "Which words have the SAME font size: summer, autumn, winter, spring, monsoon", opts: ["summer, autumn and spring", "winter and monsoon", "all of them", "monsoon only"], ans: "summer, autumn and spring" },
+    { q: "Regular font should be used to highlight a word.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Larger fonts catch the readers' attention.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Using different fonts in the same sentence makes it easier to read.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Bold, italics and underline should NOT be used often in a document.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Which alignment puts text on the left side of the page?", opts: ["Left-align", "Right-align", "Center", "Justify"], ans: "Left-align" },
+    { q: "Which alignment makes both sides of the paragraph straight and even?", opts: ["Left-align", "Right-align", "Center", "Justify"], ans: "Justify" },
+    { q: "'Earth' written in bold letters is an example of:", opts: ["Italic text", "Bold text", "Underlined text", "Regular text"], ans: "Bold text" },
+    { q: "'Moon' written in slanted letters is an example of:", opts: ["Bold text", "Italic text", "Underlined text", "Regular text"], ans: "Italic text" },
+    { q: "'Sun' written with a line below it is an example of:", opts: ["Bold text", "Italic text", "Underlined text", "Justified text"], ans: "Underlined text" },
+    { q: "In the amusement park activity, which was NOT one of the rides?", opts: ["Roller coaster", "Pirate ship", "Merry-go-round", "Race car"], ans: "Race car" },
+    { q: "Which font is easier to read in a newsletter?", opts: ["A plain, clear font", "A very fancy decorated font", "A very tiny font", "All capital letters"], ans: "A plain, clear font" },
+    { q: "What are the four font styles available in LibreOffice Writer?", opts: ["Bold, Regular, Italics, Bold+Italics", "Big, Small, Fat, Thin", "Red, Blue, Green, Black", "One, Two, Three, Four"], ans: "Bold, Regular, Italics, Bold+Italics" },
+    { q: "In the newsletter activity, you write the name of each colour:", opts: ["In black only", "In its own colour", "In capital letters", "In italics"], ans: "In its own colour" },
+    { q: "You can add a banner to your newsletter by:", opts: ["Colouring an image", "Deleting text", "Making the page blank", "Printing it twice"], ans: "Colouring an image" },
+    { q: "Which skill is NOT part of the 'Are you ready?' checklist?", opts: ["Enter text in a document", "Format the text", "Send an email", "Align the text"], ans: "Send an email" },
+    { q: "A newsletter is different from a newspaper because:", opts: ["It has no words", "It is shorter and made for a specific group like a school", "It has no pictures", "It is only in black and white"], ans: "It is shorter and made for a specific group like a school" }
+  ],
+  q3: [
+    { q: "What is a chronicle?", opts: ["A record of events from the past", "A shopping list", "A type of font", "A game"], ans: "A record of events from the past" },
+    { q: "Events in a chronicle are arranged in:", opts: ["Random order", "Chronological order", "Alphabetical order", "Reverse order"], ans: "Chronological order" },
+    { q: "'Chronological order' means:", opts: ["Order of size", "Order in which events took place", "Order of colour", "Order of price"], ans: "Order in which events took place" },
+    { q: "A table arranges information in:", opts: ["Circles", "Rows and columns", "Straight lines only", "Boxes of any shape"], ans: "Rows and columns" },
+    { q: "A table is useful because:", opts: ["It makes the file bigger", "It helps you find information easily", "It uses less ink", "It is compulsory"], ans: "It helps you find information easily" },
+    { q: "Which list uses dots, squares and arrows?", opts: ["Numbered list", "Bulleted list", "Table", "Chart"], ans: "Bulleted list" },
+    { q: "Which list uses 1, 2, 3 or a, b, c?", opts: ["Bulleted list", "Numbered list", "Table", "Picture list"], ans: "Numbered list" },
+    { q: "A shopping list is an example of a:", opts: ["Numbered list", "Bulleted list", "Table", "Chronicle"], ans: "Bulleted list" },
+    { q: "A list of flags of different countries is a:", opts: ["Numbered list", "Bulleted list", "Table", "Timetable"], ans: "Bulleted list" },
+    { q: "A dictionary is arranged as a:", opts: ["Bulleted list", "Numbered list", "Table", "Chart"], ans: "Numbered list" },
+    { q: "A to-do list is a:", opts: ["Bulleted list", "Numbered list", "Table", "Diagram"], ans: "Numbered list" },
+    { q: "The contents page of a book is a:", opts: ["Bulleted list", "Numbered list", "Table", "Chart"], ans: "Numbered list" },
+    { q: "The planets in the solar system should be listed as a:", opts: ["Bulleted list", "Numbered list", "Random list", "Picture only"], ans: "Numbered list" },
+    { q: "How many planets are there in the solar system (from the book)?", opts: ["Six", "Seven", "Eight", "Nine"], ans: "Eight" },
+    { q: "In VIBGYOR, what does the V stand for?", opts: ["Violet", "Vermilion", "Vanilla", "Very red"], ans: "Violet" },
+    { q: "In VIBGYOR, which colour comes right after Blue?", opts: ["Indigo", "Green", "Yellow", "Orange"], ans: "Green" },
+    { q: "In VIBGYOR, which colour is LAST?", opts: ["Violet", "Yellow", "Orange", "Red"], ans: "Red" },
+    { q: "In a student directory, which information do we record?", opts: ["Only names", "Name, telephone number and address", "Only marks", "Only photos"], ans: "Name, telephone number and address" },
+    { q: "If there are 35 students and 3 points of information each, how many rows and columns?", opts: ["35 rows, 3 columns", "3 rows, 35 columns", "35 rows, 35 columns", "3 rows, 3 columns"], ans: "35 rows, 3 columns" },
+    { q: "In the timetable, how many rows are there (Mon to Fri)?", opts: ["Four", "Five", "Six", "Seven"], ans: "Five" },
+    { q: "In the timetable, how many periods are there in a day?", opts: ["Six", "Seven", "Eight", "Nine"], ans: "Eight" },
+    { q: "In the timetable, how many columns are there (including the day column)?", opts: ["Eight", "Nine", "Ten", "Five"], ans: "Nine" }
+  ],
+  q4: [
+    { q: "Adding bullets and numbering makes a document easy to read.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Tables help you carry your files anywhere and use them on another computer.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Tables help you organise a document.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "The best way to list the names of students in a class is using a bulleted list.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "A list showing dots, squares, arrows and ticks is called a:", opts: ["Numbered list", "Bulleted list", "Table", "Chart"], ans: "Bulleted list" },
+    { q: "A list showing 1), 2), 3) and A), B), C) is called a:", opts: ["Bulleted list", "Numbered list", "Table", "Diagram"], ans: "Numbered list" },
+    { q: "Which is a gardening activity?", opts: ["Watering", "Cooking", "Reading", "Singing"], ans: "Watering" },
+    { q: "Which is a gardening activity?", opts: ["Washing utensils", "Sowing", "Sweeping", "Painting"], ans: "Sowing" },
+    { q: "Percussion instruments are:", opts: ["Beaten with hands or sticks", "Played with strings", "Blown into", "Made of paper"], ans: "Beaten with hands or sticks" },
+    { q: "String instruments have:", opts: ["Sticks", "Strings played by hand", "Drums", "Bells"], ans: "Strings played by hand" },
+    { q: "Which of these is a PERCUSSION instrument?", opts: ["Guitar", "Violin", "Xylophone", "Flute"], ans: "Xylophone" },
+    { q: "Which of these is a STRING instrument?", opts: ["Drums", "Bongo", "Guitar", "Xylophone"], ans: "Guitar" },
+    { q: "Which of these is a PERCUSSION instrument?", opts: ["Violin", "Bongo", "Guitar", "Sitar"], ans: "Bongo" },
+    { q: "Which of these is a STRING instrument?", opts: ["Xylophone", "Drums", "Violin", "Bongo"], ans: "Violin" },
+    { q: "In the TV shows activity, how do you arrange the shows?", opts: ["By colour", "In a table by time and channel", "In alphabetical order", "By length"], ans: "In a table by time and channel" },
+    { q: "The badge you earn after completing Unit 3 is:", opts: ["Super Star", "Expert Creator", "Best Writer", "Table Master"], ans: "Expert Creator" },
+    { q: "What can you add to a table in a word processor?", opts: ["Only numbers", "Pictures", "Only letters", "Nothing"], ans: "Pictures" },
+    { q: "In the household activity table, what does the last number show?", opts: ["The total number of students", "The number of tables", "The day of the week", "The classroom number"], ans: "The total number of students" }
+  ]
+};
+
+const matchSets = {
+  1: [
+    { l: "Bold text", r: "Earth (thick letters)" },
+    { l: "Underlined text", r: "Sun (line below)" },
+    { l: "Italic text", r: "Moon (slanted)" },
+    { l: "Shortcut for bold", r: "Ctrl + B" },
+    { l: "Left-align", r: "Text starts at the left edge" },
+    { l: "Justify", r: "Both sides straight and even" }
+  ],
+  2: [
+    { l: "Xylophone", r: "Percussion" },
+    { l: "Guitar", r: "String" },
+    { l: "Drums", r: "Percussion (beaten)" },
+    { l: "Violin", r: "String (played by bow)" },
+    { l: "Bongo", r: "Percussion (hands)" }
+  ]
+};
+
+let score = 0, correct = 0, attempts = 0;
+const mState = { 1: {sel:null, done:0}, 2: {sel:null, done:0} };
+
+function updateScore() {
+  document.getElementById('scoreVal').textContent = score;
+  document.getElementById('correctVal').textContent = correct;
+  document.getElementById('attemptVal').textContent = attempts;
+}
+function celebrate(t, m) {
+  document.getElementById('celebTitle').textContent = t;
+  document.getElementById('celebMsg').textContent = m;
+  document.getElementById('celebration').classList.add('show');
+}
+function closeCeleb() { document.getElementById('celebration').classList.remove('show'); }
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function renderMCQ(containerId, questions) {
+  const c = document.getElementById(containerId);
+  let html = '';
+  questions.forEach((item, idx) => {
+    html += `<div class="exercise"><h3>Q${idx+1}. ${item.q}</h3>`;
+    html += `<div class="options${item.two ? ' two' : ''}">`;
+    item.opts.forEach(opt => {
+      html += `<button class="option-btn" onclick="checkMCQ(this, ${opt === item.ans})">${opt}</button>`;
+    });
+    html += `</div></div>`;
+  });
+  c.innerHTML = html;
+}
+function checkMCQ(btn, isCorrect) {
+  if (btn.disabled) return;
+  attempts++;
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+  if (isCorrect) {
+    btn.classList.add('correct'); correct++; score += 10;
+    celebrate('Correct! ✅', '+10 points!');
+  } else {
+    btn.classList.add('wrong');
+    parent.querySelectorAll('.option-btn').forEach(b => {
+      if (b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+    });
+  }
+  updateScore();
+}
+function toggleA(btn) {
+  const a = btn.nextElementSibling;
+  a.classList.toggle('show');
+  btn.textContent = a.classList.contains('show') ? '🙈 Hide' : '👀 See Answer';
+}
+function buildMatch(n) {
+  const area = document.getElementById('matchArea' + n);
+  area.innerHTML = '';
+  const pairs = matchSets[n];
+  const left = document.createElement('div');
+  pairs.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'match-item'; d.textContent = p.l;
+    d.dataset.side = 'l'; d.dataset.value = p.l; d.dataset.set = n;
+    d.onclick = () => selL(d, n);
+    left.appendChild(d);
+  });
+  const right = document.createElement('div');
+  [...pairs.map(p => p.r)].sort(() => Math.random() - 0.5).forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'match-item'; d.textContent = r;
+    d.dataset.side = 'r'; d.dataset.value = r; d.dataset.set = n;
+    d.onclick = () => selR(d, n);
+    right.appendChild(d);
+  });
+  area.appendChild(left); area.appendChild(right);
+}
+function selL(el, n) {
+  if (el.classList.contains('matched')) return;
+  document.querySelectorAll(`[data-side="l"][data-set="${n}"]`).forEach(i => i.classList.remove('selected'));
+  el.classList.add('selected'); mState[n].sel = el;
+}
+function selR(el, n) {
+  if (el.classList.contains('matched') || !mState[n].sel) return;
+  attempts++;
+  const pair = matchSets[n].find(p => p.l === mState[n].sel.dataset.value);
+  if (pair && pair.r === el.dataset.value) {
+    mState[n].sel.classList.remove('selected'); mState[n].sel.classList.add('matched');
+    el.classList.add('matched'); mState[n].done++; correct++; score += 10;
+    updateScore();
+    if (mState[n].done === matchSets[n].length) {
+      celebrate('All matched! 🎉', 'Excellent!');
+      document.getElementById('matchStatus' + n).textContent = '🎉 All matched!';
+    }
+    mState[n].sel = null;
+  } else {
+    el.style.background = '#ffcdd2';
+    setTimeout(() => { el.style.background = ''; }, 500);
+  }
+}
+function resetAll() { if (!confirm('This will reset all scores. Continue?')) return; location.reload(); }
+
+renderMCQ('q1', Q.q1);
+renderMCQ('q2', Q.q2);
+renderMCQ('q3', Q.q3);
+renderMCQ('q4', Q.q4);
+buildMatch(1); buildMatch(2);
+updateScore();
+</script>
+</body>
+</html>

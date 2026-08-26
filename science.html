@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Practice - Class 3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%); min-height: 100vh; padding: 12px; color: #333; }
+  .app { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
+  header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: #fff; padding: 18px 16px; text-align: center; position: relative; }
+  header a.back { position: absolute; left: 12px; top: 12px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+  header h1 { font-size: 21px; margin-bottom: 6px; }
+  header p { font-size: 13px; opacity: 0.95; }
+  .score-bar { background: #fff8e7; padding: 12px; display: flex; justify-content: space-around; border-bottom: 3px solid #ffd93d; font-weight: bold; }
+  .score-bar .item { text-align: center; }
+  .score-bar .big { font-size: 24px; color: #ff6b6b; }
+  .score-bar .lbl { font-size: 11px; color: #666; }
+  .tabs { display: flex; overflow-x: auto; background: #f8f9fa; border-bottom: 2px solid #ddd; }
+  .tab { flex: 0 0 auto; padding: 12px 12px; cursor: pointer; border: none; background: transparent; font-family: inherit; font-size: 12px; font-weight: bold; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; }
+  .tab.active { color: #11998e; border-bottom-color: #11998e; background: #fff; }
+  .section { padding: 16px; display: none; }
+  .section.active { display: block; }
+  .section h2 { color: #11998e; font-size: 18px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px dashed #ffd93d; }
+  .hint { background: #e0f7fa; padding: 10px; border-radius: 10px; font-size: 13px; color: #00695c; margin: 10px 0; line-height: 1.5; }
+  .exercise { background: #fafafa; border-radius: 12px; padding: 14px; margin: 12px 0; border-left: 5px solid #38ef7d; }
+  .exercise h3 { font-size: 15px; margin-bottom: 10px; color: #11998e; }
+  .options { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+  .options.two { grid-template-columns: repeat(2, 1fr); }
+  .option-btn { padding: 12px; background: #fff; border: 2px solid #ddd; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; font-family: inherit; transition: all 0.2s; text-align: left; }
+  .options.two .option-btn { text-align: center; }
+  .option-btn.correct { background: #4caf50; color: #fff; border-color: #388e3c; }
+  .option-btn.wrong { background: #f44336; color: #fff; border-color: #d32f2f; }
+  .option-btn:disabled { cursor: not-allowed; opacity: 0.85; }
+  .btn { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; margin: 6px 4px; }
+  .qa-box { background: #fff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #11998e; }
+  .qa-box .q { font-weight: bold; margin-bottom: 8px; }
+  .a { color: #2e7d32; margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 8px; display: none; font-weight: bold; line-height: 1.6; }
+  .a.show { display: block; }
+  .readbox { background: #fff8e1; padding: 14px; border-radius: 10px; margin: 10px 0; line-height: 1.7; font-size: 14px; border-left: 4px solid #ffa500; }
+  .celebration { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; z-index: 200; display: none; }
+  .celebration.show { display: block; animation: pop 0.4s; }
+  @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+  .celebration .emoji { font-size: 55px; }
+  .celebration h2 { color: #11998e; margin: 8px 0; }
+  .footer { text-align: center; padding: 12px; font-size: 12px; color: #999; background: #f8f9fa; }
+  .q-count { display: inline-block; background: #11998e; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 8px; }
+  .match-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+  .match-item { padding: 10px 8px; background: #fff; border: 2px solid #ddd; border-radius: 8px; text-align: center; font-weight: bold; cursor: pointer; font-size: 13px; }
+  .match-item.selected { background: #ffd93d; border-color: #ffa500; }
+  .match-item.matched { background: #c8e6c9; border-color: #4caf50; cursor: default; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <a href="index.html" class="back">← Home</a>
+    <h1>🌱 Science Practice</h1>
+    <p>Class 3 — Chapters 2, 3 & 4</p>
+  </header>
+
+  <div class="score-bar">
+    <div class="item"><div class="big" id="scoreVal">0</div><div class="lbl">⭐ Score</div></div>
+    <div class="item"><div class="big" id="correctVal">0</div><div class="lbl">✅ Correct</div></div>
+    <div class="item"><div class="big" id="attemptVal">0</div><div class="lbl">📝 Tries</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('s1', this)">Ch2: Plant Parts</button>
+    <button class="tab" onclick="showSection('s2', this)">Ch3: Animal Eating</button>
+    <button class="tab" onclick="showSection('s3', this)">Ch4: Birds</button>
+  </div>
+
+  <!-- CH 2 -->
+  <div class="section active" id="s1">
+    <h2>Chapter 2: Parts of a Plant 🌿 <span class="q-count">40 Q</span></h2>
+    <div class="readbox">
+      <strong>Quick Revision:</strong><br>
+      • A plant has 2 main parts: <strong>Root</strong> (under soil) and <strong>Shoot</strong> (above soil)<br>
+      • Shoot = stem + branches + leaves + buds + flowers + fruits<br>
+      • Two types of roots: <strong>Tap root</strong> (one thick main root) and <strong>Fibrous root</strong> (many thin roots, no main root)<br>
+      • Thick strong stem = <strong>trunk</strong>. Weak stem climbing = <strong>climber</strong>. Weak stem on ground = <strong>creeper</strong><br>
+      • Leaf parts: <strong>leaf blade (lamina)</strong>, <strong>main vein</strong>, <strong>side veins</strong>, <strong>stomata</strong> (tiny pores)<br>
+      • Green substance in leaf = <strong>chlorophyll</strong>. Food-making process = <strong>photosynthesis</strong><br>
+      • New plant from a seed = <strong>germination</strong>
+    </div>
+    <div id="q1"></div>
+    <div class="exercise"><h3>🔗 Match: Plant Part with Example We Eat</h3>
+      <p style="font-size:13px; margin-bottom:8px;">Tap a plant part on the left, then its example on the right.</p>
+      <div class="match-list" id="matchArea1"></div>
+      <p id="matchStatus1" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p>
+    </div>
+    <div class="exercise"><h3>📖 Answer the Following (Long Questions)</h3>
+      <div class="qa-box"><div class="q">1. Name the different parts of a plant.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The parts of a plant are: root, stem, branches, leaves, buds, flowers, fruits and seeds.</div></div>
+      <div class="qa-box"><div class="q">2. Differentiate between root and shoot.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a"><strong>Root:</strong> Grows UNDER the soil. Absorbs water and minerals.<br><strong>Shoot:</strong> Grows ABOVE the soil. It has the stem, branches, leaves, buds, flowers and fruits.</div></div>
+      <div class="qa-box"><div class="q">3. What is germination?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Germination is the process of development of a new plant from a seed. When a seed gets water, air and sunlight in the soil, it grows into a new plant.</div></div>
+      <div class="qa-box"><div class="q">4. Why is leaf called the food factory of a plant?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Green leaves have chlorophyll which traps sunlight. Using sunlight, water and carbon dioxide, leaves prepare food for the WHOLE plant. That is why the leaf is called the food factory or kitchen of the plant.</div></div>
+      <div class="qa-box"><div class="q">5. State two functions of Root, Stem and Flower.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a"><strong>Root:</strong> (1) Fixes the plant to the soil. (2) Absorbs water and minerals.<br><strong>Stem:</strong> (1) Gives support to the plant. (2) Carries water and food to all parts.<br><strong>Flower:</strong> (1) Helps the plant to reproduce. (2) Some flowers store food (broccoli, cauliflower).</div></div>
+      <div class="qa-box"><div class="q">6. Difference between tap root and fibrous root.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a"><strong>Tap root:</strong> Has one thick main root. Small thin side roots grow from the main root. (Example: turnip, carrot, bean, mustard)<br><strong>Fibrous root:</strong> Has NO main root. Many thin bushy roots grow from the base of the stem. (Example: grass, wheat, onion, rice, palm)</div></div>
+      <div class="qa-box"><div class="q">7. What is the role of stomata in a plant?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Stomata are tiny pores on the lower side of the leaf. Air enters the leaf through the stomata. They help the plant to breathe.</div></div>
+      <div class="qa-box"><div class="q">8. Describe the process of photosynthesis.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Green leaves have chlorophyll which traps sunlight. Leaves get water from the soil and carbon dioxide from the air. Using sunlight, water and carbon dioxide, they prepare food. Oxygen is given out. This process is called photosynthesis.</div></div>
+      <div class="qa-box"><div class="q">9. How are plants useful to us?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Plants are our main source of food.<br>2. Roots hold soil particles and stop soil from washing away.<br>3. Plants make our surroundings beautiful.<br>4. Plants reduce pollution — they take in carbon dioxide and give out oxygen.</div></div>
+      <div class="qa-box"><div class="q">10. What does a seed require to grow into a plant?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">A seed needs soil, water, air and sunlight to grow into a new plant.</div></div>
+      <div class="qa-box"><div class="q">HOTS: Leaves of a plant are turning yellow even though you water it. What could be the problem?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The plant is probably not getting enough sunlight. Without sunlight, leaves cannot make food, so they turn yellow and droop. To fix it, move the plant to a sunny place.</div></div>
+    </div>
+  </div>
+
+  <!-- CH 3 -->
+  <div class="section" id="s2">
+    <h2>Chapter 3: Eating Habits of Animals 🦁 <span class="q-count">36 Q</span></h2>
+    <div class="readbox">
+      <strong>Quick Revision:</strong><br>
+      • <strong>Herbivores</strong> — eat only plants (cow, goat, deer, monkey, giraffe, elephant)<br>
+      • <strong>Carnivores</strong> — eat flesh of other animals (lion, tiger, wolf, eagle, vulture, kite)<br>
+      • <strong>Omnivores</strong> — eat both plants and animals (bear, chipmunk, chimpanzee, crow, robin, humans)<br>
+      • <strong>Cud</strong> — cows and buffaloes bring food back from stomach to mouth to chew again<br>
+      • <strong>Gnawing</strong> — biting and chewing food repeatedly in small pieces (rabbit, rat, squirrel)<br>
+      • <strong>Lapping</strong> — drinking liquid with the tongue (dog, cat)<br>
+      • <strong>Food chain</strong> — plants are <strong>producers</strong>, animals are <strong>consumers</strong>
+    </div>
+    <div id="q2"></div>
+    <div class="exercise"><h3>🔗 Match: Animal with Its Eating Method</h3>
+      <p style="font-size:13px; margin-bottom:8px;">Tap an animal on the left, then its method on the right.</p>
+      <div class="match-list" id="matchArea2"></div>
+      <p id="matchStatus2" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p>
+    </div>
+    <div class="exercise"><h3>📖 Answer the Following (Long Questions)</h3>
+      <div class="qa-box"><div class="q">1. Difference between a horse, monkey and rabbit based on eating habits?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">All three are herbivores, but they eat differently:<br><strong>Horse:</strong> Has sharp front teeth to bite grass and flat back teeth to chew.<br><strong>Monkey:</strong> Eats fruits like bananas using its hands.<br><strong>Rabbit:</strong> Gnaws — bites and chews food repeatedly in small pieces.</div></div>
+      <div class="qa-box"><div class="q">2. What do omnivores eat? Give two examples.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Omnivores eat BOTH plants and other animals. Examples: bear, chipmunk, chimpanzee, crow, robin, and human beings.</div></div>
+      <div class="qa-box"><div class="q">3. Two differences between plant-eating and flesh-eating animals.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a"><strong>Plant-eating (herbivores):</strong> (1) Eat grass, leaves and fruits. (2) Have sharp FLAT front teeth and wide flat back teeth to chew.<br><strong>Flesh-eating (carnivores):</strong> (1) Eat the flesh of other animals. (2) Have sharp POINTED front teeth and strong jaws to tear flesh.</div></div>
+      <div class="qa-box"><div class="q">4. How does a frog catch its prey?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">A frog catches insects with its long, sticky tongue.</div></div>
+      <div class="qa-box"><div class="q">5. What do you understand by 'chewing the cud'?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Cows and buffaloes swallow their food without chewing. After some time, they bring the food back from the stomach to the mouth to chew it properly. This is called chewing the cud.</div></div>
+      <div class="qa-box"><div class="q">6. What is a food chain? Explain with an example.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">A food chain shows how animals and plants depend on each other for food. Plants make their own food, so they are called <strong>producers</strong>. Animals cannot make food, so they are <strong>consumers</strong>.<br><br><strong>Example:</strong> Grass → Deer → Lion<br>(The deer eats grass, and the lion eats the deer.)</div></div>
+      <div class="qa-box"><div class="q">7. Difference between lapping and gnawing?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a"><strong>Lapping:</strong> Drinking a liquid using the tongue. Example: a cat lapping up milk.<br><strong>Gnawing:</strong> Biting and chewing food repeatedly in small pieces. Example: a rabbit gnawing on a carrot.</div></div>
+      <div class="qa-box"><div class="q">8. How are animals, humans and plants inter-dependent?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Animals get food from plants. When animals breathe, they give out carbon dioxide, which plants use to make food. When plants make food, they give out oxygen, which animals use for breathing. Some animals and birds also live on trees.</div></div>
+      <div class="qa-box"><div class="q">9. Can any food chain be complete without plants? Why?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">No. A food chain always starts with a plant (producer) because plants are the only ones that can make their own food. Without plants, herbivores would have no food, and then carnivores would have nothing to eat either.</div></div>
+      <div class="qa-box"><div class="q">10. Give reason: (a) Lions have pointed front teeth (b) Horses have sharp front teeth (c) Mosquito has a long pointed tube (d) Elephant has a trunk</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">(a) To tear the flesh of other animals.<br>(b) To bite grass and leaves.<br>(c) To suck the blood of animals.<br>(d) To gather food and put it into its mouth, and also to drink water.</div></div>
+      <div class="qa-box"><div class="q">11. How should we care for domestic animals?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">We should give them proper food, water and shelter. Their shelter should always be clean. They should be given energy-rich food. If they are sick or injured, we should take them to a veterinary doctor.</div></div>
+    </div>
+  </div>
+
+  <!-- CH 4 -->
+  <div class="section" id="s3">
+    <h2>Chapter 4: Birds 🦅 <span class="q-count">38 Q</span></h2>
+    <div class="readbox">
+      <strong>Quick Revision — Types of Beaks:</strong><br>
+      • <strong>Short & hard</strong> — sparrow, pigeon, peacock (crush grains and seeds)<br>
+      • <strong>Curved</strong> — parrot, parakeet, macaw (crack nuts and hard fruits)<br>
+      • <strong>Strong, sharp & hooked</strong> — eagle, vulture, kite (tear flesh)<br>
+      • <strong>Strong & chisel-shaped</strong> — woodpecker, hoopoe, humming bird (drill holes)<br>
+      • <strong>Broad & flat</strong> — duck, swan (eat worms from muddy water)<br>
+      • <strong>Spoon-shaped</strong> — spoonbill (gather tadpoles and insects)<br><br>
+      <strong>Types of Feet:</strong> Perching (crow, sparrow, mynah) • Scratching (hen, rooster, peacock) • Swimming/webbed (duck, goose) • Wading (crane, heron) • Climbing (parrot, woodpecker) • Flesh-eating talons (eagle, vulture)<br><br>
+      <strong>3 types of feathers:</strong> Flight feathers • Down feathers • Body feathers
+    </div>
+    <div id="q3"></div>
+    <div class="exercise"><h3>🔗 Match: Bird Part with Its Function</h3>
+      <p style="font-size:13px; margin-bottom:8px;">Tap a part on the left, then its function on the right.</p>
+      <div class="match-list" id="matchArea3"></div>
+      <p id="matchStatus3" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p>
+    </div>
+    <div class="exercise"><h3>📖 Answer the Following (Long Questions)</h3>
+      <div class="qa-box"><div class="q">1. Difference between a woven nest and a stitched nest?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a"><strong>Woven nest:</strong> Made by the weaverbird. It uses grass, twigs and leaves and pulls them in and out with its beak to weave the nest. It hangs from a branch with a tunnel-shaped opening.<br><strong>Stitched nest:</strong> Made by the tailor bird. It uses its beak like a needle to stitch large leaves together with cotton threads or spider web threads.</div></div>
+      <div class="qa-box"><div class="q">2. Why do birds make nests? Explain.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The nest is a shelter for birds. It keeps them safe from bad weather, protects them from their enemies, birds lay their eggs in nests, and they take care of their young ones there until they are ready to fly.</div></div>
+      <div class="qa-box"><div class="q">3. How do long and thin legs help a bird in wading?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Water birds like cranes and herons have long, thin legs with spread-out toes. The spread-out toes stop the bird from sinking into the muddy water, so it can walk through water in search of food.</div></div>
+      <div class="qa-box"><div class="q">4. What is perching?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Perching means sitting on a branch by gripping it with the feet. Birds like crow, sparrow and mynah have three toes in front and one toe in back, which helps them sit on high branches without falling.</div></div>
+      <div class="qa-box"><div class="q">5. What would happen if all the toes of a woodpecker pointed in the same direction?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The woodpecker would not be able to grip the tree trunk properly. It has two toes pointing forward and two pointing backward, which lets it climb trees and hold on while drilling holes. If all toes pointed the same way, it would slip and fall.</div></div>
+      <div class="qa-box"><div class="q">6. Name a bird with (a) Chisel-shaped beak (b) Spoon-shaped beak. How do these beaks help?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">(a) <strong>Woodpecker</strong> — its strong chisel-shaped beak helps it drill holes in tree trunks to make its nest and pull out insects.<br>(b) <strong>Spoonbill</strong> — its spoon-shaped beak helps it gather tadpoles and insects from water.</div></div>
+      <div class="qa-box"><div class="q">7. How does a bird fly?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">A bird lifts its body up in the air by flapping its wings. There are two movements:<br><strong>Downstroke</strong> — the wings move downwards and forwards.<br><strong>Upstroke</strong> — the wings move upwards and backwards.<br>When a bird lands, it spreads out its wings and glides down smoothly.</div></div>
+      <div class="qa-box"><div class="q">8. Why is the body of a bird light?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The body of a bird is light because its bones are hollow. But its skeleton is very strong. This helps it to fly easily for a long time.</div></div>
+    </div>
+  </div>
+
+  <div class="footer">⭐ Keep exploring science! ⭐<br>
+    <button class="btn" onclick="resetAll()">🔄 Restart All</button></div>
+</div>
+
+<div class="celebration" id="celebration">
+  <div class="emoji">🎉</div><h2 id="celebTitle">Well done!</h2>
+  <p id="celebMsg">+10 points!</p>
+  <button class="btn" onclick="closeCeleb()">Next</button>
+</div>
+
+<script>
+const Q = {
+  q1: [
+    { q: "A plant's body is divided into which two main parts?", opts: ["Leaf and flower", "Root and shoot", "Stem and fruit", "Bud and seed"], ans: "Root and shoot" },
+    { q: "Which part of the plant grows UNDER the soil?", opts: ["Shoot", "Stem", "Root", "Leaf"], ans: "Root" },
+    { q: "Which of the following is a creeper?", opts: ["Bean", "Grapevine", "Watermelon", "Ginger"], ans: "Watermelon" },
+    { q: "Which part of the plant prepares food?", opts: ["Fruit", "Root", "Leaf", "Flower"], ans: "Leaf" },
+    { q: "Which of the following trees has a hard and very thick stem?", opts: ["Turmeric", "Banyan", "Ginger", "Bougainvillea"], ans: "Banyan" },
+    { q: "What do we call the tiny pores at the lower side of the leaf?", opts: ["Shoot", "Stomata", "Lamina", "Vein"], ans: "Stomata" },
+    { q: "Which part of the plant can store food?", opts: ["Root", "Fruit", "Stem", "All of them"], ans: "All of them" },
+    { q: "Fill in: Roots grow ___ the soil.", opts: ["above", "under", "beside", "over"], ans: "under" },
+    { q: "Fill in: A ___ has no main root.", opts: ["tap root", "fibrous root", "trunk", "stem"], ans: "fibrous root" },
+    { q: "Fill in: The ___ carries water and minerals from roots to leaves.", opts: ["stem", "flower", "fruit", "seed"], ans: "stem" },
+    { q: "Fill in: A thick and strong stem is called the ___.", opts: ["climber", "creeper", "trunk", "branch"], ans: "trunk" },
+    { q: "Fill in: ___ absorb water and minerals from the soil.", opts: ["Leaves", "Roots", "Flowers", "Fruits"], ans: "Roots" },
+    { q: "Fill in: Green leaves are called the kitchen or ___ of a plant.", opts: ["shop", "food factory", "store", "garden"], ans: "food factory" },
+    { q: "Fill in: Fibrous roots grow out from the ___ end of the stem.", opts: ["top", "base", "middle", "side"], ans: "base" },
+    { q: "Fill in: Turnip, bean and mustard have ___ roots.", opts: ["fibrous", "tap", "hollow", "flat"], ans: "tap" },
+    { q: "Fill in: Green leaves give out ___ while preparing food.", opts: ["carbon dioxide", "oxygen", "water", "smoke"], ans: "oxygen" },
+    { q: "Roots of the plant grow above the soil.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "There is no main root in a fibrous root.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Radish plant has fibrous root.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "A seed contains a baby plant and its food.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Root helps the plants to breathe.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Give an example of a LEAF that we eat:", opts: ["Carrot", "Cabbage", "Potato", "Apple"], ans: "Cabbage" },
+    { q: "Give an example of a STEM that we eat:", opts: ["Sugarcane", "Spinach", "Radish", "Mango"], ans: "Sugarcane" },
+    { q: "Give an example of a FLOWER that we eat:", opts: ["Beetroot", "Cauliflower", "Papaya", "Ginger"], ans: "Cauliflower" },
+    { q: "Give an example of a fruit that has ONE seed:", opts: ["Apple", "Papaya", "Mango", "Pomegranate"], ans: "Mango" },
+    { q: "Give an example of a fruit that has MANY seeds:", opts: ["Mango", "Papaya", "Coconut", "Date"], ans: "Papaya" },
+    { q: "Who am I? I am found inside a fruit. I grow into a new plant.", opts: ["Leaf", "Seed", "Root", "Bud"], ans: "Seed" },
+    { q: "Who am I? I am the food factory of a plant.", opts: ["Root", "Stem", "Leaf", "Flower"], ans: "Leaf" },
+    { q: "Who am I? I am the part of a plant that contains chlorophyll.", opts: ["Root", "Leaf", "Fruit", "Seed"], ans: "Leaf" },
+    { q: "Who am I? I am the flat part of the leaf.", opts: ["Main vein", "Leaf blade (lamina)", "Stomata", "Petiole"], ans: "Leaf blade (lamina)" },
+    { q: "Who am I? I am a thin tube that runs through the middle of the leaf.", opts: ["Side vein", "Main vein", "Stomata", "Stalk"], ans: "Main vein" },
+    { q: "One word: The part of the plant that has seeds", opts: ["Root", "Fruit", "Stem", "Leaf"], ans: "Fruit" },
+    { q: "One word: The side of the leaf that is rough and light in colour", opts: ["Upper side", "Lower side", "Left side", "Right side"], ans: "Lower side" },
+    { q: "One word: The green-coloured substance of a leaf", opts: ["Stomata", "Chlorophyll", "Lamina", "Nectar"], ans: "Chlorophyll" },
+    { q: "One word: The process of development of a new plant from a seed", opts: ["Photosynthesis", "Germination", "Perching", "Lapping"], ans: "Germination" },
+    { q: "The structure that connects the stem to the leaves is called:", opts: ["Main vein", "Leaf stalk (petiole)", "Stomata", "Lamina"], ans: "Leaf stalk (petiole)" },
+    { q: "Plants such as money plant have weak stems and climb. They are called:", opts: ["Creepers", "Climbers", "Trees", "Shrubs"], ans: "Climbers" },
+    { q: "Which gas do leaves take from the air to make food?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], ans: "Carbon dioxide" },
+    { q: "Seeds we CAN eat are called:", opts: ["Edible seeds", "Non-edible seeds", "Hard seeds", "Wild seeds"], ans: "Edible seeds" },
+    { q: "Which of these are fruits (not vegetables)?", opts: ["Cabbage and spinach", "Tomato, cucumber and pumpkin", "Carrot and radish", "Ginger and turmeric"], ans: "Tomato, cucumber and pumpkin" }
+  ],
+  q2: [
+    { q: "Which of the following animals is a herbivore?", opts: ["Lion", "Wolf", "Giraffe", "Bear"], ans: "Giraffe" },
+    { q: "Which of the following animals swallows food without chewing it?", opts: ["Cow", "Buffalo", "Lion", "Python"], ans: "Python" },
+    { q: "Which of the following is NOT a domestic animal?", opts: ["Dog", "Cat", "Horse", "Wolf"], ans: "Wolf" },
+    { q: "Which animal uses its grinding teeth to chew food?", opts: ["Wolf", "Cat", "Elephant", "Lizard"], ans: "Elephant" },
+    { q: "Which gas is used by plants to make food?", opts: ["Oxygen", "Carbon dioxide", "Both a and b", "None of these"], ans: "Carbon dioxide" },
+    { q: "Animals that eat only plants are called:", opts: ["Carnivores", "Herbivores", "Omnivores", "Producers"], ans: "Herbivores" },
+    { q: "Animals that eat the flesh of other animals are called:", opts: ["Herbivores", "Carnivores", "Omnivores", "Consumers"], ans: "Carnivores" },
+    { q: "Animals that eat BOTH plants and animals are called:", opts: ["Herbivores", "Carnivores", "Omnivores", "Producers"], ans: "Omnivores" },
+    { q: "Which of these is an omnivore?", opts: ["Lion", "Cow", "Chimpanzee", "Deer"], ans: "Chimpanzee" },
+    { q: "Fill in: A food chain always starts with a ___.", opts: ["consumer", "producer", "carnivore", "omnivore"], ans: "producer" },
+    { q: "Fill in: ___ eat grass, leaves and fruits.", opts: ["Carnivores", "Herbivores", "Omnivores", "Producers"], ans: "Herbivores" },
+    { q: "Fill in: Sheep gives us ___.", opts: ["milk", "eggs", "wool", "honey"], ans: "wool" },
+    { q: "Fill in: When plants make food, they give out ___ in the air.", opts: ["carbon dioxide", "oxygen", "nitrogen", "smoke"], ans: "oxygen" },
+    { q: "Fill in: A butterfly has a long tube which it uses to suck ___ from flowers.", opts: ["water", "nectar", "blood", "juice"], ans: "nectar" },
+    { q: "Fill in: Lion and wolf are examples of ___ animals.", opts: ["herbivore", "carnivore", "omnivore", "domestic"], ans: "carnivore" },
+    { q: "Fill in: Flesh-eating animals have sharp and ___ teeth at the front.", opts: ["flat", "pointed", "broad", "small"], ans: "pointed" },
+    { q: "Fill in: A frog has a long and ___ tongue to catch prey.", opts: ["short", "sticky", "hard", "thin"], ans: "sticky" },
+    { q: "Fill in: When animals breathe, they give out ___.", opts: ["oxygen", "carbon dioxide", "water", "nectar"], ans: "carbon dioxide" },
+    { q: "In a food chain, animals are called consumers.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Plant-eating animals have pointed teeth at the front.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Chimpanzees eat both plants and other animals.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Cat and dog use their teeth for lapping up the milk.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Domestic animals should be given energy-rich food.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "One word: Biting and chewing food repeatedly in small pieces", opts: ["Lapping", "Gnawing", "Cud", "Wading"], ans: "Gnawing" },
+    { q: "One word: Cows bring food back from the stomach to chew again", opts: ["Gnawing", "Lapping", "Chewing the cud", "Perching"], ans: "Chewing the cud" },
+    { q: "One word: The method by which dogs and cats drink milk", opts: ["Gnawing", "Lapping", "Sucking", "Swallowing"], ans: "Lapping" },
+    { q: "One word: This helps an elephant to gather and put food into its mouth", opts: ["Tongue", "Trunk", "Tusk", "Teeth"], ans: "Trunk" },
+    { q: "Which animal has a long neck to reach branches of tall trees?", opts: ["Elephant", "Giraffe", "Horse", "Deer"], ans: "Giraffe" },
+    { q: "How does a mosquito get its food?", opts: ["It chews leaves", "It sucks blood with a long pointed tube", "It gnaws seeds", "It laps water"], ans: "It sucks blood with a long pointed tube" },
+    { q: "Which food chain is CORRECT?", opts: ["Lion → Deer → Grass", "Grass → Deer → Lion", "Deer → Grass → Lion", "Lion → Grass → Deer"], ans: "Grass → Deer → Lion" },
+    { q: "In food chain 2: Maize → Grasshopper → Lizard → ?", opts: ["Deer", "Lion", "Snake", "Frog"], ans: "Snake" },
+    { q: "A hen gives us:", opts: ["Milk and wool", "Eggs and meat", "Wool and leather", "Honey"], ans: "Eggs and meat" },
+    { q: "Horses and donkeys are kept in a:", opts: ["Kennel", "Stable", "Nest", "Shed"], ans: "Stable" },
+    { q: "Dogs are kept in a:", opts: ["Stable", "Kennel", "Nest", "Cage"], ans: "Kennel" },
+    { q: "A doctor who treats sick animals is called a:", opts: ["Physician", "Veterinary doctor", "Surgeon", "Dentist"], ans: "Veterinary doctor" },
+    { q: "Which birds are flesh-eating?", opts: ["Crow and robin", "Eagle, vulture and kite", "Sparrow and pigeon", "Duck and swan"], ans: "Eagle, vulture and kite" }
+  ],
+  q3: [
+    { q: "Which bird makes a hole in the trunk to build its nest?", opts: ["Parrot", "Eagle", "Woodpecker", "Mynah"], ans: "Woodpecker" },
+    { q: "Which bird uses its beak to stitch leaves together?", opts: ["Eagle", "Tailor bird", "Mynah", "Crow"], ans: "Tailor bird" },
+    { q: "Which bird has a broad and flat beak?", opts: ["Hen", "Duck", "Spoonbill", "Sparrow"], ans: "Duck" },
+    { q: "Which bird has a spoon-shaped beak?", opts: ["Kite", "Crane", "Goose", "Spoonbill"], ans: "Spoonbill" },
+    { q: "Which bird has spread-out toes that prevent sinking in muddy water?", opts: ["Crane", "Peacock", "Parrot", "Sparrow"], ans: "Crane" },
+    { q: "Fill in: The ___ of a bird helps it change directions while flying.", opts: ["beak", "tail", "claw", "eye"], ans: "tail" },
+    { q: "Fill in: ___ feathers grow close to the skin and keep the body warm.", opts: ["Flight", "Down", "Body", "Tail"], ans: "Down" },
+    { q: "Fill in: ___ are the sharp and curved claws of flesh-eating birds.", opts: ["Beaks", "Talons", "Toes", "Wings"], ans: "Talons" },
+    { q: "Fill in: A ___ uses grass, twigs and leaves to weave a nest on a tree.", opts: ["tailor bird", "weaverbird", "penguin", "eagle"], ans: "weaverbird" },
+    { q: "Fill in: Nests of eagles are called ___.", opts: ["burrows", "eyries", "hives", "dens"], ans: "eyries" },
+    { q: "Fill in: Emu is a ___ bird.", opts: ["flying", "flightless", "swimming", "climbing"], ans: "flightless" },
+    { q: "Fill in: ___ feathers are found in the tail and wings of birds.", opts: ["Down", "Body", "Flight", "Soft"], ans: "Flight" },
+    { q: "Fill in: During ___, the wings move upwards and backwards.", opts: ["downstroke", "upstroke", "gliding", "landing"], ans: "upstroke" },
+    { q: "Fill in: ___ feathers give shape to a bird's body.", opts: ["Flight", "Down", "Body", "Tail"], ans: "Body" },
+    { q: "Birds have hollow bones.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Ostrich can fly very high in the sky.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "A duck has a broad and sharp beak.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "A newborn bird has a lot of down feathers.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Penguins make their nests on the higher branches of tall trees.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Birds do not have teeth.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Give two examples of PERCHING birds:", opts: ["Crow and sparrow", "Duck and goose", "Crane and heron", "Eagle and vulture"], ans: "Crow and sparrow" },
+    { q: "Give two examples of SCRATCHING birds:", opts: ["Duck and swan", "Hen and rooster", "Parrot and macaw", "Crane and heron"], ans: "Hen and rooster" },
+    { q: "Give two examples of CLIMBING birds:", opts: ["Woodpecker and parrot", "Crow and mynah", "Duck and goose", "Eagle and kite"], ans: "Woodpecker and parrot" },
+    { q: "Give two examples of WADING birds:", opts: ["Hen and peacock", "Crane and heron", "Sparrow and pigeon", "Parrot and macaw"], ans: "Crane and heron" },
+    { q: "Give two examples of SWIMMING birds:", opts: ["Duck and goose", "Crow and mynah", "Hen and rooster", "Eagle and vulture"], ans: "Duck and goose" },
+    { q: "Which birds have a strong CURVED beak to crack nuts?", opts: ["Sparrow and pigeon", "Parrot, parakeet and macaw", "Duck and swan", "Crane and heron"], ans: "Parrot, parakeet and macaw" },
+    { q: "Which birds have a SHORT and HARD beak to crush grains?", opts: ["Eagle and vulture", "Sparrow, pigeon and peacock", "Duck and swan", "Woodpecker and hoopoe"], ans: "Sparrow, pigeon and peacock" },
+    { q: "Which birds have a CHISEL-shaped beak to drill holes?", opts: ["Woodpecker, hoopoe and humming bird", "Duck and swan", "Parrot and macaw", "Crane and heron"], ans: "Woodpecker, hoopoe and humming bird" },
+    { q: "Birds' muscles that help them move their wings are called:", opts: ["Arm muscles", "Flight muscles", "Leg muscles", "Neck muscles"], ans: "Flight muscles" },
+    { q: "A bird's body is shaped like a boat. This is called a:", opts: ["Round body", "Streamlined body", "Flat body", "Hollow body"], ans: "Streamlined body" },
+    { q: "How many toes do most birds have on each foot?", opts: ["Two", "Three", "Four", "Five"], ans: "Four" },
+    { q: "Feathers are made up of:", opts: ["Bone", "Protein", "Fat", "Water"], ans: "Protein" },
+    { q: "How many types of feathers do birds have?", opts: ["Two", "Three", "Four", "Five"], ans: "Three" },
+    { q: "Which birds CANNOT fly?", opts: ["Crow, sparrow, mynah", "Ostrich, emu, kiwi, penguin", "Eagle, vulture, kite", "Duck, goose, swan"], ans: "Ostrich, emu, kiwi, penguin" },
+    { q: "Webbed feet act like:", opts: ["Hooks", "Oars", "Needles", "Hammers"], ans: "Oars" },
+    { q: "Penguins make their nests on the ground with:", opts: ["Grass and leaves", "Stones or pebbles", "Twigs and cotton", "Mud"], ans: "Stones or pebbles" },
+    { q: "About how many kinds of birds are there in the world?", opts: ["Over 900", "Over 9000", "Over 90", "Over 90000"], ans: "Over 9000" },
+    { q: "When a bird lands, it:", opts: ["Flaps very fast", "Spreads out its wings and glides down", "Falls suddenly", "Folds its wings"], ans: "Spreads out its wings and glides down" }
+  ]
+};
+
+const matchSets = {
+  1: [
+    { l: "Root we eat", r: "Carrot / Radish" },
+    { l: "Stem we eat", r: "Sugarcane / Potato" },
+    { l: "Leaf we eat", r: "Cabbage / Spinach" },
+    { l: "Flower we eat", r: "Cauliflower / Broccoli" },
+    { l: "Fruit we eat", r: "Mango / Papaya" }
+  ],
+  2: [
+    { l: "Cow 🐄", r: "Chewing the cud" },
+    { l: "Rabbit 🐰", r: "Gnawing" },
+    { l: "Cat 🐱", r: "Lapping" },
+    { l: "Frog 🐸", r: "Sticky tongue" },
+    { l: "Elephant 🐘", r: "Uses trunk" },
+    { l: "Butterfly 🦋", r: "Sucks nectar" }
+  ],
+  3: [
+    { l: "Wings", r: "Help the birds to fly" },
+    { l: "Hollow bones", r: "Make the body light" },
+    { l: "Upstroke", r: "Wings move upwards" },
+    { l: "Tail", r: "Helps change direction" },
+    { l: "Strong muscles", r: "Help move the wings" }
+  ]
+};
+
+let score = 0, correct = 0, attempts = 0;
+const mState = { 1: {sel:null, done:0}, 2: {sel:null, done:0}, 3: {sel:null, done:0} };
+
+function updateScore() {
+  document.getElementById('scoreVal').textContent = score;
+  document.getElementById('correctVal').textContent = correct;
+  document.getElementById('attemptVal').textContent = attempts;
+}
+function celebrate(t, m) {
+  document.getElementById('celebTitle').textContent = t;
+  document.getElementById('celebMsg').textContent = m;
+  document.getElementById('celebration').classList.add('show');
+}
+function closeCeleb() { document.getElementById('celebration').classList.remove('show'); }
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function renderMCQ(containerId, questions) {
+  const c = document.getElementById(containerId);
+  let html = '';
+  questions.forEach((item, idx) => {
+    html += `<div class="exercise"><h3>Q${idx+1}. ${item.q}</h3>`;
+    html += `<div class="options${item.two ? ' two' : ''}">`;
+    item.opts.forEach(opt => {
+      html += `<button class="option-btn" onclick="checkMCQ(this, ${opt === item.ans})">${opt}</button>`;
+    });
+    html += `</div></div>`;
+  });
+  c.innerHTML = html;
+}
+function checkMCQ(btn, isCorrect) {
+  if (btn.disabled) return;
+  attempts++;
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+  if (isCorrect) {
+    btn.classList.add('correct'); correct++; score += 10;
+    celebrate('Correct! ✅', '+10 points!');
+  } else {
+    btn.classList.add('wrong');
+    parent.querySelectorAll('.option-btn').forEach(b => {
+      if (b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+    });
+  }
+  updateScore();
+}
+function toggleA(btn) {
+  const a = btn.nextElementSibling;
+  a.classList.toggle('show');
+  btn.textContent = a.classList.contains('show') ? '🙈 Hide' : '👀 See Answer';
+}
+function buildMatch(n) {
+  const area = document.getElementById('matchArea' + n);
+  area.innerHTML = '';
+  const pairs = matchSets[n];
+  const left = document.createElement('div');
+  pairs.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'match-item'; d.textContent = p.l;
+    d.dataset.side = 'l'; d.dataset.value = p.l; d.dataset.set = n;
+    d.onclick = () => selL(d, n);
+    left.appendChild(d);
+  });
+  const right = document.createElement('div');
+  [...pairs.map(p => p.r)].sort(() => Math.random() - 0.5).forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'match-item'; d.textContent = r;
+    d.dataset.side = 'r'; d.dataset.value = r; d.dataset.set = n;
+    d.onclick = () => selR(d, n);
+    right.appendChild(d);
+  });
+  area.appendChild(left); area.appendChild(right);
+}
+function selL(el, n) {
+  if (el.classList.contains('matched')) return;
+  document.querySelectorAll(`[data-side="l"][data-set="${n}"]`).forEach(i => i.classList.remove('selected'));
+  el.classList.add('selected'); mState[n].sel = el;
+}
+function selR(el, n) {
+  if (el.classList.contains('matched') || !mState[n].sel) return;
+  attempts++;
+  const pair = matchSets[n].find(p => p.l === mState[n].sel.dataset.value);
+  if (pair && pair.r === el.dataset.value) {
+    mState[n].sel.classList.remove('selected'); mState[n].sel.classList.add('matched');
+    el.classList.add('matched'); mState[n].done++; correct++; score += 10;
+    updateScore();
+    if (mState[n].done === matchSets[n].length) {
+      celebrate('All matched! 🎉', 'Excellent!');
+      document.getElementById('matchStatus' + n).textContent = '🎉 All matched!';
+    }
+    mState[n].sel = null;
+  } else {
+    el.style.background = '#ffcdd2';
+    setTimeout(() => { el.style.background = ''; }, 500);
+  }
+}
+function resetAll() { if (!confirm('This will reset all scores. Continue?')) return; location.reload(); }
+
+renderMCQ('q1', Q.q1);
+renderMCQ('q2', Q.q2);
+renderMCQ('q3', Q.q3);
+buildMatch(1); buildMatch(2); buildMatch(3);
+updateScore();
+</script>
+</body>
+</html>

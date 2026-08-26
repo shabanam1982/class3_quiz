@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 3 Practice - Mid-term Exam</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans Kannada', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+  }
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+  header h1 { font-size: 26px; margin-bottom: 8px; }
+  header p { font-size: 15px; opacity: 0.95; }
+  .subjects {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 24px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-left: 8px solid #764ba2;
+  }
+  .card:hover, .card:active {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+  }
+  .card.locked {
+    opacity: 0.7;
+    border-left-color: #ccc;
+    cursor: not-allowed;
+  }
+  .card.locked:hover { transform: none; }
+  .icon {
+    font-size: 50px;
+    flex-shrink: 0;
+  }
+  .info { flex: 1; }
+  .info h2 { font-size: 20px; margin-bottom: 6px; color: #764ba2; }
+  .info p { font-size: 14px; color: #666; }
+  .badge {
+    background: #4caf50;
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+  }
+  .badge.soon { background: #ff9800; }
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px;
+    color: #666;
+    font-size: 13px;
+  }
+  @media (min-width: 600px) {
+    header h1 { font-size: 32px; }
+    .subjects { grid-template-columns: 1fr 1fr; }
+    .card { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>📚 Class 3 Practice</h1>
+    <p>Mid-term Exam Practice Worksheets</p>
+  </header>
+
+  <div class="subjects">
+
+    <a href="kannada.html" class="card">
+      <div class="icon">🌸</div>
+      <div class="info">
+        <h2>ಕನ್ನಡ (Kannada) <span class="badge">READY</span></h2>
+        <p>Alphabets, Kagunita, Ottakshara, Chitte poem</p>
+      </div>
+    </a>
+
+    <a href="english.html" class="card">
+      <div class="icon">📖</div>
+      <div class="info">
+        <h2>English <span class="badge">READY</span></h2>
+        <p>Nouns, Opposites, Rhymes, Fill blanks, Reading</p>
+      </div>
+    </a>
+
+    <a href="social.html" class="card">
+      <div class="icon">🌍</div>
+      <div class="info">
+        <h2>Social <span class="badge">READY</span></h2>
+        <p>Air, Water, Community, Occupations (Ch 4-7)</p>
+      </div>
+    </a>
+
+    <a href="islamic.html" class="card">
+      <div class="icon">🕌</div>
+      <div class="info">
+        <h2>Islamic Studies <span class="badge">READY</span></h2>
+        <p>Adhaan, Iqaamah, Adam ﷺ, Surah Al-Faatihah, Pure Water</p>
+      </div>
+    </a>
+
+    <a href="math.html" class="card">
+      <div class="icon">🔢</div>
+      <div class="info">
+        <h2>Math <span class="badge soon">COMING SOON</span></h2>
+        <p>Addition, Subtraction, Multiplication</p>
+      </div>
+    </a>
+
+    <a href="science.html" class="card">
+      <div class="icon">🌱</div>
+      <div class="info">
+        <h2>Science <span class="badge">READY</span></h2>
+        <p>Parts of a Plant, Eating Habits of Animals, Birds</p>
+      </div>
+    </a>
+
+    <a href="computer.html" class="card">
+      <div class="icon">💻</div>
+      <div class="info">
+        <h2>Computer <span class="badge">READY</span></h2>
+        <p>School Newsletter, Class Calendar Chronicle</p>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    ⭐ Made with love for learning ⭐
+  </div>
+</div>
+
+</body>
+</html>

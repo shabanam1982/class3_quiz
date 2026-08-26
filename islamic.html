@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Islamic Studies Practice - Grade 3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Segoe UI', 'Noto Naskh Arabic', sans-serif; background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); min-height: 100vh; padding: 12px; color: #333; }
+  .app { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
+  header { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); color: #fff; padding: 18px 16px; text-align: center; position: relative; }
+  header a.back { position: absolute; left: 12px; top: 12px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+  header h1 { font-size: 21px; margin-bottom: 6px; }
+  header p { font-size: 13px; opacity: 0.95; }
+  .score-bar { background: #fff8e7; padding: 12px; display: flex; justify-content: space-around; border-bottom: 3px solid #ffd93d; font-weight: bold; }
+  .score-bar .item { text-align: center; }
+  .score-bar .big { font-size: 24px; color: #ff6b6b; }
+  .score-bar .lbl { font-size: 11px; color: #666; }
+  .tabs { display: flex; overflow-x: auto; background: #f8f9fa; border-bottom: 2px solid #ddd; }
+  .tab { flex: 0 0 auto; padding: 12px 11px; cursor: pointer; border: none; background: transparent; font-family: inherit; font-size: 12px; font-weight: bold; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; }
+  .tab.active { color: #134e5e; border-bottom-color: #134e5e; background: #fff; }
+  .section { padding: 16px; display: none; }
+  .section.active { display: block; }
+  .section h2 { color: #134e5e; font-size: 18px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px dashed #ffd93d; }
+  .hint { background: #e8f5e9; padding: 10px; border-radius: 10px; font-size: 13px; color: #2e7d32; margin: 10px 0; line-height: 1.5; }
+  .exercise { background: #fafafa; border-radius: 12px; padding: 14px; margin: 12px 0; border-left: 5px solid #71b280; }
+  .exercise h3 { font-size: 15px; margin-bottom: 10px; color: #134e5e; }
+  .options { display: grid; grid-template-columns: repeat(1, 1fr); gap: 8px; margin-top: 10px; }
+  .options.two { grid-template-columns: repeat(2, 1fr); }
+  .option-btn { padding: 12px; background: #fff; border: 2px solid #ddd; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; font-family: inherit; transition: all 0.2s; text-align: left; }
+  .options.two .option-btn { text-align: center; }
+  .option-btn.correct { background: #4caf50; color: #fff; border-color: #388e3c; }
+  .option-btn.wrong { background: #f44336; color: #fff; border-color: #d32f2f; }
+  .option-btn:disabled { cursor: not-allowed; opacity: 0.85; }
+  .btn { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; margin: 6px 4px; }
+  .qa-box { background: #fff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #134e5e; }
+  .qa-box .q { font-weight: bold; margin-bottom: 8px; }
+  .a { color: #2e7d32; margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 8px; display: none; font-weight: bold; line-height: 1.6; }
+  .a.show { display: block; }
+  .arabic { font-size: 24px; text-align: center; direction: rtl; margin: 12px 0; line-height: 2; color: #134e5e; font-weight: bold; }
+  .trans { text-align: center; font-style: italic; color: #666; font-size: 14px; margin-bottom: 4px; }
+  .meaning { text-align: center; font-size: 14px; margin-bottom: 12px; }
+  .readbox { background: #fff8e1; padding: 14px; border-radius: 10px; margin: 10px 0; line-height: 1.7; font-size: 14px; border-left: 4px solid #ffa500; }
+  .celebration { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; z-index: 200; display: none; }
+  .celebration.show { display: block; animation: pop 0.4s; }
+  @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+  .celebration .emoji { font-size: 55px; }
+  .celebration h2 { color: #134e5e; margin: 8px 0; }
+  .footer { text-align: center; padding: 12px; font-size: 12px; color: #999; background: #f8f9fa; }
+  .q-count { display: inline-block; background: #134e5e; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 8px; }
+  .match-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+  .match-item { padding: 10px 8px; background: #fff; border: 2px solid #ddd; border-radius: 8px; text-align: center; font-weight: bold; cursor: pointer; font-size: 13px; }
+  .match-item.selected { background: #ffd93d; border-color: #ffa500; }
+  .match-item.matched { background: #c8e6c9; border-color: #4caf50; cursor: default; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <a href="index.html" class="back">← Home</a>
+    <h1>🕌 Islamic Studies Practice</h1>
+    <p>Grade 3 — Lessons 1 to 8</p>
+  </header>
+
+  <div class="score-bar">
+    <div class="item"><div class="big" id="scoreVal">0</div><div class="lbl">⭐ Score</div></div>
+    <div class="item"><div class="big" id="correctVal">0</div><div class="lbl">✅ Correct</div></div>
+    <div class="item"><div class="big" id="attemptVal">0</div><div class="lbl">📝 Tries</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('s1', this)">1. Adhaan</button>
+    <button class="tab" onclick="showSection('s2', this)">2. Iqaamah</button>
+    <button class="tab" onclick="showSection('s3', this)">3. Adam ﷺ</button>
+    <button class="tab" onclick="showSection('s4', this)">4. Poor</button>
+    <button class="tab" onclick="showSection('s5', this)">5. Zayd</button>
+    <button class="tab" onclick="showSection('s6', this)">6. Tongue</button>
+    <button class="tab" onclick="showSection('s7', this)">7. Faatihah</button>
+    <button class="tab" onclick="showSection('s8', this)">8. Water</button>
+  </div>
+
+  <!-- L1: THE CALL TO PRAYER -->
+  <div class="section active" id="s1">
+    <h2>01. The Call to Prayer (Al-Adhaan) <span class="q-count">14 Q</span></h2>
+    <div class="hint">💡 The Mu'adh-dhin is the person who calls the adhaan five times a day at the Masjid.</div>
+    <div class="readbox">
+      <strong>Wording of the Adhaan:</strong><br>
+      1. Allaahu Akbar (×4) — Allah is The Most Great<br>
+      2. Ash-hadu allaa-ilaaha illallaah (×2) — I testify there is no God but Allah<br>
+      3. Ash-hadu anna Muhammadar Rasoolullaah (×2) — I testify Muhammad ﷺ is the Messenger of Allah<br>
+      4. Hayya 'alas salaah (×2) — Hasten to the prayer<br>
+      5. Hayya 'alal falaah (×2) — Hasten to success<br>
+      6. Allaahu Akbar (×2)<br>
+      7. Laa-ilaaha illallaah — There is no God but Allah<br><br>
+      <em>In Fajr adhaan: As-Salaatu khayrum-minan nawm — The prayer is better than sleep</em>
+    </div>
+    <div id="q1"></div>
+    <div class="exercise"><h3>📖 Think Questions</h3>
+      <div class="qa-box"><div class="q">1. What should we reply when the mu'adh-dhin says "Hayya 'alas salaah"?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">We should say: "Laa hawla wa laa quwwata illaa billaah" — There is no power and no might except with Allah.</div></div>
+      <div class="qa-box"><div class="q">2. Why is it different from other replies of the adhaan?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Because "Hayya 'alas salaah" and "Hayya 'alal falaah" are a call to come to prayer. We cannot call others, so instead we say that we have no power to obey except with Allah's help.</div></div>
+    </div>
+  </div>
+
+  <!-- L2: AL-IQAAMAH -->
+  <div class="section" id="s2">
+    <h2>02. Al-Iqaamah <span class="q-count">12 Q</span></h2>
+    <div class="hint">💡 Al-Iqaamah is the call to the START of fardh salah. It tells us the prayer is now beginning.</div>
+    <div class="readbox">
+      <strong>Wording of the Iqaamah:</strong><br>
+      1. Allaahu Akbar, Allaahu Akbar<br>
+      2. Ash-hadu allaa-ilaaha illallaah<br>
+      3. Ash-hadu anna Muhammadar Rasoolullaah<br>
+      4. Hayya 'alas salaah, Hayya 'alal falaah<br>
+      5. <strong>Qad qaamatis-salaah</strong> (×2) — The prayer is now ready<br>
+      6. Allaahu Akbar, Allaahu Akbar<br>
+      7. Laa-ilaaha illallaah
+    </div>
+    <div id="q2"></div>
+    <div class="exercise"><h3>🔗 Match the Wording to its Meaning</h3>
+      <p style="font-size:13px; margin-bottom:8px;">Tap a meaning on the left, then tap its Arabic on the right.</p>
+      <div class="match-list" id="matchArea2"></div>
+      <p id="matchStatus2" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p>
+    </div>
+    <div class="exercise"><h3>📖 Written Questions</h3>
+      <div class="qa-box"><div class="q">1. What is the Iqaamah?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The Iqaamah is the message that the prayer is starting. It tells everyone that the prayer is beginning and they should join the jamaa'ah and face the qiblah.</div></div>
+      <div class="qa-box"><div class="q">2. How is it different from the adhaan?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The adhaan is called to announce the TIME of salah has come. The Iqaamah is called to announce the salah is STARTING right now.</div></div>
+      <div class="qa-box"><div class="q">3. Write three points why salah is success.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Salah brings us closer to Allah and earns His blessings.<br>2. Salah keeps us away from sins and bad deeds.<br>3. Salah gives us peace, discipline and blessings in life.</div></div>
+    </div>
+  </div>
+
+  <!-- L3: ADAM AS -->
+  <div class="section" id="s3">
+    <h2>03. Adam (عليه السلام) <span class="q-count">20 Q</span></h2>
+    <div class="hint">💡 Allah made the first man and called him Adam. He was also the first Prophet.</div>
+    <div id="q3"></div>
+    <div class="exercise"><h3>🤲 Learn the Du'aa</h3>
+      <div class="arabic">اَللّٰهُمَّ اِنِّىْ اَسْئَلُكَ الْجَنَّةَ وَاَعُوْذُبِكَ مِنَ النَّارِ</div>
+      <div class="trans">Allaahumma innee as-alukal jannata wa a'oodhu bika minan naar</div>
+      <div class="meaning">O Allah, I ask You to grant me Paradise and I seek refuge in You from the Fire.</div>
+    </div>
+  </div>
+
+  <!-- L4: SUPPORTER OF THE POOR -->
+  <div class="section" id="s4">
+    <h2>04. Prophet ﷺ — Supporter of the Poor <span class="q-count">12 Q</span></h2>
+    <div class="hint">💡 During a famine, the Prophet ﷺ took Ali (رضي الله عنه) into his care and Al-Abbaas took Ja'far, to help their uncle Abu Taalib.</div>
+    <div id="q4"></div>
+    <div class="exercise"><h3>📖 Etiquettes of Helping Others</h3>
+      <div class="qa-box"><div class="q">What are the 4 manners of helping others we learnt?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Help in secret for Allah's sake alone.<br>2. Prefer your relatives first.<br>3. Identify the needy, for they are shy to ask.<br>4. Don't remind people of your favours.</div></div>
+    </div>
+  </div>
+
+  <!-- L5: ZAYD -->
+  <div class="section" id="s5">
+    <h2>05. Zayd ibn Haarithah (رضي الله عنه) <span class="q-count">12 Q</span></h2>
+    <div class="hint">💡 Zayd chose to stay with the Prophet ﷺ instead of going home with his own father and uncle, because of the Prophet's ﷺ kindness.</div>
+    <div id="q5"></div>
+  </div>
+
+  <!-- L6: LYING GOSSIPING BACKBITING -->
+  <div class="section" id="s6">
+    <h2>06. Lying, Gossiping & Backbiting <span class="q-count">18 Q</span></h2>
+    <div class="hint">💡 The tongue is a great blessing from Allah. Even though it is small, it is difficult to control.</div>
+    <div class="readbox">
+      <strong>Remember the three meanings:</strong><br>
+      • <strong>Lying</strong> — to say things that are not true<br>
+      • <strong>Gossiping</strong> — to talk about other people's private lives which might be unkind or not true<br>
+      • <strong>Backbiting</strong> — to talk about your brother or sister who is not there, in a manner they do not like, EVEN IF IT IS TRUE
+    </div>
+    <div id="q6"></div>
+  </div>
+
+  <!-- L7: SURAH AL-FAATIHAH -->
+  <div class="section" id="s7">
+    <h2>07. Surah Al-Faatihah <span class="q-count">16 Q</span></h2>
+    <div class="hint">💡 Al-Faatihah is the FIRST surah of the Qur'an. It is a Makkan surah with SEVEN aayaat (verses).</div>
+    <div class="readbox">
+      <strong>Translation of the Surah:</strong><br>
+      1. In the Name of Allah, the Most Kind, the Most Merciful.<br>
+      2. All praise is due to Allah, the Lord of all the worlds;<br>
+      3. The Most Kind, the Most Merciful;<br>
+      4. Master of the Day of Judgement.<br>
+      5. You alone we worship and to You alone we turn for help.<br>
+      6. Guide us to the Straight Path.<br>
+      7. The path of those on whom You have bestowed Your Grace; not of those who earned Your Anger, nor of those who have gone astray.
+    </div>
+    <div id="q7"></div>
+  </div>
+
+  <!-- L8: PURE WATER -->
+  <div class="section" id="s8">
+    <h2>08. Pure Water <span class="q-count">16 Q</span></h2>
+    <div class="hint">💡 Water is a great gift from Allah. From water, Allah made every living creature.</div>
+    <div class="readbox">
+      <strong>Purity of water is seen in 3 ways:</strong><br>
+      1. <strong>Colour</strong> — should be clear<br>
+      2. <strong>Smell</strong> — should have no smell at all<br>
+      3. <strong>Taste</strong> — should not be completely changed
+    </div>
+    <div id="q8"></div>
+    <div class="exercise"><h3>📖 Write any five uses of pure water</h3>
+      <div class="qa-box"><div class="q">Can you name 5 uses?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Drinking<br>2. Cooking food<br>3. Bathing<br>4. Making wudhu<br>5. Washing clothes</div></div>
+      <div class="qa-box"><div class="q">Name the following: (a) The essence of life (b) The noblest water (c) The Giver of water</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">(a) Water<br>(b) Zamzam<br>(c) Allah</div></div>
+    </div>
+  </div>
+
+  <div class="footer">⭐ Study well and remember Allah! ⭐<br>
+    <button class="btn" onclick="resetAll()">🔄 Restart All</button></div>
+</div>
+
+<div class="celebration" id="celebration">
+  <div class="emoji">🎉</div><h2 id="celebTitle">Maashaa Allah!</h2>
+  <p id="celebMsg">+10 points!</p>
+  <button class="btn" onclick="closeCeleb()">Next</button>
+</div>
+
+<script>
+const Q = {
+  q1: [
+    { q: "Who calls out the adhaan?", opts: ["Imaam", "Mu'adh-dhin", "Khateeb", "Haafiz"], ans: "Mu'adh-dhin" },
+    { q: "How many times a day is the adhaan called?", opts: ["Three", "Four", "Five", "Six"], ans: "Five" },
+    { q: "Fill in: The mu'adh-dhin calls out the ___ five times a day.", opts: ["Qur'an", "adhaan", "iqaamah", "du'aa"], ans: "adhaan" },
+    { q: "Fill in: When you hear the adhaan, you should prepare yourself for ___.", opts: ["sleep", "food", "salah", "school"], ans: "salah" },
+    { q: "The adhaan is the call to the prayer.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "The adhaan should be called out ONLY at the Masjid.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "It is not necessary to be in wudhu to call out the adhaan.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "The person who calls out the adhaan is known as mu'adh-dhin.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "The adhaan and iqaamah are the same.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "We should reply to the wordings of the adhaan.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Women, too, can call out the adhaan (in the Masjid).", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "'Hayya 'alal falaah' means:", opts: ["Hasten to the prayer", "Hasten to success", "Allah is Great", "Prayer is ready"], ans: "Hasten to success" },
+    { q: "Which sentence is said ONLY in the Fajr adhaan?", opts: ["Allaahu Akbar", "Hayya 'alas salaah", "As-Salaatu khayrum-minan nawm", "Qad qaamatis-salaah"], ans: "As-Salaatu khayrum-minan nawm" },
+    { q: "What should we say instead when we hear 'Hayya 'alas salaah'?", opts: ["Allaahu Akbar", "Laa hawla wa laa quwwata illaa billaah", "Subhaanallaah", "Alhamdulillaah"], ans: "Laa hawla wa laa quwwata illaa billaah" }
+  ],
+  q2: [
+    { q: "Al-Iqaamah is the call to the start of:", opts: ["Sunnah salah", "Fardh salah", "Nafl salah", "Du'aa"], ans: "Fardh salah" },
+    { q: "'Qad qaamatis-salaah' means:", opts: ["Allah is the Greatest", "Hasten to success", "The prayer is now ready", "There is no God but Allah"], ans: "The prayer is now ready" },
+    { q: "In the Iqaamah, which sentence is EXTRA (not in the adhaan)?", opts: ["Allaahu Akbar", "Qad qaamatis-salaah", "Hayya 'alal falaah", "Laa-ilaaha illallaah"], ans: "Qad qaamatis-salaah" },
+    { q: "A person praying ALONE may recite the Iqaamah:", opts: ["Very loudly", "Quietly to himself", "Not at all", "Only in Arabic songs"], ans: "Quietly to himself" },
+    { q: "After the Iqaamah, we should stand facing the:", opts: ["Door", "Window", "Qiblah", "Imaam's house"], ans: "Qiblah" },
+    { q: "The adhaan announces the TIME of salah has come.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "The Iqaamah announces the salah is STARTING now.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "'Allaahu Akbar' means:", opts: ["Allah is The Most Great", "Prayer is ready", "Hasten to prayer", "Come to success"], ans: "Allah is The Most Great" },
+    { q: "'Laa-ilaaha illallaah' means:", opts: ["Muhammad is the Messenger", "There is no God except Allah", "Prayer is better than sleep", "Come to prayer"], ans: "There is no God except Allah" },
+    { q: "'Ash-hadu anna Muhammadar Rasoolullaah' means:", opts: ["Allah is Great", "I testify Muhammad ﷺ is the Messenger of Allah", "Hasten to success", "Prayer is ready"], ans: "I testify Muhammad ﷺ is the Messenger of Allah" },
+    { q: "Salah is called SUCCESS because it:", opts: ["Makes us rich", "Brings us closer to Allah", "Makes us famous", "Gives us food"], ans: "Brings us closer to Allah" },
+    { q: "In the Iqaamah, 'Hayya 'alas salaah' is said:", opts: ["Once", "Twice", "Four times", "Never"], ans: "Once" }
+  ],
+  q3: [
+    { q: "Who was the first man Allah created?", opts: ["Nooh عليه السلام", "Ibraaheem عليه السلام", "Adam عليه السلام", "Ismaa'eel عليه السلام"], ans: "Adam عليه السلام" },
+    { q: "Allah created Adam عليه السلام from:", opts: ["Fire", "Clay", "Light", "Water"], ans: "Clay" },
+    { q: "Adam عليه السلام has been mentioned how many times in the Qur'an?", opts: ["15", "20", "25", "30"], ans: "25" },
+    { q: "Each person in this world has a body and a:", opts: ["Soul", "Shadow", "Star", "Name"], ans: "Soul" },
+    { q: "Allah said He is putting a ___ on the earth.", opts: ["Malak", "Khaleefah", "Jinn", "Nabi"], ans: "Khaleefah" },
+    { q: "Who refused to prostrate to Adam عليه السلام?", opts: ["Angels", "Iblees", "Hawwa", "Jibreel"], ans: "Iblees" },
+    { q: "Iblees was one of the:", opts: ["Angels", "Jinn", "Humans", "Birds"], ans: "Jinn" },
+    { q: "Adam's عليه السلام wife was named:", opts: ["Maryam", "Aasiyah", "Hawwa", "Khadeejah"], ans: "Hawwa" },
+    { q: "Allah taught Adam عليه السلام the ___ of all things.", opts: ["Colours", "Names", "Songs", "Numbers"], ans: "Names" },
+    { q: "Who whispered evil thoughts into their hearts?", opts: ["Angels", "Shaytan", "Hawwa", "Jibreel"], ans: "Shaytan" },
+    { q: "As soon as they ate from the tree, they:", opts: ["Became angels", "Felt ashamed", "Lived forever", "Became rich"], ans: "Felt ashamed" },
+    { q: "Did Allah forgive Adam عليه السلام and Hawwa?", opts: ["Yes, He forgave them", "No, He did not forgive"], ans: "Yes, He forgave them", two: true },
+    { q: "Adam عليه السلام was the ___ prophet.", opts: ["Last", "First", "Second", "Third"], ans: "First" },
+    { q: "Hawwa whispered into the ears of Adam عليه السلام.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Shaytan whispered evil thoughts into the hearts of Adam and Hawwa.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "The Garden of Paradise had few less fruits.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Jinn and Angels are the same.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Adam عليه السلام commanded the angels to prostrate to him.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Angels and Jinn know what Allah Knows.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Which word is NOT related to Adam عليه السلام?", opts: ["Khaleefah", "Clay", "Hell-fire", "Prophet"], ans: "Hell-fire" }
+  ],
+  q4: [
+    { q: "The Prophet ﷺ was a ___ by profession.", opts: ["Farmer", "Trader", "Teacher", "Doctor"], ans: "Trader" },
+    { q: "Everyone respected the Prophet ﷺ because:", opts: ["He was very wealthy", "He had a rich wife", "He was honest and trustworthy", "He was strong"], ans: "He was honest and trustworthy" },
+    { q: "Who was the head of the clan of Banu Haashim?", opts: ["Al-Abbaas", "Abu Taalib", "Abdul-Muttalib", "Hakeem"], ans: "Abu Taalib" },
+    { q: "The Prophet ﷺ went to speak to Al-Abbaas:", opts: ["To help Abu Taalib", "For trade purpose", "For personal gain", "To rebuild Ka'bah"], ans: "To help Abu Taalib" },
+    { q: "The Prophet ﷺ took care of:", opts: ["Ja'far", "Ali", "Hakeem", "Zayd"], ans: "Ali" },
+    { q: "Al-Abbaas took care of:", opts: ["Ali", "Zayd", "Ja'far", "Hakeem"], ans: "Ja'far" },
+    { q: "The Prophet ﷺ started taking care of Ali:", opts: ["Because he had no children", "As Abu Taalib was facing difficulty", "To rebuild the Ka'bah", "For trade"], ans: "As Abu Taalib was facing difficulty" },
+    { q: "This happened in the same year when the ___ was rebuilt.", opts: ["Masjid", "Ka'bah", "House", "Wall"], ans: "Ka'bah" },
+    { q: "Abu Taalib and Al-Abbaas were brothers.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Al-Abbaas took care of Ali.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "The Prophet ﷺ had many enemies because of his character.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Due to the famine, there was a shortage of food.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true }
+  ],
+  q5: [
+    { q: "Who was Khadeejah's رضي الله عنها nephew?", opts: ["Zayd", "Hakeem ibn Hizaam", "Ka'b", "Haarithah"], ans: "Hakeem ibn Hizaam" },
+    { q: "Fill in: Khadeejah رضي الله عنها offered ___ as a slave to the Prophet ﷺ.", opts: ["Ja'far", "Ali", "Zayd ibn Haarithah", "Hakeem"], ans: "Zayd ibn Haarithah" },
+    { q: "What was the name of Zayd's father?", opts: ["Ka'b", "Haarithah", "Hakeem", "Hizaam"], ans: "Haarithah" },
+    { q: "How did Zayd become a slave?", opts: ["He was sold by family", "He was taken during a raid", "He ran away", "He was born a slave"], ans: "He was taken during a raid" },
+    { q: "Fill in: Zayd preferred ___ over everyone in the world.", opts: ["His father", "His uncle", "Muhammad ﷺ", "Khadeejah"], ans: "Muhammad ﷺ" },
+    { q: "Fill in: Rasoolullah ﷺ set Zayd free and took him as his ___.", opts: ["Servant", "Son", "Friend", "Student"], ans: "Son" },
+    { q: "Where did the Prophet ﷺ announce that he set Zayd free?", opts: ["In the Masjid", "At the Ka'bah", "At home", "In the market"], ans: "At the Ka'bah" },
+    { q: "After that day, Zayd was called:", opts: ["Zayd ibn Haarithah", "Zayd ibn Muhammad", "Zayd ibn Ka'b", "Zayd ibn Hakeem"], ans: "Zayd ibn Muhammad" },
+    { q: "Zayd was named Zayd ibn Muhammad because the Prophet ﷺ adopted him as his son.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Zayd was re-named with his original father's name due to Allah's command.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "Zayd chose the Prophet ﷺ because he wanted to go to Heaven being Prophet's son.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "The Prophet ﷺ treated Zayd very badly as he was a slave.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true }
+  ],
+  q6: [
+    { q: "Which part of the body is a great blessing but hard to control?", opts: ["Hand", "Eye", "Tongue", "Foot"], ans: "Tongue" },
+    { q: "'Lying' means:", opts: ["To say things that are not true", "To talk about private lives", "To talk behind someone's back", "To stay silent"], ans: "To say things that are not true" },
+    { q: "'Gossiping' means:", opts: ["To say untrue things", "To talk about other people's private lives", "To praise someone", "To make du'aa"], ans: "To talk about other people's private lives" },
+    { q: "'Backbiting' means:", opts: ["To lie about someone", "To talk about your brother in a manner he does not like", "To help someone", "To pray for someone"], ans: "To talk about your brother in a manner he does not like" },
+    { q: "Is backbiting still wrong if what you say is TRUE?", opts: ["Yes, still wrong", "No, it becomes okay"], ans: "Yes, still wrong", two: true },
+    { q: "The Prophet ﷺ said the true Muslim avoids harming Muslims with his:", opts: ["Money and time", "Tongue and hands", "Eyes and ears", "Feet and head"], ans: "Tongue and hands" },
+    { q: "Fill in: The ___ is a great blessing from Allah.", opts: ["hand", "tongue", "money", "house"], ans: "tongue" },
+    { q: "Fill in: A Muslim must use his tongue only in matters that are ___ to Allah.", opts: ["pleasing", "loud", "quick", "funny"], ans: "pleasing" },
+    { q: "Fill in: Even though the tongue is small, it is ___ to control.", opts: ["easy", "difficult", "simple", "fun"], ans: "difficult" },
+    { q: "It is okay to lie while joking.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "It is okay to lie sometimes.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Lying is a good way to get out of trouble.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Is it okay to tell wrong about your teacher to your parents?", opts: ["Yes", "No"], ans: "No", two: true },
+    { q: "Is it okay to make fun of your friend?", opts: ["Yes", "No"], ans: "No", two: true },
+    { q: "Is it okay to talk bad about your relatives because it is true?", opts: ["Yes", "No"], ans: "No", two: true },
+    { q: "Is it better to stay quiet if you don't have anything good to say?", opts: ["Yes", "No"], ans: "Yes", two: true },
+    { q: "Which path leads to Allah's Pleasure?", opts: ["Gossiping and lies", "Truth, saying salaam, du'aa", "Making fun of others", "Blaming others"], ans: "Truth, saying salaam, du'aa" },
+    { q: "We will be questioned about our lies on the:", opts: ["Day of Eid", "Day of Judgement", "Day of Friday", "Day of Ramadan"], ans: "Day of Judgement" }
+  ],
+  q7: [
+    { q: "Al-Faatihah is which surah of the Qur'an?", opts: ["First", "Last", "Middle", "Tenth"], ans: "First" },
+    { q: "How many aayaat (verses) does Al-Faatihah have?", opts: ["Five", "Six", "Seven", "Eight"], ans: "Seven" },
+    { q: "Al-Faatihah was revealed in:", opts: ["Madinah", "Makkah", "Taif", "Syria"], ans: "Makkah" },
+    { q: "'Al-Faatihah' means:", opts: ["The Ending", "The Opening", "The Light", "The Cow"], ans: "The Opening" },
+    { q: "Which two Beautiful Names of Allah are in the Bismillaah?", opts: ["Ar-Rahmaan and Ar-Raheem", "Al-Malik and Al-Quddoos", "Al-Hakeem and Al-Aleem", "As-Samee and Al-Baseer"], ans: "Ar-Rahmaan and Ar-Raheem" },
+    { q: "The word 'hamd' means:", opts: ["Praise and thankfulness", "Fear and sadness", "Money and wealth", "Speed and power"], ans: "Praise and thankfulness" },
+    { q: "'Maalik yawmid-deen' means Allah is the Master of the:", opts: ["Day of Eid", "Day of Judgement", "Day of Friday", "Day of Rain"], ans: "Day of Judgement" },
+    { q: "Fill in: ___ is the only Lord of this world and the Master of the Day of Judgement.", opts: ["Jibreel", "Allah", "Muhammad ﷺ", "Adam عليه السلام"], ans: "Allah" },
+    { q: "Fill in: On that Day, those who do ___ will be rewarded.", opts: ["bad deeds", "good deeds", "nothing", "work"], ans: "good deeds" },
+    { q: "Fill in: Allah alone we ___ and Him alone we ask for help.", opts: ["fear", "worship", "call", "praise"], ans: "worship" },
+    { q: "Which people has Allah favoured?", opts: ["Jealous and envious", "Truthful, righteous, prophets, martyrs, pious", "Liars and cheats", "The wealthy only"], ans: "Truthful, righteous, prophets, martyrs, pious" },
+    { q: "The believers remain steadfast and patient seeking reward in the Hereafter.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "The Prophets, the truthful and the martyrs are ones who have gone astray.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Surah Al-Faatihah is the LAST surah of the Qur'an.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
+    { q: "Surah Al-Faatihah is a Makkan surah.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
+    { q: "It is necessary to recite Surah Al-Faatihah in every prayer.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true }
+  ],
+  q8: [
+    { q: "Fill in: Allah made every living creature from ___.", opts: ["clay", "water", "fire", "light"], ans: "water" },
+    { q: "Fill in: Water is a great gift from ___.", opts: ["Allah", "the sky", "the earth", "people"], ans: "Allah" },
+    { q: "The purity of water is seen in how many ways?", opts: ["Two", "Three", "Four", "Five"], ans: "Three" },
+    { q: "Pure water's COLOUR should be:", opts: ["Blue", "Green", "Clear", "Yellow"], ans: "Clear" },
+    { q: "Pure water's SMELL should be:", opts: ["Sweet", "No smell at all", "Strong", "Like flowers"], ans: "No smell at all" },
+    { q: "Pure water's TASTE should:", opts: ["Be very sweet", "Be salty", "Not be completely changed", "Be bitter"], ans: "Not be completely changed" },
+    { q: "The noblest of all kinds of water is:", opts: ["Rainwater", "Zamzam", "River water", "Ice water"], ans: "Zamzam" },
+    { q: "Fill in: Water helps in the ___ of food.", opts: ["cooking", "digestion", "colour", "smell"], ans: "digestion" },
+    { q: "Fill in: Water cleanses the body of ___.", opts: ["dust", "toxins", "food", "hair"], ans: "toxins" },
+    { q: "Which is NOT a kind of pure water?", opts: ["Rainwater", "Spring water", "Dirty pond water", "River water"], ans: "Dirty pond water" },
+    { q: "Fill in: A Muslim makes wudhu with ___ water.", opts: ["hot", "cold", "pure", "salty"], ans: "pure" },
+    { q: "Fill in: Without ___, there would be no life on earth.", opts: ["water", "food", "air", "sun"], ans: "water" },
+    { q: "Which is WASTING water?", opts: ["Drinking water in a glass", "Keeping the tap open while applying soap", "Watering plants a little", "Closing tap after use"], ans: "Keeping the tap open while applying soap" },
+    { q: "Which is WASTING water?", opts: ["Keeping the tap open while doing wudhu", "Drinking from a glass", "Turning off the tap", "Using a bucket"], ans: "Keeping the tap open while doing wudhu" },
+    { q: "Is over-watering plants a waste of water?", opts: ["Yes", "No"], ans: "Yes", two: true },
+    { q: "Water remains pure as long as its colour, taste or smell does not change.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true }
+  ]
+};
+
+const matchPairs2 = [
+  { m: "Allah is the Greatest", a: "اَللهُ اَكْبَرُ" },
+  { m: "The prayer is now ready", a: "قَدْ قَامَتِ الصَّلٰوةُ" },
+  { m: "There is no God except Allah", a: "لَآ اِلٰهَ اِلَّا اللهُ" },
+  { m: "Muhammad ﷺ is the Messenger", a: "اَشْهَدُ اَنَّ مُحَمَّدًا رَّسُوْلُ اللهِ" },
+  { m: "Hasten to prayer", a: "حَىَّ عَلَى الصَّلٰوةِ" },
+  { m: "Hasten to success", a: "حَىَّ عَلَى الْفَلَاحِ" }
+];
+
+let score = 0, correct = 0, attempts = 0;
+let selectedM = null, matchedCount2 = 0;
+
+function updateScore() {
+  document.getElementById('scoreVal').textContent = score;
+  document.getElementById('correctVal').textContent = correct;
+  document.getElementById('attemptVal').textContent = attempts;
+}
+function celebrate(t, m) {
+  document.getElementById('celebTitle').textContent = t;
+  document.getElementById('celebMsg').textContent = m;
+  document.getElementById('celebration').classList.add('show');
+}
+function closeCeleb() { document.getElementById('celebration').classList.remove('show'); }
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function renderMCQ(containerId, questions) {
+  const c = document.getElementById(containerId);
+  let html = '';
+  questions.forEach((item, idx) => {
+    html += `<div class="exercise"><h3>Q${idx+1}. ${item.q}</h3>`;
+    html += `<div class="options${item.two ? ' two' : ''}">`;
+    item.opts.forEach(opt => {
+      const isCorrect = (opt === item.ans);
+      html += `<button class="option-btn" onclick="checkMCQ(this, ${isCorrect})">${opt}</button>`;
+    });
+    html += `</div></div>`;
+  });
+  c.innerHTML = html;
+}
+
+function checkMCQ(btn, isCorrect) {
+  if (btn.disabled) return;
+  attempts++;
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+  if (isCorrect) {
+    btn.classList.add('correct'); correct++; score += 10;
+    celebrate('Correct! ✅', '+10 points!');
+  } else {
+    btn.classList.add('wrong');
+    parent.querySelectorAll('.option-btn').forEach(b => {
+      if (b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+    });
+  }
+  updateScore();
+}
+
+function toggleA(btn) {
+  const a = btn.nextElementSibling;
+  a.classList.toggle('show');
+  btn.textContent = a.classList.contains('show') ? '🙈 Hide' : '👀 See Answer';
+}
+
+function buildMatch2() {
+  const area = document.getElementById('matchArea2');
+  area.innerHTML = '';
+  const left = document.createElement('div');
+  matchPairs2.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'match-item'; d.textContent = p.m;
+    d.dataset.type = 'm'; d.dataset.value = p.m;
+    d.onclick = () => selectM(d);
+    left.appendChild(d);
+  });
+  const right = document.createElement('div');
+  [...matchPairs2.map(p => p.a)].sort(() => Math.random() - 0.5).forEach(a => {
+    const d = document.createElement('div');
+    d.className = 'match-item'; d.textContent = a;
+    d.style.direction = 'rtl'; d.style.fontSize = '15px';
+    d.dataset.type = 'a'; d.dataset.value = a;
+    d.onclick = () => selectA(d);
+    right.appendChild(d);
+  });
+  area.appendChild(left); area.appendChild(right);
+}
+function selectM(el) {
+  if (el.classList.contains('matched')) return;
+  document.querySelectorAll('[data-type="m"]').forEach(i => i.classList.remove('selected'));
+  el.classList.add('selected'); selectedM = el;
+}
+function selectA(el) {
+  if (el.classList.contains('matched') || !selectedM) return;
+  attempts++;
+  const pair = matchPairs2.find(p => p.m === selectedM.dataset.value);
+  if (pair && pair.a === el.dataset.value) {
+    selectedM.classList.remove('selected'); selectedM.classList.add('matched');
+    el.classList.add('matched'); matchedCount2++; correct++; score += 10;
+    updateScore();
+    if (matchedCount2 === matchPairs2.length) {
+      celebrate('All matched! 🎉', 'Excellent work!');
+      document.getElementById('matchStatus2').textContent = '🎉 All matched!';
+    }
+    selectedM = null;
+  } else {
+    el.style.background = '#ffcdd2';
+    setTimeout(() => { el.style.background = ''; }, 500);
+  }
+}
+
+function resetAll() { if (!confirm('This will reset all scores. Continue?')) return; location.reload(); }
+
+renderMCQ('q1', Q.q1);
+renderMCQ('q2', Q.q2);
+renderMCQ('q3', Q.q3);
+renderMCQ('q4', Q.q4);
+renderMCQ('q5', Q.q5);
+renderMCQ('q6', Q.q6);
+renderMCQ('q7', Q.q7);
+renderMCQ('q8', Q.q8);
+buildMatch2();
+updateScore();
+</script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Practice - Class 3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #ffd3a5 0%, #fd6585 100%); min-height: 100vh; padding: 12px; color: #333; }
+  .app { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
+  header { background: linear-gradient(135deg, #fd6585 0%, #ff9a56 100%); color: #fff; padding: 18px 16px; text-align: center; position: relative; }
+  header a.back { position: absolute; left: 12px; top: 12px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+  header h1 { font-size: 22px; margin-bottom: 6px; }
+  header p { font-size: 13px; opacity: 0.9; }
+  .score-bar { background: #fff8e7; padding: 12px; display: flex; justify-content: space-around; border-bottom: 3px solid #ffd93d; font-weight: bold; }
+  .score-bar .item { text-align: center; }
+  .score-bar .big { font-size: 24px; color: #ff6b6b; }
+  .score-bar .lbl { font-size: 11px; color: #666; }
+  .tabs { display: flex; overflow-x: auto; background: #f8f9fa; border-bottom: 2px solid #ddd; }
+  .tab { flex: 0 0 auto; padding: 12px 14px; cursor: pointer; border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: bold; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; }
+  .tab.active { color: #fd6585; border-bottom-color: #fd6585; background: #fff; }
+  .section { padding: 16px; display: none; }
+  .section.active { display: block; }
+  .section h2 { color: #fd6585; font-size: 18px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px dashed #ffd93d; }
+  .hint { background: #e3f2fd; padding: 10px; border-radius: 10px; font-size: 13px; color: #1565c0; margin: 10px 0; }
+  .exercise { background: #fafafa; border-radius: 12px; padding: 14px; margin: 14px 0; border-left: 5px solid #fd6585; }
+  .exercise h3 { font-size: 15px; margin-bottom: 10px; }
+  .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+  .option-btn { padding: 12px; background: #fff; border: 2px solid #ddd; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .option-btn.correct { background: #4caf50; color: #fff; border-color: #388e3c; }
+  .option-btn.wrong { background: #f44336; color: #fff; border-color: #d32f2f; }
+  .option-btn:disabled { cursor: not-allowed; opacity: 0.8; }
+  .fill-input { width: 130px; padding: 6px 10px; border: 2px dashed #fd6585; border-radius: 8px; font-family: inherit; font-size: 14px; background: #fff9c4; text-align: center; }
+  .fill-input.correct { background: #c8e6c9; border-color: #4caf50; border-style: solid; }
+  .fill-input.wrong { background: #ffcdd2; border-color: #f44336; border-style: solid; }
+  .btn { background: linear-gradient(135deg, #fd6585 0%, #ff9a56 100%); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; margin: 6px 4px; }
+  .qa-box { background: #fff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #fd6585; }
+  .qa-box .q { font-weight: bold; margin-bottom: 8px; }
+  .a { color: #2e7d32; margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 8px; display: none; font-weight: bold; line-height: 1.5; }
+  .a.show { display: block; }
+  .celebration { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; z-index: 100; display: none; }
+  .celebration.show { display: block; animation: pop 0.4s; }
+  @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+  .celebration .emoji { font-size: 55px; }
+  .celebration h2 { color: #fd6585; margin: 8px 0; }
+  .footer { text-align: center; padding: 12px; font-size: 12px; color: #999; background: #f8f9fa; }
+  .sentence { font-size: 17px; margin: 10px 0; line-height: 1.8; }
+  .story { background: #fff8e1; padding: 14px; border-radius: 10px; font-size: 15px; line-height: 1.7; margin: 10px 0; border-left: 4px solid #ffa500; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <a href="index.html" class="back">← Home</a>
+    <h1>📖 English Practice</h1>
+    <p>Class 3 — Mid-term</p>
+  </header>
+
+  <div class="score-bar">
+    <div class="item"><div class="big" id="scoreVal">0</div><div class="lbl">⭐ Score</div></div>
+    <div class="item"><div class="big" id="correctVal">0</div><div class="lbl">✅ Correct</div></div>
+    <div class="item"><div class="big" id="attemptVal">0</div><div class="lbl">📝 Tries</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('s1', this)">1. Nouns</button>
+    <button class="tab" onclick="showSection('s2', this)">2. Opposites</button>
+    <button class="tab" onclick="showSection('s3', this)">3. Rhymes</button>
+    <button class="tab" onclick="showSection('s4', this)">4. Fill Blanks</button>
+    <button class="tab" onclick="showSection('s5', this)">5. Reading</button>
+  </div>
+
+  <!-- NOUNS -->
+  <div class="section active" id="s1">
+    <h2>1. Nouns (Naming Words)</h2>
+    <div class="hint">💡 A noun is a name of a person, place, animal, or thing. Example: Ravi, school, cat, book.</div>
+
+    <div class="exercise"><h3>Q1. Which is a noun?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">run</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">apple</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">jump</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">sing</button>
+      </div></div>
+    <div class="exercise"><h3>Q2. Which is a name of a place?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Ravi</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Dog</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Bengaluru</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Book</button>
+      </div></div>
+    <div class="exercise"><h3>Q3. Which is a name of an animal?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Teacher</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">School</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Elephant</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Chair</button>
+      </div></div>
+    <div class="exercise"><h3>Q4. Which is a person?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Delhi</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Doctor</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Ball</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Cat</button>
+      </div></div>
+    <div class="exercise"><h3>Q5. Which is a name of a thing?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Mother</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Mumbai</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Cow</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Pencil</button>
+      </div></div>
+    <div class="exercise"><h3>Q6. Which sentence has a noun?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, true)">Rani has a red bag.</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Please run fast.</button>
+      </div></div>
+  </div>
+
+  <!-- OPPOSITES -->
+  <div class="section" id="s2">
+    <h2>2. Opposites (Antonyms)</h2>
+    <div class="hint">💡 Opposite words have the meaning that is completely different. Example: big ↔ small.</div>
+
+    <div class="exercise"><h3>Q1. Opposite of "big"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Large</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Small</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Fat</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Long</button>
+      </div></div>
+    <div class="exercise"><h3>Q2. Opposite of "hot"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Warm</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Cold</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Sunny</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Wet</button>
+      </div></div>
+    <div class="exercise"><h3>Q3. Opposite of "happy"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Glad</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Kind</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Sad</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Angry</button>
+      </div></div>
+    <div class="exercise"><h3>Q4. Opposite of "day"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Morning</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Night</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Evening</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Noon</button>
+      </div></div>
+    <div class="exercise"><h3>Q5. Opposite of "old"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, true)">Young / New</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Big</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Wise</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Weak</button>
+      </div></div>
+    <div class="exercise"><h3>Q6. Opposite of "fast"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Quick</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Slow</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Speed</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Run</button>
+      </div></div>
+    <div class="exercise"><h3>Q7. Opposite of "up"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">High</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Down</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Left</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Top</button>
+      </div></div>
+    <div class="exercise"><h3>Q8. Opposite of "empty"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, true)">Full</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Big</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Open</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Small</button>
+      </div></div>
+  </div>
+
+  <!-- RHYMES -->
+  <div class="section" id="s3">
+    <h2>3. Rhyming Words</h2>
+    <div class="hint">💡 Rhyming words sound the same at the end. Example: cat - hat - bat.</div>
+
+    <div class="exercise"><h3>Q1. Which word rhymes with "cat"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Cow</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Bat</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Fish</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Dog</button>
+      </div></div>
+    <div class="exercise"><h3>Q2. Which word rhymes with "sun"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Star</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Moon</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Fun</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Sky</button>
+      </div></div>
+    <div class="exercise"><h3>Q3. Which word rhymes with "ball"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, true)">Wall</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Bat</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Bag</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Bell</button>
+      </div></div>
+    <div class="exercise"><h3>Q4. Which word rhymes with "star"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Sky</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Car</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Sun</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Moon</button>
+      </div></div>
+    <div class="exercise"><h3>Q5. Which word rhymes with "book"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Boy</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Bag</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Look</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Bell</button>
+      </div></div>
+    <div class="exercise"><h3>Q6. Which word rhymes with "tree"?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Tea</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Bee</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Bird</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Leaf</button>
+      </div></div>
+  </div>
+
+  <!-- FILL BLANKS -->
+  <div class="section" id="s4">
+    <h2>4. Fill in the Blanks</h2>
+    <div class="hint">💡 Read the sentence carefully and type the correct word.</div>
+
+    <div class="exercise"><h3>Q1. The sun rises in the ___.</h3>
+      <input class="fill-input" data-answer="east" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 4 letters, direction.</p></div>
+    <div class="exercise"><h3>Q2. A ___ says "meow".</h3>
+      <input class="fill-input" data-answer="cat" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 3 letters, a small animal.</p></div>
+    <div class="exercise"><h3>Q3. We drink ___ when we are thirsty.</h3>
+      <input class="fill-input" data-answer="water" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 5 letters, comes from taps.</p></div>
+    <div class="exercise"><h3>Q4. There are ___ days in a week.</h3>
+      <input class="fill-input" data-answer="seven" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: A number, spelled with letters.</p></div>
+    <div class="exercise"><h3>Q5. We go to ___ to learn.</h3>
+      <input class="fill-input" data-answer="school" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 6 letters, has teachers and children.</p></div>
+    <div class="exercise"><h3>Q6. Birds have ___ to fly.</h3>
+      <input class="fill-input" data-answer="wings" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 5 letters, on both sides of the body.</p></div>
+    <div class="exercise"><h3>Q7. The colour of grass is ___.</h3>
+      <input class="fill-input" data-answer="green" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 5 letters, a colour.</p></div>
+    <div class="exercise"><h3>Q8. My father's father is my ___.</h3>
+      <input class="fill-input" data-answer="grandfather" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 11 letters. Try "grand..."</p></div>
+  </div>
+
+  <!-- READING -->
+  <div class="section" id="s5">
+    <h2>5. Reading & Comprehension</h2>
+    <div class="hint">💡 Read the small story below carefully, then answer the questions.</div>
+
+    <div class="exercise">
+      <h3>Story: The Clever Crow 🐦</h3>
+      <div class="story">
+        One hot summer day, a crow was very thirsty. He flew here and there looking for water. At last, he saw a pot of water. But the water was very little at the bottom. The crow was clever. He picked up small stones and dropped them into the pot one by one. Soon, the water came up to the top. The crow drank the water and flew away happily.
+      </div>
+    </div>
+
+    <div class="exercise"><h3>Q1. Who was thirsty in the story?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">A cat</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">A crow</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">A dog</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">A boy</button>
+      </div></div>
+    <div class="exercise"><h3>Q2. What season was it?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Winter</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Summer</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Rainy</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Spring</button>
+      </div></div>
+    <div class="exercise"><h3>Q3. What did the crow put in the pot?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Sand</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Leaves</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Small stones</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Sticks</button>
+      </div></div>
+    <div class="exercise"><h3>Q4. Why did the water rise?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">It rained</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Stones filled the pot</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Wind blew</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Sun made it big</button>
+      </div></div>
+    <div class="exercise"><h3>Q5. What kind of bird was the crow?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Lazy</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Sad</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Clever</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Angry</button>
+      </div></div>
+
+    <div class="exercise"><h3>📖 Moral Question</h3>
+      <div class="qa-box"><div class="q">What is the moral (lesson) of this story?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">The moral is: <br>"Where there is a will, there is a way." <br>Or: "Think cleverly, and you can solve any problem."</div></div>
+    </div>
+  </div>
+
+  <div class="footer">⭐ Practice makes perfect! ⭐<br>
+    <button class="btn" onclick="resetAll()">🔄 Restart All</button></div>
+</div>
+
+<div class="celebration" id="celebration">
+  <div class="emoji">🎉</div><h2 id="celebTitle">Well done!</h2>
+  <p id="celebMsg">Great answer!</p>
+  <button class="btn" onclick="closeCeleb()">Next</button>
+</div>
+
+<script>
+  let score = 0, correct = 0, attempts = 0;
+  function updateScore() {
+    document.getElementById('scoreVal').textContent = score;
+    document.getElementById('correctVal').textContent = correct;
+    document.getElementById('attemptVal').textContent = attempts;
+  }
+  function celebrate(t, m) {
+    document.getElementById('celebTitle').textContent = t;
+    document.getElementById('celebMsg').textContent = m;
+    document.getElementById('celebration').classList.add('show');
+  }
+  function closeCeleb() { document.getElementById('celebration').classList.remove('show'); }
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+  function checkOpt(btn, isCorrect) {
+    if (btn.disabled) return;
+    attempts++;
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+    if (isCorrect) { btn.classList.add('correct'); correct++; score += 10; celebrate('Correct! ✅', '+10 points!'); }
+    else { btn.classList.add('wrong'); parent.querySelectorAll('.option-btn').forEach(b => { if (b.getAttribute('onclick').includes('true')) b.classList.add('correct'); }); }
+    updateScore();
+  }
+  function checkFill(inp) {
+    attempts++;
+    const val = inp.value.trim().toLowerCase();
+    if (val === inp.dataset.answer.toLowerCase()) { inp.classList.remove('wrong'); inp.classList.add('correct'); correct++; score += 10; celebrate('Correct! ✅', '+10 points!'); }
+    else { inp.classList.remove('correct'); inp.classList.add('wrong'); }
+    updateScore();
+  }
+  function toggleA(btn) {
+    const a = btn.nextElementSibling;
+    a.classList.toggle('show');
+    btn.textContent = a.classList.contains('show') ? '🙈 Hide' : '👀 See Answer';
+  }
+  function resetAll() { if (!confirm('This will reset all scores. Continue?')) return; location.reload(); }
+  updateScore();
+</script>
+</body>
+</html>
