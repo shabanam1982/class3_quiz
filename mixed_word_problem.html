@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🧮 100 Mixed Word Problems + Bonus! – Grade 3-5</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(145deg, #fcf3e8 0%, #fce4d6 100%);
+            min-height: 100vh;
+            padding: 14px;
+            color: #2d1f14;
+        }
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: #fffbf5;
+            border-radius: 50px;
+            padding: 22px 20px 28px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
+            border: 5px solid #edd5bc;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.0rem;
+            color: #4d2e1b;
+            background: #fae3cd;
+            padding: 10px 18px;
+            border-radius: 80px;
+            border: 4px solid #c7956b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: -6px;
+        }
+        h1 span {
+            font-size: 1.0rem;
+            background: #dbb088;
+            padding: 0 16px;
+            border-radius: 60px;
+            color: #2d1a0e;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 16px 0 12px;
+            justify-content: center;
+        }
+        .tab-btn {
+            background: #ecdac8;
+            border: 3px solid #b58a6a;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #8f6b4f;
+            transition: 0.05s linear;
+            font-family: inherit;
+            color: #2d1a0e;
+        }
+        .tab-btn.active {
+            background: #fccd9c;
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #8f6b4f;
+            border-color: #6d4c34;
+        }
+        .tab-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #6d4c34;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            background: #f7ede2;
+            border-radius: 60px;
+            padding: 8px 18px;
+            margin: 10px 0 14px;
+            border: 3px solid #dbb48f;
+        }
+        .stats .item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 1.0rem;
+        }
+        .stats .num {
+            background: #fff;
+            padding: 2px 16px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4a2c6a;
+            border: 2px solid #b48a68;
+            min-width: 36px;
+            text-align: center;
+        }
+        .progress-wrap {
+            background: #e8d7c6;
+            border-radius: 60px;
+            height: 12px;
+            overflow: hidden;
+            margin: 4px 0 14px;
+            border: 2px solid #b48a68;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #7a5aa8, #b87a47);
+            border-radius: 60px;
+            transition: width 0.3s ease;
+        }
+        .question-box {
+            background: #fff9f0;
+            border-radius: 40px;
+            padding: 18px 22px;
+            border: 4px solid #cb9f7a;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #6b4f39;
+            font-weight: 600;
+        }
+        .q-meta .type {
+            background: #f0d5bc;
+            padding: 2px 16px;
+            border-radius: 60px;
+        }
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2f1c10;
+            line-height: 1.5;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0 10px;
+        }
+        .option-btn {
+            background: #fcf3e8;
+            border: 4px solid #cfa67e;
+            border-radius: 60px;
+            padding: 12px 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #25180f;
+            box-shadow: 0 5px 0 #9f7a5c;
+            cursor: pointer;
+            transition: 0.06s linear;
+            font-family: inherit;
+            text-align: center;
+        }
+        .option-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #7e5e45;
+        }
+        .option-btn.selected-correct {
+            background: #9bdd9b;
+            border-color: #1e7a1e;
+            box-shadow: 0 3px 0 #0f5a0f;
+        }
+        .option-btn.selected-wrong {
+            background: #f7b6b6;
+            border-color: #b12b2b;
+            box-shadow: 0 3px 0 #811f1f;
+        }
+        .option-btn.show-correct {
+            background: #9bdd9b;
+            border-color: #1e7a1e;
+            box-shadow: 0 3px 0 #0f5a0f;
+        }
+        .option-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .feedback-area {
+            background: #f5e4d3;
+            border-radius: 40px;
+            padding: 10px 18px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border: 3px solid #b78b68;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+        .nav-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .btn {
+            background: #e8cfb8;
+            border: none;
+            border-radius: 60px;
+            padding: 10px 22px;
+            font-size: 1.0rem;
+            font-weight: 700;
+            border: 3px solid #9b765a;
+            box-shadow: 0 5px 0 #7a5b44;
+            cursor: pointer;
+            transition: 0.06s linear;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #7a5b44;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #7a5b44;
+            pointer-events: none;
+        }
+        .btn-primary {
+            background: #fcc28a;
+            border-color: #b87a47;
+            box-shadow: 0 5px 0 #8f5f37;
+        }
+        .btn-secondary {
+            background: #dbb088;
+            border-color: #a47a59;
+            box-shadow: 0 5px 0 #7a5b44;
+        }
+        .btn-success {
+            background: #a3d6a3;
+            border-color: #4d8f4d;
+            box-shadow: 0 5px 0 #316931;
+        }
+        .btn-danger {
+            background: #f7b2b2;
+            border-color: #b14a4a;
+            box-shadow: 0 5px 0 #7a3232;
+        }
+        .btn-purple {
+            background: #c9b0de;
+            border-color: #7a5aa8;
+            box-shadow: 0 5px 0 #5a3f7a;
+        }
+        .score-badge {
+            background: #7ba37b;
+            padding: 6px 22px;
+            border-radius: 60px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 4px solid #4f754f;
+            box-shadow: 0 5px 0 #2f532f;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 0.95rem;
+            color: #5b3f2b;
+            font-weight: 500;
+        }
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 25px 35px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            text-align: center;
+            z-index: 200;
+            display: none;
+            border: 5px solid #fcc28a;
+        }
+        .celebration.show {
+            display: block;
+            animation: pop 0.4s ease;
+        }
+        @keyframes pop {
+            0% {
+                transform: translate(-50%, -50%) scale(0.4);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+        .celebration .emoji {
+            font-size: 50px;
+        }
+        .celebration h2 {
+            color: #4a2c6a;
+            margin: 6px 0;
+        }
+        .celebration .btn {
+            margin-top: 8px;
+        }
+        .bonus-section {
+            background: #f7ede2;
+            border-radius: 30px;
+            padding: 16px 18px;
+            margin: 12px 0;
+            border: 3px solid #dbb48f;
+        }
+        .bonus-section h3 {
+            color: #4a2c6a;
+            margin-bottom: 10px;
+        }
+        .bonus-section .qa-box {
+            background: #fff;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 12px;
+            border-left: 5px solid #7a5aa8;
+        }
+        .bonus-section .qa-box .q {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .bonus-section .qa-box .a {
+            background: #e8f5e9;
+            padding: 8px 14px;
+            border-radius: 10px;
+            display: none;
+            font-weight: 500;
+            color: #2e7d32;
+            margin-top: 6px;
+        }
+        .bonus-section .qa-box .a.show {
+            display: block;
+        }
+        .btn-sm {
+            padding: 4px 14px;
+            font-size: 0.8rem;
+        }
+        .certificate {
+            text-align: center;
+            background: #fff8e7;
+            border: 5px double #b58a6a;
+            border-radius: 30px;
+            padding: 25px 20px;
+            margin: 20px 0;
+        }
+        .certificate h2 {
+            color: #4a2c6a;
+            font-size: 2rem;
+        }
+        .certificate .name-line {
+            font-size: 1.8rem;
+            border-bottom: 3px dashed #b58a6a;
+            padding: 8px 20px;
+            display: inline-block;
+            margin: 10px 0;
+            min-width: 200px;
+            color: #4a2c6a;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+            .question-text {
+                font-size: 1.05rem;
+            }
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .stats .num {
+                font-size: 1.0rem;
+                min-width: 28px;
+                padding: 1px 12px;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            .tab-btn {
+                font-size: 0.7rem;
+                padding: 5px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🧮 Mixed Word <span>100 + Bonus!</span></h1>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="tab1">📝 Word Problems</button>
+            <button class="tab-btn" data-tab="tab2">🧠 Number Properties</button>
+            <button class="tab-btn" data-tab="tab3">⚡ Mental Maths</button>
+            <button class="tab-btn" data-tab="tab4">🏆 Olympiad</button>
+            <button class="tab-btn" data-tab="tab5">🎓 Certificate</button>
+        </div>
+
+        <!-- TAB 1: WORD PROBLEMS -->
+        <div class="tab-content active" id="tab1">
+            <div class="stats">
+                <div class="item">⭐ Score <span class="num" id="scoreNum">0</span></div>
+                <div class="item">✅ Correct <span class="num" id="correctNum">0</span></div>
+                <div class="item">📝 Tries <span class="num" id="attemptNum">0</span></div>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="question-box">
+                <div class="q-meta">
+                    <span class="type" id="qType">➕ Addition</span>
+                    <span id="qCount">1 / 100</span>
+                </div>
+                <div class="question-text" id="questionText">Loading...</div>
+            </div>
+            <div class="options-grid" id="optionsContainer"></div>
+            <div class="feedback-area">
+                <span>💬</span>
+                <span id="feedbackText">Pick an answer to start!</span>
+            </div>
+            <div class="nav-row">
+                <button class="btn btn-secondary" id="prevBtn" disabled>◀ Prev</button>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="btn btn-danger" id="resetBtn">🔄 Reset</button>
+                    <button class="btn btn-primary" id="nextBtn">Next ▶</button>
+                </div>
+                <span class="score-badge" id="scoreBadge">⭐ 0 / 0</span>
+            </div>
+        </div>
+
+        <!-- TAB 2: NUMBER PROPERTIES -->
+        <div class="tab-content" id="tab2">
+            <h2 style="color:#4a2c6a; margin-bottom:12px;">🧠 Number Properties</h2>
+            <div class="bonus-section">
+                <h3>🔁 Commutative Property (Addition & Multiplication)</h3>
+                <div id="propQ1"></div>
+                <div id="propQ2"></div>
+                <div id="propQ3"></div>
+                <div id="propQ4"></div>
+                <div id="propQ5"></div>
+                <div id="propQ6"></div>
+            </div>
+            <div class="bonus-section">
+                <h3>📦 Associative Property</h3>
+                <div id="propQ7"></div>
+                <div id="propQ8"></div>
+                <div id="propQ9"></div>
+                <div id="propQ10"></div>
+            </div>
+            <div class="bonus-section">
+                <h3>📤 Distributive Property</h3>
+                <div id="propQ11"></div>
+                <div id="propQ12"></div>
+                <div id="propQ13"></div>
+                <div id="propQ14"></div>
+            </div>
+            <div class="bonus-section">
+                <h3>🆔 Identity & Zero Properties</h3>
+                <div id="propQ15"></div>
+                <div id="propQ16"></div>
+                <div id="propQ17"></div>
+                <div id="propQ18"></div>
+                <div id="propQ19"></div>
+                <div id="propQ20"></div>
+            </div>
+        </div>
+
+        <!-- TAB 3: MENTAL MATHS -->
+        <div class="tab-content" id="tab3">
+            <h2 style="color:#4a2c6a; margin-bottom:12px;">⚡ Mental Maths Tricks</h2>
+            <div class="bonus-section">
+                <h3>➕ Adding/Subtracting 9, 11, 99</h3>
+                <div id="mentalQ1"></div>
+                <div id="mentalQ2"></div>
+                <div id="mentalQ3"></div>
+                <div id="mentalQ4"></div>
+                <div id="mentalQ5"></div>
+            </div>
+            <div class="bonus-section">
+                <h3>✖️ Multiplying by 5, 10, 25, 100</h3>
+                <div id="mentalQ6"></div>
+                <div id="mentalQ7"></div>
+                <div id="mentalQ8"></div>
+                <div id="mentalQ9"></div>
+                <div id="mentalQ10"></div>
+            </div>
+            <div class="bonus-section">
+                <h3>🔁 Doubling & Halving</h3>
+                <div id="mentalQ11"></div>
+                <div id="mentalQ12"></div>
+                <div id="mentalQ13"></div>
+            </div>
+            <div class="bonus-section">
+                <h3>🔢 Squaring Numbers Ending in 5</h3>
+                <div id="mentalQ14"></div>
+                <div id="mentalQ15"></div>
+                <div id="mentalQ16"></div>
+            </div>
+        </div>
+
+        <!-- TAB 4: OLYMPIAD -->
+        <div class="tab-content" id="tab4">
+            <h2 style="color:#4a2c6a; margin-bottom:12px;">🏆 Olympiad Challenge</h2>
+            <div id="olympiadContainer"></div>
+        </div>
+
+        <!-- TAB 5: CERTIFICATE -->
+        <div class="tab-content" id="tab5">
+            <div class="certificate">
+                <h2>🏆 Certificate of Completion</h2>
+                <p style="font-size:1.1rem; color:#5b3f2b;">This certifies that</p>
+                <div class="name-line" id="certName">___________</div>
+                <p style="font-size:1.1rem; color:#5b3f2b; margin:6px 0;">has completed all 100 word problems, Number Properties,<br>Mental Maths tricks, and the Olympiad Challenge!</p>
+                <p style="font-size:1.2rem; color:#4a2c6a; font-weight:700; margin-top:12px;">🌟 Keep practising and keep shining! 🌟</p>
+                <button class="btn btn-primary" onclick="editName()" style="margin-top:12px;">✏️ Add Your Name</button>
+                <button class="btn btn-success" onclick="printCert()" style="margin-top:12px;">🖨️ Print Certificate</button>
+            </div>
+        </div>
+
+        <div class="footer">🧮 Solve, learn, and have fun! 🌟</div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <div class="emoji">🎉</div>
+        <h2 id="celebTitle">Great Job!</h2>
+        <p id="celebMsg">+10 points!</p>
+        <button class="btn btn-primary" onclick="closeCeleb()">Continue</button>
+    </div>
+
+    <script>
+        // ================================================================
+        // 100 WORD PROBLEMS from the document
+        // ================================================================
+        const wordProblems = [
+            { q: "A bakery baked 240 cookies. 158 were sold. How many cookies are left?", a: 82, op: "−" },
+            { q: "There are 500 students in a school. 217 are girls. How many are boys?", a: 283, op: "−" },
+            { q: "A tank has 200 litres of water. It is emptied in 10 buckets equally. How much water in each bucket?", a: 20,
+            op: "÷" },
+            { q: "A train has 128 people in coach A and 142 people in coach B. How many people are on the train?", a: 270,
+                op: "+" },
+            { q: "A machine makes 150 toys in one hour. How many toys will it make in 6 hours?", a: 900, op: "×" },
+            { q: "There are 6 boxes. Each box has 8 pencils. How many pencils in total?", a: 48, op: "×" },
+            { q: "A basket has 15 apples. Mom puts 7 more apples in it. How many apples are in the basket now?", a: 22,
+            op: "+" },
+            { q: "There are 60 minutes in an hour. How many minutes are in 4 hours?", a: 240, op: "×" },
+            { q: "A shop had 75 toys. The owner added 125 more. How many toys are there now?", a: 200, op: "+" },
+            { q: "A rope of 60 metres is cut into 5 equal pieces. How long is each piece?", a: 12, op: "÷" },
+            { q: "A tailor stitches 7 shirts a day. How many shirts will he stitch in 15 days?", a: 105, op: "×" },
+            { q: "There are 56 red roses and 44 white roses in a garden. How many roses in all?", a: 100, op: "+" },
+            { q: "A basket has 15 apples. How many apples are in 6 such baskets?", a: 90, op: "×" },
+            { q: "Each cow has 4 legs. How many legs do 12 cows have?", a: 48, op: "×" },
+            { q: "One packet has 22 biscuits. How many biscuits are in 8 packets?", a: 176, op: "×" },
+            { q: "There were 92 apples in a box. 37 got spoiled. How many good apples remain?", a: 55, op: "−" },
+            { q: "A tank was full with 750 litres of water. 380 litres leaked out. How much water is left?", a: 370, op: "−" },
+            { q: "There are 132 students on 6 buses equally. How many students in each bus?", a: 22, op: "÷" },
+            { q: "A teacher has 36 pencils. She gives them to 6 students equally. How many pencils does each student get?",
+                a: 6, op: "÷" },
+            { q: "A cake had 24 pieces. 15 pieces were eaten. How many pieces are left?", a: 9, op: "−" },
+            { q: "A school has 350 students. 128 went on a picnic. How many students are still in school?", a: 222, op: "−" },
+            { q: "Kavya scored 85 marks in Maths and 92 marks in English. What is her total score?", a: 177, op: "+" },
+            { q: "A tank has 500 litres of water. 285 litres were used. How much water is left?", a: 215, op: "−" },
+            { q: "There are 108 sweets to be shared equally among 9 children. How many sweets per child?", a: 12, op: "÷" },
+            { q: "There are 72 apples in 8 baskets. How many apples are in each basket?", a: 9, op: "÷" },
+            { q: "There are 45 days in a month and a half. If 19 days are over, how many days are left?", a: 26, op: "−" },
+            { q: "A ribbon of 100 cm is cut into pieces of 10 cm each. How many pieces are made?", a: 10, op: "÷" },
+            { q: "Rohan has ₹100. He spent ₹65 on a book. How much money is left with him?", a: 35, op: "−" },
+            { q: "A wall is 96 metres long. It is painted in 8 equal parts. How long is each part?", a: 12, op: "÷" },
+            { q: "Ali had ₹1000. He bought a toy for ₹625. How much money is left with him?", a: 375, op: "−" },
+            { q: "Ravi saved ₹85 in January and ₹95 in February. How much money did he save in two months?", a: 180,
+            op: "+" },
+            { q: "Suraj had 60 chocolates. He gave 25 to friends. How many are left with him?", a: 35, op: "−" },
+            { q: "A row has 12 chairs. How many chairs are in 7 rows?", a: 84, op: "×" },
+            { q: "A ticket costs ₹45. What is the price of 8 tickets?", a: 360, op: "×" },
+            { q: "Each shelf has 32 books. How many books are on 5 such shelves?", a: 160, op: "×" },
+            { q: "Meera had ₹850. She bought a dress for ₹495. How much is left?", a: 355, op: "−" },
+            { q: "A rope of 45 metres is cut into pieces of 9 metres each. How many pieces are made?", a: 5, op: "÷" },
+            { q: "A car has 4 wheels. How many wheels do 9 cars have?", a: 36, op: "×" },
+            { q: "There are 63 candies to be given equally to 7 kids. How many candies does each kid get?", a: 9, op: "÷" },
+            { q: "A bus travelled 145 km in the morning and 215 km in the evening. How far did it go?", a: 360, op: "+" },
+            { q: "There were 65 balloons at a party. 29 balloons burst. How many balloons are left?", a: 36, op: "−" },
+            { q: "A zoo has 24 monkeys, 18 lions, and 12 tigers. How many animals in total?", a: 54, op: "+" },
+            { q: "A shop had 180 shirts. 95 were sold. How many shirts are still in the shop?", a: 85, op: "−" },
+            { q: "A train had 320 passengers. 145 got off. How many passengers are still on the train?", a: 175, op: "−" },
+            { q: "A bakery made 250 cookies and 175 cupcakes. How many items were baked?", a: 425, op: "+" },
+            { q: "A rickshaw has 3 wheels. How many wheels do 14 rickshaws have?", a: 42, op: "×" },
+            { q: "One notebook has 100 pages. How many pages do 12 such notebooks have?", a: 1200, op: "×" },
+            { q: "Each floor of a building has 8 rooms. How many rooms are in 6 floors?", a: 48, op: "×" },
+            { q: "A library has 250 story books and 175 science books. How many books are there in total?", a: 425, op: "+" },
+            { q: "A farmer had 420 chickens. He sold 155. How many chickens does he still have?", a: 265, op: "−" },
+            { q: "225 books are placed equally on 15 shelves. How many books per shelf?", a: 15, op: "÷" },
+            { q: "A garden had 128 flowers. 45 were plucked. How many flowers are still in the garden?", a: 83, op: "−" },
+            { q: "Arjun read 25 pages on Monday and 18 pages on Tuesday. How many pages did he read in total?", a: 43,
+            op: "+" },
+            { q: "A shopkeeper sells 12 chocolates in one packet. How many chocolates are in 5 packets?", a: 60, op: "×" },
+            { q: "Rohan collected 47 stamps and Sohan collected 63 stamps. How many stamps do they have together?", a: 110,
+                op: "+" },
+            { q: "Rita had 132 stamps. She gave 48 stamps to her sister. How many stamps does Rita have now?", a: 84,
+            op: "−" },
+            { q: "One pencil costs ₹8. How much do 15 pencils cost?", a: 120, op: "×" },
+            { q: "Each student has 6 books. How many books do 20 students have?", a: 120, op: "×" },
+            { q: "A milkman sold 45 litres of milk on Monday, 52 litres on Tuesday. How much milk did he sell in two days?",
+                a: 97, op: "+" },
+            { q: "A dozen means 12. How many bananas are in 5 dozen?", a: 60, op: "×" },
+            { q: "Neha has 3 boxes with 15 pencils, 20 pencils, and 25 pencils. How many pencils in all?", a: 60, op: "+" },
+            { q: "Sara has 120 stickers. Her friend gives her 55 more. How many stickers does Sara have now?", a: 175,
+            op: "+" },
+            { q: "A farmer picked 145 mangoes on the first day and 168 mangoes on the second day. How many mangoes in all?",
+                a: 313, op: "+" },
+            { q: "One box has 24 crayons. How many crayons are in 5 boxes?", a: 120, op: "×" },
+            { q: "144 students are divided into 12 equal groups. How many students in each group?", a: 12, op: "÷" },
+            { q: "Amit has 9 marbles. His brother gives him 6 more. How many marbles does he have now?", a: 15, op: "+" },
+            { q: "₹90 is shared equally among 9 boys. How much does each boy get?", a: 10, op: "÷" },
+            { q: "A pond had 75 fish. A big fish ate 18. How many fish are left?", a: 57, op: "−" },
+            { q: "Meena has 45 marbles. She puts them equally in 5 bags. How many marbles per bag?", a: 9, op: "÷" },
+            { q: "There are 132 mango trees and 148 coconut trees in a village. How many trees in total?", a: 280, op: "+" },
+            { q: "Riya has 12 red balloons and 8 blue balloons. How many balloons does she have in all?", a: 20, op: "+" },
+            { q: "A cake weighs 800 grams. It is cut into 8 equal pieces. What is the weight of one piece?", a: 100,
+            op: "÷" },
+            { q: "A pack has 10 stickers. How many stickers are in 9 packs?", a: 90, op: "×" },
+            { q: "A shopkeeper has 96 pens. He puts 8 pens in each box. How many boxes will he need?", a: 12, op: "÷" },
+            { q: "One book costs ₹25. How much do 7 books cost?", a: 175, op: "×" },
+            { q: "There are 84 flowers to make 7 equal bouquets. How many flowers in each bouquet?", a: 12, op: "÷" },
+            { q: "A shop had 50 candies. It sold 32 candies. How many candies are left?", a: 18, op: "−" },
+            { q: "Each carton has 18 eggs. How many eggs are in 10 cartons?", a: 180, op: "×" },
+            { q: "₹240 is shared equally among 6 friends. How much does each friend get?", a: 40, op: "÷" },
+            { q: "48 mangoes are packed into 8 boxes equally. How many mangoes are in each box?", a: 6, op: "÷" },
+            { q: "Each garden has 25 rose plants. How many rose plants are in 4 gardens?", a: 100, op: "×" },
+            { q: "A basket had 90 mangoes. 45 were eaten. How many mangoes are left?", a: 45, op: "−" },
+            { q: "A jar had 80 marbles. 27 marbles fell out. How many marbles are still in the jar?", a: 53, op: "−" },
+            { q: "500 grams of sweets are packed equally in 5 boxes. How much sweet in each box?", a: 100, op: "÷" },
+            { q: "A journey of 360 km is done in 6 equal hours. How many km per hour?", a: 60, op: "÷" },
+            { q: "A shopkeeper sold 45 pens in the morning and 38 pens in the evening. How many pens did he sell in one day?",
+                a: 83, op: "+" },
+            { q: "There are 7 days in a week. How many days are in 8 weeks?", a: 56, op: "×" },
+            { q: "There are 20 chocolates shared equally among 4 children. How many chocolates does each child get?",
+                a: 5, op: "÷" },
+            { q: "Meena bought 18 chocolates and Rina bought 22 chocolates. How many chocolates did they buy together?",
+                a: 40, op: "+" },
+            { q: "A juice bottle costs ₹35. How much will 9 bottles cost?", a: 315, op: "×" },
+            { q: "A farmer has 120 chickens in 8 cages. If each cage has the same number, how many chickens per cage?",
+                a: 15, op: "÷" },
+            { q: "A school has 320 boys and 285 girls. How many students in total?", a: 605, op: "+" },
+            { q: "Priya walked 15 minutes to school and 20 minutes back home. How many minutes did she walk in all?",
+                a: 35, op: "+" },
+            { q: "There were 145 birds on a tree. 68 flew away. How many birds are still there?", a: 77, op: "−" },
+            { q: "Kavita had 250 beads. She used 175 to make a necklace. How many beads are left?", a: 75, op: "−" },
+            { q: "A book has 200 pages. Ramesh read 87 pages. How many pages are still left to read?", a: 113, op: "−" },
+            { q: "₹350 is divided equally among 5 workers. How much does each worker get?", a: 70, op: "÷" },
+            { q: "There are 34 boys and 29 girls in a park. How many children are in the park?", a: 63, op: "+" },
+            { q: "Anita read 3 books last month and 5 books this month. How many books did she read?", a: 8, op: "+" },
+            { q: "A book has 150 pages. Ravi reads 15 pages a day. How many days will he take to finish the book?", a: 10,
+                op: "÷" }
+        ];
+
+        // Shuffle once
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+        const shuffled = shuffle([...wordProblems]);
+
+        // ================================================================
+        // STATE
+        // ================================================================
+        let currentIndex = 0;
+        let userAnswers = new Array(shuffled.length).fill(null);
+        let score = 0,
+            correctCount = 0,
+            attempts = 0;
+
+        // DOM
+        const questionText = document.getElementById('questionText');
+        const qType = document.getElementById('qType');
+        const qCount = document.getElementById('qCount');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const feedbackText = document.getElementById('feedbackText');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const scoreNum = document.getElementById('scoreNum');
+        const correctNum = document.getElementById('correctNum');
+        const attemptNum = document.getElementById('attemptNum');
+        const scoreBadge = document.getElementById('scoreBadge');
+        const progressBar = document.getElementById('progressBar');
+        const celebration = document.getElementById('celebration');
+        const celebTitle = document.getElementById('celebTitle');
+        const celebMsg = document.getElementById('celebMsg');
+
+        const opEmoji = { '+': '➕', '−': '➖', '×': '✖️', '÷': '➗' };
+        const opName = { '+': 'Addition', '−': 'Subtraction', '×': 'Multiplication', '÷': 'Division' };
+
+        // Generate 4 options
+        function getOptions(correct) {
+            let opts = new Set([correct]);
+            while (opts.size < 4) {
+                let offset = Math.floor(Math.random() * 12) + 1;
+                if (Math.random() > 0.5) offset = -offset;
+                let w = correct + offset;
+                if (w >= 0 && w !== correct && !opts.has(w)) opts.add(w);
+            }
+            return shuffle([...opts]);
+        }
+
+        // ================================================================
+        // RENDER
+        // ================================================================
+        function renderQuestion() {
+            const q = shuffled[currentIndex];
+            const total = shuffled.length;
+            const op = q.op;
+
+            qType.textContent = `${opEmoji[op] || '🔢'} ${opName[op] || 'Mixed'}`;
+            qCount.textContent = `${currentIndex + 1} / ${total}`;
+            questionText.textContent = q.q;
+
+            // Options
+            const options = getOptions(q.a);
+            optionsContainer.innerHTML = '';
+            const selectedIdx = userAnswers[currentIndex];
+            options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt;
+                btn.dataset.idx = idx;
+                if (selectedIdx !== null) {
+                    btn.disabled = true;
+                    if (idx === options.indexOf(q.a)) btn.classList.add('show-correct');
+                    if (idx === selectedIdx && idx !== options.indexOf(q.a)) btn.classList.add('selected-wrong');
+                    if (idx === selectedIdx && idx === options.indexOf(q.a)) btn.classList.add('selected-correct');
+                }
+                btn.addEventListener('click', () => handleOptionClick(idx, options));
+                optionsContainer.appendChild(btn);
+            });
+
+            // Feedback
+            if (selectedIdx !== null) {
+                const isCorrect = options[selectedIdx] === q.a;
+                feedbackText.innerHTML = isCorrect ?
+                    '✅ Correct! Well done! 🌟' :
+                    `❌ Oops! The correct answer was ${q.a}`;
+            } else {
+                feedbackText.innerHTML = '💡 Choose an answer!';
+            }
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === total - 1;
+            updateStats();
+        }
+
+        function handleOptionClick(selectedIdx, options) {
+            if (userAnswers[currentIndex] !== null) return;
+            const q = shuffled[currentIndex];
+            const isCorrect = options[selectedIdx] === q.a;
+            attempts++;
+            userAnswers[currentIndex] = selectedIdx;
+            if (isCorrect) { correctCount++;
+                score += 10; }
+            renderQuestion();
+            updateStats();
+            if (isCorrect) {
+                celebTitle.textContent = '🎉 Correct!';
+                celebMsg.textContent = `+10 points! (${correctCount} correct)`;
+                celebration.classList.add('show');
+                setTimeout(() => celebration.classList.remove('show'), 1000);
+                if (currentIndex < shuffled.length - 1) {
+                    setTimeout(() => navigate(1), 900);
+                }
+            }
+        }
+
+        function navigate(delta) {
+            const newIdx = currentIndex + delta;
+            if (newIdx < 0 || newIdx >= shuffled.length) return;
+            currentIndex = newIdx;
+            renderQuestion();
+        }
+
+        function updateStats() {
+            const total = shuffled.length;
+            const answered = userAnswers.filter(a => a !== null).length;
+            scoreNum.textContent = score;
+            correctNum.textContent = correctCount;
+            attemptNum.textContent = attempts;
+            scoreBadge.textContent = `⭐ ${correctCount} / ${answered}`;
+            progressBar.style.width = `${(answered / total) * 100}%`;
+        }
+
+        function resetQuiz() {
+            if (!confirm('Reset all progress?')) return;
+            userAnswers.fill(null);
+            score = 0;
+            correctCount = 0;
+            attempts = 0;
+            currentIndex = 0;
+            renderQuestion();
+            updateStats();
+            feedbackText.innerHTML = '🔄 Quiz reset! Start fresh.';
+            celebration.classList.remove('show');
+        }
+
+        function closeCeleb() { celebration.classList.remove('show'); }
+
+        // ================================================================
+        // BONUS SECTIONS – Toggle Answers
+        // ================================================================
+        function buildBonus(containerId, qaPairs) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            let html = '';
+            qaPairs.forEach((item, idx) => {
+                html += `<div class="qa-box">
+                    <div class="q">Q${idx+1}. ${item.q}</div>
+                    <button class="btn btn-sm btn-primary" onclick="toggleAnswer(this)">👀 Show Answer</button>
+                    <div class="a">${item.a}</div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function toggleAnswer(btn) {
+            const a = btn.nextElementSibling;
+            a.classList.toggle('show');
+            btn.textContent = a.classList.contains('show') ? '🙈 Hide' : '👀 Show Answer';
+        }
+
+        // ---- Number Properties ----
+        const propQA = [
+            { q: "34 + 58 = ___ and 58 + 34 = ___. Are they equal? (Yes/No)", a: "92, 92, Yes" },
+            { q: "12 × 7 = ___ and 7 × 12 = ___. Are they equal? (Yes/No)", a: "84, 84, Yes" },
+            { q: "45 + 19 = 19 + ___", a: "45" },
+            { q: "8 × 25 = ___ × 8", a: "25" },
+            { q: "True or False: 15 − 6 = 6 − 15", a: "False" },
+            { q: "True or False: 100 ÷ 5 = 5 ÷ 100", a: "False" },
+            { q: "(15 + 25) + 10 = ___ and 15 + (25 + 10) = ___", a: "50, 50" },
+            { q: "(2 × 5) × 6 = ___ and 2 × (5 × 6) = ___", a: "60, 60" },
+            { q: "8 + 12 + 20 = ___ (group any way)", a: "40" },
+            { q: "4 × 5 × 2 = ___ (group any way)", a: "40" },
+            { q: "6 × (10 + 4) = ___", a: "84" },
+            { q: "5 × (20 + 3) = ___", a: "115" },
+            { q: "7 × 23 = 7 × (20 + 3) = ___", a: "161" },
+            { q: "9 × 12 = 9 × (10 + 2) = ___", a: "108" },
+            { q: "47 + 0 = ___", a: "47" },
+            { q: "0 + 138 = ___", a: "138" },
+            { q: "56 × 1 = ___", a: "56" },
+            { q: "1 × 999 = ___", a: "999" },
+            { q: "78 × 0 = ___", a: "0" },
+            { q: "0 × 456 = ___", a: "0" }
+        ];
+
+        // ---- Mental Maths ----
+        const mentalQA = [
+            { q: "46 + 9 = ___ (Hint: 46+10−1)", a: "55" },
+            { q: "78 + 11 = ___ (Hint: 78+10+1)", a: "89" },
+            { q: "235 + 99 = ___ (Hint: 235+100−1)", a: "334" },
+            { q: "64 − 9 = ___ (Hint: 64−10+1)", a: "55" },
+            { q: "91 − 11 = ___ (Hint: 91−10−1)", a: "80" },
+            { q: "48 × 5 = ___ (Hint: 48×10÷2)", a: "240" },
+            { q: "126 × 5 = ___", a: "630" },
+            { q: "37 × 10 = ___", a: "370" },
+            { q: "8 × 100 = ___", a: "800" },
+            { q: "16 × 25 = ___ (Hint: 16×100÷4)", a: "400" },
+            { q: "Double 36 = ___", a: "72" },
+            { q: "Half of 84 = ___", a: "42" },
+            { q: "24 × 4 = ___ (double 24, then double again)", a: "96" },
+            { q: "25² = ___", a: "625" },
+            { q: "45² = ___", a: "2025" },
+            { q: "65² = ___", a: "4225" }
+        ];
+
+        // ---- Olympiad ----
+        const olympiadQA = [
+            { q: "Find the next two numbers: 2, 4, 6, 8, ___, ___", a: "10, 12" },
+            { q: "Find the next number: 5, 10, 20, 40, ___", a: "80" },
+            { q: "Find the next number: 1, 4, 9, 16, ___", a: "25" },
+            { q: "Magic square: [2, _, 6] [9, 5, 1] [4, 3, _] — fill missing", a: "Top-right=7, Bottom-right=8" },
+            { q: "Sara is 3 times as old as her brother. In 5 years, she'll be twice his age. How old are they now?",
+                a: "Sara=15, Brother=5" },
+            { q: "Sum of two numbers is 48, difference is 12. What are they?", a: "30 and 18" },
+            { q: "Meera is 5th from left and 8th from right. How many children?", a: "12" },
+            { q: "2-digit number: tens digit is twice units, sum of digits is 9. What number?", a: "63" },
+            { q: "A number is doubled, then 6 added, giving 26. What was the number?", a: "10" },
+            { q: "Next in pattern: 1, 1, 2, 3, 5, 8, ___", a: "13" },
+            { q: "Smallest number divisible by both 4 and 6", a: "12" },
+            { q: "Rahul has some marbles. If he gives 8, he has 15 left. How many now?", a: "23" },
+            { q: "144 apples equally in baskets of 12. How many baskets?", a: "12" },
+            { q: "Clock shows 3:00. Angle between hands?", a: "90°" },
+            { q: "Three consecutive numbers sum to 72. What are they?", a: "23, 24, 25" },
+            { q: "Garden 15m long, 9m wide. Perimeter and area?", a: "Perimeter=48m, Area=135 sq.m" },
+            { q: "Half of a number is 36. What is one-third of it?", a: "24" },
+            { q: "Next number: 100, 91, 82, 73, ___", a: "64" },
+            { q: "Pen ₹15, notebook ₹35. Priya buys 3 pens and 2 notebooks. Total?", a: "₹115" },
+            { q: "Even number >30 <40, sum of digits is 7. What number?", a: "34" }
+        ];
+
+        // ================================================================
+        // CERTIFICATE
+        // ================================================================
+        function editName() {
+            const name = prompt('Enter your name:', document.getElementById('certName').textContent);
+            if (name && name.trim() !== '') {
+                document.getElementById('certName').textContent = name.trim();
+            }
+        }
+
+        function printCert() {
+            window.print();
+        }
+
+        // ================================================================
+        // TAB SWITCHING
+        // ================================================================
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById(this.dataset.tab).classList.add('active');
+            });
+        });
+
+        // ================================================================
+        // INIT
+        // ================================================================
+        renderQuestion();
+        updateStats();
+
+        // Build bonus sections
+        buildBonus('propQ1', propQA.slice(0, 5));
+        buildBonus('propQ2', propQA.slice(5, 10));
+        buildBonus('propQ3', propQA.slice(10, 14));
+        buildBonus('propQ4', propQA.slice(14, 20));
+        buildBonus('mentalQ1', mentalQA.slice(0, 5));
+        buildBonus('mentalQ2', mentalQA.slice(5, 10));
+        buildBonus('mentalQ3', mentalQA.slice(10, 13));
+        buildBonus('mentalQ4', mentalQA.slice(13, 16));
+
+        // Olympiad
+        const olympiadContainer = document.getElementById('olympiadContainer');
+        let olympiadHTML = '<div class="bonus-section">';
+        olympiadQA.forEach((item, idx) => {
+            olympiadHTML += `<div class="qa-box">
+                <div class="q">Q${idx+1}. ${item.q}</div>
+                <button class="btn btn-sm btn-primary" onclick="toggleAnswer(this)">👀 Show Answer</button>
+                <div class="a">${item.a}</div>
+            </div>`;
+        });
+        olympiadHTML += '</div>';
+        olympiadContainer.innerHTML = olympiadHTML;
+
+        // Events
+        prevBtn.addEventListener('click', () => navigate(-1));
+        nextBtn.addEventListener('click', () => navigate(1));
+        resetBtn.addEventListener('click', resetQuiz);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+            if (e.key === 'r' || e.key === 'R') resetQuiz();
+            const num = parseInt(e.key);
+            if (num >= 1 && num <= 4) {
+                const btns = optionsContainer.querySelectorAll('.option-btn');
+                if (btns[num - 1] && !btns[num - 1].disabled) {
+                    const idx = parseInt(btns[num - 1].dataset.idx);
+                    const options = shuffled[currentIndex] ? getOptions(shuffled[currentIndex].a) : [];
+                    handleOptionClick(idx, options);
+                }
+            }
+        });
+
+        console.log('✅ 100 Mixed Word Problems + Bonus loaded!');
+    </script>
+
+</body>
+</html>
