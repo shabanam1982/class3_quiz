@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Science Practice - Class 3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%); min-height: 100vh; padding: 12px; color: #333; }
+  .app { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
+  header { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: #fff; padding: 18px 16px; text-align: center; position: relative; }
+  header a.back { position: absolute; left: 12px; top: 12px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+  header h1 { font-size: 22px; margin-bottom: 6px; }
+  header p { font-size: 13px; opacity: 0.9; }
+  .score-bar { background: #fff8e7; padding: 12px; display: flex; justify-content: space-around; border-bottom: 3px solid #ffd93d; font-weight: bold; }
+  .score-bar .item { text-align: center; }
+  .score-bar .big { font-size: 24px; color: #ff6b6b; }
+  .score-bar .lbl { font-size: 11px; color: #666; }
+  .tabs { display: flex; overflow-x: auto; background: #f8f9fa; border-bottom: 2px solid #ddd; }
+  .tab { flex: 0 0 auto; padding: 12px 14px; cursor: pointer; border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: bold; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; }
+  .tab.active { color: #56ab2f; border-bottom-color: #56ab2f; background: #fff; }
+  .section { padding: 16px; display: none; }
+  .section.active { display: block; }
+  .section h2 { color: #56ab2f; font-size: 18px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px dashed #ffd93d; }
+  .hint { background: #e3f2fd; padding: 10px; border-radius: 10px; font-size: 13px; color: #1565c0; margin: 10px 0; }
+  .exercise { background: #fafafa; border-radius: 12px; padding: 14px; margin: 14px 0; border-left: 5px solid #56ab2f; }
+  .exercise h3 { font-size: 15px; margin-bottom: 10px; }
+  .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+  .option-btn { padding: 12px; background: #fff; border: 2px solid #ddd; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .option-btn.correct { background: #4caf50; color: #fff; border-color: #388e3c; }
+  .option-btn.wrong { background: #f44336; color: #fff; border-color: #d32f2f; }
+  .option-btn:disabled { cursor: not-allowed; opacity: 0.8; }
+  .qa-box { background: #fff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #56ab2f; }
+  .qa-box .q { font-weight: bold; margin-bottom: 8px; }
+  .btn { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; margin: 6px 4px; }
+  .a { color: #2e7d32; margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 8px; display: none; font-weight: bold; line-height: 1.5; }
+  .a.show { display: block; }
+  .fill-input { width: 140px; padding: 6px 10px; border: 2px dashed #56ab2f; border-radius: 8px; font-family: inherit; font-size: 14px; background: #fff9c4; text-align: center; }
+  .fill-input.correct { background: #c8e6c9; border-color: #4caf50; border-style: solid; }
+  .fill-input.wrong { background: #ffcdd2; border-color: #f44336; border-style: solid; }
+  .celebration { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; z-index: 100; display: none; }
+  .celebration.show { display: block; animation: pop 0.4s; }
+  @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+  .celebration .emoji { font-size: 55px; }
+  .celebration h2 { color: #56ab2f; margin: 8px 0; }
+  .footer { text-align: center; padding: 12px; font-size: 12px; color: #999; background: #f8f9fa; }
+  .match-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+  .match-item { padding: 10px; background: #fff; border: 2px solid #ddd; border-radius: 8px; text-align: center; font-weight: bold; cursor: pointer; font-size: 13px; }
+  .match-item.selected { background: #ffd93d; border-color: #ffa500; }
+  .match-item.matched { background: #c8e6c9; border-color: #4caf50; cursor: default; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <a href="index.html" class="back">← Home</a>
+    <h1>🌍 Social Science Practice</h1>
+    <p>Class 3 — Mid-term (Ch 4 to Ch 7)</p>
+  </header>
+
+  <div class="score-bar">
+    <div class="item"><div class="big" id="scoreVal">0</div><div class="lbl">⭐ Score</div></div>
+    <div class="item"><div class="big" id="correctVal">0</div><div class="lbl">✅ Correct</div></div>
+    <div class="item"><div class="big" id="attemptVal">0</div><div class="lbl">📝 Tries</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('s1', this)">Ch 4: Air</button>
+    <button class="tab" onclick="showSection('s2', this)">Ch 5: Water</button>
+    <button class="tab" onclick="showSection('s3', this)">Ch 6: Community</button>
+    <button class="tab" onclick="showSection('s4', this)">Ch 7: Occupations</button>
+  </div>
+
+  <div class="section active" id="s1">
+    <h2>Chapter 4: The Air Around Us 💨</h2>
+    <div class="hint">💡 Learn about air, wind, and how we use them.</div>
+    <div class="exercise"><h3>Q1. Can we see air?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Yes</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">No, but we can feel it</button>
+      </div></div>
+    <div class="exercise"><h3>Q2. Which shows that air is moving?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Sun shining</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Leaves shaking</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Rain falling</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Stars twinkling</button>
+      </div></div>
+    <div class="exercise"><h3>Q3. Moving air is called ___?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Water</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Wind</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Fire</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Rain</button>
+      </div></div>
+    <div class="exercise"><h3>Q4. We need air to ___?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, true)">Breathe</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Eat</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Sleep</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Read</button>
+      </div></div>
+    <div class="exercise"><h3>Q5. Which one flies using air?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">🐟 Fish</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">🪁 Kite</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">🐌 Snail</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">🚗 Car</button>
+      </div></div>
+    <div class="exercise"><h3>Q6. Fill in blank: A ___ works because of wind.</h3>
+      <input class="fill-input" data-answer="windmill" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: Has big blades that spin. Ends with "mill".</p></div>
+    <div class="exercise"><h3>📖 Short Answer Questions</h3>
+      <div class="qa-box"><div class="q">1. Write two uses of air.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Air helps us breathe.<br>2. Air helps kites, windmills, and boats to move.</div></div>
+      <div class="qa-box"><div class="q">2. How do we know air is around us?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">We cannot see air, but we can feel it. When leaves shake or clothes fly, we know air is around us.</div></div></div>
+  </div>
+
+  <div class="section" id="s2">
+    <h2>Chapter 5: Water We Drink 💧</h2>
+    <div class="hint">💡 Learn about water sources and saving water.</div>
+    <div class="exercise"><h3>Q1. Which is a source of water?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Sun</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">River</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Rock</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Tree</button>
+      </div></div>
+    <div class="exercise"><h3>Q2. Which is NOT a source of water?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Well</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Pond</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Mountain</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Lake</button>
+      </div></div>
+    <div class="exercise"><h3>Q3. Clean drinking water should be ___?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Muddy</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Clear and colourless</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Green</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Yellow</button>
+      </div></div>
+    <div class="exercise"><h3>Q4. Rain water is collected in ___?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, true)">Tanks and lakes</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Books</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Cars</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Trees</button>
+      </div></div>
+    <div class="exercise"><h3>Q5. Which is a good habit to save water?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Leave tap running</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Close tap after use</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Waste water</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Throw clean water</button>
+      </div></div>
+    <div class="exercise"><h3>Q6. Fill in blank: We should ___ water because it is precious.</h3>
+      <input class="fill-input" data-answer="save" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 4 letters, means "to keep safe".</p></div>
+    <div class="exercise"><h3>📖 Short Answer Questions</h3>
+      <div class="qa-box"><div class="q">1. Name four sources of water.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. River<br>2. Well<br>3. Pond / Lake<br>4. Rain</div></div>
+      <div class="qa-box"><div class="q">2. Write two uses of water.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. We drink water to stay healthy.<br>2. We use water for cooking, bathing, washing, and watering plants.</div></div>
+      <div class="qa-box"><div class="q">3. How can we save water?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Close the tap after use.<br>2. Do not waste water while brushing or bathing.<br>3. Fix leaking taps.</div></div></div>
+  </div>
+
+  <div class="section" id="s3">
+    <h2>Chapter 6: My Community 👨‍👩‍👧‍👦</h2>
+    <div class="hint">💡 A community is a group of people who live together and help each other.</div>
+    <div class="exercise"><h3>Q1. A group of people living together is called a ___?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">School</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Community</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Shop</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Garden</button>
+      </div></div>
+    <div class="exercise"><h3>Q2. Who is a member of your family community?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">A stranger</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Your mother</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">A shopkeeper</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">A driver</button>
+      </div></div>
+    <div class="exercise"><h3>Q3. Who helps you learn in school?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Doctor</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Teacher</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Farmer</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Postman</button>
+      </div></div>
+    <div class="exercise"><h3>Q4. Who keeps our streets clean?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, true)">Sweeper</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Doctor</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Teacher</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Cook</button>
+      </div></div>
+    <div class="exercise"><h3>Q5. Which is good behavior in community?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Fight neighbours</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Help each other</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Throw garbage</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Make loud noise</button>
+      </div></div>
+    <div class="exercise"><h3>Q6. Fill in blank: In our community we should ___ each other.</h3>
+      <input class="fill-input" data-answer="help" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 4 letters, when someone does you a favour.</p></div>
+    <div class="exercise"><h3>📖 Short Answer Questions</h3>
+      <div class="qa-box"><div class="q">1. What is a community?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">A community is a group of people who live together in one place and help each other. Family, neighbours, and friends are part of our community.</div></div>
+      <div class="qa-box"><div class="q">2. Name three helpers in your community.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Teacher (helps us learn)<br>2. Doctor (treats us when sick)<br>3. Postman (brings letters)</div></div>
+      <div class="qa-box"><div class="q">3. How can you be a good community member?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Help others when they need.<br>2. Keep surroundings clean.<br>3. Respect elders and be kind to everyone.</div></div></div>
+  </div>
+
+  <div class="section" id="s4">
+    <h2>Chapter 7: Occupations 👩‍⚕️👨‍🌾</h2>
+    <div class="hint">💡 Occupation means the work people do to earn money.</div>
+    <div class="exercise"><h3>Q1. Who grows food for us?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, true)">Farmer</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Driver</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Tailor</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Barber</button>
+      </div></div>
+    <div class="exercise"><h3>Q2. Who treats sick people?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Teacher</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Cook</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Doctor</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Painter</button>
+      </div></div>
+    <div class="exercise"><h3>Q3. Who stitches clothes?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Carpenter</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Tailor</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Farmer</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Cobbler</button>
+      </div></div>
+    <div class="exercise"><h3>Q4. Who makes things from wood?</h3>
+      <div class="options">
+        <button class="option-btn" onclick="checkOpt(this, false)">Barber</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Doctor</button>
+        <button class="option-btn" onclick="checkOpt(this, true)">Carpenter</button>
+        <button class="option-btn" onclick="checkOpt(this, false)">Tailor</button>
+      </div></div>
+    <div class="exercise"><h3>Q5. Match Occupations with Their Tools</h3>
+      <p style="margin:8px 0; font-size:13px;">Tap one from the left, then tap its matching tool.</p>
+      <div class="match-list" id="matchArea"></div>
+      <p id="matchStatus" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p></div>
+    <div class="exercise"><h3>Q6. Fill in blank: A person who cuts hair is a ___.</h3>
+      <input class="fill-input" data-answer="barber" placeholder="?" onchange="checkFill(this)">
+      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 6 letters, works in a salon.</p></div>
+    <div class="exercise"><h3>📖 Short Answer Questions</h3>
+      <div class="qa-box"><div class="q">1. What is occupation?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Occupation is the work that people do to earn money and help others. Farming, teaching, and doctoring are occupations.</div></div>
+      <div class="qa-box"><div class="q">2. Write any four occupations.</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">1. Farmer<br>2. Doctor<br>3. Teacher<br>4. Tailor</div></div>
+      <div class="qa-box"><div class="q">3. Why are farmers important to us?</div>
+        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
+        <div class="a">Farmers grow food like rice, wheat, fruits, and vegetables for us. Without farmers, we cannot get food. So farmers are very important.</div></div></div>
+  </div>
+
+  <div class="footer">⭐ Study well and score high! ⭐<br>
+    <button class="btn" onclick="resetAll()">🔄 Restart All</button></div>
+</div>
+
+<div class="celebration" id="celebration">
+  <div class="emoji">🎉</div><h2 id="celebTitle">Well done!</h2>
+  <p id="celebMsg">Great answer!</p>
+  <button class="btn" onclick="closeCeleb()">Next</button>
+</div>
+
+<script>
+  let score = 0, correct = 0, attempts = 0;
+  function updateScore() {
+    document.getElementById('scoreVal').textContent = score;
+    document.getElementById('correctVal').textContent = correct;
+    document.getElementById('attemptVal').textContent = attempts;
+  }
+  function celebrate(t, m) {
+    document.getElementById('celebTitle').textContent = t;
+    document.getElementById('celebMsg').textContent = m;
+    document.getElementById('celebration').classList.add('show');
+  }
+  function closeCeleb() { document.getElementById('celebration').classList.remove('show'); }
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+  function checkOpt(btn, isCorrect) {
+    if (btn.disabled) return;
+    attempts++;
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+    if (isCorrect) { btn.classList.add('correct'); correct++; score += 10; celebrate('Correct! ✅', '+10 points!'); }
+    else { btn.classList.add('wrong'); parent.querySelectorAll('.option-btn').forEach(b => { if (b.getAttribute('onclick').includes('true')) b.classList.add('correct'); }); }
+    updateScore();
+  }
+  function checkFill(inp) {
+    attempts++;
+    const val = inp.value.trim().toLowerCase();
+    if (val === inp.dataset.answer.toLowerCase()) { inp.classList.remove('wrong'); inp.classList.add('correct'); correct++; score += 10; celebrate('Correct! ✅', '+10 points!'); }
+    else { inp.classList.remove('correct'); inp.classList.add('wrong'); }
+    updateScore();
+  }
+  function toggleA(btn) {
+    const a = btn.nextElementSibling;
+    a.classList.toggle('show');
+    btn.textContent = a.classList.contains('show') ? '🙈 Hide' : '👀 See Answer';
+  }
+  const matchPairs = [
+    { job: 'Farmer 👨‍🌾', tool: 'Plough 🌾' },
+    { job: 'Doctor 👩‍⚕️', tool: 'Stethoscope 🩺' },
+    { job: 'Carpenter 🔨', tool: 'Hammer & wood' },
+    { job: 'Tailor 🧵', tool: 'Needle & cloth' }
+  ];
+  let selectedJob = null, matchedCount = 0;
+  function buildMatch() {
+    const area = document.getElementById('matchArea');
+    area.innerHTML = '';
+    const jobs = matchPairs.map(p => p.job);
+    const tools = [...matchPairs.map(p => p.tool)].sort(() => Math.random() - 0.5);
+    const leftCol = document.createElement('div');
+    jobs.forEach(j => {
+      const d = document.createElement('div');
+      d.className = 'match-item'; d.textContent = j;
+      d.dataset.type = 'job'; d.dataset.value = j;
+      d.onclick = () => selectJob(d);
+      leftCol.appendChild(d);
+    });
+    const rightCol = document.createElement('div');
+    tools.forEach(t => {
+      const d = document.createElement('div');
+      d.className = 'match-item'; d.textContent = t;
+      d.dataset.type = 'tool'; d.dataset.value = t;
+      d.onclick = () => selectTool(d);
+      rightCol.appendChild(d);
+    });
+    area.appendChild(leftCol); area.appendChild(rightCol);
+  }
+  function selectJob(el) {
+    if (el.classList.contains('matched')) return;
+    document.querySelectorAll('[data-type="job"]').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected'); selectedJob = el;
+  }
+  function selectTool(el) {
+    if (el.classList.contains('matched') || !selectedJob) return;
+    attempts++;
+    const jobVal = selectedJob.dataset.value;
+    const toolVal = el.dataset.value;
+    const correctPair = matchPairs.find(p => p.job === jobVal);
+    if (correctPair && correctPair.tool === toolVal) {
+      selectedJob.classList.remove('selected'); selectedJob.classList.add('matched');
+      el.classList.add('matched'); matchedCount++; correct++; score += 10;
+      updateScore();
+      if (matchedCount === matchPairs.length) { celebrate('All matched! 🎉', 'Perfect job!'); document.getElementById('matchStatus').textContent = '🎉 All matched!'; }
+      selectedJob = null;
+    } else {
+      el.style.background = '#ffcdd2';
+      setTimeout(() => { el.style.background = ''; }, 500);
+    }
+  }
+  function resetAll() { if (!confirm('This will reset all scores. Continue?')) return; location.reload(); }
+  buildMatch(); updateScore();
+</script>
+</body>
+</html>
