@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>📚 Complete Grade 3 Math Workbook</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f5efe8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif;
+      padding: 10px;
+      min-height: 100vh;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #fffbf5;
+      border-radius: 30px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      padding: 16px 14px 24px;
+      border: 4px solid #f0d5b8;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      color: #4d2e1b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: #fae3cd;
+      padding: 8px 14px;
+      border-radius: 60px;
+      margin-top: -6px;
+      border: 3px solid #c7956b;
+    }
+    h1 span { font-size: 1rem; background: #eacab0; padding: 0 12px; border-radius: 60px; }
+    .chapter-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      margin: 12px 0 8px;
+    }
+    .ch-btn {
+      background: #ecdac8;
+      border: 2px solid #b58a6a;
+      border-radius: 30px;
+      padding: 4px 10px;
+      font-weight: 700;
+      font-size: 0.7rem;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #8f6b4f;
+      transition: 0.05s linear;
+      font-family: inherit;
+      touch-action: manipulation;
+    }
+    .ch-btn.active {
+      background: #fccd9c;
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #8f6b4f;
+      border-color: #6d4c34;
+    }
+    .ch-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #6d4c34; }
+    .quiz-panel {
+      background: #fcf3e8;
+      border-radius: 30px;
+      padding: 14px 12px;
+      border: 3px solid #dbb48f;
+      margin-top: 6px;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .chapter-title {
+      background: #dbb088;
+      padding: 3px 16px;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2d1a0e;
+      border: 2px solid #a47a59;
+    }
+    .q-counter {
+      background: #c7a17e;
+      padding: 3px 14px;
+      border-radius: 40px;
+      font-weight: 700;
+      color: #2a1a0e;
+      border: 2px solid #8b684b;
+      font-size: 0.85rem;
+    }
+    .question-box {
+      background: #fff9f0;
+      padding: 14px 16px;
+      border-radius: 30px;
+      border: 3px solid #cb9f7a;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #2f1c10;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      word-break: break-word;
+    }
+    .question-box .q-label {
+      background: #f0d5bc;
+      padding: 2px 12px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #4d2f1c;
+      white-space: nowrap;
+    }
+    .work-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 8px;
+    }
+    .scratchpad {
+      flex: 2;
+      min-width: 180px;
+      background: #fefcf7;
+      border: 3px dashed #b48a68;
+      border-radius: 20px;
+      padding: 8px;
+      min-height: 100px;
+    }
+    .scratchpad textarea {
+      width: 100%;
+      height: 80px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      resize: vertical;
+      padding: 4px;
+      color: #1f130b;
+    }
+    .scratchpad .hint {
+      font-size: 0.65rem;
+      color: #7a5d45;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 2px;
+    }
+    .answer-area {
+      flex: 1;
+      min-width: 130px;
+      background: #f7ede2;
+      border-radius: 20px;
+      padding: 10px 12px;
+      border: 3px solid #b48a68;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .answer-area label {
+      font-weight: 600;
+      color: #3f281a;
+      font-size: 0.85rem;
+    }
+    .answer-area input {
+      padding: 8px 10px;
+      border-radius: 40px;
+      border: 3px solid #b48a68;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: center;
+      background: white;
+      outline: none;
+      font-family: inherit;
+      width: 100%;
+    }
+    .answer-area input:focus { border-color: #6d4c34; background: #fff7e8; }
+    .btn-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .btn {
+      background: #e8cfb8;
+      border: none;
+      border-radius: 40px;
+      padding: 6px 14px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: 2px solid #9b765a;
+      box-shadow: 0 4px 0 #7a5b44;
+      cursor: pointer;
+      transition: 0.05s linear;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      touch-action: manipulation;
+    }
+    .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #7a5b44; }
+    .btn-primary { background: #fcc28a; border-color: #b87a47; box-shadow: 0 4px 0 #8f5f37; }
+    .btn-success { background: #a3d6a3; border-color: #4d8f4d; box-shadow: 0 4px 0 #316931; }
+    .btn-danger { background: #f7b2b2; border-color: #b14a4a; box-shadow: 0 4px 0 #7a3232; }
+    .feedback-box {
+      background: #f5e4d3;
+      border-radius: 30px;
+      padding: 8px 16px;
+      font-size: 1rem;
+      font-weight: 500;
+      border: 3px solid #b78b68;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+      flex-wrap: wrap;
+    }
+    .feedback-box .result {
+      background: #e2ccb8;
+      padding: 2px 14px;
+      border-radius: 40px;
+    }
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .score-badge {
+      background: #7ba37b;
+      padding: 4px 16px;
+      border-radius: 40px;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      border: 3px solid #4f754f;
+      box-shadow: 0 4px 0 #2f532f;
+    }
+    .footer-note {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: #5b3f2b;
+      font-weight: 500;
+    }
+    .clear-btn { background: #e2c7b0; padding: 2px 10px; font-size: 0.7rem; }
+
+    /* Home link */
+    .home-link {
+      display: inline-block;
+      background: #dbb088;
+      color: #2d1a0e;
+      text-decoration: none;
+      padding: 7px 18px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: 2px solid #9b765a;
+      margin-bottom: 8px;
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      background: #e8d7c6;
+      border-radius: 40px;
+      height: 12px;
+      overflow: hidden;
+      margin: 8px 0 4px;
+      border: 2px solid #b48a68;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #7ba37b, #b87a47);
+      border-radius: 40px;
+      transition: width 0.3s ease;
+    }
+    .progress-label { font-size: 0.75rem; color: #5b3f2b; text-align: center; font-weight: 600; }
+
+    /* Attempt counter chip */
+    .tries-chip {
+      background: #f0d5bc; padding: 2px 12px; border-radius: 40px;
+      font-size: 0.75rem; font-weight: 700; color: #6b4020;
+    }
+
+    /* ============ MOBILE PHONES (up to 600px) ============ */
+    @media (max-width: 600px) {
+      body { padding: 6px; }
+      .container { padding: 14px 12px 20px; border-radius: 22px; }
+      h1 { font-size: 1.2rem; padding: 8px 12px; }
+      h1 span { font-size: 0.85rem; }
+
+      /* Question text stays BIG for children */
+      .question-box { font-size: 1.1rem; padding: 14px; line-height: 1.6; }
+      .question-box .q-label { font-size: 0.78rem; }
+
+      /* Chapter buttons scroll sideways instead of shrinking tiny */
+      .chapter-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 6px;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .chapter-nav::-webkit-scrollbar { display: none; }
+      .ch-btn {
+        font-size: 0.82rem;
+        padding: 9px 15px;
+        flex: 0 0 auto;
+        min-height: 42px;
+      }
+
+      .work-area { flex-direction: column; }
+      .chapter-title { font-size: 1rem; }
+      .scratchpad textarea { height: 90px; font-size: 1rem; }
+      .answer-area input { font-size: 1.15rem; padding: 12px 10px; min-height: 48px; }
+      .btn { padding: 11px 18px; font-size: 0.85rem; min-height: 44px; }
+      .clear-btn { padding: 5px 12px; font-size: 0.72rem; min-height: 30px; }
+      .score-badge { font-size: 0.9rem; padding: 4px 14px; }
+      .feedback-box { font-size: 0.98rem; padding: 10px 14px; }
+      .q-counter { font-size: 0.85rem; }
+    }
+
+    /* ============ TABLETS (601px to 1024px) ============ */
+    @media (min-width: 601px) and (max-width: 1024px) {
+      body { padding: 14px; }
+      .container { max-width: 760px; padding: 20px 18px 28px; }
+      h1 { font-size: 1.6rem; }
+      .question-box { font-size: 1.18rem; line-height: 1.65; padding: 16px 18px; }
+      .ch-btn { font-size: 0.82rem; padding: 8px 15px; min-height: 42px; }
+      .answer-area input { font-size: 1.2rem; min-height: 48px; }
+      .scratchpad textarea { height: 100px; font-size: 1.05rem; }
+      .btn { padding: 10px 20px; font-size: 0.9rem; min-height: 44px; }
+      .feedback-box { font-size: 1.05rem; }
+    }
+
+    /* ============ LAPTOP / DESKTOP (1025px and above) ============ */
+    @media (min-width: 1025px) {
+      body { padding: 24px; }
+      .container { max-width: 1000px; padding: 24px 26px 32px; }
+      h1 { font-size: 1.9rem; }
+      .question-box { font-size: 1.22rem; line-height: 1.7; padding: 18px 22px; }
+      .ch-btn { font-size: 0.85rem; padding: 8px 16px; }
+      .ch-btn:hover { background: #f8e0c6; }
+      .answer-area input { font-size: 1.25rem; }
+      .scratchpad textarea { height: 120px; font-size: 1.05rem; }
+      .btn { font-size: 0.95rem; padding: 10px 22px; }
+      .btn:hover:not(:disabled) { filter: brightness(1.06); }
+      .feedback-box { font-size: 1.08rem; }
+    }
+
+    /* ============ SMALL PHONES (under 380px) ============ */
+    @media (max-width: 379px) {
+      .question-box { font-size: 1.02rem; padding: 12px; }
+      h1 { font-size: 1.05rem; }
+      .btn { padding: 10px 13px; font-size: 0.78rem; }
+      .btn-group { gap: 5px; }
+      .nav-row { gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <a href="index.html" class="home-link">← Home</a>
+  <h1>📐 New Pinnacle <span>Grade 3</span></h1>
+  <div class="chapter-nav" id="chapterNav"></div>
+  <div class="quiz-panel">
+    <div class="top-bar">
+      <span class="chapter-title" id="chapterTitle">🌟 Numbers</span>
+      <span class="q-counter" id="qCounter">Q1 / 15</span>
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">0 of 0 done in this chapter</div>
+    <div class="question-box" id="questionBox">
+      <span class="q-label" id="qLabel">Ex 1A</span>
+      <span id="questionText">Loading...</span>
+    </div>
+    <div class="work-area">
+      <div class="scratchpad">
+        <div class="hint">
+          <span>✏️ Show your work</span>
+          <button class="btn clear-btn" id="clearScratchBtn">Clear</button>
+        </div>
+        <textarea id="scratchArea" placeholder="Write your solution steps..."></textarea>
+      </div>
+      <div class="answer-area">
+        <label>📝 Your Answer</label>
+        <input type="text" id="answerInput" placeholder="Type answer">
+        <div class="btn-group">
+          <button class="btn btn-primary" id="checkBtn">✅ Check</button>
+          <button class="btn btn-success" id="showAnswerBtn">💡 Show</button>
+        </div>
+      </div>
+    </div>
+    <div class="feedback-box" id="feedbackBox">
+      <span>💬</span>
+      <span class="result" id="feedbackText">Type your answer and click Check</span>
+    </div>
+    <div class="nav-row">
+      <button class="btn" id="prevBtn">◀ Prev</button>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="btn btn-danger" id="resetBtn">🔄 Reset</button>
+        <button class="btn" id="nextBtn">Next ▶</button>
+      </div>
+      <span class="score-badge" id="scoreDisplay">⭐ 0 / 0</span>
+    </div>
+    <div class="footer-note">🧮 Solve on paper, type answer, then check!</div>
+  </div>
+</div>
+<script>
+// ================================================================
+// COMPLETE QUESTION BANK – All Exercises + Mental Maths + HOTS + Olympiad
+// ================================================================
+const questionBank = [
+  // ========== CHAPTER 1: NUMBERS ==========
+  { chapter:1, exercise:"Ex 1A", q:"Write the number from blocks: 1 thousand + 4 hundreds + 7 tens + 9 ones", answer:"1479" },
+  { chapter:1, exercise:"Ex 1A", q:"Write the number from blocks: 3 thousands + 6 hundreds + 8 tens + 2 ones", answer:"3682" },
+  { chapter:1, exercise:"Ex 1A", q:"Write the number name: 6514", answer:"six thousand five hundred fourteen" },
+  { chapter:1, exercise:"Ex 1A", q:"Write the number name: 7490", answer:"seven thousand four hundred ninety" },
+  { chapter:1, exercise:"Ex 1A", q:"Write the number: Seven thousand two hundred fifteen", answer:"7215" },
+  { chapter:1, exercise:"Ex 1A", q:"Write the number: Eight thousand three hundred one", answer:"8301" },
+  { chapter:1, exercise:"Ex 1B", q:"Place value of underlined digit in 5894 (underline 4)", answer:"4" },
+  { chapter:1, exercise:"Ex 1B", q:"Place value of underlined digit in 1736 (underline 7)", answer:"700" },
+  { chapter:1, exercise:"Ex 1B", q:"Face value of underlined digit in 2571 (underline 2)", answer:"2" },
+  { chapter:1, exercise:"Ex 1C", q:"Successor of 4893", answer:"4894" },
+  { chapter:1, exercise:"Ex 1C", q:"Predecessor of 5309", answer:"5308" },
+  { chapter:1, exercise:"Ex 1D", q:"Compare: 5631 ___ 6533 (use <, > or =)", answer:"<" },
+  { chapter:1, exercise:"Ex 1D", q:"Compare: 5732 ___ 2475", answer:">" },
+  { chapter:1, exercise:"Ex 1D", q:"Compare: 7900 ___ 7900", answer:"=" },
+  { chapter:1, exercise:"Ex 1E", q:"Greatest 4-digit number using 1,5,4,2", answer:"5421" },
+  { chapter:1, exercise:"Ex 1E", q:"Smallest 4-digit number using 5,6,9,3", answer:"3569" },
+  { chapter:1, exercise:"Ex 1E", q:"Greatest number using 9,6,0,7", answer:"9760" },
+  { chapter:1, exercise:"Ex 1G", q:"Round 1543 to nearest tens", answer:"1540" },
+  { chapter:1, exercise:"Ex 1G", q:"Round 2684 to nearest hundreds", answer:"2700" },
+  { chapter:1, exercise:"Ex 1H", q:"Write Hindu-Arabic for XIV", answer:"14" },
+  { chapter:1, exercise:"Ex 1H", q:"Write Roman numeral for 17", answer:"XVII" },
+  { chapter:1, exercise:"Mental Maths", q:"Which digit makes a number even? (0,2,4,6,8) – type one", answer:"0" },
+  { chapter:1, exercise:"Mental Maths", q:"Circle the odd number: 1501, 5002, 2005, 9919, 7272, 2727", answer:"1501" },
+  { chapter:1, exercise:"HOTS", q:"Digit at Thousands place is between 8 and 10. Ones place is 7 less than 9. Tens=2, Hundreds=4+5. Find the number.", answer:"9272" },
+  { chapter:1, exercise:"Subject Enrichment", q:"Roman numeral XXXIX = ?", answer:"39" },
+  { chapter:1, exercise:"Olympiad", q:"Standard form of 5000 + 600 + 6", answer:"5606" },
+  { chapter:1, exercise:"Olympiad", q:"Smallest 4-digit number using 6,7,0,2 (once)", answer:"2067" },
+  { chapter:1, exercise:"Olympiad", q:"Hindu-Arabic for XIX", answer:"19" },
+
+  // ========== CHAPTER 2: ADDITION ==========
+  { chapter:2, exercise:"Ex 2A", q:"Add: 253 + 422", answer:"675" },
+  { chapter:2, exercise:"Ex 2A", q:"Add: 352 + 248", answer:"600" },
+  { chapter:2, exercise:"Ex 2A", q:"Add: 569 + 445", answer:"1014" },
+  { chapter:2, exercise:"Ex 2A", q:"Add: 582 + 259", answer:"841" },
+  { chapter:2, exercise:"Ex 2A", q:"Add: 825 + 597", answer:"1422" },
+  { chapter:2, exercise:"Ex 2B", q:"Add: 2817 + 2993", answer:"5810" },
+  { chapter:2, exercise:"Ex 2B", q:"Add: 3675 + 2678", answer:"6353" },
+  { chapter:2, exercise:"Ex 2B", q:"Add: 962 + 5298", answer:"6260" },
+  { chapter:2, exercise:"Ex 2B", q:"Add: 4892 + 2743", answer:"7635" },
+  { chapter:2, exercise:"Ex 2C", q:"Add: 2187 + 2539 + 425", answer:"5151" },
+  { chapter:2, exercise:"Ex 2C", q:"Add: 1012 + 2678 + 3675", answer:"7365" },
+  { chapter:2, exercise:"Ex 2C", q:"Add: 3246 + 5032 + 962", answer:"9240" },
+  { chapter:2, exercise:"Ex 2D", q:"Fill: 569 + 872 = 872 + ___", answer:"569" },
+  { chapter:2, exercise:"Ex 2D", q:"Fill: 2789 + ___ = 2789", answer:"0" },
+  { chapter:2, exercise:"Ex 2D", q:"Fill: ___ + 7892 = 7891", answer:"-1" },
+  { chapter:2, exercise:"Ex 2E", q:"Estimate sum to nearest tens: 282 + 54", answer:"340" },
+  { chapter:2, exercise:"Ex 2E", q:"Estimate sum to nearest hundreds: 108 + 253", answer:"400" },
+  { chapter:2, exercise:"Ex 2E", q:"Estimate sum to nearest hundreds: 3788 + 582", answer:"4400" },
+  { chapter:2, exercise:"Ex 2F", q:"Farmer: 1879 pumpkins, this year 762 more. Total this year?", answer:"2641" },
+  { chapter:2, exercise:"Ex 2F", q:"Toy shop: 2654 + 3578 toys in two months.", answer:"6232" },
+  { chapter:2, exercise:"Ex 2F", q:"Car dealer: 2634 + 2458 + 3562 cars in 3 years.", answer:"8654" },
+  { chapter:2, exercise:"Mental Maths", q:"456 + 10 = ?", answer:"466" },
+  { chapter:2, exercise:"Mental Maths", q:"4513 + 100 = ?", answer:"4613" },
+  { chapter:2, exercise:"HOTS", q:"Fill missing digits: 4_3_ + 4_5_ = 8689", answer:"4334" },
+  { chapter:2, exercise:"Olympiad", q:"Value of 'a' in 2a3 + 4a5 = 688", answer:"4" },
+  { chapter:2, exercise:"Olympiad", q:"5678 + ? = 6688", answer:"1010" },
+
+  // ========== CHAPTER 3: SUBTRACTION ==========
+  { chapter:3, exercise:"Ex 3A", q:"Subtract: 758 - 426", answer:"332" },
+  { chapter:3, exercise:"Ex 3A", q:"Subtract: 689 - 566", answer:"123" },
+  { chapter:3, exercise:"Ex 3A", q:"Subtract: 901 - 658", answer:"243" },
+  { chapter:3, exercise:"Ex 3A", q:"Subtract: 632 - 583", answer:"49" },
+  { chapter:3, exercise:"Ex 3A", q:"Subtract: 532 - 189", answer:"343" },
+  { chapter:3, exercise:"Ex 3B", q:"Subtract: 278 from 5623", answer:"5345" },
+  { chapter:3, exercise:"Ex 3B", q:"Subtract: 1254 from 7841", answer:"6587" },
+  { chapter:3, exercise:"Ex 3B", q:"Subtract: 5698 from 8201", answer:"2503" },
+  { chapter:3, exercise:"Ex 3C", q:"Subtract: 300 - 157", answer:"143" },
+  { chapter:3, exercise:"Ex 3D", q:"Solve: 508 - 194 + 103", answer:"417" },
+  { chapter:3, exercise:"Ex 3D", q:"Solve: 437 + 345 - 683 + 111", answer:"210" },
+  { chapter:3, exercise:"Ex 3D", q:"Solve: 652 - 584 + 241 + 132", answer:"441" },
+  { chapter:3, exercise:"Ex 3E", q:"Estimate difference to nearest tens: 87 - 23", answer:"70" },
+  { chapter:3, exercise:"Ex 3E", q:"Estimate difference to nearest hundreds: 654 - 114", answer:"500" },
+  { chapter:3, exercise:"Ex 3F", q:"Shop: 2673 chocolates, sold 1346. Left?", answer:"1327" },
+  { chapter:3, exercise:"Ex 3F", q:"Factory: 2564 scooters, sold 1683. Unsold?", answer:"881" },
+  { chapter:3, exercise:"Ex 3G", q:"Auditorium 2000 seats, 498 + 865 arrive. Unoccupied?", answer:"637" },
+  { chapter:3, exercise:"Ex 3G", q:"Rahul had ₹9970, bought ₹5640 + ₹1855 + ₹850. Left?", answer:"1625" },
+  { chapter:3, exercise:"Mental Maths", q:"756 - 10 = ?", answer:"746" },
+  { chapter:3, exercise:"Mental Maths", q:"4876 - 100 = ?", answer:"4776" },
+  { chapter:3, exercise:"HOTS", q:"Fill missing digits: 5_1xx - 3xx0 = ? (value of x)", answer:"6" },
+  { chapter:3, exercise:"Olympiad", q:"268 balls +167 -189 = ?", answer:"246" },
+  { chapter:3, exercise:"Olympiad", q:"1765 plants, 867 medicinal. Non-medicinal?", answer:"898" },
+
+  // ========== CHAPTER 4: MULTIPLICATION ==========
+  { chapter:4, exercise:"Ex 4A", q:"3+3+3+3+3 = ? (as multiplication)", answer:"15" },
+  { chapter:4, exercise:"Ex 4A", q:"8+8+8+8 = ?", answer:"32" },
+  { chapter:4, exercise:"Ex 4A", q:"9+9+9+9+9 = ?", answer:"45" },
+  { chapter:4, exercise:"Ex 4B", q:"Multiply: 143 × 2", answer:"286" },
+  { chapter:4, exercise:"Ex 4B", q:"Multiply: 238 × 3", answer:"714" },
+  { chapter:4, exercise:"Ex 4B", q:"Multiply: 124 × 4", answer:"496" },
+  { chapter:4, exercise:"Ex 4B", q:"Multiply: 206 × 3", answer:"618" },
+  { chapter:4, exercise:"Ex 4C", q:"Multiply: 3213 × 3", answer:"9639" },
+  { chapter:4, exercise:"Ex 4C", q:"Multiply: 2456 × 4", answer:"9824" },
+  { chapter:4, exercise:"Ex 4C", q:"Multiply: 1624 × 4", answer:"6496" },
+  { chapter:4, exercise:"Ex 4D", q:"Multiply: 21 × 32", answer:"672" },
+  { chapter:4, exercise:"Ex 4D", q:"Multiply: 134 × 12", answer:"1608" },
+  { chapter:4, exercise:"Ex 4D", q:"Multiply: 86 × 24", answer:"2064" },
+  { chapter:4, exercise:"Ex 4D", q:"Multiply: 143 × 46", answer:"6578" },
+  { chapter:4, exercise:"Ex 4E", q:"45 × 0 = ?", answer:"0" },
+  { chapter:4, exercise:"Ex 4E", q:"356 × 1 = ?", answer:"356" },
+  { chapter:4, exercise:"Ex 4E", q:"1452 × 5 = ? (order property)", answer:"7260" },
+  { chapter:4, exercise:"Ex 4F", q:"75 apples in 1 basket. 16 baskets?", answer:"1200" },
+  { chapter:4, exercise:"Ex 4F", q:"Bus: 158 passengers × 25 buses", answer:"3950" },
+  { chapter:4, exercise:"Ex 4F", q:"142 toys per shelf × 17 shelves", answer:"2414" },
+  { chapter:4, exercise:"Ex 4G", q:"Lattice: 98 × 7", answer:"686" },
+  { chapter:4, exercise:"Ex 4G", q:"Lattice: 562 × 6", answer:"3372" },
+  { chapter:4, exercise:"Mental Maths", q:"46 × 12 = ?", answer:"552" },
+  { chapter:4, exercise:"Mental Maths", q:"76 × 103 = ?", answer:"7828" },
+  { chapter:4, exercise:"HOTS", q:"Amit made 33 visits. Snowy: twice a day for 4 days. Benny: 3 times a day for 6 days. Candy: twice a day for 3 days. Roxy: once. Total trips?", answer:"33" },
+  { chapter:4, exercise:"Olympiad", q:"6 buses × 42 students = ?", answer:"252" },
+  { chapter:4, exercise:"Olympiad", q:"9 rows × 8 circles = ?", answer:"72" },
+
+  // ========== CHAPTER 5: DIVISION ==========
+  { chapter:5, exercise:"Ex 5A", q:"Divide 21 strawberries in 3 groups.", answer:"7" },
+  { chapter:5, exercise:"Ex 5A", q:"Divide 20 balls in 5 groups.", answer:"4" },
+  { chapter:5, exercise:"Ex 5B", q:"Division fact for 6×8=48: 48÷6 = ?", answer:"8" },
+  { chapter:5, exercise:"Ex 5B", q:"Division fact for 4×9=36: 36÷4 = ?", answer:"9" },
+  { chapter:5, exercise:"Ex 5B", q:"Division fact for 7×12=84: 84÷7 = ?", answer:"12" },
+  { chapter:5, exercise:"Ex 5C", q:"Divide: 24 ÷ 3", answer:"8" },
+  { chapter:5, exercise:"Ex 5C", q:"Divide: 18 ÷ 6", answer:"3" },
+  { chapter:5, exercise:"Ex 5C", q:"Divide: 64 ÷ 8", answer:"8" },
+  { chapter:5, exercise:"Ex 5C", q:"Divide: 72 ÷ 12", answer:"6" },
+  { chapter:5, exercise:"Ex 5D", q:"Long division: 38 ÷ 4 (quotient)", answer:"9" },
+  { chapter:5, exercise:"Ex 5D", q:"Long division: 38 ÷ 4 (remainder)", answer:"2" },
+  { chapter:5, exercise:"Ex 5D", q:"Long division: 15 ÷ 2 (remainder)", answer:"1" },
+  { chapter:5, exercise:"Ex 5E", q:"Divide: 97 ÷ 9 (quotient)", answer:"10" },
+  { chapter:5, exercise:"Ex 5E", q:"Divide: 826 ÷ 4 (quotient)", answer:"206" },
+  { chapter:5, exercise:"Ex 5E", q:"Divide: 729 ÷ 7 (quotient)", answer:"104" },
+  { chapter:5, exercise:"Ex 5F", q:"7 ÷ 1 = ?", answer:"7" },
+  { chapter:5, exercise:"Ex 5F", q:"0 ÷ 12 = ?", answer:"0" },
+  { chapter:5, exercise:"Ex 5F", q:"35 ÷ 35 = ?", answer:"1" },
+  { chapter:5, exercise:"Ex 5G", q:"96 trees in 6 rows. Trees per row?", answer:"16" },
+  { chapter:5, exercise:"Ex 5G", q:"92 pins in 4 boxes equally.", answer:"23" },
+  { chapter:5, exercise:"Ex 5G", q:"198 beads in 9 necklaces equally.", answer:"22" },
+  { chapter:5, exercise:"Mental Maths", q:"160 ÷ 8 = ?", answer:"20" },
+  { chapter:5, exercise:"Mental Maths", q:"3600 ÷ 6 = ?", answer:"600" },
+  { chapter:5, exercise:"HOTS", q:"500 apples, 27 rotten. Pack 25 per box. How many boxes? (remainder)", answer:"18" },
+  { chapter:5, exercise:"Olympiad", q:"1845 students ÷ 9 events = ?", answer:"205" },
+  { chapter:5, exercise:"Olympiad", q:"Product 1848, one factor 12. Other factor?", answer:"154" },
+
+  // ========== CHAPTER 6: FRACTIONS ==========
+  { chapter:6, exercise:"Ex 6A", q:"What fraction is shaded? (1 out of 2 parts)", answer:"1/2" },
+  { chapter:6, exercise:"Ex 6A", q:"What fraction is shaded? (1 out of 4 parts)", answer:"1/4" },
+  { chapter:6, exercise:"Ex 6A", q:"What fraction is shaded? (3 out of 4 parts)", answer:"3/4" },
+  { chapter:6, exercise:"Ex 6B", q:"Numerator of 1/8", answer:"1" },
+  { chapter:6, exercise:"Ex 6B", q:"Denominator of 2/5", answer:"5" },
+  { chapter:6, exercise:"Ex 6B", q:"Write fraction: Three-eighths", answer:"3/8" },
+  { chapter:6, exercise:"Ex 6B", q:"Write fraction: Four-fifths", answer:"4/5" },
+  { chapter:6, exercise:"Ex 6B", q:"Write fraction: Seven-tenths", answer:"7/10" },
+  { chapter:6, exercise:"Ex 6C", q:"Colour 1/2 of 10 fish. How many fish?", answer:"5" },
+  { chapter:6, exercise:"Ex 6C", q:"Colour 1/4 of 12 stars. How many stars?", answer:"3" },
+  { chapter:6, exercise:"Ex 6C", q:"Colour 2/3 of 9 balls. How many balls?", answer:"6" },
+  { chapter:6, exercise:"Ex 6D", q:"Raghav had 9 bananas, ate 5. Fraction eaten?", answer:"5/9" },
+  { chapter:6, exercise:"Ex 6D", q:"Out of 42 chocolates, 1/7 distributed. How many?", answer:"6" },
+  { chapter:6, exercise:"Ex 6D", q:"Sheela has 14 books, 5 Science. Fraction Science?", answer:"5/14" },
+  { chapter:6, exercise:"Mental Maths", q:"How many one-third make 1 whole?", answer:"3" },
+  { chapter:6, exercise:"Mental Maths", q:"How many one-fifth make 1 whole?", answer:"5" },
+  { chapter:6, exercise:"HOTS", q:"Teacher gave 8 halves and 16 quarters. How many whole chart papers?", answer:"8" },
+  { chapter:6, exercise:"Olympiad", q:"Fraction of unshaded part (3/5 shaded)", answer:"2/5" },
+  { chapter:6, exercise:"Olympiad", q:"48 chocolates, 1/4 eaten. Remaining?", answer:"36" },
+
+  // ========== CHAPTER 7: GEOMETRY & PATTERN ==========
+  { chapter:7, exercise:"Ex 7A", q:"A line segment has ___ end points.", answer:"2" },
+  { chapter:7, exercise:"Ex 7A", q:"A ray has ___ end point.", answer:"1" },
+  { chapter:7, exercise:"Ex 7A", q:"A line has ___ end points.", answer:"0" },
+  { chapter:7, exercise:"Ex 7B", q:"Measure length of line segment (4 cm)", answer:"4" },
+  { chapter:7, exercise:"Ex 7C", q:"A triangle has ___ sides.", answer:"3" },
+  { chapter:7, exercise:"Ex 7C", q:"A circle has ___ sides.", answer:"0" },
+  { chapter:7, exercise:"Ex 7C", q:"All sides of a ___ are equal.", answer:"square" },
+  { chapter:7, exercise:"Ex 7D", q:"A cube has ___ faces.", answer:"6" },
+  { chapter:7, exercise:"Ex 7D", q:"A cuboid has ___ corners (vertices).", answer:"8" },
+  { chapter:7, exercise:"Ex 7D", q:"A cylinder has ___ faces.", answer:"3" },
+  { chapter:7, exercise:"Ex 7F", q:"How many lines of symmetry in a square?", answer:"4" },
+  { chapter:7, exercise:"Ex 7F", q:"How many lines of symmetry in a rectangle?", answer:"2" },
+  { chapter:7, exercise:"Ex 7G", q:"Pattern: 10, 20, 30, 40, ___", answer:"50" },
+  { chapter:7, exercise:"Ex 7G", q:"Pattern: 18, 16, 14, 12, ___", answer:"10" },
+  { chapter:7, exercise:"Ex 7G", q:"Pattern: 4, 8, 12, 16, ___", answer:"20" },
+  { chapter:7, exercise:"Mental Maths", q:"A cricketer jumps to catch me when I bounce. What shape?", answer:"sphere" },
+  { chapter:7, exercise:"Mental Maths", q:"You use me to flatten dough for chapattis. What shape?", answer:"cylinder" },
+  { chapter:7, exercise:"Olympiad", q:"Which has a curved surface and a flat surface?", answer:"cone" },
+  { chapter:7, exercise:"Olympiad", q:"How many vertices does a cuboid have?", answer:"8" },
+
+  // ========== CHAPTER 8: MEASUREMENT ==========
+  { chapter:8, exercise:"Ex 8A", q:"Convert 2 m into cm", answer:"200" },
+  { chapter:8, exercise:"Ex 8A", q:"Convert 5 m into cm", answer:"500" },
+  { chapter:8, exercise:"Ex 8A", q:"Convert 9 m 58 cm into cm", answer:"958" },
+  { chapter:8, exercise:"Ex 8A", q:"Convert 7 m 65 cm into cm", answer:"765" },
+  { chapter:8, exercise:"Ex 8B", q:"Convert 5 km 378 m into m", answer:"5378" },
+  { chapter:8, exercise:"Ex 8B", q:"Convert 1781 m into km", answer:"1 km 781 m" },
+  { chapter:8, exercise:"Ex 8B", q:"Convert 3256 m into km", answer:"3 km 256 m" },
+  { chapter:8, exercise:"Ex 8C", q:"Add: 12 m 53 cm + 45 m 8 cm + 27 m 64 cm", answer:"85 m 25 cm" },
+  { chapter:8, exercise:"Ex 8C", q:"Subtract: 98 m 75 cm - 65 m 87 cm", answer:"32 m 88 cm" },
+  { chapter:8, exercise:"Ex 8D", q:"Convert 7 kg into g", answer:"7000" },
+  { chapter:8, exercise:"Ex 8D", q:"Convert 8 kg 430 g into g", answer:"8430" },
+  { chapter:8, exercise:"Ex 8D", q:"Convert 3 kg 900 g into g", answer:"3900" },
+  { chapter:8, exercise:"Ex 8E", q:"Add: 17 kg 260 g + 58 kg 855 g", answer:"76 kg 115 g" },
+  { chapter:8, exercise:"Ex 8E", q:"Subtract: 54 kg 326 g - 15 kg 156 g", answer:"39 kg 170 g" },
+  { chapter:8, exercise:"Ex 8F", q:"Convert 6 L into mL", answer:"6000" },
+  { chapter:8, exercise:"Ex 8F", q:"Convert 9 L 750 mL into mL", answer:"9750" },
+  { chapter:8, exercise:"Ex 8G", q:"Add: 3 L 354 mL + 1 L 860 mL + 5 L 790 mL", answer:"11 L 4 mL" },
+  { chapter:8, exercise:"Ex 8G", q:"Subtract: 40 L - 24 L 385 mL", answer:"15 L 615 mL" },
+  { chapter:8, exercise:"Mental Maths", q:"738 cm into m", answer:"7 m 38 cm" },
+  { chapter:8, exercise:"Mental Maths", q:"3450 g into kg", answer:"3 kg 450 g" },
+  { chapter:8, exercise:"HOTS", q:"How many grams in 1/2 kg?", answer:"500" },
+  { chapter:8, exercise:"Olympiad", q:"Which is heaviest? 1kg, 500g, 200g, 100g", answer:"1 kg" },
+  { chapter:8, exercise:"Olympiad", q:"Bottle=1L500mL, mug=2×glass, glass=500mL. Mug= ?", answer:"1 L" },
+
+  // ========== CHAPTER 9: TIME ==========
+  { chapter:9, exercise:"Ex 9A", q:"Clock shows 5:40. Write in words", answer:"40 minutes past 5" },
+  { chapter:9, exercise:"Ex 9A", q:"Clock shows 8:50. Write in words", answer:"50 minutes past 8" },
+  { chapter:9, exercise:"Ex 9B", q:"8 o'clock in the morning = ___ a.m.", answer:"8" },
+  { chapter:9, exercise:"Ex 9B", q:"10:30 at night = ___ p.m.", answer:"10:30" },
+  { chapter:9, exercise:"Ex 9C", q:"Convert 6 weeks into days", answer:"42" },
+  { chapter:9, exercise:"Ex 9C", q:"Convert 5 years into months", answer:"60" },
+  { chapter:9, exercise:"Ex 9C", q:"Convert 7 weeks 3 days into days", answer:"52" },
+  { chapter:9, exercise:"Ex 9D", q:"Convert 6 days into hours", answer:"144" },
+  { chapter:9, exercise:"Ex 9D", q:"Convert 5 hours into minutes", answer:"300" },
+  { chapter:9, exercise:"Ex 9D", q:"Convert 6 hours 15 minutes into minutes", answer:"375" },
+  { chapter:9, exercise:"Ex 9E", q:"Write date: July 26, 2008 in numerals", answer:"26-07-2008" },
+  { chapter:9, exercise:"Ex 9E", q:"Write date: 31-01-2001 using month name", answer:"January 31 2001" },
+  { chapter:9, exercise:"Ex 9F", q:"Bus leaves 1:30 a.m., reaches 9:30 a.m. Time taken?", answer:"8 hours" },
+  { chapter:9, exercise:"Ex 9F", q:"Aeroplane takes off 12:30 p.m., lands after 4 hours.", answer:"4:30 p.m." },
+  { chapter:9, exercise:"Mental Maths", q:"How many months have 31 days?", answer:"7" },
+  { chapter:9, exercise:"Mental Maths", q:"How many months have 30 days?", answer:"4" },
+  { chapter:9, exercise:"Olympiad", q:"Amit plays 3:45 pm to 5:10 pm. Duration?", answer:"1 hour 25 minutes" },
+  { chapter:9, exercise:"Olympiad", q:"Clock shows 8:50, after 25 minutes = ?", answer:"9:15" },
+
+  // ========== CHAPTER 10: MONEY ==========
+  { chapter:10, exercise:"Ex 10A", q:"Write in words: ₹5.00", answer:"five rupees" },
+  { chapter:10, exercise:"Ex 10A", q:"Write in figures: Five rupees and twenty-five paise", answer:"₹5.25" },
+  { chapter:10, exercise:"Ex 10A", q:"Convert ₹2.00 into paise", answer:"200" },
+  { chapter:10, exercise:"Ex 10A", q:"Convert 600 p into rupees", answer:"₹6.00" },
+  { chapter:10, exercise:"Ex 10A", q:"Convert 1875 p into rupees", answer:"₹18.75" },
+  { chapter:10, exercise:"Ex 10B", q:"Add: ₹75.50 + ₹48.75", answer:"₹124.25" },
+  { chapter:10, exercise:"Ex 10B", q:"Add: ₹116.85 + ₹312.85", answer:"₹429.70" },
+  { chapter:10, exercise:"Ex 10B", q:"Subtract: ₹24.50 from ₹35.00", answer:"₹10.50" },
+  { chapter:10, exercise:"Ex 10B", q:"Subtract: ₹99.55 from ₹129.03", answer:"₹29.48" },
+  { chapter:10, exercise:"Ex 10C", q:"Vegetables ₹167, fruits ₹235.50, pulses ₹184.50. Total?", answer:"₹587.00" },
+  { chapter:10, exercise:"Ex 10C", q:"Rahul has ₹279.50, needs ₹466.25 more. Cost of shirt?", answer:"₹745.75" },
+  { chapter:10, exercise:"Ex 10D", q:"Multiply: ₹8.65 × 4", answer:"₹34.60" },
+  { chapter:10, exercise:"Ex 10D", q:"Multiply: ₹15.75 × 5", answer:"₹78.75" },
+  { chapter:10, exercise:"Ex 10D", q:"Divide: ₹8.40 ÷ 7", answer:"₹1.20" },
+  { chapter:10, exercise:"Ex 10D", q:"Divide: ₹87.40 ÷ 4", answer:"₹21.85" },
+  { chapter:10, exercise:"Ex 10E", q:"Total bill: Teddy ₹112.65 + 2 dolls ₹112.75 each + 1 train ₹257.65 + 2 blocks ₹22.20 each", answer:"₹640.20" },
+  { chapter:10, exercise:"Mental Maths", q:"5678 p into rupees", answer:"₹56.78" },
+  { chapter:10, exercise:"Mental Maths", q:"₹12.45 into paise", answer:"1245" },
+  { chapter:10, exercise:"Olympiad", q:"Bat ₹150.50 reduced to ₹126.25. Reduction?", answer:"₹24.25" },
+  { chapter:10, exercise:"Olympiad", q:"₹50 - (₹12.50+₹10+₹15.50) = ?", answer:"₹12" },
+
+  // ========== CHAPTER 11: DATA HANDLING ==========
+  { chapter:11, exercise:"Ex 11A", q:"Tally marks: |||| |||| |||| = how many?", answer:"12" },
+  { chapter:11, exercise:"Ex 11A", q:"Tally marks: |||| |||| = how many?", answer:"8" },
+  { chapter:11, exercise:"Ex 11A", q:"Tally marks: |||| |||| |||| || = how many?", answer:"14" },
+  { chapter:11, exercise:"Ex 11B", q:"Pictograph: 1 cake = 8 cakes. 5 cakes drawn = ?", answer:"40" },
+  { chapter:11, exercise:"Ex 11B", q:"Pictograph: 1 flower = 4 flowers. 3 full + 1 half = ?", answer:"14" },
+  { chapter:11, exercise:"Ex 11B", q:"If key = 10 apples, 4 full + 1 half = ?", answer:"45" },
+  { chapter:11, exercise:"Ex 11B", q:"Key=8 cakes. How many cakes for 72 cheese cakes?", answer:"9" },
+  { chapter:11, exercise:"Mental Maths", q:"Pictograph: Ankit has 5 goals, Ryan 4, Ankush 6, Dave 3, Swapnil 5. Who scored max?", answer:"Ankush" },
+  { chapter:11, exercise:"HOTS", q:"Girls in sections: 2022-23: A=12, B=15, C=10. 2023-24: A=15, B=12, C=10. Which section same?", answer:"C" },
+  { chapter:11, exercise:"Olympiad", q:"Jaya has 4 ★ (each ★=4 toys). How many toys?", answer:"16" },
+  { chapter:11, exercise:"Olympiad", q:"Rekha 6★, Shalini 4★. How many more toys Rekha has?", answer:"8" }
+];
+
+// ================================================================
+// APP STATE
+// ================================================================
+let currentChapter = 1;
+let currentIndex = 0;
+let userProgress = {};
+
+const chapterNames = [
+  "🌟 Numbers", "➕ Addition", "➖ Subtraction", "✖️ Multiplication", "➗ Division",
+  "🍕 Fractions", "📐 Geometry", "📏 Measurement", "⏰ Time", "💰 Money", "📊 Data"
+];
+
+// DOM refs
+const chapterNav = document.getElementById('chapterNav');
+const chapterTitle = document.getElementById('chapterTitle');
+const qCounter = document.getElementById('qCounter');
+const questionText = document.getElementById('questionText');
+const qLabel = document.getElementById('qLabel');
+const scratchArea = document.getElementById('scratchArea');
+const answerInput = document.getElementById('answerInput');
+const feedbackText = document.getElementById('feedbackText');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resetBtn = document.getElementById('resetBtn');
+const checkBtn = document.getElementById('checkBtn');
+const showAnswerBtn = document.getElementById('showAnswerBtn');
+const clearScratchBtn = document.getElementById('clearScratchBtn');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+
+function getChapterQuestions(ch) {
+  return questionBank.filter(q => q.chapter === ch);
+}
+
+function getGlobalIndex(ch, localIdx) {
+  const list = getChapterQuestions(ch);
+  if (localIdx < 0 || localIdx >= list.length) return -1;
+  const target = list[localIdx];
+  return questionBank.indexOf(target);
+}
+
+function updateScore() {
+  // Only count questions the child actually ANSWERED (not just "Show"ed)
+  let correct = 0, attempted = 0;
+  for (let key in userProgress) {
+    if (userProgress[key].correct === true) { correct++; attempted++; }
+    else if (userProgress[key].correct === false) { attempted++; }
+  }
+  scoreDisplay.textContent = `⭐ ${correct} / ${attempted}`;
+
+  // Progress bar for the CURRENT chapter
+  const list = getChapterQuestions(currentChapter);
+  let doneInChapter = 0;
+  list.forEach(q => {
+    const gi = questionBank.indexOf(q);
+    if (userProgress[gi] && userProgress[gi].correct === true) doneInChapter++;
+  });
+  const pct = list.length ? Math.round((doneInChapter / list.length) * 100) : 0;
+  progressBar.style.width = pct + '%';
+  progressLabel.textContent = `${doneInChapter} of ${list.length} correct in this chapter (${pct}%)`;
+}
+
+function renderQuestion() {
+  const list = getChapterQuestions(currentChapter);
+  if (list.length === 0) {
+    questionText.textContent = 'No questions in this chapter.';
+    return;
+  }
+  const localIdx = Math.min(currentIndex, list.length - 1);
+  const globalIdx = getGlobalIndex(currentChapter, localIdx);
+  if (globalIdx === -1) return;
+  const q = questionBank[globalIdx];
+
+  chapterTitle.textContent = chapterNames[currentChapter - 1];
+  qLabel.textContent = `📘 ${q.exercise}`;
+  questionText.textContent = q.q;
+  qCounter.textContent = `Q${localIdx+1} / ${list.length}`;
+
+  if (userProgress[globalIdx]) {
+    scratchArea.value = userProgress[globalIdx].scratch || '';
+    answerInput.value = userProgress[globalIdx].answered || '';
+    if (userProgress[globalIdx].correct === true) {
+      feedbackText.innerHTML = '✅ Correct! Great job!';
+    } else if (userProgress[globalIdx].correct === false) {
+      feedbackText.innerHTML = '❌ Not quite yet — have another try! 💪';
+    } else {
+      feedbackText.innerHTML = '📝 Type your answer and click Check.';
+    }
+  } else {
+    scratchArea.value = '';
+    answerInput.value = '';
+    feedbackText.innerHTML = '📝 Type your answer and click Check.';
+  }
+
+  prevBtn.disabled = localIdx === 0;
+  nextBtn.disabled = localIdx === list.length - 1;
+  updateScore();
+}
+
+// Make answer checking FORGIVING for a Grade 3 child.
+// Accepts: "1,479" = "1479" | "Rs 45" = "45" | "45 cm" = "45"
+//          "six thousand, five hundred and fourteen" = "six thousand five hundred fourteen"
+function normalize(s) {
+  return String(s)
+    .toLowerCase()
+    .replace(/[₹$]/g, '')            // currency symbols
+    .replace(/\brs\.?\b/g, '')       // "Rs" / "Rs."
+    .replace(/\band\b/g, ' ')        // "five hundred AND fourteen"
+    .replace(/[,.\-–—]/g, ' ')       // commas, full stops, hyphens
+    .replace(/\b(cm|mm|m|km|kg|g|ml|l|litres?|liters?|grams?|metres?|meters?|rupees?|paise|hours?|hrs?|mins?|minutes?|sec|seconds?|years?|days?|months?)\b/g, '')
+    .replace(/\s+/g, ' ')            // collapse spaces
+    .trim();
+}
+
+// Also treat a bare number the same whether or not extra words are present
+function numericValue(s) {
+  const cleaned = String(s).replace(/[^0-9.\-]/g, '');
+  if (cleaned === '' || cleaned === '-' || cleaned === '.') return null;
+  const n = parseFloat(cleaned);
+  return isNaN(n) ? null : n;
+}
+
+function answersMatch(userAns, correctAns) {
+  const u = normalize(userAns);
+  const c = normalize(correctAns);
+  if (u === c) return true;
+
+  // If BOTH are purely numeric, compare as numbers (handles "0700" vs "700")
+  const un = numericValue(userAns), cn = numericValue(correctAns);
+  const userIsPlainNumber = /^[0-9,.\s₹$-]+$/i.test(String(userAns).replace(/\brs\.?\b/gi, ''));
+  const corrIsPlainNumber = /^[0-9,.\s₹$-]+$/i.test(String(correctAns).replace(/\brs\.?\b/gi, ''));
+  if (userIsPlainNumber && corrIsPlainNumber && un !== null && cn !== null && un === cn) return true;
+
+  return false;
+}
+
+function checkAnswer() {
+  const list = getChapterQuestions(currentChapter);
+  const localIdx = Math.min(currentIndex, list.length - 1);
+  const globalIdx = getGlobalIndex(currentChapter, localIdx);
+  if (globalIdx === -1) return;
+  const q = questionBank[globalIdx];
+  const userAns = answerInput.value.trim();
+  if (!userAns) {
+    feedbackText.innerHTML = '✏️ Please type your answer first!';
+    return;
+  }
+
+  if (!userProgress[globalIdx]) userProgress[globalIdx] = {};
+  const prog = userProgress[globalIdx];
+  const isCorrect = answersMatch(userAns, q.answer);
+
+  prog.answered = userAns;
+  prog.scratch = scratchArea.value;
+  prog.tries = (prog.tries || 0) + 1;
+
+  if (isCorrect) {
+    prog.correct = true;
+    feedbackText.innerHTML = '✅ Correct! 🌟 Well done!';
+  } else {
+    prog.correct = false;
+    // Give the child a chance to TRY AGAIN before showing the answer
+    if (prog.tries === 1) {
+      feedbackText.innerHTML = '❌ Not quite — have another try! 💪 (Tap 💡 Show if you get stuck)';
+    } else if (prog.tries === 2) {
+      feedbackText.innerHTML = '🤔 Close! Check your working once more, then tap 💡 Show.';
+    } else {
+      feedbackText.innerHTML = `💡 The answer is: <b>${q.answer}</b> — try to see where you went wrong.`;
+    }
+  }
+  updateScore();
+}
+
+function showAnswer() {
+  const list = getChapterQuestions(currentChapter);
+  const localIdx = Math.min(currentIndex, list.length - 1);
+  const globalIdx = getGlobalIndex(currentChapter, localIdx);
+  if (globalIdx === -1) return;
+  const q = questionBank[globalIdx];
+  feedbackText.innerHTML = `💡 Answer: ${q.answer}`;
+  if (!userProgress[globalIdx]) userProgress[globalIdx] = {};
+  userProgress[globalIdx].shown = true;
+}
+
+function navigate(delta) {
+  const list = getChapterQuestions(currentChapter);
+  if (list.length === 0) return;
+  let newIdx = currentIndex + delta;
+  if (newIdx < 0) newIdx = 0;
+  if (newIdx >= list.length) newIdx = list.length - 1;
+  currentIndex = newIdx;
+  renderQuestion();
+}
+
+function resetProgress() {
+  if (confirm('Reset all your progress for this chapter?')) {
+    const list = getChapterQuestions(currentChapter);
+    list.forEach(q => {
+      const idx = questionBank.indexOf(q);
+      delete userProgress[idx];
+    });
+    currentIndex = 0;
+    renderQuestion();
+    updateScore();
+    feedbackText.innerHTML = '🔄 Progress reset for this chapter.';
+  }
+}
+
+function buildNav() {
+  chapterNav.innerHTML = '';
+  for (let i = 1; i <= 11; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'ch-btn' + (i === currentChapter ? ' active' : '');
+    btn.textContent = `Ch ${i}`;
+    btn.dataset.ch = i;
+    btn.addEventListener('click', () => {
+      currentChapter = i;
+      currentIndex = 0;
+      renderQuestion();
+      buildNav();
+    });
+    chapterNav.appendChild(btn);
+  }
+}
+
+prevBtn.addEventListener('click', () => navigate(-1));
+nextBtn.addEventListener('click', () => navigate(1));
+resetBtn.addEventListener('click', resetProgress);
+checkBtn.addEventListener('click', checkAnswer);
+showAnswerBtn.addEventListener('click', showAnswer);
+clearScratchBtn.addEventListener('click', () => { scratchArea.value = ''; });
+answerInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkAnswer(); });
+
+buildNav();
+renderQuestion();
+</script>
+</body>
+</html>
