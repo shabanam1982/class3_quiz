@@ -2,161 +2,255 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Class 3 Practice - Mid-term Exam</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Class 3 Practice — All Subjects</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
-    font-family: 'Noto Sans Kannada', 'Segoe UI', sans-serif;
+    font-family: 'Noto Sans Kannada', 'Segoe UI', -apple-system, Roboto, sans-serif;
     background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
     min-height: 100vh;
-    padding: 20px;
+    padding: 14px;
     color: #333;
+    font-size: 16px;
+    line-height: 1.5;
   }
-  .container {
-    max-width: 700px;
-    margin: 0 auto;
-  }
+  .container { max-width: 780px; margin: 0 auto; }
+
   header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
-    padding: 30px 20px;
-    border-radius: 20px;
+    padding: 26px 18px;
+    border-radius: 22px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   }
-  header h1 { font-size: 26px; margin-bottom: 8px; }
-  header p { font-size: 15px; opacity: 0.95; }
-  .subjects {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+  header h1 { font-size: 24px; margin-bottom: 8px; }
+  header p { font-size: 14px; opacity: 0.95; }
+
+  .count-strip {
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
   }
+  .count-strip .n { font-size: 22px; font-weight: bold; color: #764ba2; }
+  .count-strip .l { font-size: 11px; color: #777; }
+
+  .group-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #6b4a8f;
+    margin: 18px 4px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .subjects { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
   .card {
     background: #fff;
-    border-radius: 20px;
-    padding: 24px;
+    border-radius: 18px;
+    padding: 18px;
     text-decoration: none;
     color: #333;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.09);
     display: flex;
     align-items: center;
-    gap: 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border-left: 8px solid #764ba2;
+    gap: 16px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border-left: 7px solid #764ba2;
+    min-height: 84px;
   }
-  .card:hover, .card:active {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+  .card:active { transform: scale(0.98); }
+
+  .icon { font-size: 40px; flex-shrink: 0; line-height: 1; }
+  .info { flex: 1; min-width: 0; }
+  .info h2 {
+    font-size: 17px;
+    margin-bottom: 5px;
+    color: #5b3a80;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
-  .card.locked {
-    opacity: 0.7;
-    border-left-color: #ccc;
-    cursor: not-allowed;
-  }
-  .card.locked:hover { transform: none; }
-  .icon {
-    font-size: 50px;
-    flex-shrink: 0;
-  }
-  .info { flex: 1; }
-  .info h2 { font-size: 20px; margin-bottom: 6px; color: #764ba2; }
-  .info p { font-size: 14px; color: #666; }
+  .info p { font-size: 13px; color: #666; line-height: 1.45; }
+
   .badge {
-    background: #4caf50;
-    color: #fff;
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-weight: bold;
+    background: #4caf50; color: #fff;
+    font-size: 10px; padding: 3px 9px;
+    border-radius: 12px; font-weight: bold;
+    letter-spacing: 0.3px;
   }
-  .badge.soon { background: #ff9800; }
+
+  /* Per-subject colours */
+  .c-kannada  { border-left-color: #e91e63; }
+  .c-kannada  .info h2 { color: #c2185b; }
+  .c-english  { border-left-color: #fd6585; }
+  .c-english  .info h2 { color: #d4416a; }
+  .c-math     { border-left-color: #8e2de2; }
+  .c-math     .info h2 { color: #6a1bb5; }
+  .c-word     { border-left-color: #ff9a56; }
+  .c-word     .info h2 { color: #d9722f; }
+  .c-science  { border-left-color: #11998e; }
+  .c-science  .info h2 { color: #0d7a72; }
+  .c-social   { border-left-color: #56ab2f; }
+  .c-social   .info h2 { color: #45881f; }
+  .c-islamic  { border-left-color: #134e5e; }
+  .c-islamic  .info h2 { color: #0f3f4c; }
+  .c-computer { border-left-color: #4a00e0; }
+  .c-computer .info h2 { color: #3a00b0; }
+
   .footer {
     text-align: center;
-    margin-top: 30px;
-    padding: 15px;
-    color: #666;
+    margin-top: 26px;
+    padding: 16px;
+    color: #6b4a3a;
     font-size: 13px;
+    font-weight: 500;
   }
-  @media (min-width: 600px) {
-    header h1 { font-size: 32px; }
+
+  /* Tablet */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    header h1 { font-size: 28px; }
     .subjects { grid-template-columns: 1fr 1fr; }
-    .card { flex-direction: column; text-align: center; }
+    .card { flex-direction: column; text-align: center; min-height: 150px; }
+    .icon { font-size: 46px; }
+    .info h2 { justify-content: center; font-size: 16px; }
+  }
+
+  /* Laptop / Desktop */
+  @media (min-width: 1025px) {
+    body { padding: 28px; }
+    header h1 { font-size: 32px; }
+    header p { font-size: 15px; }
+    .subjects { grid-template-columns: 1fr 1fr; }
+    .card { flex-direction: column; text-align: center; min-height: 160px; padding: 22px; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(0,0,0,0.15); }
+    .icon { font-size: 50px; }
+    .info h2 { justify-content: center; font-size: 17px; }
+  }
+
+  /* Small phone */
+  @media (max-width: 379px) {
+    header h1 { font-size: 20px; }
+    .icon { font-size: 34px; }
+    .info h2 { font-size: 15px; }
+    .info p { font-size: 12px; }
+    .card { gap: 12px; padding: 15px; }
   }
 </style>
 </head>
 <body>
 
 <div class="container">
+
   <header>
     <h1>📚 Class 3 Practice</h1>
-    <p>Mid-term Exam Practice Worksheets</p>
+    <p>Interactive worksheets for all subjects</p>
   </header>
 
+  <div class="count-strip">
+    <div><div class="n">8</div><div class="l">Subjects</div></div>
+    <div><div class="n">700+</div><div class="l">Questions</div></div>
+    <div><div class="n">📱💻</div><div class="l">All Devices</div></div>
+  </div>
+
+  <div class="group-title">🌍 Languages</div>
   <div class="subjects">
 
-    <a href="kannada.html" class="card">
+    <a href="kannada.html" class="card c-kannada">
       <div class="icon">🌸</div>
       <div class="info">
         <h2>ಕನ್ನಡ (Kannada) <span class="badge">READY</span></h2>
-        <p>Alphabets, Kagunita, Ottakshara, Chitte poem</p>
+        <p>Vowels, consonants, kagunita, ottakshara, ಚಿಟ್ಟೆ poem + Kannada keyboard</p>
       </div>
     </a>
 
-    <a href="english.html" class="card">
+    <a href="english.html" class="card c-english">
       <div class="icon">📖</div>
       <div class="info">
         <h2>English <span class="badge">READY</span></h2>
-        <p>Nouns, Opposites, Rhymes, Fill blanks, Reading</p>
+        <p>Nouns, opposites, rhyming words, fill in the blanks, reading story</p>
       </div>
     </a>
 
-    <a href="social.html" class="card">
-      <div class="icon">🌍</div>
+  </div>
+
+  <div class="group-title">🔢 Mathematics</div>
+  <div class="subjects">
+
+    <a href="math.html" class="card c-math">
+      <div class="icon">📐</div>
       <div class="info">
-        <h2>Social <span class="badge">READY</span></h2>
-        <p>Air, Water, Community, Occupations (Ch 4-7)</p>
+        <h2>Math — Full Workbook <span class="badge">READY</span></h2>
+        <p>240 questions across 11 chapters, with a scratchpad to show your work</p>
       </div>
     </a>
 
-    <a href="islamic.html" class="card">
-      <div class="icon">🕌</div>
+    <a href="mixed_word_problem.html" class="card c-word">
+      <div class="icon">🧮</div>
       <div class="info">
-        <h2>Islamic Studies <span class="badge">READY</span></h2>
-        <p>Adhaan, Iqaamah, Adam ﷺ, Surah Al-Faatihah, Pure Water</p>
+        <h2>Math — Word Problems <span class="badge">READY</span></h2>
+        <p>100 mixed word problems, number properties, mental maths, olympiad</p>
       </div>
     </a>
 
-    <a href="math.html" class="card">
-      <div class="icon">🔢</div>
-      <div class="info">
-        <h2>Math <span class="badge">READY</span></h2>
-        <p>100 word problems, number properties, mental maths, olympiad</p>
-      </div>
-    </a>
+  </div>
 
-    <a href="science.html" class="card">
+  <div class="group-title">🔬 Science & Social</div>
+  <div class="subjects">
+
+    <a href="science.html" class="card c-science">
       <div class="icon">🌱</div>
       <div class="info">
         <h2>Science <span class="badge">READY</span></h2>
-        <p>Parts of a Plant, Eating Habits of Animals, Birds</p>
+        <p>Parts of a Plant, Eating Habits of Animals, Birds (Ch 2, 3, 4)</p>
       </div>
     </a>
 
-    <a href="computer.html" class="card">
+    <a href="social.html" class="card c-social">
+      <div class="icon">🌍</div>
+      <div class="info">
+        <h2>Social <span class="badge">READY</span></h2>
+        <p>The Air Around Us, Water We Drink, My Community, Occupations</p>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="group-title">🕌 Islamic & Computer</div>
+  <div class="subjects">
+
+    <a href="islamic.html" class="card c-islamic">
+      <div class="icon">🕌</div>
+      <div class="info">
+        <h2>Islamic Studies <span class="badge">READY</span></h2>
+        <p>Adhaan, Iqaamah, Adam عليه السلام, Surah Al-Faatihah, Pure Water</p>
+      </div>
+    </a>
+
+    <a href="computer.html" class="card c-computer">
       <div class="icon">💻</div>
       <div class="info">
         <h2>Computer <span class="badge">READY</span></h2>
-        <p>School Newsletter, Class Calendar Chronicle</p>
+        <p>School Newsletter (Unit 2), Class Calendar Chronicle (Unit 3)</p>
       </div>
     </a>
 
   </div>
 
   <div class="footer">
-    ⭐ Made with love for learning ⭐
+    ⭐ Tap any subject to start practising ⭐<br>
+    Made with love for learning
   </div>
+
 </div>
 
 </body>
