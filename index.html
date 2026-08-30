@@ -16,7 +16,6 @@
     line-height: 1.5;
   }
   .container { max-width: 780px; margin: 0 auto; }
-
   header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
@@ -28,7 +27,6 @@
   }
   header h1 { font-size: 24px; margin-bottom: 8px; }
   header p { font-size: 14px; opacity: 0.95; }
-
   .count-strip {
     background: #fff;
     border-radius: 16px;
@@ -41,7 +39,6 @@
   }
   .count-strip .n { font-size: 22px; font-weight: bold; color: #764ba2; }
   .count-strip .l { font-size: 11px; color: #777; }
-
   .group-title {
     font-size: 14px;
     font-weight: bold;
@@ -50,9 +47,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-
   .subjects { display: grid; grid-template-columns: 1fr; gap: 14px; }
-
   .card {
     background: #fff;
     border-radius: 18px;
@@ -68,7 +63,6 @@
     min-height: 84px;
   }
   .card:active { transform: scale(0.98); }
-
   .icon { font-size: 40px; flex-shrink: 0; line-height: 1; }
   .info { flex: 1; min-width: 0; }
   .info h2 {
@@ -81,14 +75,20 @@
     flex-wrap: wrap;
   }
   .info p { font-size: 13px; color: #666; line-height: 1.45; }
-
   .badge {
     background: #4caf50; color: #fff;
     font-size: 10px; padding: 3px 9px;
     border-radius: 12px; font-weight: bold;
     letter-spacing: 0.3px;
   }
-
+  .badge.new {
+    background: #ff9800;
+    animation: pulse-badge 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse-badge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
   /* Per-subject colours */
   .c-kannada  { border-left-color: #e91e63; }
   .c-kannada  .info h2 { color: #c2185b; }
@@ -98,6 +98,8 @@
   .c-math     .info h2 { color: #6a1bb5; }
   .c-word     { border-left-color: #ff9a56; }
   .c-word     .info h2 { color: #d9722f; }
+  .c-maze     { border-left-color: #11a37f; }
+  .c-maze     .info h2 { color: #0c8267; }
   .c-science  { border-left-color: #11998e; }
   .c-science  .info h2 { color: #0d7a72; }
   .c-social   { border-left-color: #56ab2f; }
@@ -106,7 +108,6 @@
   .c-islamic  .info h2 { color: #0f3f4c; }
   .c-computer { border-left-color: #4a00e0; }
   .c-computer .info h2 { color: #3a00b0; }
-
   .footer {
     text-align: center;
     margin-top: 26px;
@@ -115,7 +116,6 @@
     font-size: 13px;
     font-weight: 500;
   }
-
   /* Tablet */
   @media (min-width: 601px) and (max-width: 1024px) {
     header h1 { font-size: 28px; }
@@ -124,7 +124,6 @@
     .icon { font-size: 46px; }
     .info h2 { justify-content: center; font-size: 16px; }
   }
-
   /* Laptop / Desktop */
   @media (min-width: 1025px) {
     body { padding: 28px; }
@@ -136,7 +135,6 @@
     .icon { font-size: 50px; }
     .info h2 { justify-content: center; font-size: 17px; }
   }
-
   /* Small phone */
   @media (max-width: 379px) {
     header h1 { font-size: 20px; }
@@ -148,23 +146,18 @@
 </style>
 </head>
 <body>
-
 <div class="container">
-
   <header>
     <h1>📚 Class 3 Practice</h1>
     <p>Interactive worksheets for all subjects</p>
   </header>
-
   <div class="count-strip">
     <div><div class="n">8</div><div class="l">Subjects</div></div>
     <div><div class="n">700+</div><div class="l">Questions</div></div>
     <div><div class="n">📱💻</div><div class="l">All Devices</div></div>
   </div>
-
   <div class="group-title">🌍 Languages</div>
   <div class="subjects">
-
     <a href="kannada.html" class="card c-kannada">
       <div class="icon">🌸</div>
       <div class="info">
@@ -172,7 +165,6 @@
         <p>Vowels, consonants, kagunita, ottakshara, ಚಿಟ್ಟೆ poem + Kannada keyboard</p>
       </div>
     </a>
-
     <a href="english.html" class="card c-english">
       <div class="icon">📖</div>
       <div class="info">
@@ -180,12 +172,9 @@
         <p>Nouns, opposites, rhyming words, fill in the blanks, reading story</p>
       </div>
     </a>
-
   </div>
-
   <div class="group-title">🔢 Mathematics</div>
   <div class="subjects">
-
     <a href="math.html" class="card c-math">
       <div class="icon">📐</div>
       <div class="info">
@@ -193,7 +182,6 @@
         <p>240 questions across 11 chapters, with a scratchpad to show your work</p>
       </div>
     </a>
-
     <a href="mixed_word_problem.html" class="card c-word">
       <div class="icon">🧮</div>
       <div class="info">
@@ -201,12 +189,16 @@
         <p>100 mixed word problems, number properties, mental maths, olympiad</p>
       </div>
     </a>
-
+    <a href="math_maze_quest.html" class="card c-maze">
+      <div class="icon">🎮</div>
+      <div class="info">
+        <h2>Math — Maze Quest <span class="badge new">NEW</span></h2>
+        <p>Solve +, −, ×, ÷ word problems and race a chasing Temple Guardian through 10 treasure mazes</p>
+      </div>
+    </a>
   </div>
-
   <div class="group-title">🔬 Science & Social</div>
   <div class="subjects">
-
     <a href="science.html" class="card c-science">
       <div class="icon">🌱</div>
       <div class="info">
@@ -214,7 +206,6 @@
         <p>Parts of a Plant, Eating Habits of Animals, Birds (Ch 2, 3, 4)</p>
       </div>
     </a>
-
     <a href="social.html" class="card c-social">
       <div class="icon">🌍</div>
       <div class="info">
@@ -222,12 +213,9 @@
         <p>The Air Around Us, Water We Drink, My Community, Occupations</p>
       </div>
     </a>
-
   </div>
-
   <div class="group-title">🕌 Islamic & Computer</div>
   <div class="subjects">
-
     <a href="islamic.html" class="card c-islamic">
       <div class="icon">🕌</div>
       <div class="info">
@@ -235,7 +223,6 @@
         <p>Adhaan, Iqaamah, Adam عليه السلام, Surah Al-Faatihah, Pure Water</p>
       </div>
     </a>
-
     <a href="computer.html" class="card c-computer">
       <div class="icon">💻</div>
       <div class="info">
@@ -243,15 +230,11 @@
         <p>School Newsletter (Unit 2), Class Calendar Chronicle (Unit 3)</p>
       </div>
     </a>
-
   </div>
-
   <div class="footer">
     ⭐ Tap any subject to start practising ⭐<br>
     Made with love for learning
   </div>
-
 </div>
-
 </body>
 </html>
