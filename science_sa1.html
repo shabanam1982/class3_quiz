@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Science Practice: Plants, Animals, Birds, Human Body &amp; Safety</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EAF3FA; --card:#FFFFFF; --ink:#1D2F45; --ink-soft:#57708A;
+    --brand:#2E86AB; --brand-dark:#1F6180; --gold:#F2A541; --line:#D9E6F0;
+    --good:#2FA86A; --good-bg:#E5F7EC; --bad:#D64550; --bad-bg:#FCEAEA;
+    --font-head:'Baloo 2','Comic Sans MS', system-ui, sans-serif;
+    --font-body:'Nunito', system-ui, -apple-system, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --bg:#0F1720; --card:#182430; --ink:#E7F0F8; --ink-soft:#9FB4C6; --line:#25384A; --good-bg:#173626; --bad-bg:#3A1E21; }
+  }
+  :root[data-theme="dark"]{ --bg:#0F1720; --card:#182430; --ink:#E7F0F8; --ink-soft:#9FB4C6; --line:#25384A; --good-bg:#173626; --bad-bg:#3A1E21; }
+
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.55; }
+  .wrap{ max-width:700px; margin:0 auto; padding:20px 16px 70px; }
+  h1,h2,h3{ font-family:var(--font-head); margin:0 0 8px; line-height:1.2; }
+  h1{ font-size:1.5rem; color:var(--brand-dark); }
+  h2{ font-size:1.2rem; }
+  p{ margin:0 0 12px; color:var(--ink-soft); }
+  .top{ text-align:center; padding:14px 0 6px; }
+  .top .mascot{ font-size:2.2rem; }
+  .card{ background:var(--card); border-radius:16px; padding:18px; box-shadow:0 6px 18px rgba(20,40,60,0.08); border:1px solid var(--line); margin-bottom:14px; }
+  .btn{ font-family:var(--font-head); font-size:1rem; font-weight:700; border:none; border-radius:12px; padding:12px 18px; cursor:pointer; display:inline-block; text-align:center; }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{ background:var(--brand); color:#fff; }
+  .btn-ghost{ background:transparent; color:var(--brand-dark); border:2px solid var(--brand); }
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+  .btn-full{ width:100%; }
+  .badge{ display:inline-block; background:var(--gold); color:#4A2E00; font-family:var(--font-head); font-weight:700; font-size:0.75rem; padding:3px 11px; border-radius:999px; margin-bottom:8px; }
+  .progress-track{ height:9px; background:var(--line); border-radius:999px; overflow:hidden; margin:8px 0 4px; }
+  .progress-fill{ height:100%; background:var(--brand); border-radius:999px; transition:width .25s ease; }
+  .progress-label{ font-size:0.82rem; color:var(--ink-soft); }
+  .option-btn{ display:block; width:100%; text-align:left; background:var(--bg); border:2px solid var(--line); border-radius:12px; padding:11px 14px; margin-bottom:8px; font-family:var(--font-body); font-size:1rem; color:var(--ink); cursor:pointer; }
+  .option-btn.selected{ border-color:var(--brand); background:#E1F0F8; }
+  :root[data-theme="dark"] .option-btn.selected{ background:#1c3646; }
+  @media (prefers-color-scheme:dark){ .option-btn.selected{ background:#1c3646; } }
+  .fill-row{ display:flex; align-items:center; gap:10px; margin-bottom:9px; }
+  .fill-row label{ min-width:150px; font-weight:700; color:var(--ink-soft); font-size:0.85rem; }
+  input[type=text], textarea{ font-family:var(--font-body); font-size:1rem; padding:10px 12px; border:2px solid var(--line); border-radius:10px; background:var(--card); color:var(--ink); width:100%; }
+  textarea{ resize:vertical; min-height:100px; }
+  details{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:10px 16px; margin-bottom:10px; }
+  summary{ font-family:var(--font-head); font-weight:700; cursor:pointer; font-size:1rem; }
+  .qa{ border-top:1px solid var(--line); padding:10px 0; }
+  .qa:first-of-type{ border-top:none; }
+  .qa .prompt{ font-weight:700; color:var(--ink); margin-bottom:4px; }
+  .tag{ display:inline-block; font-size:0.75rem; font-weight:800; border-radius:8px; padding:2px 9px; margin-right:6px; }
+  .tag.good{ background:var(--good-bg); color:var(--good); }
+  .tag.bad{ background:var(--bad-bg); color:var(--bad); }
+  .tag.note{ background:var(--line); color:var(--ink-soft); }
+  .explain{ font-size:0.88rem; color:var(--ink-soft); margin-top:3px; }
+  .score-big{ font-family:var(--font-head); font-size:2.1rem; color:var(--brand); text-align:center; margin:4px 0; }
+  .score-msg{ text-align:center; font-weight:700; }
+  .cat-bar-row{ margin-bottom:10px; }
+  .cat-bar-row .label{ display:flex; justify-content:space-between; font-size:0.88rem; font-weight:700; margin-bottom:3px; }
+  .cat-track{ height:11px; background:var(--line); border-radius:999px; overflow:hidden; }
+  .cat-fill{ height:100%; background:var(--brand); border-radius:999px; }
+  .session-box{ background:var(--good-bg); border:2px dashed var(--good); border-radius:14px; padding:13px; margin-bottom:14px; }
+  .code-chip{ font-family:var(--font-head); font-size:1.2rem; letter-spacing:3px; background:var(--card); border:2px solid var(--brand); color:var(--brand-dark); padding:5px 12px; border-radius:10px; display:inline-block; margin:5px 0; }
+  ul.simple{ padding-left:20px; color:var(--ink-soft); }
+  ul.simple li{ margin-bottom:6px; }
+  .ex-card{ display:flex; justify-content:space-between; align-items:center; background:var(--bg); border:2px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:8px; cursor:pointer; }
+  .ex-card:hover{ border-color:var(--brand); }
+  .ex-card .name{ font-weight:800; font-family:var(--font-head); }
+  .ex-card .status{ font-size:0.82rem; color:var(--ink-soft); }
+  .chap-card{ display:block; width:100%; text-align:left; background:var(--card); border:2px solid var(--line); border-radius:14px; padding:16px; margin-bottom:10px; cursor:pointer; }
+  .foot-note{ text-align:center; font-size:0.78rem; color:var(--ink-soft); margin-top:20px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+/* =========================================================================
+   Small helpers for building question objects. Same pattern used across
+   our practice apps: each question is a plain object with a type, a
+   prompt, and (if it can be auto-graded) an answer.
+   ========================================================================= */
+let uid = 0;
+function nextId(prefix){ uid++; return prefix + "-" + uid; }
+function short(prompt, answers, explain){ return { id:nextId("q"), type:"short", prompt, answer:answers, explain }; }
+function mcq(prompt, options, answer, explain){ return { id:nextId("q"), type:"mcq", prompt, options, answer, explain }; }
+function multi(prompt, options, answer, explain){ return { id:nextId("q"), type:"multi", prompt, options, answer, explain }; }
+function fill(prompt, labels, answers, ordered, explain){ return { id:nextId("q"), type:"fill", ordered:ordered!==false, prompt, labels, answer:answers, explain }; }
+function text(prompt, sample){ return { id:nextId("q"), type:"text", prompt, sample }; }
+
+/* =========================================================================
+   THE BOOK: Chapter -> Exercise -> Questions
+   ========================================================================= */
+const BOOK = [
+{
+  id:"ch2", title:"Chapter 2: Parts of a Plant", emoji:"🌱",
+  exercises:[
+    { id:"c2-typ", label:"Track Your Progress", questions:[
+      short("Roots grow ______ the soil.", ["under","downwards","into","under the soil","downwards into the soil"], "Roots grow downwards, under the soil."),
+      short("A ______ root has no main root.", ["fibrous","fibrous root"], "A fibrous root has no single main root — just many thin roots."),
+      short("The ______ carries water and minerals from the roots to the leaves.", ["stem"], "The stem transports water and minerals upward."),
+      short("A thick and strong stem is called the ______.", ["trunk"], "A thick, strong stem — like on a banyan or mango tree — is called the trunk."),
+      short("______ absorb water and minerals from the soil.", ["roots"], "Roots absorb water and minerals from the soil."),
+      short("Give an example of a plant that has fibrous roots.", ["wheat","rice","onion","palm","grass","maize"], "Wheat, rice, onion, palm and grass all have fibrous roots."),
+      short("Give an example of a stem that stores food.", ["potato","sugarcane"], "Potato and sugarcane both have stems that store food."),
+      short("Give an example of a plant with a thick stem (a trunk).", ["banyan","banyan tree","mango","mango tree"], "Banyan and mango trees have thick trunks."),
+      short("Give an example of a root that stores food.", ["carrot","radish","beetroot","turnip"], "Carrot, radish, beetroot and turnip roots store food."),
+      short("Give an example of a plant with a tap root.", ["turnip","bean","carrot","mustard"], "Turnip, bean, carrot and mustard all have tap roots."),
+      short("One word: the part of the plant that has seeds.", ["fruit"], "Seeds are found inside fruits."),
+      short("One word: the side of a leaf that is rough and light in colour.", ["lower side","lower","bottom","underside"], "The lower side of a leaf is rough and lighter in colour."),
+      short("One word: the green-coloured substance of a leaf.", ["chlorophyll"], "Chlorophyll is the green substance that traps sunlight."),
+      short("One word: the process of development of a new plant from a seed.", ["germination"], "This process is called germination.")
+    ]},
+    { id:"c2-exad", label:"Exercises A–D", questions:[
+      mcq("Which of the following is a creeper?", ["Bean","Grapevine","Watermelon","Ginger"], "Watermelon", "Watermelon and pumpkin have weak stems that grow along the ground — these are creepers."),
+      mcq("Which part of the plant prepares food?", ["Fruit","Root","Leaf","Flower"], "Leaf", "Leaves make food for the plant through photosynthesis."),
+      mcq("Which of the following trees has a hard and very thick stem?", ["Turmeric","Banyan","Ginger","Bougainvillea"], "Banyan", "The banyan tree has a thick, strong trunk."),
+      mcq("What do we call the tiny pores present on the lower side of the leaf?", ["Shoot","Stomata","Lamina","Vein"], "Stomata", "Stomata are tiny pores that let air in and out of the leaf."),
+      mcq("Which part of the plant can store food?", ["Root","Fruit","Stem","All of them"], "All of them", "Roots (carrot), stems (potato) and fruits can all store food."),
+      fill("Green leaves are called the ______ or ______ of a plant.", ["Word 1","Word 2"], ["kitchen","food factory"], false, "Leaves are called the kitchen or food factory of a plant."),
+      fill("Roots of ______ and ______ store food in them.", ["Plant 1","Plant 2"], ["carrot","radish"], false, "Carrot, radish, beetroot and turnip all have roots that store food (any two count)."),
+      short("Fibrous roots grow out from the ______ end of the stem.", ["base"], "Fibrous roots grow out from the base of the stem."),
+      short("Turnip, bean and mustard have ______ roots.", ["tap"], "These plants all have tap roots."),
+      short("Green leaves give out ______ while preparing food.", ["oxygen"], "Leaves release oxygen during photosynthesis."),
+      mcq("True or False: Roots of a plant grow above the soil.", ["True","False"], "False", "Roots grow under the soil, not above it."),
+      mcq("True or False: There is no main root in a fibrous root.", ["True","False"], "True", "A fibrous root has many thin roots and no single main root."),
+      mcq("True or False: A radish plant has a fibrous root.", ["True","False"], "False", "Radish has a tap root, like carrot and turnip."),
+      mcq("True or False: A seed contains a baby plant and its food.", ["True","False"], "True", "A seed contains a tiny baby plant along with stored food for it."),
+      mcq("True or False: The root helps the plant to breathe.", ["True","False"], "False", "It's the leaves that help the plant breathe, not the roots."),
+      short("Give an example of a leaf that we eat.", ["cabbage","spinach"], "We eat leaves of cabbage and spinach."),
+      short("Give an example of a stem that we eat.", ["potato","sugarcane"], "We eat the stems of potato and sugarcane."),
+      short("Give an example of a flower that we eat.", ["broccoli","cauliflower"], "We eat the flowers of broccoli and cauliflower."),
+      short("Give an example of a fruit that has one seed.", ["mango"], "A mango has just one seed inside."),
+      short("Give an example of a fruit that has many seeds.", ["papaya"], "A papaya has many seeds inside.")
+    ]},
+    { id:"c2-exeh", label:"Exercises E–H", questions:[
+      short("Who am I? I am found inside a fruit. I grow into a new plant.", ["seed"], "This is a seed."),
+      short("Who am I? I am the food factory of a plant.", ["leaf"], "This is the leaf."),
+      short("Who am I? I am the part of a plant that contains chlorophyll.", ["leaf"], "The leaf contains chlorophyll."),
+      short("Who am I? I am the flat part of the leaf.", ["leaf blade","lamina"], "This is the leaf blade, also called lamina."),
+      short("Who am I? I am a thin tube that runs through the middle of the leaf.", ["main vein","vein"], "This is the main vein."),
+      text("Name the different parts of a plant.", "Root, stem, leaves, flowers, and fruits."),
+      text("Differentiate between the root and the shoot of a plant.", "The root grows underground and anchors the plant and absorbs water/minerals. The shoot grows above the soil and includes the stem, leaves, flowers and fruits."),
+      short("What is germination?", ["the process of development of a new plant from a seed","development of a new plant from a seed"], "Germination is the process by which a new plant develops from a seed."),
+      text("Why is the leaf called the food factory of a plant?", "Because leaves use sunlight, water and carbon dioxide to prepare food for the whole plant, through photosynthesis."),
+      text("State two functions each of the root, the stem, and the flower.", "Root: fixes the plant to the soil, and absorbs water and minerals. Stem: supports the plant, and carries water/minerals/food to all parts. Flower: helps the plant reproduce, and some flowers (like broccoli) store food."),
+      text("What is the difference between a tap root and a fibrous root?", "A tap root has one thick main root with thin side roots. A fibrous root has many thin roots of similar size, with no single main root."),
+      short("What is the role of stomata in a plant?", ["tiny pores that let air enter the leaf","let air in","allow air to enter the leaf"], "Stomata are tiny pores on the underside of a leaf that let air enter."),
+      text("Describe the process of photosynthesis.", "Leaves use water from the soil, carbon dioxide from the air, and sunlight trapped by chlorophyll to prepare food. This process is called photosynthesis, and it releases oxygen."),
+      text("How are plants useful to us?", "Plants are our main source of food, their roots hold the soil together, they beautify our surroundings, and they reduce pollution by taking in carbon dioxide and giving out oxygen."),
+      short("What does a seed require to grow into a plant?", ["water, air and sunlight","water air sunlight","sufficient water, air and sunlight"], "A seed needs sufficient water, air and sunlight to germinate and grow."),
+      fill("From this list — carrot, coriander, turmeric, cabbage, pomegranate, potato, radish, papaya — which TWO are examples of a STEM?", ["Example 1","Example 2"], ["potato","turmeric"], false, "Potato and turmeric are both underground stems."),
+      fill("From the same list, which TWO are examples of a ROOT?", ["Example 1","Example 2"], ["carrot","radish"], false, "Carrot and radish are both roots."),
+      fill("From the same list, which TWO are examples of a LEAF?", ["Example 1","Example 2"], ["coriander","cabbage"], false, "Coriander and cabbage are both leaves we use."),
+      fill("From the same list, which TWO are examples of a FRUIT?", ["Example 1","Example 2"], ["pomegranate","papaya"], false, "Pomegranate and papaya are both fruits."),
+      text("The leaves of a plant in your garden have started to turn yellow and wilt even though you water it regularly. What could be the problem, and how can you resolve it?", "The plant is likely not getting enough sunlight to photosynthesise properly. Moving it to a sunnier spot should help."),
+      text("Is it possible for plants to produce food without soil?", "Yes — this is done in hydroponics. Plants mainly need water, air, sunlight and carbon dioxide for photosynthesis, and can get minerals from a nutrient solution instead of soil."),
+      short("Look at a plant that is completely pale/white in colour instead of green. Based on its colour, do you think it performs photosynthesis?", ["no","No"], "No — since it lacks chlorophyll (the green pigment), it cannot trap sunlight to make food."),
+      text("Sonia's plant has a damaged stem, looks weak, and is not standing up straight. What should she do to help it recover, and why?", "She could support the stem with a stick or stake (since the stem's job is support), keep watering it properly, and make sure it gets enough sunlight and nutrients."),
+      short("Dust has collected on a plant's leaves near a window, and some leaves are turning yellow. What do you think can happen if the dust keeps accumulating?", ["it blocks sunlight","blocks sunlight from reaching the leaf","reduces photosynthesis"], "Dust blocks sunlight from reaching the leaf, which reduces photosynthesis, so the plant makes less food."),
+      short("How would you help that dusty plant so it can photosynthesise properly again?", ["clean the leaves","wipe the dust off the leaves","wash the leaves"], "Gently wiping or washing the dust off the leaves lets sunlight reach them again.")
+    ]},
+    { id:"c2-think", label:"Think &amp; Discuss", questions:[
+      text("How does a plant with a taproot system (like a carrot) differ from a plant with a fibrous root system (like grass) in obtaining water and nutrients? Which type of root is more advantageous in certain environments?", "A tap root goes deep to reach water far underground (useful in dry areas), while fibrous roots spread out near the surface to quickly soak up water after rain and hold topsoil in place."),
+      text("A branch of a plant with a white flower is dipped in a glass of coloured water. What happens to the colour of the flower after a few hours, and why?", "The flower changes colour to match the coloured water, because the stem carries the coloured water up to the flower."),
+      text("Why do you think the leaves of a plant kept in a dark room (but watered daily) turn yellow and start drooping?", "Without sunlight, the leaves cannot photosynthesise and make food, so they turn yellow and the plant weakens."),
+      text("If you were part of a plant, which part would you like to be, and why?", "Any part works as an answer — for example, 'the leaf, because it makes food for the whole plant.'")
+    ]}
+  ]
+},
+{
+  id:"ch3", title:"Chapter 3: Eating Habits of Animals", emoji:"🦁",
+  exercises:[
+    { id:"c3-intro", label:"Warm-Up", questions:[
+      mcq("What does a dog most enjoy drinking?", ["Milk","Nuts","Grass"], "Milk", "Dogs (like cats) lap up milk with their tongue."),
+      mcq("What does a squirrel most enjoy eating?", ["Milk","Nuts","Grass"], "Nuts", "Squirrels gnaw on nuts."),
+      mcq("What does a goat most enjoy eating?", ["Milk","Nuts","Grass"], "Grass", "Goats are herbivores that graze on grass.")
+    ]},
+    { id:"c3-typ", label:"Track Your Progress", questions:[
+      short("One word: biting and chewing food repeatedly, eating it in small pieces.", ["gnawing"], "This is called gnawing."),
+      short("Name an animal that has sharp front teeth and flat back teeth for biting and chewing plants.", ["cow","horse","goat","sheep","buffalo"], "Herbivores like cow, horse, goat and sheep have this kind of teeth."),
+      short("One word: the method by which dogs and cats drink milk.", ["lapping"], "This is called lapping."),
+      short("What helps an elephant to gather food and put it into its mouth?", ["trunk"], "An elephant's trunk gathers food."),
+      short("Lion and wolf are examples of ______ animals.", ["carnivores","carnivorous"], "Lion and wolf are carnivores."),
+      fill("Flesh-eating animals have ______ and ______ teeth at the front.", ["Word 1","Word 2"], ["sharp","pointed"], false, "Flesh-eating animals have sharp, pointed front teeth to tear flesh."),
+      fill("A frog has a ______ and ______ tongue to catch its prey.", ["Word 1","Word 2"], ["long","sticky"], false, "A frog's tongue is long and sticky."),
+      short("When animals breathe, they give out ______.", ["carbon dioxide"], "Animals breathe out carbon dioxide.")
+    ]},
+    { id:"c3-exad", label:"Exercises A–D", questions:[
+      mcq("Which of the following animals is a herbivore?", ["Lion","Wolf","Giraffe","Bear"], "Giraffe", "The giraffe eats leaves — it's a herbivore."),
+      mcq("Which of the following animals swallows food without chewing it?", ["Cow","Buffalo","Lion","Python"], "Python", "A python swallows its prey whole, without chewing."),
+      mcq("Which of the following is NOT a domestic animal?", ["Dog","Cat","Horse","Wolf"], "Wolf", "Dog, cat and horse are domestic animals; a wolf is wild."),
+      mcq("Which of the following animals uses its grinding teeth to chew food?", ["Wolf","Cat","Elephant","Lizard"], "Elephant", "An elephant uses its grinding teeth to chew its food."),
+      mcq("Which of the following gases do plants use to make food?", ["Oxygen","Carbon dioxide","Both (a) and (b)","None of these"], "Carbon dioxide", "Plants use carbon dioxide (along with water and sunlight) to make food."),
+      short("A food chain always starts with a ______.", ["producer"], "Every food chain starts with a producer (a plant)."),
+      short("______ eat grass, leaves and fruits.", ["herbivores"], "Herbivores eat grass, leaves and fruits."),
+      short("Sheep gives us ______.", ["wool"], "Sheep give us wool."),
+      short("When plants make food, they give out ______ in the air.", ["oxygen"], "Plants release oxygen while making food."),
+      short("A butterfly has a long tube which it uses to suck ______ from flowers.", ["nectar"], "A butterfly sucks nectar from flowers."),
+      mcq("True or False: In a food chain, animals are called consumers.", ["True","False"], "True", "Animals can't make their own food, so they are called consumers."),
+      mcq("True or False: Plant-eating animals have pointed teeth at the front.", ["True","False"], "False", "Pointed teeth belong to flesh-eating animals; plant-eaters have sharp/flat teeth for biting and chewing."),
+      mcq("True or False: Chimpanzees eat both plants and other animals.", ["True","False"], "True", "Chimpanzees are omnivores."),
+      mcq("True or False: Cat and dog use their teeth for lapping up milk.", ["True","False"], "False", "They use their tongue for lapping, not their teeth."),
+      mcq("True or False: Domestic animals should be given energy-rich food.", ["True","False"], "True", "Domestic animals need energy-rich food to stay healthy."),
+      short("Give a reason: Lions have pointed front teeth.", ["to tear the flesh","to tear flesh of prey"], "Pointed teeth help lions tear the flesh of their prey."),
+      short("Give a reason: Horses and sheep have sharp front teeth.", ["to bite grass","to bite grass and leaves"], "Sharp front teeth help them bite grass and leaves."),
+      short("Give a reason: A mosquito has a long and pointed tube.", ["to suck blood"], "The tube lets a mosquito suck the blood of animals."),
+      short("Give a reason: An elephant has a trunk.", ["to gather food and drink water","to drink water","to gather food"], "An elephant uses its trunk to gather food and to drink water.")
+    ]},
+    { id:"c3-eheh", label:"Crossword Clues &amp; More", questions:[
+      short("Crossword clue: A flesh-eating animal.", ["carnivore"], "Carnivore."),
+      short("Crossword clue: It has a long neck that helps it reach the branches of tall trees.", ["giraffe"], "Giraffe."),
+      short("Crossword clue: It gives us eggs and meat.", ["hen"], "Hen."),
+      short("Crossword clue: It has a long tube to suck nectar from flowers.", ["butterfly"], "Butterfly."),
+      short("Crossword clue: An elephant uses this to gather and put food into its mouth.", ["trunk"], "Trunk."),
+      short("Crossword clue: This method of drinking is used by dogs and cats.", ["lapping"], "Lapping."),
+      short("Crossword clue: They can make their own food.", ["plants","producers"], "Plants (producers) make their own food."),
+      text("What is the difference between a horse, a monkey and a rabbit, based on their eating habits?", "A horse grazes on grass with flat back teeth; a monkey eats fruit like bananas; a rabbit gnaws on nuts, fruits and seeds with sharp front teeth."),
+      short("What do omnivores eat? Give two examples of omnivores.", ["both plants and animals","plants and animals"], "Omnivores eat both plants and animals — bear and chimpanzee are examples."),
+      text("Give two differences between plant-eating and flesh-eating animals.", "Plant-eating animals (herbivores) have sharp front teeth and flat back teeth, and eat grass/leaves/fruits. Flesh-eating animals (carnivores) have sharp, pointed front teeth and strong jaws, and eat other animals."),
+      short("How does a frog catch its prey?", ["with its long sticky tongue","long, sticky tongue"], "A frog catches insects with its long, sticky tongue."),
+      short("What do you understand by 'chewing the cud'?", ["bringing back food from the stomach to chew again","animal brings food back from stomach to mouth to chew again"], "Some animals, like cows, bring food back from the stomach to the mouth to chew it again."),
+      text("What is a food chain? Explain with the help of an example.", "A food chain shows how animals and plants depend on each other for food. Example: Grass → Deer → Lion."),
+      text("What is the difference between lapping and gnawing? Explain with an example.", "Lapping is drinking liquid with the tongue (a cat lapping milk). Gnawing is biting and chewing food repeatedly in small pieces (a rabbit gnawing on nuts)."),
+      text("How are animals, human beings and plants inter-dependent on each other?", "Plants make food and release oxygen, which animals and humans breathe. Animals and humans breathe out carbon dioxide, which plants use to make food. Animals also get food directly from plants."),
+      short("Can a food chain be complete without plants? Why or why not?", ["no","No, because plants are producers"], "No — plants (producers) are the starting point of every food chain, since only they can make their own food."),
+      fill("Arrange into a food chain, from what gets eaten first to the top of the chain: Snake, Eagle, Carrot, Rabbit.", ["Step 1","Step 2","Step 3","Step 4"], ["carrot","rabbit","snake","eagle"], true, "Carrot → Rabbit → Snake → Eagle."),
+      fill("Arrange into a food chain: Ant, Grains, Spider.", ["Step 1","Step 2","Step 3"], ["grains","ant","spider"], true, "Grains → Ant → Spider."),
+      text("Imagine a garden that has only plants and no animals. Describe how this would affect the food chain in that garden.", "The food chain would be incomplete — there would be no consumers to eat the plants, so energy from the plants wouldn't pass on to any animal."),
+      short("If you see a cow chewing continuously, even when it is not eating grass, is it chewing the cud? Explain.", ["yes","Yes, it is chewing the cud"], "Yes — cows bring back previously swallowed food from the stomach to chew it again, even when not actively eating."),
+      text("Ritu's dog Jack guarded her home and fought off thieves, injuring his leg. What should Ritu do on discovering Jack's injury?", "She should take Jack to a veterinary doctor for treatment and take good care of him, since he protected the house."),
+      short("What is the home of a hen called?", ["coop"], "A hen's home is called a coop."),
+      short("What is the home of a dog called?", ["kennel"], "A dog's home is called a kennel."),
+      short("What is the home of a pig called?", ["sty","pigsty"], "A pig's home is called a sty."),
+      short("What is the home of a rabbit called?", ["hutch","burrow"], "A rabbit's home is called a hutch."),
+      short("What is the home of a cow called?", ["shed","cowshed","barn"], "A cow's home is called a shed.")
+    ]}
+  ]
+},
+{
+  id:"ch4", title:"Chapter 4: Birds", emoji:"🦅",
+  exercises:[
+    { id:"c4-typ", label:"Track Your Progress", questions:[
+      short("Emu is a ______ bird.", ["flightless"], "Emu cannot fly — it is a flightless bird."),
+      short("______ feathers are found in the tail and wings of birds.", ["flight"], "Flight feathers are found in the tail and wings."),
+      short("During the ______, the wings move upwards and backwards.", ["upstroke"], "This is the upstroke."),
+      short("______ feathers give shape to a bird's body.", ["body"], "Body feathers cover and shape a bird's body."),
+      short("Name a bird that has a short and hard beak.", ["peacock","sparrow","pigeon"], "Peacock, sparrow and pigeon all have short, hard beaks."),
+      short("Name a bird that has webbed feet.", ["duck","goose"], "Duck and goose have webbed feet."),
+      short("Name a bird that uses its beak to tear flesh.", ["eagle","vulture","kite"], "Eagle, vulture and kite have hooked beaks for tearing flesh."),
+      short("Name a bird that has sharp and hard claws.", ["hen","rooster","peacock","eagle","vulture"], "Hen, rooster and peacock (for scratching) and eagle/vulture (talons) all have sharp, hard claws."),
+      short("Name a bird that perches on trees.", ["mynah","crow","sparrow"], "Mynah, crow and sparrow are perching birds.")
+    ]},
+    { id:"c4-exad", label:"Exercises A–D", questions:[
+      mcq("Which of the following birds makes a hole in the trunk to build its nest?", ["Parrot","Eagle","Woodpecker","Mynah"], "Woodpecker", "A woodpecker drills a hole in a tree trunk to nest in."),
+      mcq("Which of the following birds uses its beak to stitch leaves together?", ["Eagle","Tailor bird","Mynah","Crow"], "Tailor bird", "The tailor bird stitches leaves together using its beak like a needle."),
+      mcq("Which of the following birds has a broad and flat beak?", ["Hen","Duck","Spoonbill","Sparrow"], "Duck", "Ducks have broad, flat beaks."),
+      mcq("Which of the following birds has a spoon-shaped beak?", ["Kite","Crane","Goose","Spoonbill"], "Spoonbill", "The spoonbill has a spoon-shaped beak."),
+      mcq("Which of the following birds has spread-out toes that prevent it from sinking into muddy water?", ["Crane","Peacock","Parrot","Sparrow"], "Crane", "The crane's spread-out toes stop it from sinking into mud."),
+      short("The ______ of a bird helps it to change directions while flying.", ["tail"], "The tail helps a bird change direction."),
+      short("______ feathers grow close to the skin and keep the body warm.", ["down"], "Down feathers keep a bird's body warm."),
+      short("______ are the sharp and curved claws of flesh-eating birds.", ["talons"], "Talons are the sharp, curved claws of flesh-eating birds."),
+      short("A ______ uses grass, twigs and leaves to weave a nest on a tree.", ["weaverbird","weaver bird"], "A weaverbird weaves its nest."),
+      short("Nests of eagles are called ______.", ["eyries"], "An eagle's nest is called an eyrie."),
+      mcq("True or False: Birds have hollow bones.", ["True","False"], "True", "Hollow bones make a bird's body light for flying."),
+      mcq("True or False: An ostrich can fly very high in the sky.", ["True","False"], "False", "The ostrich is a flightless bird."),
+      mcq("True or False: A duck has a broad and sharp beak.", ["True","False"], "False", "A duck's beak is broad and FLAT, not sharp."),
+      mcq("True or False: A newborn bird has a lot of down feathers.", ["True","False"], "True", "Newborn birds have lots of soft down feathers to keep warm."),
+      mcq("True or False: Penguins make their nests on the higher branches of tall trees.", ["True","False"], "False", "Penguins nest on open ground with pebbles."),
+      fill("Give two examples of perching birds.", ["Example 1","Example 2"], ["crow","sparrow"], false, "Crow and sparrow are perching birds."),
+      fill("Give two examples of scratching birds.", ["Example 1","Example 2"], ["hen","rooster"], false, "Hen and rooster are scratching birds."),
+      fill("Give two examples of climbing birds.", ["Example 1","Example 2"], ["woodpecker","parrot"], false, "Woodpecker and parrot are climbing birds."),
+      fill("Give two examples of wading birds.", ["Example 1","Example 2"], ["crane","heron"], false, "Crane and heron are wading birds.")
+    ]},
+    { id:"c4-exei", label:"Exercises E–I", questions:[
+      mcq("Match: Wings help birds to...", ["fly","make the body light","move upwards (that's the upstroke)","help change direction","help move the wings"], "fly", "Wings help birds fly."),
+      mcq("Match: Hollow bones...", ["fly","make the body light","move upwards (that's the upstroke)","help change direction","help move the wings"], "make the body light", "Hollow bones make a bird's body light."),
+      mcq("Match: The upstroke is when the wings...", ["fly","make the body light","move upwards (that's the upstroke)","help change direction","help move the wings"], "move upwards (that's the upstroke)", "During the upstroke, wings move upwards and backwards."),
+      mcq("Match: The tail helps a bird to...", ["fly","make the body light","move upwards (that's the upstroke)","help change direction","help move the wings"], "help change direction", "The tail helps change flying direction."),
+      mcq("Match: Strong muscles...", ["fly","make the body light","move upwards (that's the upstroke)","help change direction","help move the wings"], "help move the wings", "Strong flight muscles move the wings."),
+      text("What is the difference between a woven nest and a stitched nest?", "A woven nest (made by a weaverbird) is woven from grass, twigs and leaves and hangs from a branch. A stitched nest (made by a tailor bird) is made by stitching large leaves together using its beak like a needle."),
+      text("Why do birds make nests? Explain.", "Nests act as shelter — they keep birds safe from bad weather and enemies, and are where birds lay eggs and raise their young."),
+      text("How do long and thin legs help a bird in wading?", "Long, thin legs (with spread-out toes) keep the bird's body above muddy water and stop it from sinking as it walks in search of food."),
+      short("What is perching?", ["sitting on tree branches by gripping with the feet","holding on to a branch with the toes"], "Perching is when a bird grips a branch with its toes to sit on it safely."),
+      text("What would happen if all the toes of a woodpecker pointed in the same direction?", "It would lose its strong grip on tree trunks (its toes normally point two forward, two backward), making it hard to climb and hold on while drilling for insects."),
+      short("Name a bird with a chisel-shaped beak.", ["woodpecker","hoopoe","hummingbird"], "Woodpecker, hoopoe and hummingbird have chisel-shaped beaks."),
+      short("Name a bird with a spoon-shaped beak.", ["spoonbill"], "The spoonbill has a spoon-shaped beak."),
+      text("How do the chisel-shaped and spoon-shaped beaks help these birds in feeding?", "A chisel-shaped beak helps drill holes in tree trunks to pull out insects. A spoon-shaped beak helps gather tadpoles and insects from water."),
+      text("How do birds fly?", "Birds flap their wings using strong flight muscles, and their streamlined, light (hollow-boned) body helps them cut through the air easily."),
+      short("What kind of feet do ducks have? How are these helpful to them?", ["webbed feet","webbed"], "Ducks have webbed feet, which act like oars and help them swim."),
+      short("Why do birds have a streamlined body?", ["helps them cut through the air easily","to fly easily","to move through air easily"], "A streamlined body — broad in the middle, narrow at the ends — helps a bird cut through the air easily."),
+      text("What would happen if eagles did not have curved claws?", "They wouldn't be able to grip and hold their prey firmly, so it could escape while they were flying."),
+      text("What would happen if birds did not have body feathers?", "Their bodies wouldn't be covered and shaped properly — they'd lose their streamlined shape and protection from the weather."),
+      mcq("Match: A woodpecker's beak goes with which kind of claws?", ["Climbing toes (two forward, two back)","Scratching claws","Webbed feet","Talons"], "Climbing toes (two forward, two back)", "A woodpecker has climbing toes to grip tree trunks."),
+      mcq("Match: A hen's beak goes with which kind of claws?", ["Climbing toes (two forward, two back)","Scratching claws","Webbed feet","Talons"], "Scratching claws", "A hen has hard, sharp scratching claws."),
+      mcq("Match: A duck's beak goes with which kind of feet?", ["Climbing toes (two forward, two back)","Scratching claws","Webbed feet","Talons"], "Webbed feet", "A duck has webbed feet for swimming."),
+      mcq("Match: An eagle's beak goes with which kind of claws?", ["Climbing toes (two forward, two back)","Scratching claws","Webbed feet","Talons"], "Talons", "An eagle has sharp, curved talons."),
+      text("If a bird with webbed feet, such as a duck, lived in an area where all the ponds and lakes dried up, how would this affect the bird's ability to find food and survive?", "Its webbed feet, built for swimming, would be far less useful on dry land for finding food — the duck would struggle to survive and might need to migrate to find water."),
+      text("Why is it important for cities to have green spaces such as parks with lots of trees, for birds like eagles and parrots that nest high up?", "Without trees, these birds would lose their nesting sites and shelter, and green spaces also provide them food and safety."),
+      text("Imagine you are a bird building a nest. What materials would you collect, and why is each one important?", "Twigs for a strong frame, grass and leaves for lining, feathers/cotton/wool for warmth, and sometimes mud to bind it all together."),
+      text("At the park you see some birds flap their wings fast to move between trees, while others glide smoothly in the sky. What helps birds fly, and what do you notice about their wings and movements?", "Wings and flight muscles help birds fly. Fast flapping generates lift and thrust for short, controlled moves; gliding uses air currents to soar with little flapping, saving energy.")
+    ]}
+  ]
+},
+{
+  id:"ch5", title:"Chapter 5: The Human Body", emoji:"🫀",
+  exercises:[
+    { id:"c5-typ", label:"Track Your Progress", questions:[
+      fill("Name two organs of the Digestive system.", ["Organ 1","Organ 2"], ["mouth","stomach"], false, "Mouth and stomach (also food pipe, small/large intestine) are part of the digestive system."),
+      fill("Name two organs of the Respiratory system.", ["Organ 1","Organ 2"], ["nose","lungs"], false, "Nose and lungs (also windpipe) are part of the respiratory system."),
+      fill("Name two organs of the Circulatory system.", ["Organ 1","Organ 2"], ["heart","blood vessels"], false, "Heart and blood vessels make up the circulatory system."),
+      short("The ______ controls all the organ systems of our body.", ["brain"], "The brain controls all organ systems."),
+      short("______ are the thin, thread-like tubes that run around the body.", ["nerves"], "Nerves are thin, thread-like tubes carrying messages."),
+      short("The ______ helps us to sense temperature, touch and pain.", ["skin"], "Skin senses temperature, touch and pain."),
+      short("______ is needed for the continuity of life.", ["reproduction"], "Reproduction is needed for the continuity of life.")
+    ]},
+    { id:"c5-exad", label:"Exercises A–D", questions:[
+      short("The heart belongs to which organ system?", ["circulatory","circulatory system"], "The heart is part of the circulatory system."),
+      short("The skeleton belongs to which organ system?", ["skeletal","skeletal system"], "The skeleton is the skeletal system."),
+      short("The kidney belongs to which organ system?", ["excretory","excretory system"], "The kidney is part of the excretory system."),
+      short("The brain belongs to which organ system?", ["nervous","nervous system"], "The brain is part of the nervous system."),
+      short("______ is the smallest entity of our body.", ["cell"], "The cell is the smallest entity/building block of our body."),
+      short("The bones join to form a ______.", ["skeleton"], "Bones join together to form the skeleton."),
+      short("The small intestine is a part of the ______ system.", ["digestive"], "The small intestine is part of the digestive system."),
+      short("The gas we breathe in is known as ______.", ["oxygen"], "We breathe in oxygen."),
+      short("The ______ is made of the blood, heart and blood vessels.", ["circulatory system"], "This is the circulatory system."),
+      mcq("True or False: We have seven sense organs.", ["True","False"], "False", "We have five sense organs: eyes, ears, nose, tongue, skin."),
+      mcq("True or False: The excretory system helps in removing wastes from the body.", ["True","False"], "True", "The excretory system removes waste from the body."),
+      mcq("True or False: Our eyes help us to hear.", ["True","False"], "False", "Eyes help us see; ears help us hear."),
+      mcq("True or False: The reproductive system helps living organisms to reproduce.", ["True","False"], "True", "The reproductive system helps living things produce babies of their own kind."),
+      mcq("True or False: Nose is a part of the digestive system.", ["True","False"], "False", "The nose is part of the respiratory system."),
+      short("Unscramble: EVREN — name the organ, and which organ system it belongs to (e.g. 'organ - system').", ["nerve - nervous","nerve-nervous","nerve nervous"], "EVREN unscrambles to NERVE, part of the nervous system."),
+      short("Unscramble: EARHT — name the organ and its organ system.", ["heart - circulatory","heart-circulatory","heart circulatory"], "EARHT unscrambles to HEART, part of the circulatory system."),
+      short("Unscramble: INTTINEES — name the organ and its organ system.", ["intestine - digestive","intestine-digestive","intestine digestive"], "INTTINEES unscrambles to INTESTINE, part of the digestive system."),
+      short("Unscramble: DIKYEN — name the organ and its organ system.", ["kidney - excretory","kidney-excretory","kidney excretory"], "DIKYEN unscrambles to KIDNEY, part of the excretory system."),
+      short("Unscramble: EPIWNDIP — name the organ and its organ system.", ["windpipe - respiratory","windpipe-respiratory","windpipe respiratory"], "EPIWNDIP unscrambles to WINDPIPE, part of the respiratory system.")
+    ]},
+    { id:"c5-exeh", label:"Exercises E–H", questions:[
+      text("What is the function of the brain?", "The brain controls all the organ systems of the body, controls thinking and learning, and directs our daily activities."),
+      text("What is the function of the small intestine?", "The small intestine digests food further using digestive juices, and absorbs the nutrients from the food into the blood."),
+      short("Why are lungs considered to be a part of the excretory system?", ["they remove carbon dioxide","they remove carbon dioxide, a waste gas"], "Lungs are part of the excretory system because they remove carbon dioxide, a waste gas, from the body."),
+      text("What is the importance of the small intestine in our body?", "It digests food fully with the help of digestive juices and lets the nutrients be absorbed into the blood."),
+      text("Describe the process of digestion.", "Digestion starts in the mouth, where teeth chew food and saliva softens it. It travels down the food pipe to the stomach, where digestive juices turn it into a paste. In the small intestine it's digested further and nutrients are absorbed into the blood. The large intestine absorbs water from the leftover waste, which is removed through the anus."),
+      text("What is the main function of the respiratory system? Discuss the functions of the nose and lungs.", "The respiratory system provides oxygen to the body and helps us breathe. The nose filters incoming air (hair traps dust and germs), and the lungs take in oxygen and remove carbon dioxide."),
+      text("How do nerves help the brain to perform various functions?", "Nerves carry messages between the brain and the rest of the body, letting the brain sense what's happening and send back instructions."),
+      text("How is waste removed from our body?", "The kidneys filter liquid waste out as urine, which leaves via the ureters, bladder and urethra. The lungs remove carbon dioxide. The skin removes extra water and salt as sweat. The large intestine removes solid waste through the anus."),
+      text("Discuss the functions of the skeletal system.", "The skeleton gives shape to the body, protects inner organs like the brain, heart and lungs, and lets us stand straight and walk."),
+      short("What is the importance of reproduction?", ["it helps produce babies of the same kind","continuity of life","ensures continuity of life"], "Reproduction lets living things produce babies of their own kind, ensuring the continuity of life."),
+      multi("Reema enjoyed music, saw beautiful things, and smelled and tasted sweet corn at the mall. Which sense organs did she use?", ["Eyes","Ears","Nose","Tongue","Skin"], ["Eyes","Ears","Nose","Tongue"], "She used her eyes (seeing), ears (hearing music), nose (smelling corn) and tongue (tasting corn)."),
+      mcq("A dancer swings, bends and swirls her body during a performance. Which body systems help her do this?", ["Skeletal system","Muscular system","Respiratory system","Both (a) and (b)"], "Both (a) and (b)", "Both the skeletal system (bones) and the muscular system (muscles) work together for movement."),
+      text("Shivani notices her grandmother's hands shake a lot while doing activities like eating. Explain why this might be happening in terms of the nervous system.", "As people age, the nervous system may not send and control signals to the muscles as smoothly as before, which can cause the hands to shake."),
+      short("On touching a hot cup, Sameer quickly pulls his hand away without thinking. Does this action involve the nervous system?", ["yes, it is a reflex action","yes"], "Yes — this is a fast reflex action controlled by the nervous system, reacting before the brain even 'thinks' about it."),
+      text("Why is drinking water important for your body, especially for your kidneys and bladder?", "Water helps the kidneys filter waste from the blood effectively and keeps the bladder and whole excretory system working properly."),
+      text("How does your body use the excretory system to get rid of extra water?", "The kidneys filter extra water out of the blood into urine, which is stored in the bladder and removed through the urethra; the skin also removes some extra water as sweat.")
+    ]}
+  ]
+},
+{
+  id:"ch6", title:"Chapter 6: Keeping Safe", emoji:"🚸",
+  exercises:[
+    { id:"c6-signs", label:"Safety Signs", questions:[
+      short("A red sign shows a running person and flames, pointing towards a door. What does it mean?", ["fire exit"], "This is a fire exit sign."),
+      short("A sign shows a circle with a red line through a swimming figure. What does it mean?", ["no swimming"], "This means swimming is not allowed here."),
+      short("A white cross on a sign is used to mark what kind of station or kit?", ["first aid"], "A white cross marks a first-aid point or kit."),
+      short("A yellow sign shows a warning symbol with flames on it. What is it warning about?", ["fire","fire hazard"], "This warns of a fire hazard."),
+      short("A yellow triangle sign shows a skull and crossbones. What does it warn about?", ["poison","danger"], "This warns of poison or danger."),
+      short("A yellow sign shows a lightning bolt. What does it warn about?", ["electric shock","electricity"], "This warns of the danger of electric shock.")
+    ]},
+    { id:"c6-typ", label:"Track Your Progress", questions:[
+      mcq("True or False: Never use a zebra crossing while crossing the road.", ["True","False"], "False", "We SHOULD use the zebra crossing to cross safely."),
+      mcq("True or False: Do not run up or down the staircase.", ["True","False"], "True", "Running on stairs can cause falls and collisions."),
+      mcq("True or False: Always play on a terrace or rooftop.", ["True","False"], "False", "We should NOT play on a terrace or rooftop — it's unsafe."),
+      mcq("True or False: Do not speak with strangers outside the home.", ["True","False"], "True", "It's safest not to interact with strangers."),
+      mcq("True or False: Do not touch electrical equipment with wet hands.", ["True","False"], "True", "Wet hands with electrical equipment can cause an electric shock.")
+    ]},
+    { id:"c6-exad", label:"Exercises A–D", questions:[
+      mcq("A child is leaning out of the window of a moving car. Is this safe or not safe?", ["Safe","Not safe"], "Not safe", "You should never put your head or hands out of a moving vehicle."),
+      mcq("A child is sitting in the car wearing a seat belt. Is this safe or not safe?", ["Safe","Not safe"], "Safe", "Wearing a seat belt in a car is safe practice."),
+      mcq("A person is crossing a busy road while looking down at their phone. Is this safe or not safe?", ["Safe","Not safe"], "Not safe", "You should always pay attention to traffic while crossing a road."),
+      mcq("Two children are walking hand-in-hand across a zebra crossing. Is this safe or not safe?", ["Safe","Not safe"], "Safe", "Using the zebra crossing to cross together is safe."),
+      short("Fill in the blank (word bank: food, slide, first aid, climb, wet): Do not ______ on desks and chairs in the classroom.", ["climb"], "Do not climb on desks and chairs."),
+      short("Fill in the blank: ______ is an immediate care given to a person who is injured.", ["first aid"], "First aid is immediate care given to an injured person."),
+      short("Fill in the blank: Do not touch a switch with ______ hands.", ["wet"], "Never touch a switch with wet hands."),
+      short("Fill in the blank: Do not take ______ from strangers.", ["food"], "Never take food from strangers."),
+      short("Fill in the blank: Do not ______ down the banister.", ["slide"], "Do not slide down the banister — you may slip and fall."),
+      mcq("True or False: Always keep a first-aid box at home.", ["True","False"], "True", "A first-aid box at home is important for emergencies."),
+      mcq("True or False: An antiseptic lotion is a substance that kills germs.", ["True","False"], "True", "Antiseptic kills germs and helps prevent infection."),
+      mcq("True or False: Do not chew your food properly.", ["True","False"], "False", "You SHOULD chew your food properly to avoid choking."),
+      mcq("True or False: We should not lock our door before leaving the house.", ["True","False"], "False", "We SHOULD lock the door before leaving, for safety."),
+      mcq("True or False: Always play in a playground.", ["True","False"], "True", "A playground is a safe, designated place to play."),
+      text("Why are safety rules important?", "Safety rules help prevent accidents and injuries, keeping us and the people around us safe."),
+      short("Why should you not play with sharp and pointed objects?", ["they can cut or injure your skin","can cut you"], "Sharp and pointed objects can cut or injure your skin if not handled carefully."),
+      text("State any three safety rules to be followed in school.", "For example: don't run in corridors, don't climb on desks and chairs, and use a sharpener (not a blade) to sharpen pencils."),
+      text("State any three ways by which we can avoid accidents at home.", "For example: don't play with fire or hot objects, don't touch electrical equipment with wet hands, and don't leave things lying on the floor."),
+      short("Define 'first aid'.", ["immediate care given to a person who is injured or suddenly falls ill","immediate care given to an injured person"], "First aid is the immediate care given to an injured person before taking them to a doctor."),
+      short("Define 'antiseptic'.", ["a substance that kills germs"], "An antiseptic is a substance that kills germs."),
+      text("How should we use escalators safely?", "Make sure shoelaces are tied so they don't get caught, stand to one side, don't play on the escalator, and move away quickly once you reach the end."),
+      text("State any three ways to stay safe at the playground.", "For example: wait your turn on the swings, don't throw stones at others, and don't hit anyone with a bat or racquet."),
+      text("What can we do to keep ourselves safe when we are outside home?", "Follow road safety rules — use the zebra crossing, wear a seat belt or helmet, walk on the footpath, and avoid talking to strangers."),
+      mcq("Amit is jumping and shouting on the rear seat of a moving car out of excitement. Is his action correct or wrong?", ["Correct","Wrong"], "Wrong", "He should sit still and wear his seat belt instead of jumping around in a moving car."),
+      text("Neha and her friend are playing in a park. A stranger offers them sweets. What should they do, and why?", "They should refuse the sweets, walk away, and immediately tell a trusted adult, because it's never safe to accept things from strangers.")
+    ]},
+    { id:"c6-hots", label:"HOTS &amp; More", questions:[
+      short("If you see someone in the playground with a bleeding knee, what should be the first thing you do?", ["wash the wound with running water","wash the cut with water"], "Wash the wound with running water first, then apply antiseptic and a bandage, and call an adult."),
+      mcq("Is it okay to play on wet fields?", ["Yes","No"], "No", "You could slip and fall on a wet field and hurt yourself."),
+      text("Explain how wearing a seat belt, even in the back seat of a car, can prevent injuries during an accident.", "A seat belt holds you securely in place, stopping you from being thrown forward or out of your seat if the car stops suddenly or crashes."),
+      text("While playing with your friends outside, one of them falls and gets a small cut on their knee. Describe the steps you would take to help your friend using first aid.", "Stay calm and call an adult. Wash the wound with running water, apply a few drops of antiseptic, and cover it with a cotton or gauze bandage. If it keeps bleeding, press a clean cloth on it and take your friend to a doctor.")
+    ]}
+  ]
+}
+];
+
+/* =========================================================================
+   Saving progress (rejoin code) — identical approach to our other
+   practice apps: progress per exercise, saved automatically to this
+   browser, with a short code to help you find it again.
+   ========================================================================= */
+const STORAGE_KEY = "scienceBookSession";
+function makeCode(){
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let code = ""; for(let i=0;i<6;i++){ code += chars[Math.floor(Math.random()*chars.length)]; }
+  return code;
+}
+function saveSession(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+function loadSession(){ try{ const raw = localStorage.getItem(STORAGE_KEY); return raw?JSON.parse(raw):null; }catch(e){ return null; } }
+
+let state = { code:null, exercises:{} };
+const app = document.getElementById("app");
+
+function getExState(exId){
+  if(!state.exercises[exId]) state.exercises[exId] = { index:0, answers:{}, submitted:false };
+  return state.exercises[exId];
+}
+function findExercise(exId){
+  for(const ch of BOOK){ const ex = ch.exercises.find(e=>e.id===exId); if(ex) return {ex, ch}; }
+  return null;
+}
+
+/* =========================================================================
+   Checking answers
+   ========================================================================= */
+function norm(s){ return (s||"").toString().trim().toLowerCase(); }
+function escapeHtml(s){
+  if(s===undefined || s===null) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function checkAnswer(q, ans){
+  switch(q.type){
+    case "mcq": return { score:(ans===q.answer)?1:0, max:1 };
+    case "short": {
+      const ok = q.answer.some(a=>norm(a)===norm(ans));
+      return { score: ok?1:0, max:1 };
+    }
+    case "multi": {
+      const selected = ans||[];
+      let sc=0;
+      q.options.forEach(opt=>{
+        const should = q.answer.includes(opt);
+        const is = selected.includes(opt);
+        if(should===is) sc++;
+      });
+      return { score:sc, max:q.options.length };
+    }
+    case "fill": {
+      const userVals = (ans||[]).map(norm);
+      const correctVals = q.answer.map(norm);
+      let sc=0;
+      if(q.ordered){
+        correctVals.forEach((c,i)=>{ if(userVals[i]===c) sc++; });
+      } else {
+        const remaining=[...correctVals];
+        userVals.forEach(u=>{ const idx=remaining.indexOf(u); if(idx>-1){ sc++; remaining.splice(idx,1); } });
+      }
+      return { score:sc, max:correctVals.length };
+    }
+    default: return null; // "text" reflections aren't scored
+  }
+}
+function collectCurrentAnswer(q){
+  switch(q.type){
+    case "mcq": { const el = document.querySelector('input[name="r-'+q.id+'"]:checked'); return el?el.value:null; }
+    case "short": { const el = document.getElementById("s-"+q.id); return el?el.value:""; }
+    case "text": { const el = document.getElementById("t-"+q.id); return el?el.value:""; }
+    case "multi": return q.options.filter((opt,i)=>{ const el=document.getElementById("m-"+q.id+"-"+i); return el && el.checked; });
+    case "fill": return q.answer.map((_,i)=>{ const el=document.getElementById("f-"+q.id+"-"+i); return el?el.value:""; });
+  }
+  return null;
+}
+
+/* =========================================================================
+   Screens
+   ========================================================================= */
+function renderHome(){
+  const saved = loadSession();
+  if(saved && saved.code){ state = saved; }
+  if(!state.code){ state.code = makeCode(); saveSession(); }
+
+  const banner = `<div class="session-box"><strong>Welcome!</strong> Your rejoin code is <span class="code-chip">${state.code}</span> — your progress on every exercise is saved automatically on this device.</div>`;
+  const rejoinForm = `
+      <div class="card">
+        <h3>Switching devices? Enter a rejoin code</h3>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="rejoin-input" placeholder="e.g. AB3X9K" maxlength="6" style="text-transform:uppercase;">
+          <button class="btn btn-ghost" onclick="tryRejoin()">Go</button>
+        </div>
+        <p id="rejoin-msg" style="margin-top:8px;"></p>
+      </div>`;
+
+  const chapterCards = BOOK.map(ch=>{
+    let done=0, total=0;
+    ch.exercises.forEach(ex=>{ const st=state.exercises[ex.id]; if(st && st.submitted) done++; total++; });
+    return `<button class="chap-card" onclick="openChapter('${ch.id}')">
+      <span class="emoji">${ch.emoji}</span> <strong>${ch.title}</strong>
+      <div class="progress-label">${done} of ${total} exercises completed</div>
+    </button>`;
+  }).join("");
+
+  app.innerHTML = `
+    <div class="top"><div class="mascot">🔬</div><h1>Science Practice Book</h1>
+    <p>Plants, Animal Life, Birds, The Human Body &amp; Keeping Safe — one exercise at a time, just like your workbook.</p></div>
+    ${banner}
+    ${rejoinForm}
+    <div class="card"><h2>Choose a Chapter</h2>${chapterCards}</div>
+    <div class="btn-row"><button class="btn btn-ghost btn-full" onclick="showOverallReport()">📊 See My Overall Report</button></div>
+  `;
+}
+
+function tryRejoin(){
+  const typed = document.getElementById("rejoin-input").value.trim().toUpperCase();
+  const saved = loadSession();
+  const msg = document.getElementById("rejoin-msg");
+  if(saved && saved.code === typed){ state = saved; renderHome(); }
+  else { msg.textContent = "We couldn't find that code on this device. Codes only work on the same device/browser you started on."; msg.style.color = "var(--bad)"; }
+}
+
+function openChapter(chId){
+  const ch = BOOK.find(c=>c.id===chId);
+  const exCards = ch.exercises.map(ex=>{
+    const st = state.exercises[ex.id];
+    let status = "Not started yet";
+    if(st && st.submitted){
+      let sc=0, mx=0;
+      ex.questions.forEach(q=>{ const r=checkAnswer(q, st.answers[q.id]); if(r){ sc+=r.score; mx+=r.max; } });
+      status = `Done — ${sc}/${mx}`;
+    } else if(st && st.index>0){
+      status = `In progress (question ${st.index+1} of ${ex.questions.length})`;
+    }
+    return `<div class="ex-card" onclick="openExercise('${ex.id}')">
+      <div><div class="name">${ex.label}</div><div class="status">${status}</div></div>
+      <div>${st && st.submitted ? "✅" : "▶"}</div>
+    </div>`;
+  }).join("");
+
+  app.innerHTML = `
+    <div class="top"><div class="mascot">${ch.emoji}</div><h1>${ch.title}</h1></div>
+    <div class="card">${exCards}</div>
+    <div class="btn-row"><button class="btn btn-ghost btn-full" onclick="renderHome()">← Back to Chapters</button></div>
+  `;
+}
+
+function openExercise(exId){
+  const st = getExState(exId);
+  if(st.submitted){ renderExerciseResults(exId); } else { renderQuestion(exId); }
+}
+
+function renderQuestion(exId){
+  const { ex, ch } = findExercise(exId);
+  const st = getExState(exId);
+  const q = ex.questions[st.index];
+  const pct = Math.round((st.index)/ex.questions.length*100);
+
+  let body = "";
+  if(q.type==="mcq"){
+    const savedVal = st.answers[q.id];
+    body = q.options.map(opt=>{
+      const checked = savedVal===opt ? "checked":"";
+      return `<label class="option-btn ${savedVal===opt?'selected':''}">
+        <input type="radio" name="r-${q.id}" value="${escapeHtml(opt)}" ${checked} style="margin-right:8px;" onchange="syncAndRerender('${exId}')">
+        ${opt}</label>`;
+    }).join("");
+  } else if(q.type==="multi"){
+    const savedVal = st.answers[q.id] || [];
+    body = q.options.map((opt,i)=>{
+      const checked = savedVal.includes(opt) ? "checked":"";
+      return `<label class="option-btn ${savedVal.includes(opt)?'selected':''}">
+        <input type="checkbox" id="m-${q.id}-${i}" ${checked} style="margin-right:8px;" onchange="syncAndRerender('${exId}')">
+        ${opt}</label>`;
+    }).join("");
+  } else if(q.type==="fill"){
+    const savedVal = st.answers[q.id] || [];
+    body = q.answer.map((_,i)=>{
+      const label = q.labels ? q.labels[i] : ("Answer "+(i+1));
+      const v = savedVal[i] || "";
+      return `<div class="fill-row"><label>${label}</label><input type="text" id="f-${q.id}-${i}" value="${escapeHtml(v)}" placeholder="Type here"></div>`;
+    }).join("");
+  } else if(q.type==="short"){
+    const v = st.answers[q.id] || "";
+    body = `<input type="text" id="s-${q.id}" value="${escapeHtml(v)}" placeholder="Type your answer">`;
+  } else if(q.type==="text"){
+    const v = st.answers[q.id] || "";
+    body = `<textarea id="t-${q.id}" placeholder="Write as much as you like...">${escapeHtml(v)}</textarea>`;
+  }
+
+  const isLast = st.index === ex.questions.length - 1;
+  app.innerHTML = `
+    <div class="top" style="text-align:left; display:flex; justify-content:space-between; align-items:center;">
+      <span class="progress-label">${ex.label} — Question ${st.index+1} of ${ex.questions.length}</span>
+      <span class="progress-label">Code: <strong>${state.code}</strong></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="card"><h2>${q.prompt}</h2>${body}</div>
+    <div class="btn-row">
+      ${st.index>0 ? `<button class="btn btn-ghost" onclick="goTo('${exId}', ${st.index-1})">← Back</button>` : `<button class="btn btn-ghost" onclick="openChapter('${ch.id}')">← Exit</button>`}
+      <button class="btn btn-primary" onclick="goNext('${exId}')">${isLast ? "🏁 Finish This Exercise" : "Next →"}</button>
+    </div>
+    <p class="foot-note">Progress saves automatically on this device.</p>
+  `;
+}
+function syncAndRerender(exId){
+  const { ex } = findExercise(exId);
+  const st = getExState(exId);
+  const q = ex.questions[st.index];
+  st.answers[q.id] = collectCurrentAnswer(q);
+  renderQuestion(exId);
+}
+function goTo(exId, i){
+  const { ex } = findExercise(exId);
+  const st = getExState(exId);
+  const q = ex.questions[st.index];
+  st.answers[q.id] = collectCurrentAnswer(q);
+  st.index = i; saveSession(); renderQuestion(exId);
+}
+function goNext(exId){
+  const { ex } = findExercise(exId);
+  const st = getExState(exId);
+  const q = ex.questions[st.index];
+  st.answers[q.id] = collectCurrentAnswer(q);
+  if(st.index < ex.questions.length-1){ st.index++; saveSession(); renderQuestion(exId); }
+  else { st.submitted = true; saveSession(); renderExerciseResults(exId); }
+}
+
+function renderExerciseResults(exId){
+  const { ex, ch } = findExercise(exId);
+  const st = getExState(exId);
+  let sc=0, mx=0;
+  const rows = ex.questions.map(q=>{
+    const r = checkAnswer(q, st.answers[q.id]);
+    const userAns = formatAnswer(q, st.answers[q.id]);
+    const correctAns = formatCorrect(q);
+    let tag = `<span class="tag note">💭 Your idea</span>`;
+    if(r){
+      sc+=r.score; mx+=r.max;
+      if(r.score===r.max) tag = `<span class="tag good">✅ Correct</span>`;
+      else if(r.score===0) tag = `<span class="tag bad">❌ Try again</span>`;
+      else tag = `<span class="tag note">➗ ${r.score}/${r.max}</span>`;
+    }
+    return `<div class="qa"><div class="prompt">${q.prompt}</div>${tag}
+      <div class="explain"><strong>Your answer:</strong> ${userAns || "<em>(no answer given)</em>"}</div>
+      ${r ? `<div class="explain"><strong>Correct answer:</strong> ${correctAns}</div>` : ""}
+      <div class="explain">${q.explain || q.sample ? ("Tip: " + (q.explain || ("One good answer: " + q.sample))) : ""}</div>
+    </div>`;
+  }).join("");
+  const pct = mx? Math.round(sc/mx*100) : 100;
+  const msg = pct>=90 ? "🌟 Superstar work!" : pct>=70 ? "🎉 Great job!" : pct>=50 ? "👍 Good effort — a bit more practice will help." : "💪 Let's go over this one again together.";
+
+  app.innerHTML = `
+    <div class="top"><div class="mascot">${ch.emoji}</div><h1>${ex.label} — Results</h1></div>
+    <div class="card"><div class="score-big">${sc} / ${mx}</div><div class="score-msg">${pct}% — ${msg}</div></div>
+    <div class="card"><h2>📖 Answer Key</h2>${rows}</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="retryExercise('${exId}')">🔄 Redo This Exercise</button>
+      <button class="btn btn-ghost" onclick="openChapter('${ch.id}')">← Back to ${ch.title}</button>
+    </div>
+  `;
+}
+function retryExercise(exId){
+  state.exercises[exId] = { index:0, answers:{}, submitted:false };
+  saveSession(); renderQuestion(exId);
+}
+
+function formatAnswer(q, ans){
+  if(ans===undefined || ans===null || ans==="") return "";
+  if(q.type==="multi") return escapeHtml((ans||[]).join(", "));
+  if(q.type==="fill") return escapeHtml((ans||[]).join(", "));
+  return escapeHtml(ans);
+}
+function formatCorrect(q){
+  if(q.type==="multi") return q.answer.join(", ");
+  if(q.type==="fill") return q.answer.join(", ");
+  if(q.type==="short") return q.answer[0];
+  return q.answer;
+}
+
+function showOverallReport(){
+  let grand={sc:0,mx:0};
+  const chapterRows = BOOK.map(ch=>{
+    let sc=0, mx=0, done=0;
+    ch.exercises.forEach(ex=>{
+      const st = state.exercises[ex.id];
+      if(st && st.submitted){
+        done++;
+        ex.questions.forEach(q=>{ const r=checkAnswer(q, st.answers[q.id]); if(r){ sc+=r.score; mx+=r.max; } });
+      }
+    });
+    grand.sc+=sc; grand.mx+=mx;
+    const pct = mx? Math.round(sc/mx*100) : 0;
+    return `<div class="cat-bar-row"><div class="label"><span>${ch.emoji} ${ch.title} (${done}/${ch.exercises.length} exercises)</span><span>${mx? sc+"/"+mx : "—"}</span></div>
+      <div class="cat-track"><div class="cat-fill" style="width:${pct}%"></div></div></div>`;
+  }).join("");
+  const gp = grand.mx? Math.round(grand.sc/grand.mx*100) : 0;
+
+  app.innerHTML = `
+    <div class="top"><div class="mascot">🏆</div><h1>Your Overall Report</h1></div>
+    <div class="card"><div class="score-big">${grand.mx? grand.sc+" / "+grand.mx : "No exercises done yet"}</div>
+      ${grand.mx? `<div class="score-msg">${gp}% across everything you've completed so far</div>` : ""}</div>
+    <div class="card"><h2>By Chapter</h2>${chapterRows}</div>
+    <div class="card"><h2>🎨 Bonus: Try These With a Grown-Up</h2>
+      <ul class="simple">
+        <li><strong>Ch 2 (Plants):</strong> Make a herbarium — press and dry a plant between newspaper and stick it on chart paper.</li>
+        <li><strong>Ch 2:</strong> Place a grass plant and a carrot with leaves side by side and compare their roots.</li>
+        <li><strong>Ch 2:</strong> Try the "potato eyes" activity — sprinkle water on a potato and watch tiny plants grow from its eyes.</li>
+        <li><strong>Ch 3 (Animals):</strong> Make a clay model of the different types of teeth animals have.</li>
+        <li><strong>Ch 4 (Birds):</strong> Set up a shallow bird bath in your garden or balcony.</li>
+        <li><strong>Ch 4:</strong> Find out about a bird sanctuary near you and list the birds you might spot there.</li>
+        <li><strong>Ch 5 (Human Body):</strong> Use a stethoscope (or your ear) to check your heartbeat after sitting still, climbing stairs, and running — does it change?</li>
+        <li><strong>Ch 6 (Safety):</strong> Put together a real first-aid kit for home with a grown-up, and label what's inside.</li>
+        <li><strong>Ch 6:</strong> Dress up as a community helper (like a doctor or firefighter) and give a one-minute speech about how they help in an emergency.</li>
+      </ul>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary btn-full" onclick="renderHome()">← Back to Chapters</button></div>
+  `;
+}
+
+/* =========================================================================
+   Start the app
+   ========================================================================= */
+renderHome();
+</script>
+</body>
+</html>

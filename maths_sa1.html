@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Maths Practice: Subtraction, Multiplication, Division &amp; Fractions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF3EA; --card:#FFFFFF; --ink:#233524; --ink-soft:#5B6E58;
+    --brand:#3F9142; --brand-dark:#2E6E31; --gold:#E8A93A; --line:#DCE7D9;
+    --good:#2FA86A; --good-bg:#E5F7EC; --bad:#D64550; --bad-bg:#FCEAEA;
+    --font-head:'Baloo 2','Comic Sans MS', system-ui, sans-serif;
+    --font-body:'Nunito', system-ui, -apple-system, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --bg:#101A10; --card:#182818; --ink:#EAF3E8; --ink-soft:#AABBA6; --line:#25402A; --good-bg:#173626; --bad-bg:#3A1E21; }
+  }
+  :root[data-theme="dark"]{ --bg:#101A10; --card:#182818; --ink:#EAF3E8; --ink-soft:#AABBA6; --line:#25402A; --good-bg:#173626; --bad-bg:#3A1E21; }
+
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.55; }
+  .wrap{ max-width:700px; margin:0 auto; padding:20px 16px 70px; }
+  h1,h2,h3{ font-family:var(--font-head); margin:0 0 8px; line-height:1.2; }
+  h1{ font-size:1.5rem; color:var(--brand-dark); }
+  h2{ font-size:1.2rem; }
+  p{ margin:0 0 12px; color:var(--ink-soft); }
+  .top{ text-align:center; padding:14px 0 6px; }
+  .top .mascot{ font-size:2.2rem; }
+  .card{ background:var(--card); border-radius:16px; padding:18px; box-shadow:0 6px 18px rgba(30,50,20,0.08); border:1px solid var(--line); margin-bottom:14px; }
+  .btn{ font-family:var(--font-head); font-size:1rem; font-weight:700; border:none; border-radius:12px; padding:12px 18px; cursor:pointer; display:inline-block; text-align:center; }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{ background:var(--brand); color:#fff; }
+  .btn-ghost{ background:transparent; color:var(--brand-dark); border:2px solid var(--brand); }
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+  .btn-full{ width:100%; }
+  .badge{ display:inline-block; background:var(--gold); color:#4A3300; font-family:var(--font-head); font-weight:700; font-size:0.75rem; padding:3px 11px; border-radius:999px; margin-bottom:8px; }
+  .progress-track{ height:9px; background:var(--line); border-radius:999px; overflow:hidden; margin:8px 0 4px; }
+  .progress-fill{ height:100%; background:var(--brand); border-radius:999px; transition:width .25s ease; }
+  .progress-label{ font-size:0.82rem; color:var(--ink-soft); }
+  .option-btn{ display:block; width:100%; text-align:left; background:var(--bg); border:2px solid var(--line); border-radius:12px; padding:11px 14px; margin-bottom:8px; font-family:var(--font-body); font-size:1rem; color:var(--ink); cursor:pointer; }
+  .option-btn.selected{ border-color:var(--brand); background:#E6F3E6; }
+  :root[data-theme="dark"] .option-btn.selected{ background:#20351f; }
+  @media (prefers-color-scheme:dark){ .option-btn.selected{ background:#20351f; } }
+  .fill-row{ display:flex; align-items:center; gap:10px; margin-bottom:9px; }
+  .fill-row label{ min-width:150px; font-weight:700; color:var(--ink-soft); font-size:0.85rem; }
+  input[type=text], textarea{ font-family:var(--font-body); font-size:1rem; padding:10px 12px; border:2px solid var(--line); border-radius:10px; background:var(--card); color:var(--ink); width:100%; }
+  textarea{ resize:vertical; min-height:100px; }
+  details{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:10px 16px; margin-bottom:10px; }
+  summary{ font-family:var(--font-head); font-weight:700; cursor:pointer; font-size:1rem; }
+  .qa{ border-top:1px solid var(--line); padding:10px 0; }
+  .qa:first-of-type{ border-top:none; }
+  .qa .prompt{ font-weight:700; color:var(--ink); margin-bottom:4px; }
+  .tag{ display:inline-block; font-size:0.75rem; font-weight:800; border-radius:8px; padding:2px 9px; margin-right:6px; }
+  .tag.good{ background:var(--good-bg); color:var(--good); }
+  .tag.bad{ background:var(--bad-bg); color:var(--bad); }
+  .tag.note{ background:var(--line); color:var(--ink-soft); }
+  .explain{ font-size:0.88rem; color:var(--ink-soft); margin-top:3px; }
+  .score-big{ font-family:var(--font-head); font-size:2.1rem; color:var(--brand); text-align:center; margin:4px 0; }
+  .score-msg{ text-align:center; font-weight:700; }
+  .cat-bar-row{ margin-bottom:10px; }
+  .cat-bar-row .label{ display:flex; justify-content:space-between; font-size:0.88rem; font-weight:700; margin-bottom:3px; }
+  .cat-track{ height:11px; background:var(--line); border-radius:999px; overflow:hidden; }
+  .cat-fill{ height:100%; background:var(--brand); border-radius:999px; }
+  .session-box{ background:var(--good-bg); border:2px dashed var(--good); border-radius:14px; padding:13px; margin-bottom:14px; }
+  .code-chip{ font-family:var(--font-head); font-size:1.2rem; letter-spacing:3px; background:var(--card); border:2px solid var(--brand); color:var(--brand-dark); padding:5px 12px; border-radius:10px; display:inline-block; margin:5px 0; }
+  ul.simple{ padding-left:20px; color:var(--ink-soft); }
+  ul.simple li{ margin-bottom:6px; }
+  .ex-card{ display:flex; justify-content:space-between; align-items:center; background:var(--bg); border:2px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:8px; cursor:pointer; }
+  .ex-card:hover{ border-color:var(--brand); }
+  .ex-card .name{ font-weight:800; font-family:var(--font-head); }
+  .ex-card .status{ font-size:0.82rem; color:var(--ink-soft); }
+  .chap-card{ display:block; width:100%; text-align:left; background:var(--card); border:2px solid var(--line); border-radius:14px; padding:16px; margin-bottom:10px; cursor:pointer; }
+  .chap-card .emoji{ font-size:1.6rem; }
+  .foot-note{ text-align:center; font-size:0.78rem; color:var(--ink-soft); margin-top:20px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+/* =========================================================================
+   PART 1: SMALL HELPER FUNCTIONS THAT BUILD QUESTIONS
+   Instead of typing out every single question by hand, we give the computer
+   pairs of numbers (like [682, 120]) and a helper writes the question and
+   works out the right answer itself. This is much less typing and fewer
+   mistakes than writing 350+ questions one at a time!
+   ========================================================================= */
+let uid = 0;
+function nextId(prefix){ uid++; return prefix + "-" + uid; }
+
+function subQ(a, b){
+  return { id:nextId("q"), type:"short", prompt:`${a} − ${b} = ?`, answer:[String(a-b)],
+    explain:`${a} − ${b} = ${a-b}.` };
+}
+function mulQ(a, b){
+  return { id:nextId("q"), type:"short", prompt:`${a} × ${b} = ?`, answer:[String(a*b)],
+    explain:`${a} × ${b} = ${a*b}.` };
+}
+function divQ(a, b, withR){
+  const q = Math.floor(a/b), r = a % b;
+  if(withR){
+    return { id:nextId("q"), type:"fill", ordered:true, labels:["Quotient","Remainder"],
+      prompt:`Divide: ${a} ÷ ${b}. Find the quotient and the remainder.`,
+      answer:[String(q), String(r)], explain:`${a} ÷ ${b} = ${q} remainder ${r}.` };
+  }
+  return { id:nextId("q"), type:"short", prompt:`${a} ÷ ${b} = ?`, answer:[String(q)],
+    explain:`${a} ÷ ${b} = ${q}.` };
+}
+function makeSub(pairs){ return pairs.map(p=>subQ(p[0],p[1])); }
+function makeMul(pairs){ return pairs.map(p=>mulQ(p[0],p[1])); }
+function makeDiv(pairs, withR){ return pairs.map(p=>divQ(p[0],p[1],withR)); }
+function short(prompt, answers, explain){
+  return { id:nextId("q"), type:"short", prompt, answer:answers, explain };
+}
+function mcq(prompt, options, answer, explain){
+  return { id:nextId("q"), type:"mcq", prompt, options, answer, explain };
+}
+function multi(prompt, options, answer, explain){
+  return { id:nextId("q"), type:"multi", prompt, options, answer, explain };
+}
+function fill(prompt, labels, answers, ordered, explain){
+  return { id:nextId("q"), type:"fill", ordered:ordered!==false, prompt, labels, answer:answers, explain };
+}
+function text(prompt, sample){
+  return { id:nextId("q"), type:"text", prompt, sample };
+}
+
+/* =========================================================================
+   PART 2: THE WHOLE BOOK'S WORTH OF QUESTIONS
+   Organised exactly like the book: Chapter -> Exercise -> Questions.
+   ========================================================================= */
+const BOOK = [
+{
+  id:"ch3", title:"Chapter 3: Subtraction", emoji:"➖",
+  exercises:[
+    { id:"c3-tuneup", label:"Tune Up", questions:[
+      short("In a basketball match, Team A scored 35 points and Team B scored 47 points. How many more points did Team B score than Team A?", ["12"], "47 − 35 = 12.")
+    ]},
+    { id:"c3-3a", label:"Exercise 3A", questions:[
+      ...makeSub([[682,120],[876,334],[988,504],[675,534],[618,439],[548,293],[456,183],[241,169]]),
+      ...makeSub([[758,426],[689,566],[483,150],[159,124],[901,658],[632,583],[347,299],[843,680],[532,189]])
+    ]},
+    { id:"c3-3b", label:"Exercise 3B", questions:[
+      ...makeSub([[4325,1102],[3789,1569],[5569,1230],[3735,2524],[3457,2402],[7957,1542],[3466,3352],[6398,2202],[6298,1236],[2913,1897],[4521,698],[6987,6099],[6230,2556],[8743,6598],[4724,1986],[9667,5878],[9067,7189],[5252,3775]]),
+      ...makeSub([[5623,278],[7841,1254],[8201,5698],[9874,4897],[8447,5669],[8456,2512],[8726,4734],[4471,669],[4516,1512]])
+    ]},
+    { id:"c3-3c", label:"Exercise 3C", questions: makeSub([[480,234],[602,136],[1480,234],[5600,3421],[8080,1234],[9000,6889]]) },
+    { id:"c3-3d", label:"Exercise 3D", questions:[
+      short("Solve: 508 − 194 + 103", ["417"], "508 − 194 = 314, then 314 + 103 = 417."),
+      short("Solve: 437 + 345 − 683 + 111", ["210"], "437+345=782, 782−683=99, 99+111=210."),
+      short("Solve: 652 − 584 + 241 + 132", ["441"], "652−584=68, 68+241=309, 309+132=441."),
+      short("Solve: 874 − 132 − 245 + 435", ["932"], "874−132=742, 742−245=497, 497+435=932."),
+      short("Solve: 302 + 254 − 369", ["187"], "302+254=556, 556−369=187."),
+      short("Solve: 743 + 265 + 111 − 437", ["682"], "743+265=1008, +111=1119, −437=682."),
+      ...makeSub([[605,263],[689,354],[9605,8272],[3785,3702]]),
+      short("Fill in the blank using a property of subtraction: ___ − 872 = 0", ["872"], "A number minus itself is 0, so the blank is 872."),
+      short("Fill in the blank: 2789 − 0 = ___", ["2789"], "Subtracting 0 leaves the number unchanged."),
+      short("Fill in the blank: ___ − 1 = 7892", ["7893"], "Subtracting 1 gives the number just before it, so the blank is one more than 7892: 7893."),
+      short("Fill in the blank: 8765 − 8765 = ___", ["0"], "A number minus itself is always 0."),
+      short("Fill in the blank: 1920 − ___ = 1920", ["0"], "Subtracting 0 leaves the number unchanged."),
+      short("Fill in the blank: 5672 − 1 = ___", ["5671"], "Subtracting 1 gives the predecessor: 5671."),
+      ...makeSub([[7489,2400],[7489,6185],[7489,5108]])
+    ]},
+    { id:"c3-3e", label:"Exercise 3E (Estimating)", questions:[
+      short("Estimate 87 − 23 to the nearest tens.", ["70"], "87 rounds to 90, 23 rounds to 20. 90 − 20 = 70."),
+      short("Estimate 167 − 94 to the nearest tens.", ["80"], "167 rounds to 170, 94 rounds to 90. 170 − 90 = 80."),
+      short("Estimate 546 − 231 to the nearest tens.", ["320"], "546 rounds to 550, 231 rounds to 230. 550 − 230 = 320."),
+      short("Estimate 654 − 114 to the nearest hundreds.", ["600"], "654 rounds to 700, 114 rounds to 100. 700 − 100 = 600."),
+      short("Estimate 786 − 231 to the nearest hundreds.", ["600"], "786 rounds to 800, 231 rounds to 200. 800 − 200 = 600."),
+      short("Estimate 857 − 673 to the nearest hundreds.", ["200"], "857 rounds to 900, 673 rounds to 700. 900 − 700 = 200."),
+      short("Ashima travelled 4782 km and her brother travelled 7122 km. Estimate the difference to the nearest hundred.", ["2300"], "4782 rounds to 4800, 7122 rounds to 7100. 7100 − 4800 = 2300.")
+    ]},
+    { id:"c3-3f", label:"Exercise 3F (Word Problems)", questions:[
+      short("Soham had a collection of 2764 stamps. He gave away 1402 stamps. How many stamps were left with him?", ["1362"], "2764 − 1402 = 1362."),
+      short("A runner has to run 1275 steps in a marathon. He has finished 1145 steps. How many steps are left to complete the marathon?", ["130"], "1275 − 1145 = 130."),
+      short("There are 9948 students in a school. On a day, 1029 students were absent. How many students were present that day?", ["8919"], "9948 − 1029 = 8919."),
+      short("A factory made 7648 water bottles in a month. 2975 bottles were damaged during transit. How many bottles can be used?", ["4673"], "7648 − 2975 = 4673."),
+      short("There were 2865 red and green beads in a box. The number of red beads was 1567. How many green beads were there?", ["1298"], "2865 − 1567 = 1298."),
+      short("There are 3983 students in New Modern Era School and 2695 in St John School. How many more students study at New Modern Era than St John?", ["1288"], "3983 − 2695 = 1288."),
+      short("Preeti has a collection of 8264 old coins, out of which 5075 are of India. How many coins are from other countries?", ["3189"], "8264 − 5075 = 3189."),
+      short("Out of 3605 bottles of juice, 2850 were supplied to the school canteen. How many bottles were not delivered?", ["755"], "3605 − 2850 = 755."),
+      short("A gardener planted 3006 saplings in a park. Heavy rain damaged 1769 saplings. How many saplings were left in the park?", ["1237"], "3006 − 1769 = 1237."),
+      short("Out of 7526 flats in a new colony, 3839 flats are sold. How many flats are still unsold?", ["3687"], "7526 − 3839 = 3687.")
+    ]},
+    { id:"c3-3g", label:"Exercise 3G (Word Problems)", questions:[
+      short("An auditorium seats 2000 people. About half an hour before a show, 498 people arrive, and 865 more arrive just before it begins. How many seats are unoccupied?", ["637"], "2000 − 498 − 865 = 637."),
+      short("Abhay reads 341 pages on day 1, 116 on day 2, and 287 on day 3. If the book has 1753 pages, how many pages are left to read?", ["1009"], "341+116+287=744 read. 1753 − 744 = 1009."),
+      short("7725 students took part in a drawing competition. 2349 were from Class 2 and 2783 from Class 3, and the rest from Class 4. How many were from Class 4?", ["2593"], "7725 − 2349 − 2783 = 2593."),
+      short("A florist sold 5637 roses and 2893 sunflowers in 2010, and 4052 roses and 1974 sunflowers in 2011. How many more flowers did he sell in 2010 than 2011?", ["2504"], "2010 total = 5637+2893=8530. 2011 total = 4052+1974=6026. 8530 − 6026 = 2504."),
+      short("A factory has 1785 workers. 957 come in the first shift and 496 in the second shift, and the rest in the third shift. How many workers come in the third shift?", ["332"], "1785 − 957 − 496 = 332."),
+      short("Rahul had ₹9970. He bought books for ₹5640, a school bag for ₹1855, and a pen drive for ₹850. How much money is he left with?", ["1625"], "5640+1855+850=8345 spent. 9970 − 8345 = 1625."),
+      short("Gunjan saved ₹5600. She bought a watch for ₹2895, then her sister gifted her ₹2100. How much money does Gunjan have now?", ["4805"], "5600 − 2895 = 2705, then 2705 + 2100 = 4805."),
+      short("Subtract the sum of 2534 and 1890 from 8542.", ["4118"], "2534+1890=4424. 8542 − 4424 = 4118."),
+      short("Subtract the sum of 2516 and 4472 from the sum of 2906 and 5265.", ["1183"], "2516+4472=6988. 2906+5265=8171. 8171 − 6988 = 1183.")
+    ]},
+    { id:"c3-workout", label:"Wrap Up: Workout", questions:[
+      ...makeSub([[2456,1214],[842,587],[210,187],[456,234],[6663,374],[863,185],[734,542],[5860,368],[9000,2999],[2113,1495],[840,240],[3720,1510]]),
+      short("Solve: 3809 + 4526 − 1678 − 2546", ["4111"], "3809+4526=8335, −1678=6657, −2546=4111."),
+      short("Solve: 6852 − 5624 + 2140 − 986", ["2382"], "6852−5624=1228, +2140=3368, −986=2382."),
+      short("Solve: 3205 − 2417 + 6325 − 4754", ["2359"], "3205−2417=788, +6325=7113, −4754=2359."),
+      short("Solve: 549 + 2365 − 4102 + 7892 − 876", ["5828"], "549+2365=2914, −4102=−1188, +7892=6704, −876=5828."),
+      mcq("Karen was born in 1992. Her sister was born in 2004. Who is older?", ["Karen","Her sister"], "Karen", "1992 is earlier than 2004, so Karen is older."),
+      short("By how many years is Karen older than her sister?", ["12"], "2004 − 1992 = 12."),
+      short("9985 people came to watch a hockey match. After one hour 3097 people left, and another 1668 left before half-time. How many watched the whole match?", ["5220"], "9985 − 3097 − 1668 = 5220."),
+      short("1230 children came by school bus and 895 came by car on a day. How many more came by bus than by car?", ["335"], "1230 − 895 = 335."),
+      short("5000 pages were kept for printing in an office. 2678 pages have been printed. How many pages are still left for printing?", ["2322"], "5000 − 2678 = 2322."),
+      short("A vegetable vendor bought 925 kg of potatoes. 123 kg were rotten, and he sold 678 kg. How much is left with him?", ["124"], "925 − 123 = 802 good kg. 802 − 678 = 124."),
+      short("Aditya has 8956 stamps. He gives 2850 to his brother and 1679 to his sister. How many stamps are left with him?", ["4427"], "8956 − 2850 − 1679 = 4427.")
+    ]},
+    { id:"c3-mental", label:"Mental Maths", questions: makeSub([[756,10],[1278,10],[4876,100],[5438,1000],[1279,100],[9843,10],[5673,1000],[4560,1000]]) },
+    { id:"c3-hots", label:"HOTS (Puzzles)", questions:[
+      fill("Fill in the four missing digits: 8▢34 − ▢3▢1 = 431▢", ["Minuend's hundreds digit (in 8▢34)","Subtrahend's thousands digit","Subtrahend's tens digit","Result's ones digit"], ["6","4","2","3"], true, "8634 − 4321 = 4313. Check each column to see how the digits were found."),
+      fill("Fill in the four missing digits: ▢5▢7 − 487▢ = 4▢62", ["Minuend's thousands digit","Minuend's tens digit","Subtrahend's ones digit (in 487▢)","Result's hundreds digit"], ["9","3","5","6"], true, "9537 − 4875 = 4662. Check each column to see how the digits were found.")
+    ]},
+    { id:"c3-life", label:"Life Skills", questions:[
+      mcq("Ravi got ₹1750 from his mother. He wants to buy a shirt AND still save at least ₹700. He likes two shirts: one for ₹1599 and one for ₹999. Which shirt should he buy?", ["The ₹1599 shirt","The ₹999 shirt"], "The ₹999 shirt", "If he buys the ₹999 shirt he saves ₹751 (≥ ₹700). The ₹1599 shirt only leaves ₹151 in savings."),
+      text("Think of a time in your own life when you had to decide between two options, like Ravi did. What did you decide, and why?", "Any honest example works — the point is noticing you weighed options against what mattered most to you.")
+    ]}
+  ]
+},
+{
+  id:"ch4", title:"Chapter 4: Multiplication", emoji:"✖️",
+  exercises:[
+    { id:"c4-tuneup", label:"Tune Up", questions:[
+      short("Three pairs of badminton rackets = how many rackets?", ["6"], "3 pairs × 2 rackets = 6."),
+      short("Two dozen bananas = how many bananas? (1 dozen = 12)", ["24"], "2 × 12 = 24."),
+      short("Two packets of candies, each with 15 candies = how many candies?", ["30"], "2 × 15 = 30."),
+      short("Three packets of cupcakes, each with 6 cupcakes = how many cupcakes?", ["18"], "3 × 6 = 18."),
+      mcq("Which mathematical operation did you use to find all those answers?", ["Addition","Subtraction","Multiplication","Division"], "Multiplication", "Counting equal groups quickly is done with multiplication.")
+    ]},
+    { id:"c4-4a", label:"Exercise 4A", questions:[
+      fill("3 + 3 + 3 + 3 + 3 = ▢ × ▢ = ▢", ["Number of times","Number being added","Total"], ["5","3","15"], true, "3 is added 5 times: 5 × 3 = 15."),
+      fill("8 + 8 + 8 + 8 = ▢ × ▢ = ▢", ["Number of times","Number being added","Total"], ["4","8","32"], true, "8 is added 4 times: 4 × 8 = 32."),
+      fill("9 + 9 + 9 + 9 + 9 = ▢ × ▢ = ▢", ["Number of times","Number being added","Total"], ["5","9","45"], true, "9 is added 5 times: 5 × 9 = 45."),
+      fill("7 + 7 + 7 + 7 + 7 + 7 = ▢ × ▢ = ▢", ["Number of times","Number being added","Total"], ["6","7","42"], true, "7 is added 6 times: 6 × 7 = 42."),
+      ...makeMul([[7,10],[9,20],[2,30],[21,40],[16,60],[63,50],[6,100],[7,200],[6,300],[17,600],[21,300],[11,700]]),
+      ...makeMul([[13,3],[12,4],[24,2],[14,2],[22,3],[17,2],[15,2],[18,3],[21,2],[25,3],[22,4],[15,3]])
+    ]},
+    { id:"c4-4b", label:"Exercise 4B", questions:[
+      ...makeMul([[132,3],[240,2],[201,2],[123,5],[115,4],[102,9]]),
+      ...makeMul([[124,4],[268,2],[114,6],[177,5],[173,3],[208,2],[206,3],[425,2]])
+    ]},
+    { id:"c4-4c", label:"Exercise 4C", questions:[
+      ...makeMul([[1224,2],[2133,3],[3104,2],[2456,4],[1457,5],[1478,6]]),
+      ...makeMul([[1624,4],[3298,2],[1215,6],[1387,5],[2375,3],[1426,7],[1067,8],[2561,2]])
+    ]},
+    { id:"c4-4d", label:"Exercise 4D", questions:[
+      ...makeMul([[52,13],[27,24],[65,32],[72,31],[47,82],[27,48],[39,82],[67,18],[98,22]]),
+      ...makeMul([[142,25],[243,23],[169,59],[127,48],[258,31],[136,47],[378,17],[263,25],[121,61],[327,27],[364,18],[285,34],[408,15],[103,74],[143,56],[249,25]])
+    ]},
+    { id:"c4-4e", label:"Exercise 4E (Properties)", questions:[
+      mcq("39 × 12 = 12 × 39. Which property of multiplication is this?", ["Commutative (order) property","Distributive property","Associative (grouping) property","Multiplication by 0"], "Commutative (order) property", "Changing the order of the numbers doesn't change the product."),
+      mcq("(28 + 12) × 56 = (28 × 56) + (12 × 56). Which property is this?", ["Commutative (order) property","Distributive property","Associative (grouping) property","Multiplication by 1"], "Distributive property", "Multiplication is 'distributed' over the addition."),
+      mcq("53 × (25 × 20) = (53 × 25) × 20. Which property is this?", ["Commutative (order) property","Distributive property","Associative (grouping) property","Multiplication by 0"], "Associative (grouping) property", "You can group the numbers differently and get the same product."),
+      mcq("1482 × 0 = 0. Which property is this?", ["Multiplication by 0","Multiplication by 1","Commutative property","Distributive property"], "Multiplication by 0", "Anything times 0 is 0."),
+      mcq("2376 × 1 = 2376. Which property is this?", ["Multiplication by 0","Multiplication by 1","Commutative property","Distributive property"], "Multiplication by 1", "Anything times 1 stays the same."),
+      short("Fill in the blank: 1372 × 40 = ___ × 1372", ["40"], "Order property: 1372×40 = 40×1372."),
+      short("Fill in the blank: 555 × ___ = 0", ["0"], "Anything times 0 is 0."),
+      short("Fill in the blank: (100 × 25) × 4 = (100 × ___) × 25", ["4"], "Grouping property lets us swap the grouped numbers."),
+      short("Fill in the blank: 1 × ___ = 2356", ["2356"], "Multiplying by 1 keeps the number the same."),
+      short("Fill in the blank: 12 × 3 = ___ × 12", ["3"], "Order property."),
+      short("Fill in the blank: 234 × 78 = ___ × 234", ["78"], "Order property."),
+      short("Fill in the blank: 18 × (9 × 8) = 9 × (___ × 8)", ["18"], "Grouping property."),
+      short("Fill in the blank: 20 × (6 × 17) = (___ × 20) × 6", ["17"], "Grouping property."),
+      short("Fill in the blank: 98 × (2 × 7) = 2 × (___ × 7)", ["98"], "Grouping property."),
+      short("Fill in the blank: 29 × (56 × 78) = (___ × 78) × 29", ["56"], "Grouping property."),
+      short("Fill in the blank: ___ × 2359 = 0", ["0"], "Anything times 0 is 0."),
+      short("Fill in the blank: ___ × 1563 = 1563 × 6", ["6"], "Order property."),
+      fill("Use the distributive property: 15 × 53 = 15 × (50 + 3) = (15×50) + (15×3). Fill in: 15×50 = ?, 15×3 = ?, Final answer (15×53) = ?", ["15 × 50","15 × 3","Final answer"], ["750","45","795"], true, "750 + 45 = 795."),
+      fill("Use the distributive property: 26 × 34 = 26 × (30 + 4) = (26×30) + (26×4). Fill in: 26×30 = ?, 26×4 = ?, Final answer (26×34) = ?", ["26 × 30","26 × 4","Final answer"], ["780","104","884"], true, "780 + 104 = 884."),
+      ...makeMul([[7,26],[9,73],[6,47],[16,72],[15,33],[41,25],[65,32],[18,72],[7,29]])
+    ]},
+    { id:"c4-4f", label:"Exercise 4F (Word Problems)", questions:[
+      short("There are 75 apples in a basket. How many apples in 16 such baskets?", ["1200"], "75 × 16 = 1200."),
+      short("A bus carries 158 passengers. How many passengers can 25 such buses carry?", ["3950"], "158 × 25 = 3950."),
+      short("There are 142 toys on a shelf. How many toys on 17 such shelves?", ["2414"], "142 × 17 = 2414."),
+      short("A shopkeeper sells 263 packets of juice in a day. How many in 19 days?", ["4997"], "263 × 19 = 4997."),
+      short("Raj has 21 jars, each with 315 marbles. How many marbles in total?", ["6615"], "21 × 315 = 6615."),
+      short("A candy jar has 238 candies. If there are 27 such jars, how many candies in total?", ["6426"], "238 × 27 = 6426."),
+      short("246 children each contributed ₹25 for Sports Day. How much money was collected?", ["6150"], "246 × 25 = 6150."),
+      short("A packet has 64 candles. How many candles in 79 such packets?", ["5056"], "64 × 79 = 5056."),
+      short("One basket has 321 tomatoes. How many tomatoes in 28 such baskets?", ["8988"], "321 × 28 = 8988."),
+      short("A matchbox has 53 matchsticks. How many in 146 such matchboxes?", ["7738"], "53 × 146 = 7738."),
+      short("45 bells decorate one Christmas tree. How many bells for 127 such trees?", ["5715"], "45 × 127 = 5715."),
+      short("Class 1 and Class 2 each have 14 sections, with 49 students in each section. What is the total number of students in the two classes?", ["1372"], "14 sections × 49 students = 686 per class; two classes = 1372.")
+    ]},
+    { id:"c4-4g", label:"Exercise 4G (Lattice Method)", questions: makeMul([[98,7],[56,5],[75,8],[344,7],[562,6],[608,9],[421,3],[167,8]]) },
+    { id:"c4-workout", label:"Wrap Up: Workout", questions:[
+      ...makeMul([[17,2],[77,33],[500,4],[24,76],[45,100],[352,8],[179,53],[34,11],[65,43],[777,4],[793,4],[89,100],[71,34],[78,1],[231,37]]),
+      short("You need 12 apples to make a pie. How many apples for 12 pies?", ["144"], "12 × 12 = 144."),
+      short("A packet has 6 candles. How many candles in 1874 such packets?", ["11244"], "6 × 1874 = 11244."),
+      short("A newspaper article has 8 words per line. If it has 125 lines, how many words in the article?", ["1000"], "8 × 125 = 1000."),
+      short("Neha pasted 15 stamps on each page of her book. If she used 83 pages, how many stamps did she paste?", ["1245"], "15 × 83 = 1245."),
+      short("A grocer sold eggs for ₹6 each. If Akshay bought 5 dozen eggs (1 dozen = 12), how much did he pay?", ["360"], "5 dozen = 60 eggs. 60 × 6 = 360.")
+    ]},
+    { id:"c4-mental", label:"Mental Maths", questions: makeMul([[46,12],[278,11],[76,103],[38,102],[129,13],[43,101],[53,101],[45,104]]) },
+    { id:"c4-hots", label:"HOTS (Puzzle)", questions:[
+      fill("Amit made 33 pet-sitting visits in total. Snowy: twice a day for 4 days. Candy: twice a day, for one day LESS than Snowy. Benny: three times a day, and Benny's family was away 2 days MORE than Snowy's family. Roxy: just once. How many visits did each pet get?", ["Snowy's visits","Candy's visits","Benny's visits","Roxy's visits"], ["8","6","18","1"], true, "Snowy: 2×4=8. Candy: 2×3=6. Benny: 3×6=18. Roxy: 1. Total: 8+6+18+1=33 ✓.")
+    ]},
+    { id:"c4-life", label:"Life Skills", questions:[
+      short("Akriti visits an old age home 10 days a month with her father and donates ₹50 each visit. How much does she donate in a whole year (12 months)?", ["6000"], "10 × 50 = 500 per month. 500 × 12 = 6000.")
+    ]}
+  ]
+},
+{
+  id:"ch5", title:"Chapter 5: Division", emoji:"➗",
+  exercises:[
+    { id:"c5-tuneup", label:"Tune Up", questions:[
+      short("Rohan's teacher asked him to distribute 12 saplings equally among 4 students. How many saplings does each student get?", ["3"], "12 ÷ 4 = 3.")
+    ]},
+    { id:"c5-5a", label:"Exercise 5A", questions:[
+      short("Divide 21 strawberries into 3 equal groups. How many in each group?", ["7"], "21 ÷ 3 = 7."),
+      short("Divide 20 balls into 5 equal groups. How many in each group?", ["4"], "20 ÷ 5 = 4."),
+      ...makeDiv([[14,2],[33,3],[25,5],[48,8]], false)
+    ]},
+    { id:"c5-5b", label:"Exercise 5B", questions:[
+      fill("6 × 8 = 48. Write the two division facts.", ["48 ÷ 6 =","48 ÷ 8 ="], ["8","6"], true, "48÷6=8 and 48÷8=6."),
+      fill("4 × 9 = 36. Write the two division facts.", ["36 ÷ 4 =","36 ÷ 9 ="], ["9","4"], true, "36÷4=9 and 36÷9=4."),
+      fill("7 × 12 = 84. Write the two division facts.", ["84 ÷ 7 =","84 ÷ 12 ="], ["12","7"], true, "84÷7=12 and 84÷12=7."),
+      fill("4 × 14 = 56. Write the two division facts.", ["56 ÷ 4 =","56 ÷ 14 ="], ["14","4"], true, "56÷4=14 and 56÷14=4."),
+      fill("9 × 8 = 72. Write the two division facts.", ["72 ÷ 9 =","72 ÷ 8 ="], ["8","9"], true, "72÷9=8 and 72÷8=9."),
+      ...makeMul([[7,5],[4,6],[8,6],[3,7],[2,9],[5,5]]),
+      ...makeDiv([[24,3],[18,6],[25,5],[96,12],[64,8],[55,11],[88,11],[72,12],[45,9],[40,5],[84,12],[80,8],[30,3],[56,7],[81,9]], false)
+    ]},
+    { id:"c5-5c", label:"Exercise 5C", questions: makeDiv([[24,4],[25,5],[20,4],[28,7],[35,5],[30,6],[72,8],[24,8],[27,9],[28,4],[36,6],[36,9]], false) },
+    { id:"c5-5d", label:"Exercise 5D (with remainder)", questions:[
+      ...makeDiv([[38,4],[15,2],[24,5],[26,3],[29,6]], true),
+      ...makeDiv([[56,6],[54,7],[40,6],[75,8],[66,7]], true)
+    ]},
+    { id:"c5-5e", label:"Exercise 5E (with remainder)", questions:[
+      ...makeDiv([[97,9],[89,4],[63,6],[56,5],[826,4],[527,5],[423,4],[729,7],[665,6],[797,7],[487,4],[981,9]], true),
+      ...makeDiv([[396,7],[202,3],[594,8],[639,9],[8311,5],[7548,4],[1957,6],[2095,2],[7536,6],[5476,8],[1953,9],[7973,7]], true)
+    ]},
+    { id:"c5-5f", label:"Exercise 5F (Properties &amp; Shortcuts)", questions:[
+      short("7 ÷ 1 = ?", ["7"], "Anything divided by 1 is itself."),
+      short("9 ÷ ___ = 1. What goes in the blank?", ["9"], "Any number divided by itself is 1."),
+      short("5 ÷ 5 = ?", ["1"], "Any number divided by itself is 1."),
+      short("0 ÷ 12 = ?", ["0"], "0 divided by any number (except 0) is 0."),
+      short("25 ÷ ___ = 25. What goes in the blank?", ["1"], "Any number divided by 1 stays the same."),
+      short("0 ÷ 21 = ?", ["0"], "0 divided by any number (except 0) is 0."),
+      short("38 ÷ 1 = ?", ["38"], "Anything divided by 1 is itself."),
+      short("57 ÷ ___ = 57. What goes in the blank?", ["1"], "Any number divided by 1 stays the same."),
+      short("35 ÷ 35 = ?", ["1"], "Any number divided by itself is 1."),
+      short("0 ÷ 64 = ?", ["0"], "0 divided by any number (except 0) is 0."),
+      short("27 ÷ ___ = 1. What goes in the blank?", ["27"], "Any number divided by itself is 1."),
+      short("65 ÷ 0 = ? (careful — this one is special!)", ["division is not possible","not possible"], "Division by 0 is never possible."),
+      ...makeDiv([[623,10],[819,10],[3529,10],[6651,10],[136,100],[9324,100],[9167,100],[4335,100]], true)
+    ]},
+    { id:"c5-5g", label:"Exercise 5G (Word Problems)", questions:[
+      short("A garden has 96 trees planted in 6 rows. How many trees in each row?", ["16"], "96 ÷ 6 = 16."),
+      short("Sachin wants to keep 92 pins equally in 4 boxes. How many pins in each box?", ["23"], "92 ÷ 4 = 23."),
+      short("Preeti has 198 beads and wants to make 9 necklaces with equal beads each. How many beads per necklace?", ["22"], "198 ÷ 9 = 22."),
+      short("654 guests were accommodated equally in 3 halls. How many guests per hall?", ["218"], "654 ÷ 3 = 218."),
+      short("Akshay has 856 cards to distribute equally among 7 friends. How many cards will be left undistributed?", ["2"], "856 ÷ 7 = 122 remainder 2."),
+      short("A box has 915 buttons, and 1 shirt needs 7 buttons. How many shirts can be fixed?", ["130"], "915 ÷ 7 = 130 remainder 5."),
+      short("From that same box of 915 buttons (7 per shirt), how many buttons remain unused?", ["5"], "915 ÷ 7 = 130 remainder 5."),
+      short("A club purchased 8406 golf balls for 6 players, shared equally. How many balls per player?", ["1401"], "8406 ÷ 6 = 1401."),
+      short("1536 paper flags were bought for a school drill, 4 per student. How many students are in the drill?", ["384"], "1536 ÷ 4 = 384."),
+      short("An essay of 1092 words is divided into 7 equal paragraphs. How many words per paragraph?", ["156"], "1092 ÷ 7 = 156."),
+      short("A factory makes 924 CFLs in 6 hours, at a steady rate. How many CFLs per hour?", ["154"], "924 ÷ 6 = 154."),
+      short("1937 books are arranged equally on shelves, 9 books per shelf. How many shelves are needed to fit ALL the books (including a shelf for any leftovers)?", ["216","215"], "1937 ÷ 9 = 215 remainder 2, so 215 full shelves plus 1 more for the last 2 books = 216 shelves."),
+      short("A photocopier prints 1248 pages in 8 minutes, at a steady rate. How many pages per minute?", ["156"], "1248 ÷ 8 = 156.")
+    ]},
+    { id:"c5-workout", label:"Wrap Up: Workout", questions:[
+      mcq("Compare using <, > or =: 16 ÷ 8 ___ 27 ÷ 3", ["<",">","="], "<", "16÷8=2 and 27÷3=9. 2 is less than 9."),
+      mcq("Compare using <, > or =: 28 ÷ 4 ___ 35 ÷ 5", ["<",">","="], "=", "28÷4=7 and 35÷5=7. They're equal."),
+      mcq("Compare using <, > or =: 42 ÷ 6 ___ 48 ÷ 8", ["<",">","="], ">", "42÷6=7 and 48÷8=6. 7 is greater than 6."),
+      mcq("Compare using <, > or =: 24 ÷ 3 ___ 28 ÷ 4", ["<",">","="], ">", "24÷3=8 and 28÷4=7. 8 is greater than 7."),
+      mcq("Compare using <, > or =: 21 ÷ 3 ___ 18 ÷ 2", ["<",">","="], "<", "21÷3=7 and 18÷2=9. 7 is less than 9."),
+      mcq("Compare using <, > or =: 18 ÷ 3 ___ 18 ÷ 6", ["<",">","="], ">", "18÷3=6 and 18÷6=3. 6 is greater than 3."),
+      ...makeMul([[9,5],[7,8],[3,9],[13,1]]),
+      short("Fill in the blank: 12 ÷ ___ = 12", ["1"], "Dividing by 1 keeps the number the same."),
+      short("Fill in the blank: ___ ÷ 36 = 1", ["36"], "Any number divided by itself is 1."),
+      short("25 ÷ 1 = ?", ["25"], "Dividing by 1 keeps the number the same."),
+      short("Fill in the blank: ___ ÷ 10 = 7", ["70"], "70 ÷ 10 = 7."),
+      short("72 ÷ 9 = ?", ["8"], "72 ÷ 9 = 8."),
+      short("16 ÷ 16 = ?", ["1"], "Any number divided by itself is 1."),
+      short("Fill in the blank: 49 ÷ ___ = 7", ["7"], "49 ÷ 7 = 7."),
+      short("20 ÷ 4 = ?", ["5"], "20 ÷ 4 = 5."),
+      short("Fill in the blank: 54 ÷ ___ = 9", ["6"], "54 ÷ 6 = 9."),
+      ...makeDiv([[47,3],[94,8],[903,8],[563,7],[308,4],[478,9],[841,4],[423,5],[200,10],[5413,10],[3506,100],[4167,100]], true),
+      short("Diya makes 56 calls from her phone every week. How many calls does she make every day (7 days)?", ["8"], "56 ÷ 7 = 8."),
+      short("52 students can sit in a classroom, 4 per desk. How many desks are needed?", ["13"], "52 ÷ 4 = 13."),
+      short("Sachin's mother gave him ₹145 to buy kites at ₹5 each. How many kites could he buy?", ["29"], "145 ÷ 5 = 29."),
+      short("Leena had 65 cupcakes and shared them equally among 9 children. How many cupcakes did each child get?", ["7"], "65 ÷ 9 = 7 remainder 2."),
+      short("From those 65 cupcakes shared among 9 children, how many cupcakes were left with Leena?", ["2"], "65 ÷ 9 = 7 remainder 2."),
+      short("A church can seat 475 people, with 19 chairs per row. How many rows of chairs are there?", ["25"], "475 ÷ 19 = 25.")
+    ]},
+    { id:"c5-mental", label:"Mental Maths", questions: makeDiv([[160,8],[450,9],[720,8],[140,7],[3600,6],[4200,7],[2100,3],[3200,4]], false) },
+    { id:"c5-hots", label:"HOTS (Puzzle)", questions:[
+      fill("A fruit-seller has 500 apples; 27 are rotten. He puts the good apples into gift boxes of 25 apples each. How many gift boxes can he make, and how many good apples are left over?", ["Gift boxes","Apples left over"], ["18","23"], true, "500 − 27 = 473 good apples. 473 ÷ 25 = 18 remainder 23.")
+    ]},
+    { id:"c5-life", label:"Life Skills", questions:[
+      fill("Manan saves ₹9 a day toward a ₹602 walking stick. His father will pay the rest once Manan's savings reach as close to ₹602 as possible without going over. How many days does Manan save, and how much does his father contribute?", ["Days saved","Father contributes (₹)"], ["66","8"], true, "9 × 66 = 594 (the largest multiple of 9 not over 602). 602 − 594 = 8.")
+    ]}
+  ]
+},
+{
+  id:"ch6", title:"Chapter 6: Fractions", emoji:"🟰",
+  exercises:[
+    { id:"c6-6a", label:"Exercise 6A", questions:[
+      multi("Which of these are divided into EQUAL parts?", ["A rectangle cut into two same-size halves","A circle cut into one big slice and one tiny slice","A grid of many same-size small squares","A shape with one side coloured, cut unevenly"], ["A rectangle cut into two same-size halves","A grid of many same-size small squares"], "Only shapes split into same-size pieces count as 'equal parts'.")
+    ]},
+    { id:"c6-6b", label:"Exercise 6B", questions:[
+      fill("Write just the NUMERATOR (top number) of each fraction, in order.", ["1/8","2/5","4/5","3/4","1/6","4/9","5/9","3/12","9/15","7/8"], ["1","2","4","3","1","4","5","3","9","7"], true, "The numerator is always the top number of the fraction."),
+      fill("Write just the DENOMINATOR (bottom number) of each fraction, in order.", ["1/8","2/5","4/5","3/4","1/6","4/9","5/9","3/12","9/15","7/8"], ["8","5","5","4","6","9","9","12","15","8"], true, "The denominator is always the bottom number of the fraction."),
+      short("Write as a fraction: Three-eighths", ["3/8"], "Three-eighths = 3/8."),
+      short("Write as a fraction: Four-fifths", ["4/5"], "Four-fifths = 4/5."),
+      short("Write as a fraction: Seven-tenths", ["7/10"], "Seven-tenths = 7/10."),
+      short("Write as a fraction: Two-thirds", ["2/3"], "Two-thirds = 2/3."),
+      short("Write as a fraction: Six-eighths", ["6/8"], "Six-eighths = 6/8."),
+      short("Write as a fraction: Four-tenths", ["4/10"], "Four-tenths = 4/10."),
+      short("Write as a fraction: Five-sixths", ["5/6"], "Five-sixths = 5/6."),
+      short("Write as a fraction: Three-tenths", ["3/10"], "Three-tenths = 3/10."),
+      short("Write in words: 7/9", ["seven-ninths","seven ninths"], "7/9 = seven-ninths."),
+      short("Write in words: 7/8", ["seven-eighths","seven eighths"], "7/8 = seven-eighths."),
+      short("Write in words: 8/9", ["eight-ninths","eight ninths"], "8/9 = eight-ninths."),
+      short("Write in words: 3/10", ["three-tenths","three tenths"], "3/10 = three-tenths."),
+      short("Write in words: 2/5", ["two-fifths","two fifths"], "2/5 = two-fifths."),
+      short("Write in words: 1/4", ["one-fourth","one fourth","one-quarter","one quarter"], "1/4 = one-fourth (also called one-quarter)."),
+      short("Write in words: 3/6", ["three-sixths","three sixths"], "3/6 = three-sixths."),
+      short("Write the fraction with Numerator=6, Denominator=8", ["6/8"], "6/8."),
+      short("Write the fraction with Numerator=2, Denominator=5", ["2/5"], "2/5."),
+      short("Write the fraction with Numerator=9, Denominator=10", ["9/10"], "9/10."),
+      short("Write the fraction with Numerator=4, Denominator=7", ["4/7"], "4/7.")
+    ]},
+    { id:"c6-6c", label:"Exercise 6C", questions:[
+      short("What is 1/2 of 6?", ["3"], "6 ÷ 2 = 3."),
+      short("What is 1/2 of 10?", ["5"], "10 ÷ 2 = 5."),
+      short("What is 1/3 of 6?", ["2"], "6 ÷ 3 = 2."),
+      short("What is 1/3 of 9?", ["3"], "9 ÷ 3 = 3."),
+      short("1/3 of 24 = ?", ["8"], "24 ÷ 3 = 8."),
+      short("1/2 of 98 = ?", ["49"], "98 ÷ 2 = 49."),
+      short("1/4 of 40 = ?", ["10"], "40 ÷ 4 = 10."),
+      short("1/2 of 36 = ?", ["18"], "36 ÷ 2 = 18."),
+      short("1/3 of 45 = ?", ["15"], "45 ÷ 3 = 15."),
+      short("1/3 of 51 = ?", ["17"], "51 ÷ 3 = 17."),
+      short("1/4 of 44 = ?", ["11"], "44 ÷ 4 = 11."),
+      short("1/2 of 26 = ?", ["13"], "26 ÷ 2 = 13."),
+      short("1/4 of 60 = ?", ["15"], "60 ÷ 4 = 15."),
+      short("1/3 of 63 = ?", ["21"], "63 ÷ 3 = 21.")
+    ]},
+    { id:"c6-6d", label:"Exercise 6D (Word Problems)", questions:[
+      short("Raghav had 9 bananas. He ate 5 bananas. What fraction of the bananas did he eat?", ["5/9"], "5 eaten out of 9 total = 5/9."),
+      short("Shabnam divides a cake into 5 equal parts. She eats one part and gives 2 parts to her sister. What fraction of the cake is left?", ["2/5"], "5 − 1 − 2 = 2 parts left, out of 5: 2/5."),
+      short("Out of 42 chocolates, one-seventh have been distributed among students. Find the number of chocolates distributed.", ["6"], "42 ÷ 7 = 6."),
+      short("Sheela has 14 books: 5 Science and 6 Maths. What fraction of the books are Science books?", ["5/14"], "5 out of 14 books = 5/14."),
+      short("From the same 14 books (5 Science, 6 Maths), what fraction are Maths books?", ["6/14"], "6 out of 14 books = 6/14.")
+    ]},
+    { id:"c6-workout", label:"Wrap Up: Workout", questions:[
+      short("There are 6 crabs in total. What fraction represents HALF of them? (Write it as a fraction with 6 as the denominator.)", ["3/6"], "Half of 6 is 3, so the fraction is 3/6."),
+      short("There are 8 stars in total. What fraction represents A QUARTER of them? (denominator 8)", ["2/8"], "A quarter of 8 is 2, so the fraction is 2/8."),
+      short("There are 9 octopuses in total. What fraction represents ONE-THIRD of them? (denominator 9)", ["3/9"], "One-third of 9 is 3, so the fraction is 3/9."),
+      short("1/2 of 14 = ?", ["7"], "14 ÷ 2 = 7."),
+      short("1/3 of 39 = ?", ["13"], "39 ÷ 3 = 13."),
+      short("1/2 of 72 = ?", ["36"], "72 ÷ 2 = 36."),
+      short("1/4 of 84 = ?", ["21"], "84 ÷ 4 = 21."),
+      short("1/4 of 32 = ?", ["8"], "32 ÷ 4 = 8."),
+      short("There are 18 bananas in a basket. One-third of them are ripe. How many bananas are ripe?", ["6"], "18 ÷ 3 = 6."),
+      short("Yogesh has 15 pencils: 4 red, 5 blue, and 6 green. What fraction of the pencils are green?", ["6/15"], "6 out of 15 pencils = 6/15.")
+    ]},
+    { id:"c6-mental", label:"Mental Maths", questions:[
+      short("How many one-thirds make one whole?", ["3"], "1/3 + 1/3 + 1/3 = 1 whole."),
+      short("How many one-fifths make one whole?", ["5"], "Five 1/5 parts make 1 whole."),
+      short("Rajiv has 3 one-seventh parts of a circle. How many MORE one-seventh parts does he need to complete the whole circle?", ["4"], "A whole needs 7 sevenths; he has 3, so he needs 7 − 3 = 4 more.")
+    ]},
+    { id:"c6-hots", label:"HOTS (Puzzle)", questions:[
+      fill("A teacher gave students 8 halves of chart paper and 16 quarters of marble paper. How many WHOLE chart papers is that, and how many WHOLE marble papers is that?", ["Whole chart papers","Whole marble papers"], ["4","4"], true, "8 halves ÷ 2 = 4 wholes. 16 quarters ÷ 4 = 4 wholes.")
+    ]},
+    { id:"c6-life", label:"Life Skills", questions:[
+      short("If one-fourth of Earth is covered by land, what fraction is covered by water?", ["3/4"], "The whole (4/4) minus land (1/4) leaves 3/4 for water.")
+    ]},
+    { id:"c6-bonus", label:"Bonus: Fraction Fun", questions:[
+      short("A paper 'Fraction Lotus' flower has petals worth 1/4 + 1/4 (pink) and a base worth 1/2 (green). What do all these fractions add up to, as a whole number?", ["1"], "1/4 + 1/4 = 1/2 (the pink petals), plus 1/2 (green) = 1 whole."),
+      text("Look at a scene with 8 children and 20 balloons. Write your own DIVISION word problem using these two numbers, then solve it.", "Example: If the balloons were shared equally among 4 of the children, each would get 5 balloons (20 ÷ 4 = 5)."),
+      text("Look at a scene with 6 potted plants (2 marigold, 2 rose, 2 sunflower). Write your own FRACTION question using these plants, then answer it.", "Example: What fraction of the plants are roses? Answer: 2/6 (which is the same as 1/3).")
+    ]}
+  ]
+}
+];
+
+/* =========================================================================
+   PART 3: SAVING PROGRESS (the "Rejoin Code" feature) — same idea as before.
+   Progress is saved per-exercise, so you can stop after Exercise 3A today
+   and pick up at 3B tomorrow, all under one code.
+   ========================================================================= */
+const STORAGE_KEY = "mathsBookSession";
+function makeCode(){
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let code = ""; for(let i=0;i<6;i++){ code += chars[Math.floor(Math.random()*chars.length)]; }
+  return code;
+}
+function saveSession(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+function loadSession(){ try{ const raw = localStorage.getItem(STORAGE_KEY); return raw?JSON.parse(raw):null; }catch(e){ return null; } }
+
+/* state.exercises[exId] = { index:0, answers:{}, submitted:false } */
+let state = { code:null, exercises:{} };
+const app = document.getElementById("app");
+
+function getExState(exId){
+  if(!state.exercises[exId]) state.exercises[exId] = { index:0, answers:{}, submitted:false };
+  return state.exercises[exId];
+}
+function findExercise(exId){
+  for(const ch of BOOK){ const ex = ch.exercises.find(e=>e.id===exId); if(ex) return {ex, ch}; }
+  return null;
+}
+
+/* =========================================================================
+   PART 4: CHECKING ANSWERS (same approach as our other quiz app)
+   ========================================================================= */
+function norm(s){ return (s||"").toString().trim().toLowerCase(); }
+function escapeHtml(s){
+  if(s===undefined || s===null) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function checkAnswer(q, ans){
+  switch(q.type){
+    case "mcq": return { score:(ans===q.answer)?1:0, max:1 };
+    case "short": {
+      const ok = q.answer.some(a=>norm(a)===norm(ans));
+      return { score: ok?1:0, max:1 };
+    }
+    case "multi": {
+      const selected = ans||[];
+      let sc=0;
+      q.options.forEach(opt=>{
+        const should = q.answer.includes(opt);
+        const is = selected.includes(opt);
+        if(should===is) sc++;
+      });
+      return { score:sc, max:q.options.length };
+    }
+    case "fill": {
+      const userVals = (ans||[]).map(norm);
+      const correctVals = q.answer.map(norm);
+      let sc=0;
+      if(q.ordered){
+        correctVals.forEach((c,i)=>{ if(userVals[i]===c) sc++; });
+      } else {
+        const remaining=[...correctVals];
+        userVals.forEach(u=>{ const idx=remaining.indexOf(u); if(idx>-1){ sc++; remaining.splice(idx,1); } });
+      }
+      return { score:sc, max:correctVals.length };
+    }
+    default: return null; // "text" reflections aren't scored
+  }
+}
+function collectCurrentAnswer(q){
+  switch(q.type){
+    case "mcq": { const el = document.querySelector('input[name="r-'+q.id+'"]:checked'); return el?el.value:null; }
+    case "short": { const el = document.getElementById("s-"+q.id); return el?el.value:""; }
+    case "text": { const el = document.getElementById("t-"+q.id); return el?el.value:""; }
+    case "multi": return q.options.filter((opt,i)=>{ const el=document.getElementById("m-"+q.id+"-"+i); return el && el.checked; });
+    case "fill": return q.answer.map((_,i)=>{ const el=document.getElementById("f-"+q.id+"-"+i); return el?el.value:""; });
+  }
+  return null;
+}
+
+/* =========================================================================
+   PART 5: SCREENS
+   ========================================================================= */
+function renderHome(){
+  const saved = loadSession();
+  if(saved && saved.code){ state = saved; }
+  if(!state.code){
+    // Brand-new visitor: create their code first, then render so it shows right away.
+    state.code = makeCode();
+    saveSession();
+  }
+
+  const banner = `<div class="session-box"><strong>Welcome!</strong> Your rejoin code is <span class="code-chip">${state.code}</span> — your progress on every exercise is saved automatically on this device.</div>`;
+  const rejoinForm = `
+      <div class="card">
+        <h3>Switching devices? Enter a rejoin code</h3>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="rejoin-input" placeholder="e.g. AB3X9K" maxlength="6" style="text-transform:uppercase;">
+          <button class="btn btn-ghost" onclick="tryRejoin()">Go</button>
+        </div>
+        <p id="rejoin-msg" style="margin-top:8px;"></p>
+      </div>`;
+
+  const chapterCards = BOOK.map(ch=>{
+    let done=0, total=0;
+    ch.exercises.forEach(ex=>{ const st=state.exercises[ex.id]; if(st && st.submitted) done++; total++; });
+    return `<button class="chap-card" onclick="openChapter('${ch.id}')">
+      <span class="emoji">${ch.emoji}</span> <strong>${ch.title}</strong>
+      <div class="progress-label">${done} of ${total} exercises completed</div>
+    </button>`;
+  }).join("");
+
+  app.innerHTML = `
+    <div class="top"><div class="mascot">🧮</div><h1>Maths Practice Book</h1>
+    <p>Subtraction, Multiplication, Division &amp; Fractions — practise one exercise at a time, just like in your workbook.</p></div>
+    ${banner}
+    ${rejoinForm}
+    <div class="card"><h2>Choose a Chapter</h2>${chapterCards}</div>
+    <div class="btn-row"><button class="btn btn-ghost btn-full" onclick="showOverallReport()">📊 See My Overall Report</button></div>
+  `;
+}
+
+function tryRejoin(){
+  const typed = document.getElementById("rejoin-input").value.trim().toUpperCase();
+  const saved = loadSession();
+  const msg = document.getElementById("rejoin-msg");
+  if(saved && saved.code === typed){ state = saved; renderHome(); }
+  else { msg.textContent = "We couldn't find that code on this device. Codes only work on the same device/browser you started on."; msg.style.color = "var(--bad)"; }
+}
+
+function openChapter(chId){
+  const ch = BOOK.find(c=>c.id===chId);
+  const exCards = ch.exercises.map(ex=>{
+    const st = state.exercises[ex.id];
+    let status = "Not started yet";
+    if(st && st.submitted){
+      let sc=0, mx=0;
+      ex.questions.forEach(q=>{ const r=checkAnswer(q, st.answers[q.id]); if(r){ sc+=r.score; mx+=r.max; } });
+      status = `Done — ${sc}/${mx}`;
+    } else if(st && st.index>0){
+      status = `In progress (question ${st.index+1} of ${ex.questions.length})`;
+    }
+    return `<div class="ex-card" onclick="openExercise('${ex.id}')">
+      <div><div class="name">${ex.label}</div><div class="status">${status}</div></div>
+      <div>${st && st.submitted ? "✅" : "▶"}</div>
+    </div>`;
+  }).join("");
+
+  app.innerHTML = `
+    <div class="top"><div class="mascot">${ch.emoji}</div><h1>${ch.title}</h1></div>
+    <div class="card">${exCards}</div>
+    <div class="btn-row"><button class="btn btn-ghost btn-full" onclick="renderHome()">← Back to Chapters</button></div>
+  `;
+}
+
+function openExercise(exId){
+  const st = getExState(exId);
+  if(st.submitted){ renderExerciseResults(exId); } else { renderQuestion(exId); }
+}
+
+function renderQuestion(exId){
+  const { ex, ch } = findExercise(exId);
+  const st = getExState(exId);
+  const q = ex.questions[st.index];
+  const pct = Math.round((st.index)/ex.questions.length*100);
+
+  let body = "";
+  if(q.type==="mcq"){
+    const savedVal = st.answers[q.id];
+    body = q.options.map(opt=>{
+      const checked = savedVal===opt ? "checked":"";
+      return `<label class="option-btn ${savedVal===opt?'selected':''}">
+        <input type="radio" name="r-${q.id}" value="${escapeHtml(opt)}" ${checked} style="margin-right:8px;" onchange="syncAndRerender('${exId}')">
+        ${opt}</label>`;
+    }).join("");
+  } else if(q.type==="multi"){
+    const savedVal = st.answers[q.id] || [];
+    body = q.options.map((opt,i)=>{
+      const checked = savedVal.includes(opt) ? "checked":"";
+      return `<label class="option-btn ${savedVal.includes(opt)?'selected':''}">
+        <input type="checkbox" id="m-${q.id}-${i}" ${checked} style="margin-right:8px;" onchange="syncAndRerender('${exId}')">
+        ${opt}</label>`;
+    }).join("");
+  } else if(q.type==="fill"){
+    const savedVal = st.answers[q.id] || [];
+    body = q.answer.map((_,i)=>{
+      const label = q.labels ? q.labels[i] : ("Answer "+(i+1));
+      const v = savedVal[i] || "";
+      return `<div class="fill-row"><label>${label}</label><input type="text" id="f-${q.id}-${i}" value="${escapeHtml(v)}" placeholder="Type here"></div>`;
+    }).join("");
+  } else if(q.type==="short"){
+    const v = st.answers[q.id] || "";
+    body = `<input type="text" id="s-${q.id}" value="${escapeHtml(v)}" placeholder="Type your answer">`;
+  } else if(q.type==="text"){
+    const v = st.answers[q.id] || "";
+    body = `<textarea id="t-${q.id}" placeholder="Write as much as you like...">${escapeHtml(v)}</textarea>`;
+  }
+
+  const isLast = st.index === ex.questions.length - 1;
+  app.innerHTML = `
+    <div class="top" style="text-align:left; display:flex; justify-content:space-between; align-items:center;">
+      <span class="progress-label">${ex.label} — Question ${st.index+1} of ${ex.questions.length}</span>
+      <span class="progress-label">Code: <strong>${state.code}</strong></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="card"><h2>${q.prompt}</h2>${body}</div>
+    <div class="btn-row">
+      ${st.index>0 ? `<button class="btn btn-ghost" onclick="goTo('${exId}', ${st.index-1})">← Back</button>` : `<button class="btn btn-ghost" onclick="openChapter('${ch.id}')">← Exit</button>`}
+      <button class="btn btn-primary" onclick="goNext('${exId}')">${isLast ? "🏁 Finish This Exercise" : "Next →"}</button>
+    </div>
+    <p class="foot-note">Progress saves automatically on this device.</p>
+  `;
+}
+function syncAndRerender(exId){
+  const { ex } = findExercise(exId);
+  const st = getExState(exId);
+  const q = ex.questions[st.index];
+  st.answers[q.id] = collectCurrentAnswer(q);
+  renderQuestion(exId);
+}
+function goTo(exId, i){
+  const { ex } = findExercise(exId);
+  const st = getExState(exId);
+  const q = ex.questions[st.index];
+  st.answers[q.id] = collectCurrentAnswer(q);
+  st.index = i; saveSession(); renderQuestion(exId);
+}
+function goNext(exId){
+  const { ex } = findExercise(exId);
+  const st = getExState(exId);
+  const q = ex.questions[st.index];
+  st.answers[q.id] = collectCurrentAnswer(q);
+  if(st.index < ex.questions.length-1){ st.index++; saveSession(); renderQuestion(exId); }
+  else { st.submitted = true; saveSession(); renderExerciseResults(exId); }
+}
+
+function renderExerciseResults(exId){
+  const { ex, ch } = findExercise(exId);
+  const st = getExState(exId);
+  let sc=0, mx=0;
+  const rows = ex.questions.map(q=>{
+    const r = checkAnswer(q, st.answers[q.id]);
+    const userAns = formatAnswer(q, st.answers[q.id]);
+    const correctAns = formatCorrect(q);
+    let tag = `<span class="tag note">💭 Your idea</span>`;
+    if(r){
+      sc+=r.score; mx+=r.max;
+      if(r.score===r.max) tag = `<span class="tag good">✅ Correct</span>`;
+      else if(r.score===0) tag = `<span class="tag bad">❌ Try again</span>`;
+      else tag = `<span class="tag note">➗ ${r.score}/${r.max}</span>`;
+    }
+    return `<div class="qa"><div class="prompt">${q.prompt}</div>${tag}
+      <div class="explain"><strong>Your answer:</strong> ${userAns || "<em>(no answer given)</em>"}</div>
+      ${r ? `<div class="explain"><strong>Correct answer:</strong> ${correctAns}</div>` : ""}
+      <div class="explain">${q.explain || q.sample ? ("Tip: " + (q.explain || ("One good answer: " + q.sample))) : ""}</div>
+    </div>`;
+  }).join("");
+  const pct = mx? Math.round(sc/mx*100) : 100;
+  const msg = pct>=90 ? "🌟 Superstar work!" : pct>=70 ? "🎉 Great job!" : pct>=50 ? "👍 Good effort — a bit more practice will help." : "💪 Let's go over this one again together.";
+
+  app.innerHTML = `
+    <div class="top"><div class="mascot">${ch.emoji}</div><h1>${ex.label} — Results</h1></div>
+    <div class="card"><div class="score-big">${sc} / ${mx}</div><div class="score-msg">${pct}% — ${msg}</div></div>
+    <div class="card"><h2>📖 Answer Key</h2>${rows}</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="retryExercise('${exId}')">🔄 Redo This Exercise</button>
+      <button class="btn btn-ghost" onclick="openChapter('${ch.id}')">← Back to ${ch.title}</button>
+    </div>
+  `;
+}
+function retryExercise(exId){
+  state.exercises[exId] = { index:0, answers:{}, submitted:false };
+  saveSession(); renderQuestion(exId);
+}
+
+function formatAnswer(q, ans){
+  if(ans===undefined || ans===null || ans==="") return "";
+  if(q.type==="multi") return escapeHtml((ans||[]).join(", "));
+  if(q.type==="fill") return escapeHtml((ans||[]).join(", "));
+  return escapeHtml(ans);
+}
+function formatCorrect(q){
+  if(q.type==="multi") return q.answer.join(", ");
+  if(q.type==="fill") return q.answer.join(", ");
+  if(q.type==="short") return q.answer[0];
+  return q.answer;
+}
+
+function showOverallReport(){
+  let grand={sc:0,mx:0};
+  const chapterRows = BOOK.map(ch=>{
+    let sc=0, mx=0, done=0;
+    ch.exercises.forEach(ex=>{
+      const st = state.exercises[ex.id];
+      if(st && st.submitted){
+        done++;
+        ex.questions.forEach(q=>{ const r=checkAnswer(q, st.answers[q.id]); if(r){ sc+=r.score; mx+=r.max; } });
+      }
+    });
+    grand.sc+=sc; grand.mx+=mx;
+    const pct = mx? Math.round(sc/mx*100) : 0;
+    return `<div class="cat-bar-row"><div class="label"><span>${ch.emoji} ${ch.title} (${done}/${ch.exercises.length} exercises)</span><span>${mx? sc+"/"+mx : "—"}</span></div>
+      <div class="cat-track"><div class="cat-fill" style="width:${pct}%"></div></div></div>`;
+  }).join("");
+  const gp = grand.mx? Math.round(grand.sc/grand.mx*100) : 0;
+
+  app.innerHTML = `
+    <div class="top"><div class="mascot">🏆</div><h1>Your Overall Report</h1></div>
+    <div class="card"><div class="score-big">${grand.mx? grand.sc+" / "+grand.mx : "No exercises done yet"}</div>
+      ${grand.mx? `<div class="score-msg">${gp}% across everything you've completed so far</div>` : ""}</div>
+    <div class="card"><h2>By Chapter</h2>${chapterRows}</div>
+    <div class="card"><h2>🎨 Bonus: Try These With a Grown-Up</h2>
+      <ul class="simple">
+        <li><strong>Ch 3:</strong> Write a mini "subtraction storybook" with a 4-digit subtraction problem on each page.</li>
+        <li><strong>Ch 3:</strong> Try the abacus activity: use bead colours to subtract 286 from 453.</li>
+        <li><strong>Ch 3:</strong> Draw the Indian flag, then use subtraction to find how many years of Independence and Republic Day we're celebrating this year — and colour it in!</li>
+        <li><strong>Ch 4:</strong> Play "Multiplication Musical Dice" — roll two dice, call out the product, and pass it on before the music stops.</li>
+        <li><strong>Ch 5:</strong> Plan a pretend birthday party and divide snacks, drinks, and candies equally among your friends.</li>
+        <li><strong>Ch 5:</strong> Make "Division Art" — shape playdough or draw pictures to show the answer to a division fact.</li>
+        <li><strong>Ch 6:</strong> Do the paper-folding lab: fold circles into halves and quarters, then shade and label them.</li>
+        <li><strong>Ch 6:</strong> Make a "Fraction Lotus" flower from coloured paper circles.</li>
+        <li><strong>Ch 6:</strong> Draw the Earth, colour 1/4 of it brown for land and the rest blue for water.</li>
+      </ul>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary btn-full" onclick="renderHome()">← Back to Chapters</button></div>
+  `;
+}
+
+/* =========================================================================
+   PART 6: START THE APP
+   ========================================================================= */
+renderHome();
+</script>
+</body>
+</html>

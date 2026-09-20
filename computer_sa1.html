@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Sports Week &amp; Class Chronicle Quiz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* =======================================================
+     COLOURS AND FONTS
+     "Variables" are like nicknames for values we use a lot.
+     If we change a colour here, it changes everywhere!
+  ======================================================= */
+  :root{
+    --bg:#EAF6FB;
+    --card:#FFFFFF;
+    --ink:#173247;
+    --ink-soft:#4C6478;
+    --brand:#FF6B4A;
+    --brand-dark:#E1502E;
+    --teal:#1E8A99;
+    --good:#2FA86A;
+    --good-bg:#E5F7EC;
+    --bad:#D64550;
+    --bad-bg:#FCEAEA;
+    --sun:#FFC145;
+    --line:#DCEBF0;
+    --font-head:'Baloo 2','Comic Sans MS', system-ui, sans-serif;
+    --font-body:'Nunito', system-ui, -apple-system, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0F1B24; --card:#182833; --ink:#EAF3F8; --ink-soft:#A9C0CE;
+      --line:#25404D; --good-bg:#173626; --bad-bg:#3A1E21;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0F1B24; --card:#182833; --ink:#EAF3F8; --ink-soft:#A9C0CE;
+    --line:#25404D; --good-bg:#173626; --bad-bg:#3A1E21;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); line-height:1.55;
+  }
+  .wrap{ max-width:680px; margin:0 auto; padding:20px 16px 70px; }
+
+  h1,h2,h3{ font-family:var(--font-head); margin:0 0 8px; line-height:1.2; }
+  h1{ font-size:1.6rem; color:var(--brand-dark); }
+  h2{ font-size:1.25rem; }
+  p{ margin:0 0 12px; color:var(--ink-soft); }
+
+  .top{ text-align:center; padding:18px 0 6px; }
+  .top .mascot{ font-size:2.4rem; }
+
+  .card{
+    background:var(--card); border-radius:18px; padding:20px;
+    box-shadow:0 6px 18px rgba(23,50,71,0.08);
+    border:1px solid var(--line); margin-bottom:16px;
+  }
+
+  .btn{
+    font-family:var(--font-head); font-size:1rem; font-weight:700;
+    border:none; border-radius:14px; padding:13px 20px; cursor:pointer;
+    display:inline-block; text-align:center; transition:transform .08s ease;
+  }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{ background:var(--brand); color:#fff; }
+  .btn-primary:hover{ background:var(--brand-dark); }
+  .btn-ghost{ background:transparent; color:var(--teal); border:2px solid var(--teal); }
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .btn-full{ width:100%; }
+
+  .badge{
+    display:inline-block; background:var(--sun); color:#5A3E00;
+    font-family:var(--font-head); font-weight:700; font-size:0.78rem;
+    padding:4px 12px; border-radius:999px; margin-bottom:10px;
+  }
+
+  .progress-track{ height:10px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px; }
+  .progress-fill{ height:100%; background:var(--brand); border-radius:999px; transition:width .25s ease; }
+  .progress-label{ font-size:0.85rem; color:var(--ink-soft); }
+
+  .option-btn{
+    display:block; width:100%; text-align:left; background:var(--bg);
+    border:2px solid var(--line); border-radius:14px; padding:13px 16px;
+    margin-bottom:10px; font-family:var(--font-body); font-size:1rem;
+    color:var(--ink); cursor:pointer;
+  }
+  .option-btn.selected{ border-color:var(--brand); background:#FFEFE9; }
+  :root[data-theme="dark"] .option-btn.selected{ background:#3A2A22; }
+  @media (prefers-color-scheme:dark){
+    .option-btn.selected{ background:#3A2A22; }
+  }
+
+  .fill-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .fill-row label{ min-width:90px; font-weight:700; color:var(--ink-soft); font-size:0.9rem; }
+  input[type=text], textarea, select{
+    font-family:var(--font-body); font-size:1rem; padding:11px 12px;
+    border:2px solid var(--line); border-radius:12px; background:var(--card);
+    color:var(--ink); width:100%;
+  }
+  textarea{ resize:vertical; min-height:110px; }
+
+  .classify-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; }
+  .classify-row span{ font-weight:700; }
+  .classify-row select{ max-width:170px; }
+
+  details{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px 16px; margin-bottom:12px; }
+  summary{ font-family:var(--font-head); font-weight:700; cursor:pointer; font-size:1.05rem; }
+  .qa{ border-top:1px solid var(--line); padding:12px 0; }
+  .qa:first-of-type{ border-top:none; }
+  .qa .prompt{ font-weight:700; color:var(--ink); margin-bottom:4px; }
+  .tag{ display:inline-block; font-size:0.78rem; font-weight:800; border-radius:8px; padding:2px 9px; margin-right:6px; }
+  .tag.good{ background:var(--good-bg); color:var(--good); }
+  .tag.bad{ background:var(--bad-bg); color:var(--bad); }
+  .tag.note{ background:var(--line); color:var(--ink-soft); }
+  .explain{ font-size:0.92rem; color:var(--ink-soft); margin-top:4px; }
+
+  .score-big{ font-family:var(--font-head); font-size:2.4rem; color:var(--brand); text-align:center; margin:6px 0; }
+  .score-msg{ text-align:center; font-weight:700; color:var(--ink); }
+
+  .cat-bar-row{ margin-bottom:12px; }
+  .cat-bar-row .label{ display:flex; justify-content:space-between; font-size:0.9rem; font-weight:700; margin-bottom:4px; }
+  .cat-track{ height:12px; background:var(--line); border-radius:999px; overflow:hidden; }
+  .cat-fill{ height:100%; background:var(--teal); border-radius:999px; }
+
+  .session-box{ background:var(--good-bg); border:2px dashed var(--good); border-radius:14px; padding:14px; margin-bottom:16px; }
+  .code-chip{ font-family:var(--font-head); font-size:1.3rem; letter-spacing:3px; background:var(--card); border:2px solid var(--brand); color:var(--brand-dark); padding:6px 14px; border-radius:10px; display:inline-block; margin:6px 0; }
+
+  ul.simple{ padding-left:20px; color:var(--ink-soft); }
+  ul.simple li{ margin-bottom:6px; }
+
+  .foot-note{ text-align:center; font-size:0.8rem; color:var(--ink-soft); margin-top:24px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+/* =========================================================================
+   PART 1: THE QUIZ QUESTIONS
+   This is just a big list (an "array") of question objects.
+   Each question is written like: { the question, the type, the answer... }
+   You can read this like a table, even if you don't know JavaScript yet!
+   ========================================================================= */
+const QUESTIONS = [
+  // ---------- FONTS & STYLES ----------
+  { id:"q1", cat:"Fonts & Styles", type:"multi",
+    prompt:"Which of these font styles can you use in a word processor like LibreOffice Writer? (Tick every correct one.)",
+    options:["Bold","Regular","Italics","Bold and Italics","Sparkly Rainbow Text"],
+    answer:["Bold","Regular","Italics","Bold and Italics"],
+    explain:"LibreOffice Writer gives you Bold, Regular, Italics, and Bold+Italics. (Sparkly rainbow text isn't a real style... yet!)" },
+  { id:"q2", cat:"Fonts & Styles", type:"tf",
+    prompt:"True or False: A plain Regular font is the best way to highlight an important word.",
+    answer:false,
+    explain:"To highlight a word we use Bold, Italics or underline — not a plain Regular font." },
+  { id:"q3", cat:"Fonts & Styles", type:"tf",
+    prompt:"True or False: Larger fonts catch the reader's attention.",
+    answer:true,
+    explain:"Big text stands out, which is why titles and headings are usually large." },
+  { id:"q4", cat:"Fonts & Styles", type:"tf",
+    prompt:"True or False: Using many different fonts in the same sentence makes it easier to read.",
+    answer:false,
+    explain:"Mixing too many fonts actually makes writing harder to read. Stick to one or two fonts." },
+  { id:"q5", cat:"Fonts & Styles", type:"tf",
+    prompt:"True or False: Bold, italics and underline should not be used too often in one document.",
+    answer:true,
+    explain:"If everything is bold or underlined, nothing feels special. Save these for the important bits." },
+  { id:"q6", cat:"Fonts & Styles", type:"mcq",
+    prompt:"What is the keyboard shortcut to make text Bold?",
+    options:["Ctrl + B","Ctrl + I","Ctrl + U","Ctrl + P"],
+    answer:"Ctrl + B",
+    explain:"Ctrl+B turns Bold on or off. (Ctrl+I is Italics, Ctrl+U is Underline, Ctrl+P is Print.)" },
+  { id:"q7", cat:"Fonts & Styles", type:"mcq",
+    prompt:"Which part of a newsletter usually needs the BIGGEST font size?",
+    options:["The main heading / title","A random sentence in the middle","The page number","Nothing needs to be big"],
+    answer:"The main heading / title",
+    explain:"A big, bold heading tells readers what the newsletter is about, right away." },
+  { id:"q8", cat:"Fonts & Styles", type:"mcq",
+    prompt:"Imagine two versions of the same paragraph — one typed in an old typewriter-style font, one in a normal everyday font. Which is usually easier to read?",
+    options:["The typewriter-style font","The normal, everyday font"],
+    answer:"The normal, everyday font",
+    explain:"Simple, familiar fonts are easier on the eyes, especially for longer paragraphs." },
+
+  // ---------- NEWSLETTER IDEAS ----------
+  { id:"q9", cat:"Newsletter Ideas", type:"text",
+    prompt:"Name three things that make a newsletter look attractive and easy to understand (for example: pictures, sections, a title).",
+    sample:"Pictures/images, clear sections for each topic, a bold title, and a logo all help." },
+  { id:"q10", cat:"Newsletter Ideas", type:"multi",
+    prompt:"Your school is having its Annual Sports Week. Which of these make sense as an EVENT in sports week?",
+    options:["A running race","Watering a plant","A javelin throw","Two friends shaking hands","A football match"],
+    answer:["A running race","A javelin throw","A football match"],
+    explain:"Sports week events are sporting activities — running, throwing and football all count. Watering plants and shaking hands are lovely, but they aren't sports!" },
+  { id:"q11", cat:"Newsletter Ideas", type:"fill", ordered:false,
+    prompt:"A fun-fair picture shows three rides. Name three common fun-fair rides. (Hint: one goes up and down fast, one looks like a ship, one goes round and round.)",
+    labels:["Ride 1","Ride 2","Ride 3"],
+    answer:["roller coaster","pirate ship","merry-go-round"],
+    explain:"The three rides are: Roller coaster, Pirate ship, and Merry-go-round." },
+  { id:"q12", cat:"Newsletter Ideas", type:"text",
+    prompt:"Design a poster idea (in words) for your school's Annual Sports Day. What event name and date would you put on it, and what picture would you draw?",
+    sample:"Example: 'Annual Sports Day — 28 June' with a picture of a medal or a running shoe." },
+
+  // ---------- LISTS ----------
+  { id:"q13", cat:"Lists", type:"mcq",
+    prompt:"A shopping list, where the order of items doesn't matter, is usually written as a...?",
+    options:["Bulleted list","Numbered list"], answer:"Bulleted list",
+    explain:"When order doesn't matter, we use bullet points (•)." },
+  { id:"q14", cat:"Lists", type:"mcq",
+    prompt:"A book's Table of Contents (Chapter 1, Chapter 2, Chapter 3...) is best written as a...?",
+    options:["Bulleted list","Numbered list"], answer:"Numbered list",
+    explain:"Chapters go in a fixed order, so we use numbers." },
+  { id:"q15", cat:"Lists", type:"mcq",
+    prompt:"A to-do list, where steps must be done in a certain order, is best written as a...?",
+    options:["Bulleted list","Numbered list"], answer:"Numbered list",
+    explain:"Steps in order need numbers, so you know what to do first, second, third..." },
+  { id:"q16", cat:"Lists", type:"mcq",
+    prompt:"A list of country flags, shown in no particular order, is best written as a...?",
+    options:["Bulleted list","Numbered list"], answer:"Bulleted list",
+    explain:"No order is needed here, so bullets work great." },
+  { id:"q17", cat:"Lists", type:"fill", ordered:true,
+    prompt:"Write the colours of the rainbow in the correct order. (Hint: remember VIBGYOR!)",
+    labels:["1","2","3","4","5","6","7"],
+    answer:["violet","indigo","blue","green","yellow","orange","red"],
+    explain:"VIBGYOR = Violet, Indigo, Blue, Green, Yellow, Orange, Red — the order of the rainbow." },
+  { id:"q18", cat:"Lists", type:"fill", ordered:false,
+    prompt:"Name four activities that are part of gardening (for example, something you'd do with a watering can).",
+    labels:["Activity 1","Activity 2","Activity 3","Activity 4"],
+    answer:["watering","sowing","planting","collecting flowers"],
+    explain:"Gardening activities include: Watering, Sowing (planting seeds), Planting, and Collecting flowers." },
+  { id:"q19", cat:"Lists", type:"tf",
+    prompt:"True or False: Adding bullets and numbering makes a document easier to read.",
+    answer:true, explain:"Bullets and numbers break information into neat, easy pieces." },
+  { id:"q20", cat:"Lists", type:"tf",
+    prompt:"True or False: The best way to list students in roll-number order is with a BULLETED list.",
+    answer:false, explain:"Since roll numbers have an order, a NUMBERED list is the better choice." },
+
+  // ---------- TABLES & NUMBERS ----------
+  { id:"q21", cat:"Tables & Numbers", type:"mcq",
+    prompt:"What are tables mainly useful for?",
+    options:["Arranging information neatly in rows and columns","Making your computer run faster","Deleting old files","Changing your font colour automatically"],
+    answer:"Arranging information neatly in rows and columns",
+    explain:"Tables organise information so it's easy to find and compare." },
+  { id:"q22", cat:"Tables & Numbers", type:"tf",
+    prompt:"True or False: Tables help you carry your files anywhere and use them on another computer.",
+    answer:false, explain:"That's not what tables do — tables are for ORGANISING information, not moving files between computers." },
+  { id:"q23", cat:"Tables & Numbers", type:"tf",
+    prompt:"True or False: Tables help you organise a document.",
+    answer:true, explain:"Yes! Rows and columns keep information tidy and easy to read." },
+  { id:"q24", cat:"Tables & Numbers", type:"short",
+    prompt:"A class has 35 students. For each student you write down 3 pieces of information (Name, Phone number, Address). How many pieces of information in total?",
+    answer:["105"],
+    explain:"35 students × 3 pieces of information each = 105. That's rows × columns!" },
+  { id:"q25", cat:"Tables & Numbers", type:"fill", ordered:true,
+    prompt:"For that same class of 35 students (Name, Phone, Address for each), how many ROWS and how many COLUMNS would the table need?",
+    labels:["Rows","Columns"],
+    answer:["35","3"],
+    explain:"One row per student = 35 rows. One column per piece of information = 3 columns." },
+  { id:"q26", cat:"Tables & Numbers", type:"short",
+    prompt:"In a survey: 15 students wash utensils, 15 clean the house, 20 water plants, and 10 cook food. How many students help IN TOTAL?",
+    answer:["60"], explain:"15 + 15 + 20 + 10 = 60 students." },
+  { id:"q27", cat:"Tables & Numbers", type:"mcq",
+    prompt:"A class directory shows: Raghu–Chennai, Harsh–Mumbai, Tasma–Bengaluru, Alishba–Delhi. Which city does Harsh live in?",
+    options:["Chennai","Mumbai","Bengaluru","Delhi"], answer:"Mumbai",
+    explain:"The directory lists Harsh's city as Mumbai." },
+  { id:"q28", cat:"Tables & Numbers", type:"short",
+    prompt:"A weekly timetable has 5 school days and 8 periods every day, plus one column for the day's name. How many COLUMNS in total?",
+    answer:["9"], explain:"8 periods + 1 column for the day name = 9 columns." },
+  { id:"q29", cat:"Tables & Numbers", type:"short",
+    prompt:"How many periods are there in one school day, if the timetable goes from Period 1 to Period 8?",
+    answer:["8"], explain:"Period 1 to Period 8 means there are 8 periods." },
+  { id:"q30", cat:"Tables & Numbers", type:"short",
+    prompt:"Bonus puzzle! In a timetable, Period 5 shows one letter each day: Mon=B, Tue=R, Wed=E, Thu=A, Fri=K. What word do these spell — and what do you think Period 5 really is?",
+    answer:["break"], explain:"B-R-E-A-K spells BREAK — Period 5 is recess time!" },
+  { id:"q31", cat:"Tables & Numbers", type:"mcq",
+    prompt:"A TV schedule shows Channel B plays 'Mr. Bean' from 2:30–3:00 pm. Which channel would you turn to, to watch it?",
+    options:["Channel A","Channel B","Channel C","Channel D"], answer:"Channel B",
+    explain:"The schedule shows Mr. Bean airs on Channel B at 2:30–3:00 pm." },
+
+  // ---------- SOUND & SORTING ----------
+  { id:"q32", cat:"Sound & Sorting", type:"classify",
+    prompt:"Sort each musical instrument: is it Percussion (hit with hands/sticks) or String (has strings)?",
+    items:["Xylophone","Guitar","Bongo","Drums","Violin"],
+    categories:["Percussion","String"],
+    answer:{"Xylophone":"Percussion","Guitar":"String","Bongo":"Percussion","Drums":"Percussion","Violin":"String"},
+    explain:"Percussion: Xylophone, Bongo, Drums (hit to make sound). String: Guitar, Violin (played using strings)." },
+
+  // ---------- YOUR THOUGHTS ----------
+  { id:"q33", cat:"Your Thoughts", type:"text",
+    prompt:"A 'chronicle' is a record of events in the order they happened. Name one kind of chronicle you like (a newspaper, a diary, a photo album...) and one thing you like about it.",
+    sample:"Example: I like old newspapers because the pictures show what life looked like long ago." },
+  { id:"q34", cat:"Your Thoughts", type:"text",
+    prompt:"If you made your own Class Calendar Chronicle, what topic would you choose? (Ideas: Games, Animals, Cities, Festivals)",
+    sample:"Any topic works! For example: Animals — a different animal fact for each month." }
+];
+
+const CATEGORY_ORDER = ["Fonts & Styles","Newsletter Ideas","Lists","Tables & Numbers","Sound & Sorting","Your Thoughts"];
+
+/* =========================================================================
+   PART 2: SAVING PROGRESS (the "Rejoin Code" feature)
+   We save the student's progress in the browser's own memory (localStorage)
+   so if the page is closed or the internet drops, they can come back.
+   A short "code" is shown to the student, like a locker number, so this
+   feels like a real check-in / rejoin system.
+   NOTE: this only works on the SAME device and browser the quiz was
+   started on — that's just how browser storage works.
+   ========================================================================= */
+const STORAGE_KEY = "sportsWeekQuizSession";
+
+function makeCode(){
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // no confusing 0/O/1/I/L
+  let code = "";
+  for(let i=0;i<6;i++){ code += chars[Math.floor(Math.random()*chars.length)]; }
+  return code;
+}
+
+function saveSession(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }catch(e){ /* if storage isn't available, the quiz still works, it just won't remember */ }
+}
+
+function loadSession(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+
+function clearSession(){
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+}
+
+/* =========================================================================
+   PART 3: THE APP'S "MEMORY" WHILE IT RUNS
+   ========================================================================= */
+let state = { code:null, index:0, answers:{}, submitted:false };
+const app = document.getElementById("app");
+
+/* =========================================================================
+   PART 4: CHECKING ANSWERS
+   Every question type has its own way of being checked. This function
+   looks at the question type and returns how many points were earned
+   out of how many were possible.
+   ========================================================================= */
+function norm(s){ return (s||"").toString().trim().toLowerCase(); }
+
+// Turns anything the student typed into safe text, so it always displays
+// correctly even if they type symbols like < or & or ".
+function escapeHtml(s){
+  if(s===undefined || s===null) return "";
+  return String(s)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+function checkAnswer(q, ans){
+  switch(q.type){
+    case "mcq":
+      return { score:(ans===q.answer)?1:0, max:1 };
+    case "tf":
+      return { score:((ans===true||ans==="true")===q.answer)?1:0, max:1 };
+    case "short": {
+      const ok = q.answer.some(a=>norm(a)===norm(ans));
+      return { score: ok?1:0, max:1 };
+    }
+    case "multi": {
+      const selected = ans||[];
+      let score=0;
+      q.options.forEach(opt=>{
+        const should = q.answer.includes(opt);
+        const is = selected.includes(opt);
+        if(should===is) score++;
+      });
+      return { score, max:q.options.length };
+    }
+    case "fill": {
+      const userVals = (ans||[]).map(norm);
+      const correctVals = q.answer.map(norm);
+      let score=0;
+      if(q.ordered){
+        correctVals.forEach((c,i)=>{ if(userVals[i]===c) score++; });
+      }else{
+        const remaining=[...correctVals];
+        userVals.forEach(u=>{
+          const idx=remaining.indexOf(u);
+          if(idx>-1){ score++; remaining.splice(idx,1); }
+        });
+      }
+      return { score, max:correctVals.length };
+    }
+    case "classify": {
+      const userMap = ans||{};
+      let score=0;
+      q.items.forEach(item=>{ if(userMap[item]===q.answer[item]) score++; });
+      return { score, max:q.items.length };
+    }
+    default:
+      return null; // "text" questions are reflections, not scored
+  }
+}
+
+/* =========================================================================
+   PART 5: READING WHAT THE STUDENT TYPED / CLICKED
+   ========================================================================= */
+function collectCurrentAnswer(q){
+  switch(q.type){
+    case "mcq": case "tf": {
+      const el = document.querySelector('input[name="r-'+q.id+'"]:checked');
+      return el ? el.value : null;
+    }
+    case "short": {
+      const el = document.getElementById("s-"+q.id);
+      return el ? el.value : "";
+    }
+    case "text": {
+      const el = document.getElementById("t-"+q.id);
+      return el ? el.value : "";
+    }
+    case "multi": {
+      return q.options.filter(opt=>{
+        const el = document.getElementById("m-"+q.id+"-"+q.options.indexOf(opt));
+        return el && el.checked;
+      });
+    }
+    case "fill": {
+      return q.answer.map((_,i)=>{
+        const el = document.getElementById("f-"+q.id+"-"+i);
+        return el ? el.value : "";
+      });
+    }
+    case "classify": {
+      const map = {};
+      q.items.forEach(item=>{
+        const el = document.getElementById("c-"+q.id+"-"+item);
+        map[item] = el ? el.value : "";
+      });
+      return map;
+    }
+  }
+  return null;
+}
+
+/* =========================================================================
+   PART 6: DRAWING (RENDERING) EACH SCREEN
+   ========================================================================= */
+function renderIntro(){
+  const saved = loadSession();
+  let banner = "";
+  if(saved && saved.code){
+    if(saved.submitted){
+      banner = `
+        <div class="session-box">
+          <strong>Welcome back! 🎉</strong><br>
+          You already finished this quiz (code <span class="code-chip">${saved.code}</span>).
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="reopenResults()">👀 See My Results Again</button>
+            <button class="btn btn-ghost" onclick="startFresh()">🔄 Take It Again</button>
+          </div>
+        </div>`;
+    } else {
+      banner = `
+        <div class="session-box">
+          <strong>We found a saved quiz in progress!</strong><br>
+          Your code is <span class="code-chip">${saved.code}</span> — Question ${saved.index+1} of ${QUESTIONS.length}.
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="resumeSession()">▶ Resume Quiz</button>
+            <button class="btn btn-ghost" onclick="startFresh()">🔄 Start Fresh</button>
+          </div>
+        </div>`;
+    }
+  }
+
+  app.innerHTML = `
+    <div class="top">
+      <div class="mascot">🦊🏅</div>
+      <h1>Sports Week &amp; Class Chronicle Quiz</h1>
+      <p>A fun review of everything you learned about word processors, formatting, lists and tables!</p>
+    </div>
+    ${banner}
+    <div class="card">
+      <h2>Before you start</h2>
+      <p>There are ${QUESTIONS.length} questions. Some have a single right answer, and a few just ask what YOU think — there's no wrong answer for those!</p>
+      <p>When you click "Start", you'll get a <strong>Session Code</strong>. Write it down! If the quiz ever gets interrupted, come back to this page and use the code to pick up right where you left off (as long as you're on the same device).</p>
+      <button class="btn btn-primary btn-full" onclick="startFresh()">🚀 Start the Quiz</button>
+    </div>
+    <div class="card">
+      <h3>Have a rejoin code?</h3>
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="rejoin-input" placeholder="e.g. AB3X9K" maxlength="6" style="text-transform:uppercase;">
+        <button class="btn btn-ghost" onclick="tryRejoin()">Go</button>
+      </div>
+      <p id="rejoin-msg" style="margin-top:8px;"></p>
+    </div>
+  `;
+}
+
+function tryRejoin(){
+  const typed = document.getElementById("rejoin-input").value.trim().toUpperCase();
+  const saved = loadSession();
+  const msg = document.getElementById("rejoin-msg");
+  if(saved && saved.code === typed){
+    if(saved.submitted){ reopenResults(); } else { resumeSession(); }
+  } else {
+    msg.textContent = "We couldn't find that code on this device. Codes only work on the same device/browser you started on.";
+    msg.style.color = "var(--bad)";
+  }
+}
+
+function startFresh(){
+  state = { code:makeCode(), index:0, answers:{}, submitted:false };
+  saveSession();
+  renderQuiz();
+}
+
+function resumeSession(){
+  const saved = loadSession();
+  if(saved){ state = saved; }
+  renderQuiz();
+}
+
+function reopenResults(){
+  const saved = loadSession();
+  if(saved){ state = saved; }
+  renderResults();
+}
+
+function renderQuiz(){
+  const q = QUESTIONS[state.index];
+  const pct = Math.round((state.index)/QUESTIONS.length*100);
+
+  let body = "";
+  if(q.type==="mcq" || q.type==="tf"){
+    const opts = q.type==="tf" ? ["True","False"] : q.options;
+    const savedVal = state.answers[q.id];
+    body = opts.map(opt=>{
+      const val = q.type==="tf" ? (opt==="True"?"true":"false") : opt;
+      const checked = savedVal===val ? "checked" : "";
+      return `<label class="option-btn ${savedVal===val?'selected':''}">
+                <input type="radio" name="r-${q.id}" value="${val}" ${checked} style="margin-right:8px;" onchange="highlightOptions('${q.id}')">
+                ${opt}
+              </label>`;
+    }).join("");
+  } else if(q.type==="multi"){
+    const savedVal = state.answers[q.id] || [];
+    body = q.options.map((opt,i)=>{
+      const checked = savedVal.includes(opt) ? "checked" : "";
+      return `<label class="option-btn ${savedVal.includes(opt)?'selected':''}">
+                <input type="checkbox" id="m-${q.id}-${i}" ${checked} style="margin-right:8px;" onchange="highlightOptions('${q.id}')">
+                ${opt}
+              </label>`;
+    }).join("");
+  } else if(q.type==="fill"){
+    const savedVal = state.answers[q.id] || [];
+    body = q.answer.map((_,i)=>{
+      const label = q.labels ? q.labels[i] : ("Answer "+(i+1));
+      const v = savedVal[i] || "";
+      return `<div class="fill-row"><label>${label}</label><input type="text" id="f-${q.id}-${i}" value="${escapeHtml(v)}" placeholder="Type here"></div>`;
+    }).join("");
+  } else if(q.type==="classify"){
+    const savedVal = state.answers[q.id] || {};
+    body = q.items.map(item=>{
+      const optionsHtml = q.categories.map(c=>`<option value="${c}" ${savedVal[item]===c?'selected':''}>${c}</option>`).join("");
+      return `<div class="classify-row"><span>${item}</span>
+                <select id="c-${q.id}-${item}"><option value="">Choose...</option>${optionsHtml}</select></div>`;
+    }).join("");
+  } else if(q.type==="short"){
+    const v = state.answers[q.id] || "";
+    body = `<input type="text" id="s-${q.id}" value="${escapeHtml(v)}" placeholder="Type your answer">`;
+  } else if(q.type==="text"){
+    const v = state.answers[q.id] || "";
+    body = `<textarea id="t-${q.id}" placeholder="Write as much as you like...">${escapeHtml(v)}</textarea>`;
+  }
+
+  const isLast = state.index === QUESTIONS.length - 1;
+
+  app.innerHTML = `
+    <div class="top" style="text-align:left; display:flex; justify-content:space-between; align-items:center;">
+      <span class="progress-label">Question ${state.index+1} of ${QUESTIONS.length}</span>
+      <span class="progress-label">Code: <strong>${state.code}</strong></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="card">
+      <span class="badge">${q.cat}</span>
+      <h2>${q.prompt}</h2>
+      ${body}
+    </div>
+    <div class="btn-row">
+      ${state.index>0 ? `<button class="btn btn-ghost" onclick="goTo(${state.index-1})">← Back</button>` : ""}
+      <button class="btn btn-primary" onclick="goNext()">${isLast ? "🏁 See My Results" : "Next →"}</button>
+    </div>
+    <p class="foot-note">Your progress is saved automatically on this device.</p>
+  `;
+}
+
+function highlightOptions(qid){
+  // just re-render so the "selected" highlight follows the click
+  const q = QUESTIONS.find(x=>x.id===qid);
+  state.answers[qid] = collectCurrentAnswer(q);
+  renderQuiz();
+}
+
+function goTo(i){
+  const q = QUESTIONS[state.index];
+  state.answers[q.id] = collectCurrentAnswer(q);
+  state.index = i;
+  saveSession();
+  renderQuiz();
+}
+
+function goNext(){
+  const q = QUESTIONS[state.index];
+  state.answers[q.id] = collectCurrentAnswer(q);
+  if(state.index < QUESTIONS.length-1){
+    state.index++;
+    saveSession();
+    renderQuiz();
+  } else {
+    submitQuiz();
+  }
+}
+
+function submitQuiz(){
+  state.submitted = true;
+  saveSession();
+  renderResults();
+}
+
+function renderResults(){
+  // Work out scores per category and overall
+  const catTotals = {};
+  CATEGORY_ORDER.forEach(c=>catTotals[c] = {score:0, max:0});
+  let totalScore=0, totalMax=0;
+
+  QUESTIONS.forEach(q=>{
+    const result = checkAnswer(q, state.answers[q.id]);
+    if(result){
+      catTotals[q.cat].score += result.score;
+      catTotals[q.cat].max += result.max;
+      totalScore += result.score;
+      totalMax += result.max;
+    }
+  });
+
+  const overallPct = totalMax ? Math.round((totalScore/totalMax)*100) : 0;
+  const overallMsg =
+    overallPct>=90 ? "🌟 Superstar! You really know your word processor skills!" :
+    overallPct>=70 ? "🎉 Great job! You understand most of this really well." :
+    overallPct>=50 ? "👍 Good effort! A little more practice and you'll be an expert." :
+                      "💪 Nice try! Let's go over these topics together — you'll get there.";
+
+  const catBars = CATEGORY_ORDER.map(c=>{
+    const t = catTotals[c];
+    if(t.max===0) return ""; // categories with only reflection questions
+    const pct = Math.round((t.score/t.max)*100);
+    const note = pct>=80 ? "Great work here!" : pct>=50 ? "Good, a little more practice will help." : "Let's review this together.";
+    return `<div class="cat-bar-row">
+              <div class="label"><span>${c}</span><span>${t.score}/${t.max}</span></div>
+              <div class="cat-track"><div class="cat-fill" style="width:${pct}%"></div></div>
+              <div class="explain">${note}</div>
+            </div>`;
+  }).join("");
+
+  const answerKey = CATEGORY_ORDER.map(cat=>{
+    const qs = QUESTIONS.filter(q=>q.cat===cat);
+    const items = qs.map(q=>{
+      const result = checkAnswer(q, state.answers[q.id]);
+      const userAns = formatAnswer(q, state.answers[q.id]);
+      const correctAns = formatCorrect(q);
+      let tag = `<span class="tag note">💭 Your idea</span>`;
+      if(result){
+        if(result.score===result.max) tag = `<span class="tag good">✅ Correct</span>`;
+        else if(result.score===0) tag = `<span class="tag bad">❌ Try again</span>`;
+        else tag = `<span class="tag note">➗ ${result.score}/${result.max} correct</span>`;
+      }
+      return `<div class="qa">
+                <div class="prompt">${q.prompt}</div>
+                ${tag}
+                <div class="explain"><strong>Your answer:</strong> ${userAns || "<em>(no answer given)</em>"}</div>
+                ${result ? `<div class="explain"><strong>Correct answer:</strong> ${correctAns}</div>` : `<div class="explain"><strong>One good answer:</strong> ${q.sample}</div>`}
+                <div class="explain">${q.explain || ""}</div>
+              </div>`;
+    }).join("");
+    return `<details><summary>${cat}</summary>${items}</details>`;
+  }).join("");
+
+  app.innerHTML = `
+    <div class="top">
+      <div class="mascot">🏆</div>
+      <h1>Your Results</h1>
+    </div>
+    <div class="card">
+      <div class="score-big">${totalScore} / ${totalMax}</div>
+      <div class="score-msg">${overallPct}% — ${overallMsg}</div>
+    </div>
+    <div class="card">
+      <h2>Score by Topic</h2>
+      ${catBars}
+    </div>
+    <div class="card">
+      <h2>📖 Full Answer Key &amp; Explanations</h2>
+      <p>Tap any topic below to see every question, your answer, and why the correct answer is correct.</p>
+      ${answerKey}
+    </div>
+    <div class="card">
+      <h2>🎨 Try These With a Grown-Up! (just for fun — not scored)</h2>
+      <ul class="simple">
+        <li>Colour a picture of children pulling a rope to make a fun banner for your newsletter.</li>
+        <li>Open a word processor, draw a shape, fill it with your favourite colour, make it 3D, and add a picture.</li>
+        <li>On paper, design and decorate a real poster for your Annual Sports Day.</li>
+        <li>Make a real class directory or timetable using a word processor — try adding small pictures instead of some words!</li>
+      </ul>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary btn-full" onclick="startFresh()">🔄 Take the Quiz Again</button>
+    </div>
+  `;
+}
+
+function formatAnswer(q, ans){
+  if(ans===undefined || ans===null || ans==="") return "";
+  if(q.type==="tf") return ans==="true" || ans===true ? "True" : "False";
+  if(q.type==="multi") return escapeHtml((ans||[]).join(", "));
+  if(q.type==="fill") return escapeHtml((ans||[]).join(", "));
+  if(q.type==="classify") return escapeHtml(q.items.map(i=>`${i}: ${ans[i]||"—"}`).join(", "));
+  return escapeHtml(ans);
+}
+function formatCorrect(q){
+  if(q.type==="tf") return q.answer ? "True" : "False";
+  if(q.type==="multi") return q.answer.join(", ");
+  if(q.type==="fill") return q.answer.join(", ");
+  if(q.type==="classify") return q.items.map(i=>`${i}: ${q.answer[i]}`).join(", ");
+  if(q.type==="short") return q.answer[0];
+  return q.answer;
+}
+
+/* =========================================================================
+   PART 7: START THE APP
+   ========================================================================= */
+renderIntro();
+</script>
+</body>
+</html>
