@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "updated": "2026-09-20",
+  "siteBaseUrl": "https://shabanam1982.github.io/class3_quiz/",
+  "groups": [
+    {
+      "id": "languages",
+      "title": "🌍 Languages",
+      "subjects": [
+        {
+          "id": "kannada",
+          "title": "ಕನ್ನಡ (Kannada)",
+          "file": "kannada.html",
+          "icon": "🌸",
+          "color": "#e91e63",
+          "badge": "READY",
+          "description": "Vowels, consonants, kagunita, ottakshara, ಚಿಟ್ಟೆ poem + Kannada keyboard"
+        },
+        {
+          "id": "english",
+          "title": "English",
+          "file": "english.html",
+          "icon": "📖",
+          "color": "#fd6585",
+          "badge": "READY",
+          "description": "Nouns, opposites, rhyming words, fill in the blanks, reading story"
+        }
+      ]
+    },
+    {
+      "id": "mathematics",
+      "title": "🔢 Mathematics",
+      "subjects": [
+        {
+          "id": "math",
+          "title": "Math — Full Workbook",
+          "file": "math.html",
+          "icon": "📐",
+          "color": "#8e2de2",
+          "badge": "READY",
+          "description": "240 questions across 11 chapters, with a scratchpad to show your work"
+        },
+        {
+          "id": "mixed_word_problem",
+          "title": "Math — Word Problems",
+          "file": "mixed_word_problem.html",
+          "icon": "🧮",
+          "color": "#ff9a56",
+          "badge": "READY",
+          "description": "100 mixed word problems, number properties, mental maths, olympiad"
+        },
+        {
+          "id": "math_maze_quest",
+          "title": "Math — Maze Quest",
+          "file": "math_maze_quest.html",
+          "icon": "🎮",
+          "color": "#11a37f",
+          "badge": "NEW",
+          "description": "Solve +, −, ×, ÷ word problems and race a chasing Temple Guardian through 10 treasure mazes"
+        },
+        {
+          "id": "maths_sa1",
+          "title": "Math — SA1 Practice",
+          "file": "maths_sa1.html",
+          "icon": "📝",
+          "color": "#f2a541",
+          "badge": "NEW",
+          "description": "Subtraction, Multiplication, Division, Fractions (Ch 3–6) — exercise by exercise, with a rejoin code and full answer key"
+        }
+      ]
+    },
+    {
+      "id": "science_social",
+      "title": "🔬 Science & Social",
+      "subjects": [
+        {
+          "id": "science",
+          "title": "Science",
+          "file": "science.html",
+          "icon": "🌱",
+          "color": "#11998e",
+          "badge": "READY",
+          "description": "Parts of a Plant, Eating Habits of Animals, Birds (Ch 2, 3, 4)"
+        },
+        {
+          "id": "science_sa1",
+          "title": "Science — SA1 Practice",
+          "file": "science_sa1.html",
+          "icon": "🔬",
+          "color": "#f2a541",
+          "badge": "NEW",
+          "description": "Plants, Animals, Birds, Human Body, Keeping Safe (Ch 2–6) — exercise by exercise, with a rejoin code and full answer key"
+        },
+        {
+          "id": "social",
+          "title": "Social",
+          "file": "social.html",
+          "icon": "🌍",
+          "color": "#56ab2f",
+          "badge": "READY",
+          "description": "The Air Around Us, Water We Drink, My Community, Occupations"
+        }
+      ]
+    },
+    {
+      "id": "islamic_computer",
+      "title": "🕌 Islamic & Computer",
+      "subjects": [
+        {
+          "id": "islamic",
+          "title": "Islamic Studies",
+          "file": "islamic.html",
+          "icon": "🕌",
+          "color": "#134e5e",
+          "badge": "READY",
+          "description": "Adhaan, Iqaamah, Adam (AS), Surah Al-Faatihah, Pure Water"
+        },
+        {
+          "id": "computer",
+          "title": "Computer",
+          "file": "computer.html",
+          "icon": "💻",
+          "color": "#4a00e0",
+          "badge": "READY",
+          "description": "School Newsletter (Unit 2), Class Calendar Chronicle (Unit 3)"
+        },
+        {
+          "id": "computer_sa1",
+          "title": "Computer — SA1 Practice",
+          "file": "computer_sa1.html",
+          "icon": "🗂️",
+          "color": "#f2a541",
+          "badge": "NEW",
+          "description": "School Newsletter, Class Calendar Chronicle (Unit 2–3) — exercise by exercise, with a rejoin code and full answer key"
+        }
+      ]
+    }
+  ],
+  "resources": []
+}
