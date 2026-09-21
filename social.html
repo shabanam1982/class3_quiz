@@ -2,385 +2,449 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Social Science Practice - Class 3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Social Science - Class 3 Practice</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%); min-height: 100vh; padding: 12px; color: #333; }
-  .app { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
-  header { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: #fff; padding: 18px 16px; text-align: center; position: relative; }
-  header a.back { position: absolute; left: 12px; top: 12px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
-  header h1 { font-size: 22px; margin-bottom: 6px; }
-  header p { font-size: 13px; opacity: 0.9; }
-  .score-bar { background: #fff8e7; padding: 12px; display: flex; justify-content: space-around; border-bottom: 3px solid #ffd93d; font-weight: bold; }
-  .score-bar .item { text-align: center; }
-  .score-bar .big { font-size: 24px; color: #ff6b6b; }
-  .score-bar .lbl { font-size: 11px; color: #666; }
-  .tabs { display: flex; overflow-x: auto; background: #f8f9fa; border-bottom: 2px solid #ddd; }
-  .tab { flex: 0 0 auto; padding: 12px 14px; cursor: pointer; border: none; background: transparent; font-family: inherit; font-size: 13px; font-weight: bold; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; }
-  .tab.active { color: #56ab2f; border-bottom-color: #56ab2f; background: #fff; }
-  .section { padding: 16px; display: none; }
-  .section.active { display: block; }
-  .section h2 { color: #56ab2f; font-size: 18px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px dashed #ffd93d; }
-  .hint { background: #e3f2fd; padding: 10px; border-radius: 10px; font-size: 13px; color: #1565c0; margin: 10px 0; }
-  .exercise { background: #fafafa; border-radius: 12px; padding: 14px; margin: 14px 0; border-left: 5px solid #56ab2f; }
-  .exercise h3 { font-size: 15px; margin-bottom: 10px; }
-  .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
-  .option-btn { padding: 12px; background: #fff; border: 2px solid #ddd; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-  .option-btn.correct { background: #4caf50; color: #fff; border-color: #388e3c; }
-  .option-btn.wrong { background: #f44336; color: #fff; border-color: #d32f2f; }
-  .option-btn:disabled { cursor: not-allowed; opacity: 0.8; }
-  .qa-box { background: #fff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #56ab2f; }
-  .qa-box .q { font-weight: bold; margin-bottom: 8px; }
-  .btn { background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; margin: 6px 4px; }
-  .a { color: #2e7d32; margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 8px; display: none; font-weight: bold; line-height: 1.5; }
-  .a.show { display: block; }
-  .fill-input { width: 140px; padding: 6px 10px; border: 2px dashed #56ab2f; border-radius: 8px; font-family: inherit; font-size: 14px; background: #fff9c4; text-align: center; }
-  .fill-input.correct { background: #c8e6c9; border-color: #4caf50; border-style: solid; }
-  .fill-input.wrong { background: #ffcdd2; border-color: #f44336; border-style: solid; }
-  .celebration { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; z-index: 100; display: none; }
-  .celebration.show { display: block; animation: pop 0.4s; }
-  @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
-  .celebration .emoji { font-size: 55px; }
-  .celebration h2 { color: #56ab2f; margin: 8px 0; }
-  .footer { text-align: center; padding: 12px; font-size: 12px; color: #999; background: #f8f9fa; }
-  .match-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-  .match-item { padding: 10px; background: #fff; border: 2px solid #ddd; border-radius: 8px; text-align: center; font-weight: bold; cursor: pointer; font-size: 13px; }
-  .match-item.selected { background: #ffd93d; border-color: #ffa500; }
-  .match-item.matched { background: #c8e6c9; border-color: #4caf50; cursor: default; }
+  :root {
+    --primary: #2e7d32;
+    --primary-light: #56ab2f;
+    --gold: #f2a541;
+    --bg: #eef8ec;
+    --card: #ffffff;
+    --text: #2b2b33;
+    --muted: #6b6b76;
+    --good: #2e8b57;
+    --bad: #d1495b;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-bottom: 32px;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    padding: 18px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  header .sub { font-size: 13px; opacity: 0.85; margin-top: 2px; }
+  .container { max-width: 640px; margin: 0 auto; padding: 16px; }
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border-left: 6px solid var(--gold);
+  }
+  .chapter-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  .chapter-card:active { transform: scale(0.98); }
+  .chapter-num {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .chapter-title { font-weight: 600; font-size: 16px; }
+  .chapter-count { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .start-all {
+    background: var(--primary);
+    color: #fff;
+    text-align: center;
+    border-left: 6px solid var(--gold);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .progress-wrap {
+    background: #dcefda;
+    border-radius: 8px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .progress-bar { background: var(--gold); height: 100%; width: 0%; transition: width 0.2s; }
+  .progress-label { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--primary-light);
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .q-text { font-size: 18px; font-weight: 600; margin: 6px 0 16px 0; line-height: 1.4; }
+  .option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #f5faf4;
+    border: 2px solid #dcefda;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .option.selected { border-color: var(--primary); background: #e2f3e0; }
+  textarea, input[type=text] {
+    width: 100%;
+    border: 2px solid #dcefda;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+  }
+  .match-row, .order-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #dcefda;
+    font-size: 15px;
+  }
+  .ungraded-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 10px;
+    font-style: italic;
+  }
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  button {
+    font-family: inherit;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--primary); color: #fff; flex: 1; }
+  .btn-secondary { background: #dcefda; color: var(--text); flex: 1; }
+  .btn-primary:disabled, .btn-secondary:disabled { opacity: 0.4; cursor: default; }
+  .hidden { display: none !important; }
+  .score-big { font-size: 42px; font-weight: 800; color: var(--primary); text-align: center; }
+  .score-sub { text-align: center; color: var(--muted); margin-bottom: 18px; }
+  .review-item { border-left: 6px solid var(--muted); }
+  .review-item.correct { border-left-color: var(--good); }
+  .review-item.wrong { border-left-color: var(--bad); }
+  .review-tag { font-size: 12px; font-weight: 700; }
+  .review-tag.correct { color: var(--good); }
+  .review-tag.wrong { color: var(--bad); }
+  .review-answer { font-size: 14px; margin-top: 6px; }
+  .review-answer .label { color: var(--muted); }
 </style>
 </head>
 <body>
 
-<div class="app">
-  <header>
-    <a href="index.html" class="back">← Home</a>
-    <h1>🌍 Social Science Practice</h1>
-    <p>Class 3 — Mid-term (Ch 4 to Ch 7)</p>
-  </header>
+<header>
+  <h1>&#127757; Social Science</h1>
+  <div class="sub" id="header-sub">Class 3 Practice - Chapters 1-9 + Unit Test I</div>
+</header>
 
-  <div class="score-bar">
-    <div class="item"><div class="big" id="scoreVal">0</div><div class="lbl">⭐ Score</div></div>
-    <div class="item"><div class="big" id="correctVal">0</div><div class="lbl">✅ Correct</div></div>
-    <div class="item"><div class="big" id="attemptVal">0</div><div class="lbl">📝 Tries</div></div>
+<div class="container">
+
+  <!-- HOME SCREEN -->
+  <div id="screen-home">
+    <div class="card start-all" onclick="startQuiz(null)">&#9654; Start Full Quiz (151 questions)</div>
+    <div id="chapter-list"></div>
   </div>
 
-  <div class="tabs">
-    <button class="tab active" onclick="showSection('s1', this)">Ch 4: Air</button>
-    <button class="tab" onclick="showSection('s2', this)">Ch 5: Water</button>
-    <button class="tab" onclick="showSection('s3', this)">Ch 6: Community</button>
-    <button class="tab" onclick="showSection('s4', this)">Ch 7: Occupations</button>
+  <!-- QUIZ SCREEN -->
+  <div id="screen-quiz" class="hidden">
+    <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="progress-label" id="progress-label"></div>
+    <div class="card">
+      <div class="badge" id="q-badge"></div>
+      <div class="q-text" id="q-text"></div>
+      <div id="q-answer-area"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-secondary" id="btn-back" onclick="goBack()">Back</button>
+      <button class="btn-primary" id="btn-next" onclick="goNext()">Next</button>
+    </div>
+    <div class="nav-row" style="margin-top:10px;">
+      <button class="btn-secondary" style="flex:1;" onclick="goHome()">Exit to Chapters</button>
+    </div>
   </div>
 
-  <div class="section active" id="s1">
-    <h2>Chapter 4: The Air Around Us 💨</h2>
-    <div class="hint">💡 Learn about air, wind, and how we use them.</div>
-    <div class="exercise"><h3>Q1. Can we see air?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Yes</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">No, but we can feel it</button>
-      </div></div>
-    <div class="exercise"><h3>Q2. Which shows that air is moving?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Sun shining</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Leaves shaking</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Rain falling</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Stars twinkling</button>
-      </div></div>
-    <div class="exercise"><h3>Q3. Moving air is called ___?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Water</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Wind</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Fire</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Rain</button>
-      </div></div>
-    <div class="exercise"><h3>Q4. We need air to ___?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, true)">Breathe</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Eat</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Sleep</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Read</button>
-      </div></div>
-    <div class="exercise"><h3>Q5. Which one flies using air?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">🐟 Fish</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">🪁 Kite</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">🐌 Snail</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">🚗 Car</button>
-      </div></div>
-    <div class="exercise"><h3>Q6. Fill in blank: A ___ works because of wind.</h3>
-      <input class="fill-input" data-answer="windmill" placeholder="?" onchange="checkFill(this)">
-      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: Has big blades that spin. Ends with "mill".</p></div>
-    <div class="exercise"><h3>📖 Short Answer Questions</h3>
-      <div class="qa-box"><div class="q">1. Write two uses of air.</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. Air helps us breathe.<br>2. Air helps kites, windmills, and boats to move.</div></div>
-      <div class="qa-box"><div class="q">2. How do we know air is around us?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">We cannot see air, but we can feel it. When leaves shake or clothes fly, we know air is around us.</div></div></div>
+  <!-- RESULTS SCREEN -->
+  <div id="screen-results" class="hidden">
+    <div class="card">
+      <div class="score-big" id="score-big"></div>
+      <div class="score-sub" id="score-sub"></div>
+    </div>
+    <div id="review-list"></div>
+    <div class="nav-row" style="margin-top:10px;">
+      <button class="btn-primary" onclick="goHome()">Back to Chapters</button>
+    </div>
   </div>
 
-  <div class="section" id="s2">
-    <h2>Chapter 5: Water We Drink 💧</h2>
-    <div class="hint">💡 Learn about water sources and saving water.</div>
-    <div class="exercise"><h3>Q1. Which is a source of water?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Sun</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">River</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Rock</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Tree</button>
-      </div></div>
-    <div class="exercise"><h3>Q2. Which is NOT a source of water?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Well</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Pond</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Mountain</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Lake</button>
-      </div></div>
-    <div class="exercise"><h3>Q3. Clean drinking water should be ___?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Muddy</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Clear and colourless</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Green</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Yellow</button>
-      </div></div>
-    <div class="exercise"><h3>Q4. Rain water is collected in ___?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, true)">Tanks and lakes</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Books</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Cars</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Trees</button>
-      </div></div>
-    <div class="exercise"><h3>Q5. Which is a good habit to save water?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Leave tap running</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Close tap after use</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Waste water</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Throw clean water</button>
-      </div></div>
-    <div class="exercise"><h3>Q6. Fill in blank: We should ___ water because it is precious.</h3>
-      <input class="fill-input" data-answer="save" placeholder="?" onchange="checkFill(this)">
-      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 4 letters, means "to keep safe".</p></div>
-    <div class="exercise"><h3>📖 Short Answer Questions</h3>
-      <div class="qa-box"><div class="q">1. Name four sources of water.</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. River<br>2. Well<br>3. Pond / Lake<br>4. Rain</div></div>
-      <div class="qa-box"><div class="q">2. Write two uses of water.</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. We drink water to stay healthy.<br>2. We use water for cooking, bathing, washing, and watering plants.</div></div>
-      <div class="qa-box"><div class="q">3. How can we save water?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. Close the tap after use.<br>2. Do not waste water while brushing or bathing.<br>3. Fix leaking taps.</div></div></div>
-  </div>
-
-  <div class="section" id="s3">
-    <h2>Chapter 6: My Community 👨‍👩‍👧‍👦</h2>
-    <div class="hint">💡 A community is a group of people who live together and help each other.</div>
-    <div class="exercise"><h3>Q1. A group of people living together is called a ___?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">School</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Community</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Shop</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Garden</button>
-      </div></div>
-    <div class="exercise"><h3>Q2. Who is a member of your family community?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">A stranger</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Your mother</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">A shopkeeper</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">A driver</button>
-      </div></div>
-    <div class="exercise"><h3>Q3. Who helps you learn in school?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Doctor</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Teacher</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Farmer</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Postman</button>
-      </div></div>
-    <div class="exercise"><h3>Q4. Who keeps our streets clean?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, true)">Sweeper</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Doctor</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Teacher</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Cook</button>
-      </div></div>
-    <div class="exercise"><h3>Q5. Which is good behavior in community?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Fight neighbours</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Help each other</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Throw garbage</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Make loud noise</button>
-      </div></div>
-    <div class="exercise"><h3>Q6. Fill in blank: In our community we should ___ each other.</h3>
-      <input class="fill-input" data-answer="help" placeholder="?" onchange="checkFill(this)">
-      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 4 letters, when someone does you a favour.</p></div>
-    <div class="exercise"><h3>📖 Short Answer Questions</h3>
-      <div class="qa-box"><div class="q">1. What is a community?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">A community is a group of people who live together in one place and help each other. Family, neighbours, and friends are part of our community.</div></div>
-      <div class="qa-box"><div class="q">2. Name three helpers in your community.</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. Teacher (helps us learn)<br>2. Doctor (treats us when sick)<br>3. Postman (brings letters)</div></div>
-      <div class="qa-box"><div class="q">3. How can you be a good community member?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. Help others when they need.<br>2. Keep surroundings clean.<br>3. Respect elders and be kind to everyone.</div></div></div>
-  </div>
-
-  <div class="section" id="s4">
-    <h2>Chapter 7: Occupations 👩‍⚕️👨‍🌾</h2>
-    <div class="hint">💡 Occupation means the work people do to earn money.</div>
-    <div class="exercise"><h3>Q1. Who grows food for us?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, true)">Farmer</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Driver</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Tailor</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Barber</button>
-      </div></div>
-    <div class="exercise"><h3>Q2. Who treats sick people?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Teacher</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Cook</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Doctor</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Painter</button>
-      </div></div>
-    <div class="exercise"><h3>Q3. Who stitches clothes?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Carpenter</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Tailor</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Farmer</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Cobbler</button>
-      </div></div>
-    <div class="exercise"><h3>Q4. Who makes things from wood?</h3>
-      <div class="options">
-        <button class="option-btn" onclick="checkOpt(this, false)">Barber</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Doctor</button>
-        <button class="option-btn" onclick="checkOpt(this, true)">Carpenter</button>
-        <button class="option-btn" onclick="checkOpt(this, false)">Tailor</button>
-      </div></div>
-    <div class="exercise"><h3>Q5. Match Occupations with Their Tools</h3>
-      <p style="margin:8px 0; font-size:13px;">Tap one from the left, then tap its matching tool.</p>
-      <div class="match-list" id="matchArea"></div>
-      <p id="matchStatus" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p></div>
-    <div class="exercise"><h3>Q6. Fill in blank: A person who cuts hair is a ___.</h3>
-      <input class="fill-input" data-answer="barber" placeholder="?" onchange="checkFill(this)">
-      <p style="font-size:12px; color:#666; margin-top:5px;">Hint: 6 letters, works in a salon.</p></div>
-    <div class="exercise"><h3>📖 Short Answer Questions</h3>
-      <div class="qa-box"><div class="q">1. What is occupation?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">Occupation is the work that people do to earn money and help others. Farming, teaching, and doctoring are occupations.</div></div>
-      <div class="qa-box"><div class="q">2. Write any four occupations.</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. Farmer<br>2. Doctor<br>3. Teacher<br>4. Tailor</div></div>
-      <div class="qa-box"><div class="q">3. Why are farmers important to us?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">Farmers grow food like rice, wheat, fruits, and vegetables for us. Without farmers, we cannot get food. So farmers are very important.</div></div></div>
-  </div>
-
-  <div class="footer">⭐ Study well and score high! ⭐<br>
-    <button class="btn" onclick="resetAll()">🔄 Restart All</button></div>
-</div>
-
-<div class="celebration" id="celebration">
-  <div class="emoji">🎉</div><h2 id="celebTitle">Well done!</h2>
-  <p id="celebMsg">Great answer!</p>
-  <button class="btn" onclick="closeCeleb()">Next</button>
 </div>
 
 <script>
-  let score = 0, correct = 0, attempts = 0;
-  function updateScore() {
-    document.getElementById('scoreVal').textContent = score;
-    document.getElementById('correctVal').textContent = correct;
-    document.getElementById('attemptVal').textContent = attempts;
-  }
-  function celebrate(t, m) {
-    document.getElementById('celebTitle').textContent = t;
-    document.getElementById('celebMsg').textContent = m;
-    document.getElementById('celebration').classList.add('show');
-  }
-  function closeCeleb() { document.getElementById('celebration').classList.remove('show'); }
-  function showSection(id, btn) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }
-  function checkOpt(btn, isCorrect) {
-    if (btn.disabled) return;
-    attempts++;
-    const parent = btn.parentElement;
-    parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-    if (isCorrect) { btn.classList.add('correct'); correct++; score += 10; celebrate('Correct! ✅', '+10 points!'); }
-    else { btn.classList.add('wrong'); parent.querySelectorAll('.option-btn').forEach(b => { if (b.getAttribute('onclick').includes('true')) b.classList.add('correct'); }); }
-    updateScore();
-  }
-  function checkFill(inp) {
-    attempts++;
-    const val = inp.value.trim().toLowerCase();
-    if (val === inp.dataset.answer.toLowerCase()) { inp.classList.remove('wrong'); inp.classList.add('correct'); correct++; score += 10; celebrate('Correct! ✅', '+10 points!'); }
-    else { inp.classList.remove('correct'); inp.classList.add('wrong'); }
-    updateScore();
-  }
-  function toggleA(btn) {
-    const a = btn.nextElementSibling;
-    a.classList.toggle('show');
-    btn.textContent = a.classList.contains('show') ? '🙈 Hide' : '👀 See Answer';
-  }
-  const matchPairs = [
-    { job: 'Farmer 👨‍🌾', tool: 'Plough 🌾' },
-    { job: 'Doctor 👩‍⚕️', tool: 'Stethoscope 🩺' },
-    { job: 'Carpenter 🔨', tool: 'Hammer & wood' },
-    { job: 'Tailor 🧵', tool: 'Needle & cloth' }
-  ];
-  let selectedJob = null, matchedCount = 0;
-  function buildMatch() {
-    const area = document.getElementById('matchArea');
-    area.innerHTML = '';
-    const jobs = matchPairs.map(p => p.job);
-    const tools = [...matchPairs.map(p => p.tool)].sort(() => Math.random() - 0.5);
-    const leftCol = document.createElement('div');
-    jobs.forEach(j => {
-      const d = document.createElement('div');
-      d.className = 'match-item'; d.textContent = j;
-      d.dataset.type = 'job'; d.dataset.value = j;
-      d.onclick = () => selectJob(d);
-      leftCol.appendChild(d);
+const ALL_QUESTIONS = [{"id": 1, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "FILL_IN_BLANK", "questionText": "This is the fifth-largest planet in the solar system and the only one that supports life. Which planet is it?", "options": null, "matchingPairs": null, "correctAnswer": ["Earth"], "answerSpaceLines": null}, {"id": 2, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "FILL_IN_BLANK", "questionText": "This is the largest planet in the solar system, famous for a giant spinning storm called the 'great red spot'. Which planet is it?", "options": null, "matchingPairs": null, "correctAnswer": ["Jupiter"], "answerSpaceLines": null}, {"id": 3, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "FILL_IN_BLANK", "questionText": "This planet has beautiful rings made of ice, dust and rocks, and is the second-largest planet in the solar system. Which planet is it?", "options": null, "matchingPairs": null, "correctAnswer": ["Saturn"], "answerSpaceLines": null}, {"id": 4, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "TRUE_FALSE", "questionText": "The Sun is a planet.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 5, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "TRUE_FALSE", "questionText": "Planets have their own light.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 6, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "TRUE_FALSE", "questionText": "There are ten planets in the solar system.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 7, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "TRUE_FALSE", "questionText": "Artificial satellites gather information about the universe.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 8, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "TRUE_FALSE", "questionText": "Neptune is the farthest planet from the Sun.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 9, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "LONG_ANSWER", "questionText": "What is the Sun?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 10, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "LONG_ANSWER", "questionText": "Name the planets in the solar system.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 11, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "LONG_ANSWER", "questionText": "Define a constellation. Give an example.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 12, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "LONG_ANSWER", "questionText": "How does the Moon get its light?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 13, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "LONG_ANSWER", "questionText": "What is an orbit?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 14, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "LONG_ANSWER", "questionText": "Discuss what would happen if the planets stopped moving around the Sun.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 15, "chapterNumber": 1, "chapterTitle": "The Sun and its Family", "questionType": "MULTIPLE_CHOICE", "questionText": "Which of the following is a star?", "options": ["The Sun", "Jupiter"], "matchingPairs": null, "correctAnswer": ["The Sun"], "answerSpaceLines": null}, {"id": 16, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "A polar bear is shown in the workbook picture. Where is it found?", "options": ["North Pole", "South Pole"], "matchingPairs": null, "correctAnswer": ["North Pole"], "answerSpaceLines": null}, {"id": 17, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "The layer of air present around the Earth is called:", "options": ["atmosphere", "oxygen", "surface", "pole"], "matchingPairs": null, "correctAnswer": ["atmosphere"], "answerSpaceLines": null}, {"id": 18, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "Ferdinand Magellan started his journey in the year:", "options": ["1518", "1519", "1522", "1534"], "matchingPairs": null, "correctAnswer": ["1519"], "answerSpaceLines": null}, {"id": 19, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "There are how many continents on Earth?", "options": ["5", "6", "7", "8"], "matchingPairs": null, "correctAnswer": ["7"], "answerSpaceLines": null}, {"id": 20, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "Which ocean is the smallest ocean?", "options": ["Arctic", "Pacific", "Indian", "Atlantic"], "matchingPairs": null, "correctAnswer": ["Arctic"], "answerSpaceLines": null}, {"id": 21, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "TRUE_FALSE", "questionText": "There is life on planets other than the Earth.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 22, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "TRUE_FALSE", "questionText": "The atmosphere provides the air we breathe.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 23, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "TRUE_FALSE", "questionText": "Ferdinand Magellan started his journey from Scotland.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 24, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "TRUE_FALSE", "questionText": "The large land masses on Earth are called oceans.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 25, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "LONG_ANSWER", "questionText": "Name any two gases present in the atmosphere.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 26, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "LONG_ANSWER", "questionText": "Differentiate between continents and oceans.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 27, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "LONG_ANSWER", "questionText": "What is the uppermost flattened tip of the Earth called?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 28, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "LONG_ANSWER", "questionText": "Which is the largest continent on Earth?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 29, "chapterNumber": 2, "chapterTitle": "Our Planet Earth", "questionType": "LONG_ANSWER", "questionText": "How does the atmosphere help us?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 30, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "LONG_ANSWER", "questionText": "Think about a globe. Could we use it to locate a friend's house? Why or why not?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 31, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "The Earth is also known as the ___ Planet.", "options": ["Red", "Blue", "Yellow", "Green"], "matchingPairs": null, "correctAnswer": ["Blue"], "answerSpaceLines": null}, {"id": 32, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "About two-thirds of Earth is covered with:", "options": ["ice", "sand", "water", "grass"], "matchingPairs": null, "correctAnswer": ["water"], "answerSpaceLines": null}, {"id": 33, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "We use a ___ to find directions.", "options": ["compass", "microscope", "globe", "landform"], "matchingPairs": null, "correctAnswer": ["compass"], "answerSpaceLines": null}, {"id": 34, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "MULTIPLE_CHOICE", "questionText": "A ___ is a spherical model of the Earth.", "options": ["map", "globe", "atlas", "compass"], "matchingPairs": null, "correctAnswer": ["globe"], "answerSpaceLines": null}, {"id": 35, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "LONG_ANSWER", "questionText": "Why is the Earth called the Blue Planet?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 36, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "LONG_ANSWER", "questionText": "What is a globe?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 37, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "LONG_ANSWER", "questionText": "Define an atlas.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 38, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "LONG_ANSWER", "questionText": "Name the four directions.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 39, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "LONG_ANSWER", "questionText": "How does a compass help sailors?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 40, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "FILL_IN_BLANK", "questionText": "Unscramble the letters to form a word: GBLOE", "options": null, "matchingPairs": null, "correctAnswer": ["Globe"], "answerSpaceLines": null}, {"id": 41, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "FILL_IN_BLANK", "questionText": "Unscramble the letters to form a word: IRDECOINST", "options": null, "matchingPairs": null, "correctAnswer": ["Directions"], "answerSpaceLines": null}, {"id": 42, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "FILL_IN_BLANK", "questionText": "Unscramble the letters to form a word: AATLS", "options": null, "matchingPairs": null, "correctAnswer": ["Atlas"], "answerSpaceLines": null}, {"id": 43, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "FILL_IN_BLANK", "questionText": "Unscramble the letters to form a word: RFSUCEA", "options": null, "matchingPairs": null, "correctAnswer": ["Surface"], "answerSpaceLines": null}, {"id": 44, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "FILL_IN_BLANK", "questionText": "Unscramble the letters to form a word: NTROH", "options": null, "matchingPairs": null, "correctAnswer": ["North"], "answerSpaceLines": null}, {"id": 45, "chapterNumber": 3, "chapterTitle": "Knowing Our Earth", "questionType": "LONG_ANSWER", "questionText": "Which is better to study the Earth - a map or a globe? Give reasons to support your answer.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 46, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "LONG_ANSWER", "questionText": "Describe this scene in two lines: a girl flying a kite on a windy day.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 2}, {"id": 47, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "LONG_ANSWER", "questionText": "Thick black smoke is shown billowing from a factory chimney. How does this harm the environment?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 48, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "LONG_ANSWER", "questionText": "Describe any three ways to control air pollution.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 3}, {"id": 49, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "MULTIPLE_CHOICE", "questionText": "Which of these depend on air or wind for their movement? (select all that apply)", "options": ["Sailboat", "Train", "Hot air balloon", "Airplane"], "matchingPairs": null, "correctAnswer": ["Sailboat", "Hot air balloon", "Airplane"], "answerSpaceLines": null}, {"id": 50, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "FILL_IN_BLANK", "questionText": "Human beings and animals breathe in ______ and breathe out carbon dioxide.", "options": null, "matchingPairs": null, "correctAnswer": ["oxygen"], "answerSpaceLines": null}, {"id": 51, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "FILL_IN_BLANK", "questionText": "Fast-moving air is called ______.", "options": null, "matchingPairs": null, "correctAnswer": ["wind"], "answerSpaceLines": null}, {"id": 52, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "FILL_IN_BLANK", "questionText": "Harmful gases that are released in the air cause ______.", "options": null, "matchingPairs": null, "correctAnswer": ["air pollution"], "answerSpaceLines": null}, {"id": 53, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "FILL_IN_BLANK", "questionText": "Plants absorb ______.", "options": null, "matchingPairs": null, "correctAnswer": ["carbon dioxide"], "answerSpaceLines": null}, {"id": 54, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "LONG_ANSWER", "questionText": "Define air.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 55, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "LONG_ANSWER", "questionText": "What is wind?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 56, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "LONG_ANSWER", "questionText": "List two causes of air pollution.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 57, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "LONG_ANSWER", "questionText": "How can we keep the air clean?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 58, "chapterNumber": 4, "chapterTitle": "The Air Around Us", "questionType": "LONG_ANSWER", "questionText": "What would happen if there was no air?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 59, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "FILL_IN_BLANK", "questionText": "Ice is a solid, frozen form of ______.", "options": null, "matchingPairs": null, "correctAnswer": ["water"], "answerSpaceLines": null}, {"id": 60, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "LONG_ANSWER", "questionText": "A waterfall is shown in the workbook. How is a waterfall useful?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 61, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "FILL_IN_BLANK", "questionText": "This is a human-made source of water found in villages, often drawn up with a bucket on a rope. What is it?", "options": null, "matchingPairs": null, "correctAnswer": ["well"], "answerSpaceLines": null}, {"id": 62, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "FILL_IN_BLANK", "questionText": "This device sprays water from overhead so a person can bathe standing under it. What is it?", "options": null, "matchingPairs": null, "correctAnswer": ["shower"], "answerSpaceLines": null}, {"id": 63, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "FILL_IN_BLANK", "questionText": "This hand-operated device is used to draw underground water. What is it?", "options": null, "matchingPairs": null, "correctAnswer": ["hand pump"], "answerSpaceLines": null}, {"id": 64, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "FILL_IN_BLANK", "questionText": "______ use water to generate electricity.", "options": null, "matchingPairs": null, "correctAnswer": ["Hydroelectric plants"], "answerSpaceLines": null}, {"id": 65, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "FILL_IN_BLANK", "questionText": "The method of storing and reusing rainwater is called ______.", "options": null, "matchingPairs": null, "correctAnswer": ["rainwater harvesting"], "answerSpaceLines": null}, {"id": 66, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "FILL_IN_BLANK", "questionText": "Water undergoes various ______ processes before it is supplied to us for use at home.", "options": null, "matchingPairs": null, "correctAnswer": ["purification"], "answerSpaceLines": null}, {"id": 67, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "FILL_IN_BLANK", "questionText": "We should not wash cars using ______.", "options": null, "matchingPairs": null, "correctAnswer": ["hosepipes"], "answerSpaceLines": null}, {"id": 68, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "LONG_ANSWER", "questionText": "Name the different forms of water.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 69, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "LONG_ANSWER", "questionText": "List any three uses of water.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 3}, {"id": 70, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "LONG_ANSWER", "questionText": "What happens when water is heated?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 71, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "LONG_ANSWER", "questionText": "How do wet clothes become dry?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 72, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "LONG_ANSWER", "questionText": "Write any four ways in which we can save water every day.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 73, "chapterNumber": 5, "chapterTitle": "Water We Drink", "questionType": "LONG_ANSWER", "questionText": "'Every drop of water stored is every drop of water saved.' Do you agree with the statement? Give reasons for your answer.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 74, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "LONG_ANSWER", "questionText": "Name the eight planets of the solar system.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 75, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "LONG_ANSWER", "questionText": "What is a continent?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 76, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "LONG_ANSWER", "questionText": "Give any two reasons of air pollution.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 77, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "LONG_ANSWER", "questionText": "Name the three forms of water.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 78, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "LONG_ANSWER", "questionText": "What is an atlas?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 79, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "FILL_IN_BLANK", "questionText": "The Earth has the ______ as its satellite.", "options": null, "matchingPairs": null, "correctAnswer": ["Moon"], "answerSpaceLines": null}, {"id": 80, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "FILL_IN_BLANK", "questionText": "The two ends of the Earth are called ______.", "options": null, "matchingPairs": null, "correctAnswer": ["poles"], "answerSpaceLines": null}, {"id": 81, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "FILL_IN_BLANK", "questionText": "All living things need ______ to breathe.", "options": null, "matchingPairs": null, "correctAnswer": ["air"], "answerSpaceLines": null}, {"id": 82, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "FILL_IN_BLANK", "questionText": "The world's largest freshwater lake is ______.", "options": null, "matchingPairs": null, "correctAnswer": ["Lake Baikal"], "answerSpaceLines": null}, {"id": 83, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "FILL_IN_BLANK", "questionText": "The frozen form of water is ______.", "options": null, "matchingPairs": null, "correctAnswer": ["ice"], "answerSpaceLines": null}, {"id": 84, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "TRUE_FALSE", "questionText": "There are nine planets in the solar system.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 85, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "TRUE_FALSE", "questionText": "A book of maps is called a globe.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 86, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "TRUE_FALSE", "questionText": "The largest ocean is the Pacific Ocean.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 87, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "TRUE_FALSE", "questionText": "All living things need water to breathe.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 88, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "TRUE_FALSE", "questionText": "The outer surface of the Earth is made up of only water.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 89, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "MULTIPLE_CHOICE", "questionText": "The top and the bottom of the Earth are called:", "options": ["cherry", "poles", "atmosphere", "biosphere"], "matchingPairs": null, "correctAnswer": ["poles"], "answerSpaceLines": null}, {"id": 90, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "MULTIPLE_CHOICE", "questionText": "A model of the Earth is called a:", "options": ["map", "globe", "continent", "ocean"], "matchingPairs": null, "correctAnswer": ["globe"], "answerSpaceLines": null}, {"id": 91, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "MULTIPLE_CHOICE", "questionText": "He was the first to prove that the Earth was round.", "options": ["Neil Armstrong", "Columbus", "Marco Polo", "Ferdinand Magellan"], "matchingPairs": null, "correctAnswer": ["Ferdinand Magellan"], "answerSpaceLines": null}, {"id": 92, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "MULTIPLE_CHOICE", "questionText": "India is a part of the continent of:", "options": ["Europe", "Asia", "Africa", "Australia"], "matchingPairs": null, "correctAnswer": ["Asia"], "answerSpaceLines": null}, {"id": 93, "chapterNumber": 0, "chapterTitle": "Unit Test I", "questionType": "MULTIPLE_CHOICE", "questionText": "Water exists in how many forms?", "options": ["three", "four", "five", "six"], "matchingPairs": null, "correctAnswer": ["three"], "answerSpaceLines": null}, {"id": 94, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "A postman is shown delivering something to a house. How does a postman help our community?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 95, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "MULTIPLE_CHOICE", "questionText": "We go to a ___ when we are sick.", "options": ["tailor", "plumber", "doctor", "teacher"], "matchingPairs": null, "correctAnswer": ["doctor"], "answerSpaceLines": null}, {"id": 96, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "MULTIPLE_CHOICE", "questionText": "In case of a fire, we call a ___.", "options": ["tailor", "fireman", "doctor", "teacher"], "matchingPairs": null, "correctAnswer": ["fireman"], "answerSpaceLines": null}, {"id": 97, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "MULTIPLE_CHOICE", "questionText": "Who are responsible for maintaining law and order in our area?", "options": ["Tailors", "Police officers", "Doctors", "Teachers"], "matchingPairs": null, "correctAnswer": ["Police officers"], "answerSpaceLines": null}, {"id": 98, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "MULTIPLE_CHOICE", "questionText": "A ___ keeps our community clean.", "options": ["sweeper", "plumber", "doctor", "teacher"], "matchingPairs": null, "correctAnswer": ["sweeper"], "answerSpaceLines": null}, {"id": 99, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "MULTIPLE_CHOICE", "questionText": "Who fixes lights and fans?", "options": ["tailor", "plumber", "doctor", "electrician"], "matchingPairs": null, "correctAnswer": ["electrician"], "answerSpaceLines": null}, {"id": 100, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "As a member of your community, what is your responsibility towards your community? How far does your responsibility go?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 101, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "What can you do to make your home, school, neighbourhood and community a better place?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 102, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "What is a community?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 103, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "Write two ways in which a teacher helps us.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 104, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "Who is a postman? What does he do?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 105, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "Where does a police officer work? How does he help us?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 106, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "Where do we go when we fall sick?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 107, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "MATCHING", "questionText": "Match each helper to the tool they use.", "options": null, "matchingPairs": [{"left": "Sweeper", "right": "Broom"}, {"left": "Doctor", "right": "Thermometer"}, {"left": "Electrician", "right": "Pliers"}], "correctAnswer": null, "answerSpaceLines": null}, {"id": 108, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "TRUE_FALSE", "questionText": "A plumber makes wooden furniture for us.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 109, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "TRUE_FALSE", "questionText": "A postman delivers letters to homes.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 110, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "TRUE_FALSE", "questionText": "A hospital is an important building in our community.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 111, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "TRUE_FALSE", "questionText": "A community is a group of people living together.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 112, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "TRUE_FALSE", "questionText": "An electrician fixes our lights and electrical appliances.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 113, "chapterNumber": 6, "chapterTitle": "My Community", "questionType": "LONG_ANSWER", "questionText": "We depend on many people in our community. Do you agree? Give reasons.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 114, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "LONG_ANSWER", "questionText": "What do you want to become when you grow up, and how will it help the community?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 115, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "LONG_ANSWER", "questionText": "A potter is shown shaping clay on a wheel. Is pottery-making an occupation? Why or why not?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 116, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "MULTIPLE_CHOICE", "questionText": "Which is a major occupation in villages?", "options": ["Farming", "Engineering", "Working in factories", "Yoga training"], "matchingPairs": null, "correctAnswer": ["Farming"], "answerSpaceLines": null}, {"id": 117, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "MULTIPLE_CHOICE", "questionText": "Which is an occupation in cities?", "options": ["Farming", "Engineering", "Fishing", "Pottery-making"], "matchingPairs": null, "correctAnswer": ["Engineering"], "answerSpaceLines": null}, {"id": 118, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "MULTIPLE_CHOICE", "questionText": "Which of these is NOT an occupation?", "options": ["Farming", "Eating", "Working in factories", "Teaching"], "matchingPairs": null, "correctAnswer": ["Eating"], "answerSpaceLines": null}, {"id": 119, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "MULTIPLE_CHOICE", "questionText": "Doing work for earning money is called:", "options": ["occupation", "hobby", "fun work", "work for relaxation"], "matchingPairs": null, "correctAnswer": ["occupation"], "answerSpaceLines": null}, {"id": 120, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "LONG_ANSWER", "questionText": "List the important factors for choosing an occupation.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 121, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "LONG_ANSWER", "questionText": "What are the major occupations chosen by people in villages?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 122, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "LONG_ANSWER", "questionText": "What is the difference between a hobby and an occupation?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 123, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "TRUE_FALSE", "questionText": "The occupation of growing crops is called service.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 124, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "TRUE_FALSE", "questionText": "Working to earn money is called occupation.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 125, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "TRUE_FALSE", "questionText": "Dancing, singing and painting can be hobbies.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 126, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "TRUE_FALSE", "questionText": "Making films is an occupation.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 127, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "LONG_ANSWER", "questionText": "Why is it important to have an occupation?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 128, "chapterNumber": 7, "chapterTitle": "Occupations", "questionType": "LONG_ANSWER", "questionText": "Name three occupations which can also be hobbies.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 129, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "FILL_IN_BLANK", "questionText": "The National Tree of India is the ______.", "options": null, "matchingPairs": null, "correctAnswer": ["Banyan tree"], "answerSpaceLines": null}, {"id": 130, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "MULTIPLE_CHOICE", "questionText": "Our National Anthem was written by:", "options": ["Jawaharlal Nehru", "Rabindranath Tagore", "Mahatma Gandhi", "Subhas Chandra Bose"], "matchingPairs": null, "correctAnswer": ["Rabindranath Tagore"], "answerSpaceLines": null}, {"id": 131, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "MULTIPLE_CHOICE", "questionText": "There are how many colours in our National Flag?", "options": ["2", "3", "4", "5"], "matchingPairs": null, "correctAnswer": ["3"], "answerSpaceLines": null}, {"id": 132, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "MULTIPLE_CHOICE", "questionText": "There are how many lions in our National Emblem?", "options": ["2", "3", "4", "5"], "matchingPairs": null, "correctAnswer": ["4"], "answerSpaceLines": null}, {"id": 133, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "MULTIPLE_CHOICE", "questionText": "The term 'Satyameva Jayate' means:", "options": ["truth alone triumphs", "purity always triumphs", "beauty alone triumphs", "honour always triumphs"], "matchingPairs": null, "correctAnswer": ["truth alone triumphs"], "answerSpaceLines": null}, {"id": 134, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "LONG_ANSWER", "questionText": "What is the National Anthem of India?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 135, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "LONG_ANSWER", "questionText": "List the three colours of the tiranga.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 3}, {"id": 136, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "LONG_ANSWER", "questionText": "Name the person who designed the symbol of the Indian rupee.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 137, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "LONG_ANSWER", "questionText": "What does the navy blue chakra in the Indian flag represent?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 138, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "LONG_ANSWER", "questionText": "Who composed Vande Mataram?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 139, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "TRUE_FALSE", "questionText": "Our National Emblem is known as the tiranga.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 140, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "TRUE_FALSE", "questionText": "The lion is our National Animal.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 141, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "TRUE_FALSE", "questionText": "Rabindranath Tagore wrote our National Anthem.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 142, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "TRUE_FALSE", "questionText": "India is the fourth-largest country in the world.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 143, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "FILL_IN_BLANK", "questionText": "What is the National Animal of India?", "options": null, "matchingPairs": null, "correctAnswer": ["Tiger"], "answerSpaceLines": null}, {"id": 144, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "FILL_IN_BLANK", "questionText": "What colour is the middle part of the Indian flag?", "options": null, "matchingPairs": null, "correctAnswer": ["White"], "answerSpaceLines": null}, {"id": 145, "chapterNumber": 8, "chapterTitle": "Our Country", "questionType": "FILL_IN_BLANK", "questionText": "What colour is the bottom part of the Indian flag?", "options": null, "matchingPairs": null, "correctAnswer": ["Green"], "answerSpaceLines": null}, {"id": 146, "chapterNumber": 9, "chapterTitle": "States of India", "questionType": "MULTIPLE_CHOICE", "questionText": "Which city is the capital of Nagaland?", "options": ["Gangtok", "Itanagar", "Aizwal", "Kohima"], "matchingPairs": null, "correctAnswer": ["Kohima"], "answerSpaceLines": null}, {"id": 147, "chapterNumber": 9, "chapterTitle": "States of India", "questionType": "MULTIPLE_CHOICE", "questionText": "Jaipur is the capital of which state?", "options": ["Punjab", "Haryana", "Rajasthan", "Maharashtra"], "matchingPairs": null, "correctAnswer": ["Rajasthan"], "answerSpaceLines": null}, {"id": 148, "chapterNumber": 9, "chapterTitle": "States of India", "questionType": "MULTIPLE_CHOICE", "questionText": "Chandigarh is the capital of which two states?", "options": ["Punjab, Bihar", "Punjab, Haryana", "Punjab, Odisha", "Bihar, Odisha"], "matchingPairs": null, "correctAnswer": ["Punjab, Haryana"], "answerSpaceLines": null}, {"id": 149, "chapterNumber": 9, "chapterTitle": "States of India", "questionType": "MULTIPLE_CHOICE", "questionText": "Which city is the capital of Jharkhand?", "options": ["Ranchi", "Patna", "Agartala", "Kohima"], "matchingPairs": null, "correctAnswer": ["Ranchi"], "answerSpaceLines": null}, {"id": 150, "chapterNumber": 9, "chapterTitle": "States of India", "questionType": "MULTIPLE_CHOICE", "questionText": "How many union territories are there in India?", "options": ["5", "9", "7", "8"], "matchingPairs": null, "correctAnswer": ["8"], "answerSpaceLines": null}, {"id": 151, "chapterNumber": 9, "chapterTitle": "States of India", "questionType": "MATCHING", "questionText": "Match the city to the state it is the capital of.", "options": null, "matchingPairs": [{"left": "Patna", "right": "Bihar"}, {"left": "Ranchi", "right": "Jharkhand"}, {"left": "Dispur", "right": "Assam"}, {"left": "Panaji", "right": "Goa"}, {"left": "Shimla", "right": "Himachal Pradesh"}], "correctAnswer": null, "answerSpaceLines": null}];
+
+const CHAPTER_TITLES = {};
+const CHAPTER_ORDER = [];
+ALL_QUESTIONS.forEach(q => {
+  if (!(q.chapterNumber in CHAPTER_TITLES)) CHAPTER_ORDER.push(q.chapterNumber);
+  CHAPTER_TITLES[q.chapterNumber] = q.chapterTitle;
+});
+CHAPTER_ORDER.sort((a,b)=>a-b);
+
+let activeQuestions = [];
+let currentIndex = 0;
+let studentAnswers = {};
+
+function normalize(str) {
+  return (str || '').toString().toLowerCase().trim().replace(/[^a-z0-9 ]/g, '');
+}
+
+function buildHome() {
+  const list = document.getElementById('chapter-list');
+  list.innerHTML = '';
+  CHAPTER_ORDER.forEach(num => {
+    const count = ALL_QUESTIONS.filter(q => q.chapterNumber === num).length;
+    const div = document.createElement('div');
+    div.className = 'card chapter-card';
+    div.onclick = () => startQuiz(num);
+    const label = num === 0 ? '&#9998;' : num;
+    div.innerHTML =
+      '<div class="chapter-num">' + label + '</div>' +
+      '<div><div class="chapter-title">' + CHAPTER_TITLES[num] + '</div>' +
+      '<div class="chapter-count">' + count + ' questions</div></div>';
+    list.appendChild(div);
+  });
+}
+
+function goHome() {
+  document.getElementById('screen-home').classList.remove('hidden');
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-results').classList.add('hidden');
+}
+
+function startQuiz(chapterNumber) {
+  activeQuestions = chapterNumber === null
+    ? ALL_QUESTIONS.slice()
+    : ALL_QUESTIONS.filter(q => q.chapterNumber === chapterNumber);
+  currentIndex = 0;
+  studentAnswers = {};
+  document.getElementById('screen-home').classList.add('hidden');
+  document.getElementById('screen-results').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = activeQuestions[currentIndex];
+  document.getElementById('progress-bar').style.width =
+    (((currentIndex) / activeQuestions.length) * 100) + '%';
+  document.getElementById('progress-label').textContent =
+    'Question ' + (currentIndex + 1) + ' of ' + activeQuestions.length + '  -  ' + q.chapterTitle;
+  document.getElementById('q-badge').textContent = q.questionType.replace(/_/g, ' ');
+  document.getElementById('q-text').textContent = q.questionText;
+
+  const area = document.getElementById('q-answer-area');
+  area.innerHTML = '';
+  const saved = studentAnswers[q.id];
+
+  if (q.questionType === 'TRUE_FALSE') {
+    ['True', 'False'].forEach(choice => {
+      const btn = document.createElement('div');
+      btn.className = 'option' + (saved === choice ? ' selected' : '');
+      btn.textContent = choice;
+      btn.onclick = () => { studentAnswers[q.id] = choice; renderQuestion(); };
+      area.appendChild(btn);
     });
-    const rightCol = document.createElement('div');
-    tools.forEach(t => {
-      const d = document.createElement('div');
-      d.className = 'match-item'; d.textContent = t;
-      d.dataset.type = 'tool'; d.dataset.value = t;
-      d.onclick = () => selectTool(d);
-      rightCol.appendChild(d);
+  } else if (q.questionType === 'MULTIPLE_CHOICE') {
+    const isMulti = q.correctAnswer && q.correctAnswer.length > 1;
+    const savedArr = Array.isArray(saved) ? saved : (saved ? [saved] : []);
+    (q.options || []).forEach(opt => {
+      const picked = savedArr.includes(opt);
+      const btn = document.createElement('div');
+      btn.className = 'option' + (picked ? ' selected' : '');
+      btn.textContent = opt;
+      btn.onclick = () => {
+        if (isMulti) {
+          let arr = Array.isArray(studentAnswers[q.id]) ? studentAnswers[q.id] : [];
+          if (arr.includes(opt)) arr = arr.filter(x => x !== opt);
+          else arr = arr.concat([opt]);
+          studentAnswers[q.id] = arr;
+        } else {
+          studentAnswers[q.id] = opt;
+        }
+        renderQuestion();
+      };
+      area.appendChild(btn);
     });
-    area.appendChild(leftCol); area.appendChild(rightCol);
-  }
-  function selectJob(el) {
-    if (el.classList.contains('matched')) return;
-    document.querySelectorAll('[data-type="job"]').forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected'); selectedJob = el;
-  }
-  function selectTool(el) {
-    if (el.classList.contains('matched') || !selectedJob) return;
-    attempts++;
-    const jobVal = selectedJob.dataset.value;
-    const toolVal = el.dataset.value;
-    const correctPair = matchPairs.find(p => p.job === jobVal);
-    if (correctPair && correctPair.tool === toolVal) {
-      selectedJob.classList.remove('selected'); selectedJob.classList.add('matched');
-      el.classList.add('matched'); matchedCount++; correct++; score += 10;
-      updateScore();
-      if (matchedCount === matchPairs.length) { celebrate('All matched! 🎉', 'Perfect job!'); document.getElementById('matchStatus').textContent = '🎉 All matched!'; }
-      selectedJob = null;
-    } else {
-      el.style.background = '#ffcdd2';
-      setTimeout(() => { el.style.background = ''; }, 500);
+    if (isMulti) {
+      const note = document.createElement('div');
+      note.className = 'ungraded-note';
+      note.textContent = 'Tap all that apply.';
+      area.appendChild(note);
     }
+  } else if (q.questionType === 'FILL_IN_BLANK') {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Type your answer here';
+    input.value = saved || '';
+    input.oninput = () => { studentAnswers[q.id] = input.value; };
+    area.appendChild(input);
+  } else if (q.questionType === 'LONG_ANSWER') {
+    const ta = document.createElement('textarea');
+    ta.rows = Math.max(2, q.answerSpaceLines || 4);
+    ta.placeholder = 'Write your answer here';
+    ta.value = saved || '';
+    ta.oninput = () => { studentAnswers[q.id] = ta.value; };
+    area.appendChild(ta);
+    const note = document.createElement('div');
+    note.className = 'ungraded-note';
+    note.textContent = 'This is a writing question - it is not auto-scored.';
+    area.appendChild(note);
+  } else if (q.questionType === 'MATCHING') {
+    (q.matchingPairs || []).forEach(pair => {
+      const row = document.createElement('div');
+      row.className = 'match-row';
+      row.innerHTML = '<span>' + pair.left + '</span><span>&#8596;</span><span>' + pair.right + '</span>';
+      area.appendChild(row);
+    });
+    const note = document.createElement('div');
+    note.className = 'ungraded-note';
+    note.textContent = 'Read the pairs together - they are already matched correctly here for learning.';
+    area.appendChild(note);
+    studentAnswers[q.id] = 'viewed';
+  } else if (q.questionType === 'ORDERING') {
+    (q.options || []).forEach((item, i) => {
+      const row = document.createElement('div');
+      row.className = 'order-row';
+      row.innerHTML = '<span>' + item + '</span>';
+      area.appendChild(row);
+    });
+    const note = document.createElement('div');
+    note.className = 'ungraded-note';
+    note.textContent = 'Try saying these steps in the correct order out loud before moving on.';
+    area.appendChild(note);
+    studentAnswers[q.id] = 'viewed';
   }
-  function resetAll() { if (!confirm('This will reset all scores. Continue?')) return; location.reload(); }
-  buildMatch(); updateScore();
+
+  document.getElementById('btn-back').disabled = currentIndex === 0;
+  document.getElementById('btn-next').textContent =
+    currentIndex === activeQuestions.length - 1 ? 'Finish' : 'Next';
+}
+
+function goBack() {
+  if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+}
+
+function goNext() {
+  if (currentIndex < activeQuestions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function isCorrect(q, given) {
+  if (!q.correctAnswer || q.correctAnswer.length === 0) return null;
+  if (q.questionType === 'TRUE_FALSE') {
+    return given === q.correctAnswer[0];
+  }
+  if (q.questionType === 'FILL_IN_BLANK') {
+    if (!given) return false;
+    const g = normalize(given);
+    return q.correctAnswer.some(ans =>
+      ans.split(/[\/,()]/).some(part => {
+        const p = normalize(part);
+        return p.length > 0 && (g.includes(p) || p.includes(g));
+      })
+    );
+  }
+  if (q.questionType === 'MULTIPLE_CHOICE') {
+    const givenArr = Array.isArray(given) ? given.slice().sort() : (given ? [given] : []);
+    const correctArr = q.correctAnswer.slice().sort();
+    return JSON.stringify(givenArr) === JSON.stringify(correctArr);
+  }
+  return null;
+}
+
+function showResults() {
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-results').classList.remove('hidden');
+
+  let correctCount = 0, gradableCount = 0;
+  const reviewList = document.getElementById('review-list');
+  reviewList.innerHTML = '';
+
+  activeQuestions.forEach(q => {
+    const given = studentAnswers[q.id];
+    const result = isCorrect(q, given);
+    if (result !== null) {
+      gradableCount++;
+      if (result) correctCount++;
+    }
+    const item = document.createElement('div');
+    item.className = 'card review-item ' + (result === true ? 'correct' : result === false ? 'wrong' : '');
+    let tagHtml = '';
+    if (result === true) tagHtml = '<span class="review-tag correct">&#10003; Correct</span>';
+    else if (result === false) tagHtml = '<span class="review-tag wrong">&#10007; Try again</span>';
+    else tagHtml = '<span class="review-tag" style="color:#6b6b76;">Not auto-scored</span>';
+
+    let givenText = Array.isArray(given) ? given.join(', ') : (given || '(no answer given)');
+    let correctText = q.correctAnswer ? q.correctAnswer.join(' / ') : 'Not stated in the workbook';
+
+    item.innerHTML =
+      '<div style="font-size:13px;color:#6b6b76;">' + q.chapterTitle + '</div>' +
+      '<div style="font-weight:600;margin:6px 0;">' + q.questionText + '</div>' +
+      tagHtml +
+      (q.questionType === 'MATCHING' || q.questionType === 'ORDERING' || q.questionType === 'LONG_ANSWER'
+        ? ''
+        : '<div class="review-answer"><span class="label">Your answer:</span> ' + givenText + '<br>' +
+          '<span class="label">Correct answer:</span> ' + correctText + '</div>');
+    reviewList.appendChild(item);
+  });
+
+  document.getElementById('score-big').textContent = correctCount + ' / ' + gradableCount;
+  document.getElementById('score-sub').textContent =
+    'correct on auto-scored questions (Multiple Choice, True/False, Fill in the Blank)';
+}
+
+buildHome();
 </script>
+
 </body>
 </html>
