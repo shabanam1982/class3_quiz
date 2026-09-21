@@ -2,502 +2,444 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Islamic Studies Practice - Grade 3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Islamic Studies - Class 3 Practice</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'Segoe UI', 'Noto Naskh Arabic', sans-serif; background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); min-height: 100vh; padding: 12px; color: #333; }
-  .app { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
-  header { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); color: #fff; padding: 18px 16px; text-align: center; position: relative; }
-  header a.back { position: absolute; left: 12px; top: 12px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.25); padding: 6px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
-  header h1 { font-size: 21px; margin-bottom: 6px; }
-  header p { font-size: 13px; opacity: 0.95; }
-  .score-bar { background: #fff8e7; padding: 12px; display: flex; justify-content: space-around; border-bottom: 3px solid #ffd93d; font-weight: bold; }
-  .score-bar .item { text-align: center; }
-  .score-bar .big { font-size: 24px; color: #ff6b6b; }
-  .score-bar .lbl { font-size: 11px; color: #666; }
-  .tabs { display: flex; overflow-x: auto; background: #f8f9fa; border-bottom: 2px solid #ddd; }
-  .tab { flex: 0 0 auto; padding: 12px 11px; cursor: pointer; border: none; background: transparent; font-family: inherit; font-size: 12px; font-weight: bold; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; }
-  .tab.active { color: #134e5e; border-bottom-color: #134e5e; background: #fff; }
-  .section { padding: 16px; display: none; }
-  .section.active { display: block; }
-  .section h2 { color: #134e5e; font-size: 18px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 2px dashed #ffd93d; }
-  .hint { background: #e8f5e9; padding: 10px; border-radius: 10px; font-size: 13px; color: #2e7d32; margin: 10px 0; line-height: 1.5; }
-  .exercise { background: #fafafa; border-radius: 12px; padding: 14px; margin: 12px 0; border-left: 5px solid #71b280; }
-  .exercise h3 { font-size: 15px; margin-bottom: 10px; color: #134e5e; }
-  .options { display: grid; grid-template-columns: repeat(1, 1fr); gap: 8px; margin-top: 10px; }
-  .options.two { grid-template-columns: repeat(2, 1fr); }
-  .option-btn { padding: 12px; background: #fff; border: 2px solid #ddd; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; font-family: inherit; transition: all 0.2s; text-align: left; }
-  .options.two .option-btn { text-align: center; }
-  .option-btn.correct { background: #4caf50; color: #fff; border-color: #388e3c; }
-  .option-btn.wrong { background: #f44336; color: #fff; border-color: #d32f2f; }
-  .option-btn:disabled { cursor: not-allowed; opacity: 0.85; }
-  .btn { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; font-family: inherit; margin: 6px 4px; }
-  .qa-box { background: #fff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #134e5e; }
-  .qa-box .q { font-weight: bold; margin-bottom: 8px; }
-  .a { color: #2e7d32; margin-top: 8px; padding: 10px; background: #e8f5e9; border-radius: 8px; display: none; font-weight: bold; line-height: 1.6; }
-  .a.show { display: block; }
-  .arabic { font-size: 24px; text-align: center; direction: rtl; margin: 12px 0; line-height: 2; color: #134e5e; font-weight: bold; }
-  .trans { text-align: center; font-style: italic; color: #666; font-size: 14px; margin-bottom: 4px; }
-  .meaning { text-align: center; font-size: 14px; margin-bottom: 12px; }
-  .readbox { background: #fff8e1; padding: 14px; border-radius: 10px; margin: 10px 0; line-height: 1.7; font-size: 14px; border-left: 4px solid #ffa500; }
-  .celebration { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center; z-index: 200; display: none; }
-  .celebration.show { display: block; animation: pop 0.4s; }
-  @keyframes pop { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
-  .celebration .emoji { font-size: 55px; }
-  .celebration h2 { color: #134e5e; margin: 8px 0; }
-  .footer { text-align: center; padding: 12px; font-size: 12px; color: #999; background: #f8f9fa; }
-  .q-count { display: inline-block; background: #134e5e; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 8px; }
-  .match-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-  .match-item { padding: 10px 8px; background: #fff; border: 2px solid #ddd; border-radius: 8px; text-align: center; font-weight: bold; cursor: pointer; font-size: 13px; }
-  .match-item.selected { background: #ffd93d; border-color: #ffa500; }
-  .match-item.matched { background: #c8e6c9; border-color: #4caf50; cursor: default; }
+  :root {
+    --primary: #134e5e;
+    --primary-light: #1f7a8c;
+    --gold: #c9a24b;
+    --bg: #f4eefa;
+    --card: #ffffff;
+    --text: #2b2b33;
+    --muted: #6b6b76;
+    --good: #2e8b57;
+    --bad: #d1495b;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-bottom: 32px;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    padding: 18px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  header .sub { font-size: 13px; opacity: 0.85; margin-top: 2px; }
+  .container { max-width: 640px; margin: 0 auto; padding: 16px; }
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border-left: 6px solid var(--gold);
+  }
+  .chapter-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  .chapter-card:active { transform: scale(0.98); }
+  .chapter-num {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .chapter-title { font-weight: 600; font-size: 16px; }
+  .chapter-count { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .start-all {
+    background: var(--primary);
+    color: #fff;
+    text-align: center;
+    border-left: 6px solid var(--gold);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .progress-wrap {
+    background: #e4dcee;
+    border-radius: 8px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .progress-bar { background: var(--gold); height: 100%; width: 0%; transition: width 0.2s; }
+  .progress-label { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--primary-light);
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .q-text { font-size: 18px; font-weight: 600; margin: 6px 0 16px 0; line-height: 1.4; }
+  .option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #faf7fc;
+    border: 2px solid #e4dcee;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .option.selected { border-color: var(--primary); background: #e7f3f2; }
+  textarea, input[type=text] {
+    width: 100%;
+    border: 2px solid #e4dcee;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+  }
+  .match-row, .order-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e4dcee;
+    font-size: 15px;
+  }
+  .ungraded-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 10px;
+    font-style: italic;
+  }
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  button {
+    font-family: inherit;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--primary); color: #fff; flex: 1; }
+  .btn-secondary { background: #e4dcee; color: var(--text); flex: 1; }
+  .btn-primary:disabled, .btn-secondary:disabled { opacity: 0.4; cursor: default; }
+  .hidden { display: none !important; }
+  .score-big { font-size: 42px; font-weight: 800; color: var(--primary); text-align: center; }
+  .score-sub { text-align: center; color: var(--muted); margin-bottom: 18px; }
+  .review-item { border-left: 6px solid var(--muted); }
+  .review-item.correct { border-left-color: var(--good); }
+  .review-item.wrong { border-left-color: var(--bad); }
+  .review-tag { font-size: 12px; font-weight: 700; }
+  .review-tag.correct { color: var(--good); }
+  .review-tag.wrong { color: var(--bad); }
+  .review-answer { font-size: 14px; margin-top: 6px; }
+  .review-answer .label { color: var(--muted); }
 </style>
 </head>
 <body>
 
-<div class="app">
-  <header>
-    <a href="index.html" class="back">← Home</a>
-    <h1>🕌 Islamic Studies Practice</h1>
-    <p>Grade 3 — Lessons 1 to 8</p>
-  </header>
+<header>
+  <h1>🕌 Islamic Studies</h1>
+  <div class="sub" id="header-sub">Class 3 Practice - 14 chapters, 166 questions</div>
+</header>
 
-  <div class="score-bar">
-    <div class="item"><div class="big" id="scoreVal">0</div><div class="lbl">⭐ Score</div></div>
-    <div class="item"><div class="big" id="correctVal">0</div><div class="lbl">✅ Correct</div></div>
-    <div class="item"><div class="big" id="attemptVal">0</div><div class="lbl">📝 Tries</div></div>
+<div class="container">
+
+  <!-- HOME SCREEN -->
+  <div id="screen-home">
+    <div class="card start-all" onclick="startQuiz(null)">▶ Start Full Quiz (166 questions)</div>
+    <div id="chapter-list"></div>
   </div>
 
-  <div class="tabs">
-    <button class="tab active" onclick="showSection('s1', this)">1. Adhaan</button>
-    <button class="tab" onclick="showSection('s2', this)">2. Iqaamah</button>
-    <button class="tab" onclick="showSection('s3', this)">3. Adam ﷺ</button>
-    <button class="tab" onclick="showSection('s4', this)">4. Poor</button>
-    <button class="tab" onclick="showSection('s5', this)">5. Zayd</button>
-    <button class="tab" onclick="showSection('s6', this)">6. Tongue</button>
-    <button class="tab" onclick="showSection('s7', this)">7. Faatihah</button>
-    <button class="tab" onclick="showSection('s8', this)">8. Water</button>
-  </div>
-
-  <!-- L1: THE CALL TO PRAYER -->
-  <div class="section active" id="s1">
-    <h2>01. The Call to Prayer (Al-Adhaan) <span class="q-count">14 Q</span></h2>
-    <div class="hint">💡 The Mu'adh-dhin is the person who calls the adhaan five times a day at the Masjid.</div>
-    <div class="readbox">
-      <strong>Wording of the Adhaan:</strong><br>
-      1. Allaahu Akbar (×4) — Allah is The Most Great<br>
-      2. Ash-hadu allaa-ilaaha illallaah (×2) — I testify there is no God but Allah<br>
-      3. Ash-hadu anna Muhammadar Rasoolullaah (×2) — I testify Muhammad ﷺ is the Messenger of Allah<br>
-      4. Hayya 'alas salaah (×2) — Hasten to the prayer<br>
-      5. Hayya 'alal falaah (×2) — Hasten to success<br>
-      6. Allaahu Akbar (×2)<br>
-      7. Laa-ilaaha illallaah — There is no God but Allah<br><br>
-      <em>In Fajr adhaan: As-Salaatu khayrum-minan nawm — The prayer is better than sleep</em>
+  <!-- QUIZ SCREEN -->
+  <div id="screen-quiz" class="hidden">
+    <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="progress-label" id="progress-label"></div>
+    <div class="card">
+      <div class="badge" id="q-badge"></div>
+      <div class="q-text" id="q-text"></div>
+      <div id="q-answer-area"></div>
     </div>
-    <div id="q1"></div>
-    <div class="exercise"><h3>📖 Think Questions</h3>
-      <div class="qa-box"><div class="q">1. What should we reply when the mu'adh-dhin says "Hayya 'alas salaah"?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">We should say: "Laa hawla wa laa quwwata illaa billaah" — There is no power and no might except with Allah.</div></div>
-      <div class="qa-box"><div class="q">2. Why is it different from other replies of the adhaan?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">Because "Hayya 'alas salaah" and "Hayya 'alal falaah" are a call to come to prayer. We cannot call others, so instead we say that we have no power to obey except with Allah's help.</div></div>
+    <div class="nav-row">
+      <button class="btn-secondary" id="btn-back" onclick="goBack()">Back</button>
+      <button class="btn-primary" id="btn-next" onclick="goNext()">Next</button>
+    </div>
+    <div class="nav-row" style="margin-top:10px;">
+      <button class="btn-secondary" style="flex:1;" onclick="goHome()">Exit to Chapters</button>
     </div>
   </div>
 
-  <!-- L2: AL-IQAAMAH -->
-  <div class="section" id="s2">
-    <h2>02. Al-Iqaamah <span class="q-count">12 Q</span></h2>
-    <div class="hint">💡 Al-Iqaamah is the call to the START of fardh salah. It tells us the prayer is now beginning.</div>
-    <div class="readbox">
-      <strong>Wording of the Iqaamah:</strong><br>
-      1. Allaahu Akbar, Allaahu Akbar<br>
-      2. Ash-hadu allaa-ilaaha illallaah<br>
-      3. Ash-hadu anna Muhammadar Rasoolullaah<br>
-      4. Hayya 'alas salaah, Hayya 'alal falaah<br>
-      5. <strong>Qad qaamatis-salaah</strong> (×2) — The prayer is now ready<br>
-      6. Allaahu Akbar, Allaahu Akbar<br>
-      7. Laa-ilaaha illallaah
+  <!-- RESULTS SCREEN -->
+  <div id="screen-results" class="hidden">
+    <div class="card">
+      <div class="score-big" id="score-big"></div>
+      <div class="score-sub" id="score-sub"></div>
     </div>
-    <div id="q2"></div>
-    <div class="exercise"><h3>🔗 Match the Wording to its Meaning</h3>
-      <p style="font-size:13px; margin-bottom:8px;">Tap a meaning on the left, then tap its Arabic on the right.</p>
-      <div class="match-list" id="matchArea2"></div>
-      <p id="matchStatus2" style="text-align:center; font-weight:bold; margin-top:10px; color:#4caf50;"></p>
-    </div>
-    <div class="exercise"><h3>📖 Written Questions</h3>
-      <div class="qa-box"><div class="q">1. What is the Iqaamah?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">The Iqaamah is the message that the prayer is starting. It tells everyone that the prayer is beginning and they should join the jamaa'ah and face the qiblah.</div></div>
-      <div class="qa-box"><div class="q">2. How is it different from the adhaan?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">The adhaan is called to announce the TIME of salah has come. The Iqaamah is called to announce the salah is STARTING right now.</div></div>
-      <div class="qa-box"><div class="q">3. Write three points why salah is success.</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. Salah brings us closer to Allah and earns His blessings.<br>2. Salah keeps us away from sins and bad deeds.<br>3. Salah gives us peace, discipline and blessings in life.</div></div>
+    <div id="review-list"></div>
+    <div class="nav-row" style="margin-top:10px;">
+      <button class="btn-primary" onclick="goHome()">Back to Chapters</button>
     </div>
   </div>
 
-  <!-- L3: ADAM AS -->
-  <div class="section" id="s3">
-    <h2>03. Adam (عليه السلام) <span class="q-count">20 Q</span></h2>
-    <div class="hint">💡 Allah made the first man and called him Adam. He was also the first Prophet.</div>
-    <div id="q3"></div>
-    <div class="exercise"><h3>🤲 Learn the Du'aa</h3>
-      <div class="arabic">اَللّٰهُمَّ اِنِّىْ اَسْئَلُكَ الْجَنَّةَ وَاَعُوْذُبِكَ مِنَ النَّارِ</div>
-      <div class="trans">Allaahumma innee as-alukal jannata wa a'oodhu bika minan naar</div>
-      <div class="meaning">O Allah, I ask You to grant me Paradise and I seek refuge in You from the Fire.</div>
-    </div>
-  </div>
-
-  <!-- L4: SUPPORTER OF THE POOR -->
-  <div class="section" id="s4">
-    <h2>04. Prophet ﷺ — Supporter of the Poor <span class="q-count">12 Q</span></h2>
-    <div class="hint">💡 During a famine, the Prophet ﷺ took Ali (رضي الله عنه) into his care and Al-Abbaas took Ja'far, to help their uncle Abu Taalib.</div>
-    <div id="q4"></div>
-    <div class="exercise"><h3>📖 Etiquettes of Helping Others</h3>
-      <div class="qa-box"><div class="q">What are the 4 manners of helping others we learnt?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. Help in secret for Allah's sake alone.<br>2. Prefer your relatives first.<br>3. Identify the needy, for they are shy to ask.<br>4. Don't remind people of your favours.</div></div>
-    </div>
-  </div>
-
-  <!-- L5: ZAYD -->
-  <div class="section" id="s5">
-    <h2>05. Zayd ibn Haarithah (رضي الله عنه) <span class="q-count">12 Q</span></h2>
-    <div class="hint">💡 Zayd chose to stay with the Prophet ﷺ instead of going home with his own father and uncle, because of the Prophet's ﷺ kindness.</div>
-    <div id="q5"></div>
-  </div>
-
-  <!-- L6: LYING GOSSIPING BACKBITING -->
-  <div class="section" id="s6">
-    <h2>06. Lying, Gossiping & Backbiting <span class="q-count">18 Q</span></h2>
-    <div class="hint">💡 The tongue is a great blessing from Allah. Even though it is small, it is difficult to control.</div>
-    <div class="readbox">
-      <strong>Remember the three meanings:</strong><br>
-      • <strong>Lying</strong> — to say things that are not true<br>
-      • <strong>Gossiping</strong> — to talk about other people's private lives which might be unkind or not true<br>
-      • <strong>Backbiting</strong> — to talk about your brother or sister who is not there, in a manner they do not like, EVEN IF IT IS TRUE
-    </div>
-    <div id="q6"></div>
-  </div>
-
-  <!-- L7: SURAH AL-FAATIHAH -->
-  <div class="section" id="s7">
-    <h2>07. Surah Al-Faatihah <span class="q-count">16 Q</span></h2>
-    <div class="hint">💡 Al-Faatihah is the FIRST surah of the Qur'an. It is a Makkan surah with SEVEN aayaat (verses).</div>
-    <div class="readbox">
-      <strong>Translation of the Surah:</strong><br>
-      1. In the Name of Allah, the Most Kind, the Most Merciful.<br>
-      2. All praise is due to Allah, the Lord of all the worlds;<br>
-      3. The Most Kind, the Most Merciful;<br>
-      4. Master of the Day of Judgement.<br>
-      5. You alone we worship and to You alone we turn for help.<br>
-      6. Guide us to the Straight Path.<br>
-      7. The path of those on whom You have bestowed Your Grace; not of those who earned Your Anger, nor of those who have gone astray.
-    </div>
-    <div id="q7"></div>
-  </div>
-
-  <!-- L8: PURE WATER -->
-  <div class="section" id="s8">
-    <h2>08. Pure Water <span class="q-count">16 Q</span></h2>
-    <div class="hint">💡 Water is a great gift from Allah. From water, Allah made every living creature.</div>
-    <div class="readbox">
-      <strong>Purity of water is seen in 3 ways:</strong><br>
-      1. <strong>Colour</strong> — should be clear<br>
-      2. <strong>Smell</strong> — should have no smell at all<br>
-      3. <strong>Taste</strong> — should not be completely changed
-    </div>
-    <div id="q8"></div>
-    <div class="exercise"><h3>📖 Write any five uses of pure water</h3>
-      <div class="qa-box"><div class="q">Can you name 5 uses?</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">1. Drinking<br>2. Cooking food<br>3. Bathing<br>4. Making wudhu<br>5. Washing clothes</div></div>
-      <div class="qa-box"><div class="q">Name the following: (a) The essence of life (b) The noblest water (c) The Giver of water</div>
-        <button class="btn" onclick="toggleA(this)">👀 See Answer</button>
-        <div class="a">(a) Water<br>(b) Zamzam<br>(c) Allah</div></div>
-    </div>
-  </div>
-
-  <div class="footer">⭐ Study well and remember Allah! ⭐<br>
-    <button class="btn" onclick="resetAll()">🔄 Restart All</button></div>
-</div>
-
-<div class="celebration" id="celebration">
-  <div class="emoji">🎉</div><h2 id="celebTitle">Maashaa Allah!</h2>
-  <p id="celebMsg">+10 points!</p>
-  <button class="btn" onclick="closeCeleb()">Next</button>
 </div>
 
 <script>
-const Q = {
-  q1: [
-    { q: "Who calls out the adhaan?", opts: ["Imaam", "Mu'adh-dhin", "Khateeb", "Haafiz"], ans: "Mu'adh-dhin" },
-    { q: "How many times a day is the adhaan called?", opts: ["Three", "Four", "Five", "Six"], ans: "Five" },
-    { q: "Fill in: The mu'adh-dhin calls out the ___ five times a day.", opts: ["Qur'an", "adhaan", "iqaamah", "du'aa"], ans: "adhaan" },
-    { q: "Fill in: When you hear the adhaan, you should prepare yourself for ___.", opts: ["sleep", "food", "salah", "school"], ans: "salah" },
-    { q: "The adhaan is the call to the prayer.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "The adhaan should be called out ONLY at the Masjid.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "It is not necessary to be in wudhu to call out the adhaan.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "The person who calls out the adhaan is known as mu'adh-dhin.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "The adhaan and iqaamah are the same.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "We should reply to the wordings of the adhaan.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "Women, too, can call out the adhaan (in the Masjid).", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "'Hayya 'alal falaah' means:", opts: ["Hasten to the prayer", "Hasten to success", "Allah is Great", "Prayer is ready"], ans: "Hasten to success" },
-    { q: "Which sentence is said ONLY in the Fajr adhaan?", opts: ["Allaahu Akbar", "Hayya 'alas salaah", "As-Salaatu khayrum-minan nawm", "Qad qaamatis-salaah"], ans: "As-Salaatu khayrum-minan nawm" },
-    { q: "What should we say instead when we hear 'Hayya 'alas salaah'?", opts: ["Allaahu Akbar", "Laa hawla wa laa quwwata illaa billaah", "Subhaanallaah", "Alhamdulillaah"], ans: "Laa hawla wa laa quwwata illaa billaah" }
-  ],
-  q2: [
-    { q: "Al-Iqaamah is the call to the start of:", opts: ["Sunnah salah", "Fardh salah", "Nafl salah", "Du'aa"], ans: "Fardh salah" },
-    { q: "'Qad qaamatis-salaah' means:", opts: ["Allah is the Greatest", "Hasten to success", "The prayer is now ready", "There is no God but Allah"], ans: "The prayer is now ready" },
-    { q: "In the Iqaamah, which sentence is EXTRA (not in the adhaan)?", opts: ["Allaahu Akbar", "Qad qaamatis-salaah", "Hayya 'alal falaah", "Laa-ilaaha illallaah"], ans: "Qad qaamatis-salaah" },
-    { q: "A person praying ALONE may recite the Iqaamah:", opts: ["Very loudly", "Quietly to himself", "Not at all", "Only in Arabic songs"], ans: "Quietly to himself" },
-    { q: "After the Iqaamah, we should stand facing the:", opts: ["Door", "Window", "Qiblah", "Imaam's house"], ans: "Qiblah" },
-    { q: "The adhaan announces the TIME of salah has come.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "The Iqaamah announces the salah is STARTING now.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "'Allaahu Akbar' means:", opts: ["Allah is The Most Great", "Prayer is ready", "Hasten to prayer", "Come to success"], ans: "Allah is The Most Great" },
-    { q: "'Laa-ilaaha illallaah' means:", opts: ["Muhammad is the Messenger", "There is no God except Allah", "Prayer is better than sleep", "Come to prayer"], ans: "There is no God except Allah" },
-    { q: "'Ash-hadu anna Muhammadar Rasoolullaah' means:", opts: ["Allah is Great", "I testify Muhammad ﷺ is the Messenger of Allah", "Hasten to success", "Prayer is ready"], ans: "I testify Muhammad ﷺ is the Messenger of Allah" },
-    { q: "Salah is called SUCCESS because it:", opts: ["Makes us rich", "Brings us closer to Allah", "Makes us famous", "Gives us food"], ans: "Brings us closer to Allah" },
-    { q: "In the Iqaamah, 'Hayya 'alas salaah' is said:", opts: ["Once", "Twice", "Four times", "Never"], ans: "Once" }
-  ],
-  q3: [
-    { q: "Who was the first man Allah created?", opts: ["Nooh عليه السلام", "Ibraaheem عليه السلام", "Adam عليه السلام", "Ismaa'eel عليه السلام"], ans: "Adam عليه السلام" },
-    { q: "Allah created Adam عليه السلام from:", opts: ["Fire", "Clay", "Light", "Water"], ans: "Clay" },
-    { q: "Adam عليه السلام has been mentioned how many times in the Qur'an?", opts: ["15", "20", "25", "30"], ans: "25" },
-    { q: "Each person in this world has a body and a:", opts: ["Soul", "Shadow", "Star", "Name"], ans: "Soul" },
-    { q: "Allah said He is putting a ___ on the earth.", opts: ["Malak", "Khaleefah", "Jinn", "Nabi"], ans: "Khaleefah" },
-    { q: "Who refused to prostrate to Adam عليه السلام?", opts: ["Angels", "Iblees", "Hawwa", "Jibreel"], ans: "Iblees" },
-    { q: "Iblees was one of the:", opts: ["Angels", "Jinn", "Humans", "Birds"], ans: "Jinn" },
-    { q: "Adam's عليه السلام wife was named:", opts: ["Maryam", "Aasiyah", "Hawwa", "Khadeejah"], ans: "Hawwa" },
-    { q: "Allah taught Adam عليه السلام the ___ of all things.", opts: ["Colours", "Names", "Songs", "Numbers"], ans: "Names" },
-    { q: "Who whispered evil thoughts into their hearts?", opts: ["Angels", "Shaytan", "Hawwa", "Jibreel"], ans: "Shaytan" },
-    { q: "As soon as they ate from the tree, they:", opts: ["Became angels", "Felt ashamed", "Lived forever", "Became rich"], ans: "Felt ashamed" },
-    { q: "Did Allah forgive Adam عليه السلام and Hawwa?", opts: ["Yes, He forgave them", "No, He did not forgive"], ans: "Yes, He forgave them", two: true },
-    { q: "Adam عليه السلام was the ___ prophet.", opts: ["Last", "First", "Second", "Third"], ans: "First" },
-    { q: "Hawwa whispered into the ears of Adam عليه السلام.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Shaytan whispered evil thoughts into the hearts of Adam and Hawwa.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "The Garden of Paradise had few less fruits.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Jinn and Angels are the same.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Adam عليه السلام commanded the angels to prostrate to him.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Angels and Jinn know what Allah Knows.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Which word is NOT related to Adam عليه السلام?", opts: ["Khaleefah", "Clay", "Hell-fire", "Prophet"], ans: "Hell-fire" }
-  ],
-  q4: [
-    { q: "The Prophet ﷺ was a ___ by profession.", opts: ["Farmer", "Trader", "Teacher", "Doctor"], ans: "Trader" },
-    { q: "Everyone respected the Prophet ﷺ because:", opts: ["He was very wealthy", "He had a rich wife", "He was honest and trustworthy", "He was strong"], ans: "He was honest and trustworthy" },
-    { q: "Who was the head of the clan of Banu Haashim?", opts: ["Al-Abbaas", "Abu Taalib", "Abdul-Muttalib", "Hakeem"], ans: "Abu Taalib" },
-    { q: "The Prophet ﷺ went to speak to Al-Abbaas:", opts: ["To help Abu Taalib", "For trade purpose", "For personal gain", "To rebuild Ka'bah"], ans: "To help Abu Taalib" },
-    { q: "The Prophet ﷺ took care of:", opts: ["Ja'far", "Ali", "Hakeem", "Zayd"], ans: "Ali" },
-    { q: "Al-Abbaas took care of:", opts: ["Ali", "Zayd", "Ja'far", "Hakeem"], ans: "Ja'far" },
-    { q: "The Prophet ﷺ started taking care of Ali:", opts: ["Because he had no children", "As Abu Taalib was facing difficulty", "To rebuild the Ka'bah", "For trade"], ans: "As Abu Taalib was facing difficulty" },
-    { q: "This happened in the same year when the ___ was rebuilt.", opts: ["Masjid", "Ka'bah", "House", "Wall"], ans: "Ka'bah" },
-    { q: "Abu Taalib and Al-Abbaas were brothers.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "Al-Abbaas took care of Ali.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "The Prophet ﷺ had many enemies because of his character.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Due to the famine, there was a shortage of food.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true }
-  ],
-  q5: [
-    { q: "Who was Khadeejah's رضي الله عنها nephew?", opts: ["Zayd", "Hakeem ibn Hizaam", "Ka'b", "Haarithah"], ans: "Hakeem ibn Hizaam" },
-    { q: "Fill in: Khadeejah رضي الله عنها offered ___ as a slave to the Prophet ﷺ.", opts: ["Ja'far", "Ali", "Zayd ibn Haarithah", "Hakeem"], ans: "Zayd ibn Haarithah" },
-    { q: "What was the name of Zayd's father?", opts: ["Ka'b", "Haarithah", "Hakeem", "Hizaam"], ans: "Haarithah" },
-    { q: "How did Zayd become a slave?", opts: ["He was sold by family", "He was taken during a raid", "He ran away", "He was born a slave"], ans: "He was taken during a raid" },
-    { q: "Fill in: Zayd preferred ___ over everyone in the world.", opts: ["His father", "His uncle", "Muhammad ﷺ", "Khadeejah"], ans: "Muhammad ﷺ" },
-    { q: "Fill in: Rasoolullah ﷺ set Zayd free and took him as his ___.", opts: ["Servant", "Son", "Friend", "Student"], ans: "Son" },
-    { q: "Where did the Prophet ﷺ announce that he set Zayd free?", opts: ["In the Masjid", "At the Ka'bah", "At home", "In the market"], ans: "At the Ka'bah" },
-    { q: "After that day, Zayd was called:", opts: ["Zayd ibn Haarithah", "Zayd ibn Muhammad", "Zayd ibn Ka'b", "Zayd ibn Hakeem"], ans: "Zayd ibn Muhammad" },
-    { q: "Zayd was named Zayd ibn Muhammad because the Prophet ﷺ adopted him as his son.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "Zayd was re-named with his original father's name due to Allah's command.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "Zayd chose the Prophet ﷺ because he wanted to go to Heaven being Prophet's son.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "The Prophet ﷺ treated Zayd very badly as he was a slave.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true }
-  ],
-  q6: [
-    { q: "Which part of the body is a great blessing but hard to control?", opts: ["Hand", "Eye", "Tongue", "Foot"], ans: "Tongue" },
-    { q: "'Lying' means:", opts: ["To say things that are not true", "To talk about private lives", "To talk behind someone's back", "To stay silent"], ans: "To say things that are not true" },
-    { q: "'Gossiping' means:", opts: ["To say untrue things", "To talk about other people's private lives", "To praise someone", "To make du'aa"], ans: "To talk about other people's private lives" },
-    { q: "'Backbiting' means:", opts: ["To lie about someone", "To talk about your brother in a manner he does not like", "To help someone", "To pray for someone"], ans: "To talk about your brother in a manner he does not like" },
-    { q: "Is backbiting still wrong if what you say is TRUE?", opts: ["Yes, still wrong", "No, it becomes okay"], ans: "Yes, still wrong", two: true },
-    { q: "The Prophet ﷺ said the true Muslim avoids harming Muslims with his:", opts: ["Money and time", "Tongue and hands", "Eyes and ears", "Feet and head"], ans: "Tongue and hands" },
-    { q: "Fill in: The ___ is a great blessing from Allah.", opts: ["hand", "tongue", "money", "house"], ans: "tongue" },
-    { q: "Fill in: A Muslim must use his tongue only in matters that are ___ to Allah.", opts: ["pleasing", "loud", "quick", "funny"], ans: "pleasing" },
-    { q: "Fill in: Even though the tongue is small, it is ___ to control.", opts: ["easy", "difficult", "simple", "fun"], ans: "difficult" },
-    { q: "It is okay to lie while joking.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "It is okay to lie sometimes.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Lying is a good way to get out of trouble.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Is it okay to tell wrong about your teacher to your parents?", opts: ["Yes", "No"], ans: "No", two: true },
-    { q: "Is it okay to make fun of your friend?", opts: ["Yes", "No"], ans: "No", two: true },
-    { q: "Is it okay to talk bad about your relatives because it is true?", opts: ["Yes", "No"], ans: "No", two: true },
-    { q: "Is it better to stay quiet if you don't have anything good to say?", opts: ["Yes", "No"], ans: "Yes", two: true },
-    { q: "Which path leads to Allah's Pleasure?", opts: ["Gossiping and lies", "Truth, saying salaam, du'aa", "Making fun of others", "Blaming others"], ans: "Truth, saying salaam, du'aa" },
-    { q: "We will be questioned about our lies on the:", opts: ["Day of Eid", "Day of Judgement", "Day of Friday", "Day of Ramadan"], ans: "Day of Judgement" }
-  ],
-  q7: [
-    { q: "Al-Faatihah is which surah of the Qur'an?", opts: ["First", "Last", "Middle", "Tenth"], ans: "First" },
-    { q: "How many aayaat (verses) does Al-Faatihah have?", opts: ["Five", "Six", "Seven", "Eight"], ans: "Seven" },
-    { q: "Al-Faatihah was revealed in:", opts: ["Madinah", "Makkah", "Taif", "Syria"], ans: "Makkah" },
-    { q: "'Al-Faatihah' means:", opts: ["The Ending", "The Opening", "The Light", "The Cow"], ans: "The Opening" },
-    { q: "Which two Beautiful Names of Allah are in the Bismillaah?", opts: ["Ar-Rahmaan and Ar-Raheem", "Al-Malik and Al-Quddoos", "Al-Hakeem and Al-Aleem", "As-Samee and Al-Baseer"], ans: "Ar-Rahmaan and Ar-Raheem" },
-    { q: "The word 'hamd' means:", opts: ["Praise and thankfulness", "Fear and sadness", "Money and wealth", "Speed and power"], ans: "Praise and thankfulness" },
-    { q: "'Maalik yawmid-deen' means Allah is the Master of the:", opts: ["Day of Eid", "Day of Judgement", "Day of Friday", "Day of Rain"], ans: "Day of Judgement" },
-    { q: "Fill in: ___ is the only Lord of this world and the Master of the Day of Judgement.", opts: ["Jibreel", "Allah", "Muhammad ﷺ", "Adam عليه السلام"], ans: "Allah" },
-    { q: "Fill in: On that Day, those who do ___ will be rewarded.", opts: ["bad deeds", "good deeds", "nothing", "work"], ans: "good deeds" },
-    { q: "Fill in: Allah alone we ___ and Him alone we ask for help.", opts: ["fear", "worship", "call", "praise"], ans: "worship" },
-    { q: "Which people has Allah favoured?", opts: ["Jealous and envious", "Truthful, righteous, prophets, martyrs, pious", "Liars and cheats", "The wealthy only"], ans: "Truthful, righteous, prophets, martyrs, pious" },
-    { q: "The believers remain steadfast and patient seeking reward in the Hereafter.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "The Prophets, the truthful and the martyrs are ones who have gone astray.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Surah Al-Faatihah is the LAST surah of the Qur'an.", opts: ["✓ True", "✗ False"], ans: "✗ False", two: true },
-    { q: "Surah Al-Faatihah is a Makkan surah.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true },
-    { q: "It is necessary to recite Surah Al-Faatihah in every prayer.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true }
-  ],
-  q8: [
-    { q: "Fill in: Allah made every living creature from ___.", opts: ["clay", "water", "fire", "light"], ans: "water" },
-    { q: "Fill in: Water is a great gift from ___.", opts: ["Allah", "the sky", "the earth", "people"], ans: "Allah" },
-    { q: "The purity of water is seen in how many ways?", opts: ["Two", "Three", "Four", "Five"], ans: "Three" },
-    { q: "Pure water's COLOUR should be:", opts: ["Blue", "Green", "Clear", "Yellow"], ans: "Clear" },
-    { q: "Pure water's SMELL should be:", opts: ["Sweet", "No smell at all", "Strong", "Like flowers"], ans: "No smell at all" },
-    { q: "Pure water's TASTE should:", opts: ["Be very sweet", "Be salty", "Not be completely changed", "Be bitter"], ans: "Not be completely changed" },
-    { q: "The noblest of all kinds of water is:", opts: ["Rainwater", "Zamzam", "River water", "Ice water"], ans: "Zamzam" },
-    { q: "Fill in: Water helps in the ___ of food.", opts: ["cooking", "digestion", "colour", "smell"], ans: "digestion" },
-    { q: "Fill in: Water cleanses the body of ___.", opts: ["dust", "toxins", "food", "hair"], ans: "toxins" },
-    { q: "Which is NOT a kind of pure water?", opts: ["Rainwater", "Spring water", "Dirty pond water", "River water"], ans: "Dirty pond water" },
-    { q: "Fill in: A Muslim makes wudhu with ___ water.", opts: ["hot", "cold", "pure", "salty"], ans: "pure" },
-    { q: "Fill in: Without ___, there would be no life on earth.", opts: ["water", "food", "air", "sun"], ans: "water" },
-    { q: "Which is WASTING water?", opts: ["Drinking water in a glass", "Keeping the tap open while applying soap", "Watering plants a little", "Closing tap after use"], ans: "Keeping the tap open while applying soap" },
-    { q: "Which is WASTING water?", opts: ["Keeping the tap open while doing wudhu", "Drinking from a glass", "Turning off the tap", "Using a bucket"], ans: "Keeping the tap open while doing wudhu" },
-    { q: "Is over-watering plants a waste of water?", opts: ["Yes", "No"], ans: "Yes", two: true },
-    { q: "Water remains pure as long as its colour, taste or smell does not change.", opts: ["✓ True", "✗ False"], ans: "✓ True", two: true }
-  ]
-};
+const ALL_QUESTIONS = [{"id": 1, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "FILL_IN_BLANK", "questionText": "The mu'adh-dhin calls out the ______ five times a day.", "options": null, "matchingPairs": null, "correctAnswer": ["adhaan"], "answerSpaceLines": null}, {"id": 2, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "FILL_IN_BLANK", "questionText": "When you hear the adhaan, you should prepare yourself for ______.", "options": null, "matchingPairs": null, "correctAnswer": ["the prayer (salah)"], "answerSpaceLines": null}, {"id": 3, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "TRUE_FALSE", "questionText": "The adhaan is the call to the prayer.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 4, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "TRUE_FALSE", "questionText": "The adhaan should be called out only at the Masjid.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": null}, {"id": 5, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "TRUE_FALSE", "questionText": "It is not necessary to be in wudhu to call out the adhaan.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": null}, {"id": 6, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "TRUE_FALSE", "questionText": "The person who calls out the adhaan is known as mu'adh-dhin.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 7, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "TRUE_FALSE", "questionText": "The adhaan and iqaamah are the same.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 8, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "TRUE_FALSE", "questionText": "We should reply to the wordings of the adhaan.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 9, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "TRUE_FALSE", "questionText": "Women, too, can call out the adhaan.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": null}, {"id": 10, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "LONG_ANSWER", "questionText": "The phrase 'Laa hawla wa laa quwwata illaa billaah' (There is no power and no might except with Allah) is said instead of repeating two parts of the adhaan. How is this statement related to the adhaan?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 11, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "LONG_ANSWER", "questionText": "Why is this statement different from the other statements you repeat during the adhaan?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 12, "chapterNumber": 1, "chapterTitle": "The Call to Prayer", "questionType": "LONG_ANSWER", "questionText": "Do you know the Du'aa that is said after the adhaan? Write it down if you know it.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 13, "chapterNumber": 2, "chapterTitle": "Al-Iqaamah", "questionType": "LONG_ANSWER", "questionText": "What is the Iqaamah?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 14, "chapterNumber": 2, "chapterTitle": "Al-Iqaamah", "questionType": "LONG_ANSWER", "questionText": "How is the Iqaamah different from the adhaan?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 15, "chapterNumber": 2, "chapterTitle": "Al-Iqaamah", "questionType": "MATCHING", "questionText": "Match the wordings to their meanings.", "options": null, "matchingPairs": [{"left": "Allaahu Akbar", "right": "Allah is the Greatest"}, {"left": "Qad qaamatis-salaah", "right": "The prayer is now ready"}, {"left": "Laa ilaaha illallaah", "right": "There is no God except Allah"}, {"left": "Ash-hadu anna Muhammadar Rasoolullaah", "right": "I testify that Muhammad (PBUH) is the Messenger of Allah"}, {"left": "Hayya 'alas-salaah", "right": "Hasten to prayer"}, {"left": "Ash-hadu allaa ilaaha illallaah", "right": "I testify that there is no God except Allah"}, {"left": "Hayya 'alal-falaah", "right": "Hasten to success"}], "correctAnswer": null, "answerSpaceLines": null}, {"id": 16, "chapterNumber": 2, "chapterTitle": "Al-Iqaamah", "questionType": "LONG_ANSWER", "questionText": "Write three points as to why Salah is success.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 3}, {"id": 17, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "LONG_ANSWER", "questionText": "Who was the first man Allah created?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 18, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "LONG_ANSWER", "questionText": "Who created Paradise and Hell?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 19, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "LONG_ANSWER", "questionText": "What will happen if we disobey Allah?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 20, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "LONG_ANSWER", "questionText": "Who will enter Paradise?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 21, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "LONG_ANSWER", "questionText": "Who is alone worthy of worship?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 22, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "TRUE_FALSE", "questionText": "Hawwa (AS) whispered into the ears of Adam (AS).", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 23, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "TRUE_FALSE", "questionText": "Shaytan whispered evil thoughts into the hearts of Adam (AS) and Hawwa (AS).", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 24, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "TRUE_FALSE", "questionText": "The Garden of Paradise had very few fruits.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 25, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "TRUE_FALSE", "questionText": "Jinn and Angels are the same.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 26, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "TRUE_FALSE", "questionText": "Adam (AS) commanded the angels to prostrate to him.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 27, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "TRUE_FALSE", "questionText": "Angels and Jinn know everything that Allah knows.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 28, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Adam (AS) was the ______ man.", "options": null, "matchingPairs": null, "correctAnswer": ["first"], "answerSpaceLines": null}, {"id": 29, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Adam (AS) has been mentioned ______ times in the Qur'an.", "options": null, "matchingPairs": null, "correctAnswer": ["25 (twenty-five)"], "answerSpaceLines": null}, {"id": 30, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Adam (AS) had a ______ and a soul.", "options": null, "matchingPairs": null, "correctAnswer": ["body"], "answerSpaceLines": null}, {"id": 31, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Adam (AS) lived with his ______ in the Garden of Paradise.", "options": null, "matchingPairs": null, "correctAnswer": ["Hawwa (AS)"], "answerSpaceLines": null}, {"id": 32, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Adam (AS) had many ______ and grandchildren.", "options": null, "matchingPairs": null, "correctAnswer": ["children"], "answerSpaceLines": null}, {"id": 33, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Adam (AS) worshipped ______ alone.", "options": null, "matchingPairs": null, "correctAnswer": ["Allah"], "answerSpaceLines": null}, {"id": 34, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Iblees did not bow down to ______.", "options": null, "matchingPairs": null, "correctAnswer": ["Adam (AS)"], "answerSpaceLines": null}, {"id": 35, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Iblees was ______ and one of the disbelievers.", "options": null, "matchingPairs": null, "correctAnswer": ["arrogant"], "answerSpaceLines": null}, {"id": 36, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Iblees ______ to Adam (AS) and Hawwa (AS) by whispering evil thoughts into their hearts.", "options": null, "matchingPairs": null, "correctAnswer": ["whispered"], "answerSpaceLines": null}, {"id": 37, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "MULTIPLE_CHOICE", "questionText": "Circle all the words related to Adam (AS).", "options": ["Paradise", "clay", "Hawwa", "Prophet", "Hell-fire", "Jinn", "Angel", "Man", "Sinner", "Believer", "Khaleefah", "Arrogant", "Pious"], "matchingPairs": null, "correctAnswer": ["Paradise", "clay", "Hawwa", "Prophet", "Man", "Believer", "Khaleefah", "Pious"], "answerSpaceLines": null}, {"id": 38, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "MULTIPLE_CHOICE", "questionText": "Allah created Adam (AS) from:", "options": ["fire", "clay"], "matchingPairs": null, "correctAnswer": ["clay"], "answerSpaceLines": null}, {"id": 39, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "MULTIPLE_CHOICE", "questionText": "Who did not bow to Adam (AS)?", "options": ["Angels", "Iblees"], "matchingPairs": null, "correctAnswer": ["Iblees"], "answerSpaceLines": null}, {"id": 40, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "MULTIPLE_CHOICE", "questionText": "Allah ______ Adam (AS) and Hawwa (AS).", "options": ["forgave", "did not forgive"], "matchingPairs": null, "correctAnswer": ["forgave"], "answerSpaceLines": null}, {"id": 41, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "MULTIPLE_CHOICE", "questionText": "Adam (AS) was the ______ prophet.", "options": ["last", "first"], "matchingPairs": null, "correctAnswer": ["first"], "answerSpaceLines": null}, {"id": 42, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "MULTIPLE_CHOICE", "questionText": "As soon as Adam (AS) and Hawwa (AS) ate of the tree, they:", "options": ["felt ashamed", "became angels"], "matchingPairs": null, "correctAnswer": ["felt ashamed"], "answerSpaceLines": null}, {"id": 43, "chapterNumber": 3, "chapterTitle": "Adam (AS)", "questionType": "MULTIPLE_CHOICE", "questionText": "Iblees was:", "options": ["an angel", "one of the jinns"], "matchingPairs": null, "correctAnswer": ["one of the jinns"], "answerSpaceLines": null}, {"id": 44, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "MULTIPLE_CHOICE", "questionText": "Which of these show ways of helping the poor? (select all that apply)", "options": ["Giving clothes as charity", "Feeding the poor", "Opening the door for the poor", "Sharing excess food", "Educating the poor"], "matchingPairs": null, "correctAnswer": ["Giving clothes as charity", "Feeding the poor", "Opening the door for the poor", "Sharing excess food", "Educating the poor"], "answerSpaceLines": null}, {"id": 45, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "TRUE_FALSE", "questionText": "Abu Taalib and Al-Abbaas were brothers.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 46, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "TRUE_FALSE", "questionText": "Al-Abbaas took care of Ali (AS).", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 47, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "TRUE_FALSE", "questionText": "The Prophet (PBUH) supported the poor.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 48, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "TRUE_FALSE", "questionText": "The Prophet (PBUH) had many enemies because of his character.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 49, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "TRUE_FALSE", "questionText": "Due to the famine, there was a shortage of food.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 50, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "MULTIPLE_CHOICE", "questionText": "Everyone respected the Prophet (PBUH) because:", "options": ["he was very wealthy", "he had a rich wife", "he was honest and trustworthy"], "matchingPairs": null, "correctAnswer": ["he was honest and trustworthy"], "answerSpaceLines": null}, {"id": 51, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "MULTIPLE_CHOICE", "questionText": "The Prophet (PBUH) went to speak to Al-Abbaas:", "options": ["to help Abu Taalib", "for trade purposes", "for personal need and gain"], "matchingPairs": null, "correctAnswer": ["to help Abu Taalib"], "answerSpaceLines": null}, {"id": 52, "chapterNumber": 4, "chapterTitle": "Prophet Muhammad (PBUH) - Supporter of the Poor", "questionType": "MULTIPLE_CHOICE", "questionText": "The Prophet (PBUH) started taking care of Ali (AS):", "options": ["because he had no children", "as Abu Taalib was facing difficulty", "to re-build the Ka'bah"], "matchingPairs": null, "correctAnswer": ["as Abu Taalib was facing difficulty"], "answerSpaceLines": null}, {"id": 53, "chapterNumber": 5, "chapterTitle": "Prophet Muhammad (PBUH) - Zayd ibn Haarithah", "questionType": "FILL_IN_BLANK", "questionText": "Khadeejah (RA) offered ______ as a slave to Prophet (PBUH).", "options": null, "matchingPairs": null, "correctAnswer": ["Zayd ibn Haarithah"], "answerSpaceLines": null}, {"id": 54, "chapterNumber": 5, "chapterTitle": "Prophet Muhammad (PBUH) - Zayd ibn Haarithah", "questionType": "FILL_IN_BLANK", "questionText": "Zayd ibn Haarithah preferred ______ over everyone in the world.", "options": null, "matchingPairs": null, "correctAnswer": ["Muhammad (PBUH)"], "answerSpaceLines": null}, {"id": 55, "chapterNumber": 5, "chapterTitle": "Prophet Muhammad (PBUH) - Zayd ibn Haarithah", "questionType": "FILL_IN_BLANK", "questionText": "Rasoolullah (PBUH) set Zayd free and took him as his ______.", "options": null, "matchingPairs": null, "correctAnswer": ["son"], "answerSpaceLines": null}, {"id": 56, "chapterNumber": 5, "chapterTitle": "Prophet Muhammad (PBUH) - Zayd ibn Haarithah", "questionType": "TRUE_FALSE", "questionText": "Zayd ibn Haarithah was named Zayd ibn Muhammad because Muhammad (PBUH) adopted him as his son.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 57, "chapterNumber": 5, "chapterTitle": "Prophet Muhammad (PBUH) - Zayd ibn Haarithah", "questionType": "TRUE_FALSE", "questionText": "Zayd ibn Haarithah was re-named with his original father's name due to Allah's command.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 58, "chapterNumber": 5, "chapterTitle": "Prophet Muhammad (PBUH) - Zayd ibn Haarithah", "questionType": "TRUE_FALSE", "questionText": "Zayd chose the Prophet (PBUH) because he wanted to go to Heaven as the Prophet's (PBUH) son.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 59, "chapterNumber": 5, "chapterTitle": "Prophet Muhammad (PBUH) - Zayd ibn Haarithah", "questionType": "TRUE_FALSE", "questionText": "The Prophet (PBUH) was reluctant to give his slave Zayd back to his father and uncle.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 60, "chapterNumber": 5, "chapterTitle": "Prophet Muhammad (PBUH) - Zayd ibn Haarithah", "questionType": "TRUE_FALSE", "questionText": "The Prophet (PBUH) treated Zayd very badly because he was a slave.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 61, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "LONG_ANSWER", "questionText": "Are you and your friends always talking about others?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 62, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "LONG_ANSWER", "questionText": "Do you like someone who lies to you?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 63, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "LONG_ANSWER", "questionText": "Can you feel happy saying good things about someone?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 64, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "LONG_ANSWER", "questionText": "Would you like it if your friend always talked badly about his parents?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 65, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "LONG_ANSWER", "questionText": "Do you feel nice reading a good story book rather than making fun of your teacher?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 66, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "MATCHING", "questionText": "Match the terms to their meanings.", "options": null, "matchingPairs": [{"left": "Lying", "right": "to say things that are not true."}, {"left": "Gossiping", "right": "to talk about other people's private lives which might be unkind or not true."}, {"left": "Backbiting", "right": "to talk about your brother or sister who is not there, in a manner he or she does not like, even if it is true."}], "correctAnswer": null, "answerSpaceLines": null}, {"id": 67, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "TRUE_FALSE", "questionText": "It is okay to tell your parents something wrong about your teacher.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["No"], "answerSpaceLines": null}, {"id": 68, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "TRUE_FALSE", "questionText": "It is okay to make fun of your friend.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["No"], "answerSpaceLines": null}, {"id": 69, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "TRUE_FALSE", "questionText": "It is okay to complain about your brother or sister to your parents alone.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["No"], "answerSpaceLines": null}, {"id": 70, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "TRUE_FALSE", "questionText": "It is okay to talk badly about your relatives because it is true.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["No"], "answerSpaceLines": null}, {"id": 71, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "TRUE_FALSE", "questionText": "It is better to stay quiet if you don't have anything good to say.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["Yes"], "answerSpaceLines": null}, {"id": 72, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "TRUE_FALSE", "questionText": "It is okay to lie while joking.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 73, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "TRUE_FALSE", "questionText": "It is okay to lie sometimes.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 74, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "TRUE_FALSE", "questionText": "Lying is a good way to get out of trouble.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 75, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "FILL_IN_BLANK", "questionText": "The ______ is a great blessing from Allah.", "options": null, "matchingPairs": null, "correctAnswer": ["tongue"], "answerSpaceLines": null}, {"id": 76, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "FILL_IN_BLANK", "questionText": "A Muslim must use his tongue only in matters that are ______ to Allah.", "options": null, "matchingPairs": null, "correctAnswer": ["pleasing"], "answerSpaceLines": null}, {"id": 77, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "FILL_IN_BLANK", "questionText": "Even though the tongue is small, it is ______ to control.", "options": null, "matchingPairs": null, "correctAnswer": ["difficult"], "answerSpaceLines": null}, {"id": 78, "chapterNumber": 6, "chapterTitle": "Lying, Gossiping and Backbiting", "questionType": "FILL_IN_BLANK", "questionText": "A true Muslim is the one who avoids harming others with his ______ and ______.", "options": null, "matchingPairs": null, "correctAnswer": ["tongue", "hands"], "answerSpaceLines": null}, {"id": 79, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "FILL_IN_BLANK", "questionText": "The Bismillaah has two of the Most Beautiful Names of Allah: ______ and ______.", "options": null, "matchingPairs": null, "correctAnswer": ["Ar-Rahmaan", "Ar-Raheem"], "answerSpaceLines": null}, {"id": 80, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "FILL_IN_BLANK", "questionText": "The word 'hamd' means ______, praise and ______.", "options": null, "matchingPairs": null, "correctAnswer": ["thankfulness", "pure"], "answerSpaceLines": null}, {"id": 81, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "FILL_IN_BLANK", "questionText": "______ is the only Lord of this world and the ______ of the Day of Judgement.", "options": null, "matchingPairs": null, "correctAnswer": ["Allah", "Master"], "answerSpaceLines": null}, {"id": 82, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "FILL_IN_BLANK", "questionText": "On that Day, those who do ______ will be rewarded and those who do ______ will be punished.", "options": null, "matchingPairs": null, "correctAnswer": ["good deeds", "bad deeds"], "answerSpaceLines": null}, {"id": 83, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "FILL_IN_BLANK", "questionText": "Allah alone we ______ and Him alone we ask for help.", "options": null, "matchingPairs": null, "correctAnswer": ["worship"], "answerSpaceLines": null}, {"id": 84, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "MULTIPLE_CHOICE", "questionText": "Circle those whom Allah has favoured (select all that apply).", "options": ["jealous", "truthful", "envious", "righteous", "prophets", "pious", "martyrs", "cheats", "liars"], "matchingPairs": null, "correctAnswer": ["truthful", "righteous", "prophets", "pious", "martyrs"], "answerSpaceLines": null}, {"id": 85, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "TRUE_FALSE", "questionText": "The believers remain steadfast and patient, seeking a reward in the Hereafter.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 86, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "TRUE_FALSE", "questionText": "The Prophets, the truthful and the martyrs are people who have gone astray.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 87, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "TRUE_FALSE", "questionText": "Surah Al-Faatihah is the last surah of the Qur'an.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 88, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "TRUE_FALSE", "questionText": "Surah Al-Faatihah is a Makkan surah.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 89, "chapterNumber": 7, "chapterTitle": "Surah Al-Faatihah", "questionType": "TRUE_FALSE", "questionText": "It is necessary to recite Surah Al-Faatihah in every prayer.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 90, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "LONG_ANSWER", "questionText": "Write down any five uses of pure water.", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 5}, {"id": 91, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "Allah made every living creature from ______.", "options": null, "matchingPairs": null, "correctAnswer": ["water"], "answerSpaceLines": null}, {"id": 92, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "Water helps in the ______ of food and cleanses the body of ______.", "options": null, "matchingPairs": null, "correctAnswer": ["digestion", "toxins"], "answerSpaceLines": null}, {"id": 93, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "Pure water benefits the body as well as the ______.", "options": null, "matchingPairs": null, "correctAnswer": ["soul"], "answerSpaceLines": null}, {"id": 94, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "The water of ______ is without doubt the noblest of all kinds of water.", "options": null, "matchingPairs": null, "correctAnswer": ["Zamzam"], "answerSpaceLines": null}, {"id": 95, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "Water is a great gift from ______.", "options": null, "matchingPairs": null, "correctAnswer": ["Allah"], "answerSpaceLines": null}, {"id": 96, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "Without ______, there would be no life on earth.", "options": null, "matchingPairs": null, "correctAnswer": ["water"], "answerSpaceLines": null}, {"id": 97, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "A Muslim washes himself with ______ water.", "options": null, "matchingPairs": null, "correctAnswer": ["pure"], "answerSpaceLines": null}, {"id": 98, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "Name the following: The essence of life.", "options": null, "matchingPairs": null, "correctAnswer": ["Water"], "answerSpaceLines": null}, {"id": 99, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "Name the following: The noblest of all kinds of water.", "options": null, "matchingPairs": null, "correctAnswer": ["Zamzam"], "answerSpaceLines": null}, {"id": 100, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "FILL_IN_BLANK", "questionText": "Name the following: The Giver of water.", "options": null, "matchingPairs": null, "correctAnswer": ["Allah"], "answerSpaceLines": null}, {"id": 101, "chapterNumber": 8, "chapterTitle": "Pure Water", "questionType": "MULTIPLE_CHOICE", "questionText": "Which of these waste water? (select all that apply)", "options": ["Keeping the tap open while applying soap", "Drinking water in a glass", "Over-watering plants", "Overflowing water in a bucket", "Discharging waste in river water", "Keeping the tap open while doing wudhu"], "matchingPairs": null, "correctAnswer": ["Keeping the tap open while applying soap", "Over-watering plants", "Overflowing water in a bucket", "Discharging waste in river water", "Keeping the tap open while doing wudhu"], "answerSpaceLines": null}, {"id": 102, "chapterNumber": 9, "chapterTitle": "Wudhu", "questionType": "MULTIPLE_CHOICE", "questionText": "When you pass urine, you should:", "options": ["wash yourself and do wudhu", "not wash yourself or do wudhu", "wash yourself and offer salah"], "matchingPairs": null, "correctAnswer": ["wash yourself and do wudhu"], "answerSpaceLines": null}, {"id": 103, "chapterNumber": 9, "chapterTitle": "Wudhu", "questionType": "MULTIPLE_CHOICE", "questionText": "When you break wind, you should:", "options": ["wash yourself and do wudhu", "do wudhu and offer salah", "take a bath to offer salah"], "matchingPairs": null, "correctAnswer": ["do wudhu and offer salah"], "answerSpaceLines": null}, {"id": 104, "chapterNumber": 9, "chapterTitle": "Wudhu", "questionType": "MULTIPLE_CHOICE", "questionText": "When you become ritually impure:", "options": ["you cannot offer salah", "you should not eat", "you shouldn't say 'Assalamu Alaikum'"], "matchingPairs": null, "correctAnswer": ["you cannot offer salah"], "answerSpaceLines": null}, {"id": 105, "chapterNumber": 9, "chapterTitle": "Wudhu", "questionType": "MULTIPLE_CHOICE", "questionText": "Allah does not accept the salah of the one:", "options": ["who did not take a bath in the morning", "who is not in wudhu", "who does not read Qur'an"], "matchingPairs": null, "correctAnswer": ["who is not in wudhu"], "answerSpaceLines": null}, {"id": 106, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "LONG_ANSWER", "questionText": "Why do we have to perform wudhu?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 107, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "LONG_ANSWER", "questionText": "When do we have to perform wudhu?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 108, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "LONG_ANSWER", "questionText": "Is it okay if I only take a bath and don't do wudhu?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 109, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "LONG_ANSWER", "questionText": "What should I say before and after wudhu?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 110, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "LONG_ANSWER", "questionText": "Read the passage: 'Aaminah decided to get ready for prayer. She was in a hurry and had to get back to do her homework. She started her wudhu without mentioning the Name of Allah. She carried on, but when she washed her forearms, the water did not touch her elbows. She finished and hurriedly put on her scarf and began her salah.' Question: What mistakes did Aaminah make in her wudhu?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 111, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "ORDERING", "questionText": "Put these steps of wudhu in the correct order.", "options": ["Make intention", "Say Bismillaah", "Wash right hand", "Wash left hand", "Rinse mouth", "Sniff water into the nose", "Wash face", "Wash right forearm up to the elbow", "Wash left forearm up to the elbow", "Wipe the head", "Wipe the ears", "Wash right foot", "Wash left foot", "Recite the Shahaadah"], "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": null}, {"id": 112, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "TRUE_FALSE", "questionText": "You should recite the niyyah (intention) loudly for wudhu.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 113, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "TRUE_FALSE", "questionText": "The place and clothes for prayer need not be clean.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 114, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "TRUE_FALSE", "questionText": "Wudhu should be performed with pure (clean) water.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 115, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "TRUE_FALSE", "questionText": "All acts of worship should be done for Allah's sake alone and according to the sunnah of Rasoolullah (PBUH).", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 116, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "TRUE_FALSE", "questionText": "Wudhu need not be performed in the proper way.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 117, "chapterNumber": 10, "chapterTitle": "How to Perform Wudhu", "questionType": "TRUE_FALSE", "questionText": "We should say 'Bismillaah' before doing wudhu.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 118, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "LONG_ANSWER", "questionText": "How can you get closer to Allah?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 119, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "LONG_ANSWER", "questionText": "What is the first thing about which one will be questioned on the Day of Judgement?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 120, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "LONG_ANSWER", "questionText": "How can you talk to Allah?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 121, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "LONG_ANSWER", "questionText": "Is it necessary to pray in jamaa'ah (congregation)?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 122, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "FILL_IN_BLANK", "questionText": "Salah is the ______ pillar of Islam.", "options": null, "matchingPairs": null, "correctAnswer": ["second"], "answerSpaceLines": null}, {"id": 123, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "FILL_IN_BLANK", "questionText": "A Muslim must pray ______ times a day.", "options": null, "matchingPairs": null, "correctAnswer": ["five"], "answerSpaceLines": null}, {"id": 124, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "FILL_IN_BLANK", "questionText": "The five prayers remove ______, just as water removes dirt.", "options": null, "matchingPairs": null, "correctAnswer": ["sins"], "answerSpaceLines": null}, {"id": 125, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "FILL_IN_BLANK", "questionText": "If someone is too ill to stand, they should pray ______. If they are too ill to sit, they should pray ______.", "options": null, "matchingPairs": null, "correctAnswer": ["sitting", "lying down"], "answerSpaceLines": null}, {"id": 126, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "FILL_IN_BLANK", "questionText": "Salah is the ______ of the religion.", "options": null, "matchingPairs": null, "correctAnswer": ["foundation"], "answerSpaceLines": null}, {"id": 127, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "FILL_IN_BLANK", "questionText": "Salah is one of the best acts of ______ to Allah.", "options": null, "matchingPairs": null, "correctAnswer": ["obedience"], "answerSpaceLines": null}, {"id": 128, "chapterNumber": 11, "chapterTitle": "The Prayer", "questionType": "MATCHING", "questionText": "Match the columns.", "options": null, "matchingPairs": [{"left": "Offering Isha in Jamaa'ah is like", "right": "spending half the night in salah"}, {"left": "Offering Fajr in Jamaa'ah is like", "right": "spending the whole night in salah"}, {"left": "Offering salah in Jamaa'ah rather than individually fetches", "right": "27 times more rewards"}], "correctAnswer": null, "answerSpaceLines": null}, {"id": 129, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "LONG_ANSWER", "questionText": "Who is the greatest Prophet after Muhammad (PBUH)?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 130, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "LONG_ANSWER", "questionText": "Who built the Ka'bah?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 131, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "LONG_ANSWER", "questionText": "Who is the other Prophet we mention in our Salawaat?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 132, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "LONG_ANSWER", "questionText": "Who has Allah mentioned as His friend, 'Khaleel'?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 133, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "LONG_ANSWER", "questionText": "Who is the father of all Prophets?", "options": null, "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": 4}, {"id": 134, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Aazar lived in ______ in Iraq.", "options": null, "matchingPairs": null, "correctAnswer": ["Babylon"], "answerSpaceLines": null}, {"id": 135, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "FILL_IN_BLANK", "questionText": "He was a maker and ______ of idols.", "options": null, "matchingPairs": null, "correctAnswer": ["seller"], "answerSpaceLines": null}, {"id": 136, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "FILL_IN_BLANK", "questionText": "The people of Ibraaheem (AS) worshipped ______.", "options": null, "matchingPairs": null, "correctAnswer": ["idols"], "answerSpaceLines": null}, {"id": 137, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "FILL_IN_BLANK", "questionText": "The people decided to ______ Ibraaheem (AS) alive.", "options": null, "matchingPairs": null, "correctAnswer": ["burn"], "answerSpaceLines": null}, {"id": 138, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "FILL_IN_BLANK", "questionText": "Idols are made of ______ or wood.", "options": null, "matchingPairs": null, "correctAnswer": ["stones"], "answerSpaceLines": null}, {"id": 139, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "MULTIPLE_CHOICE", "questionText": "Which of these describe the false idols worshipped by the people of Ibraaheem (AS)? (select all that apply)", "options": ["Made by man", "Can't help anyone", "Can't hear anyone's call", "Don't have life and can't help themselves", "Can harm and punish others", "Can answer prayers", "Know everything", "Can see everyone", "Take you closer to one God", "Need to be protected and preserved", "Sun, moon and stars"], "matchingPairs": null, "correctAnswer": ["Made by man", "Can't help anyone", "Can't hear anyone's call", "Don't have life and can't help themselves", "Need to be protected and preserved", "Sun, moon and stars"], "answerSpaceLines": null}, {"id": 140, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "Prophet Ibraaheem (AS) was the son of a Prophet.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 141, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "Prophet Ibraaheem (AS) did not believe in God.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 142, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "Prophet Ibraaheem (AS) was very intelligent and pondered about the true Lord.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 143, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "Prophet Ibraaheem (AS) feared to accept the truth.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 144, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "Prophet Ibraaheem (AS) was truthful and Allah showered His favour on him.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 145, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "The people threw Ibraaheem (AS) into the fire to punish him.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 146, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "The idols were not capable of helping themselves or others.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 147, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "The idols could shoo away flies and stop mice from eating the food offered to them.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 148, "chapterNumber": 12, "chapterTitle": "Prophet Ibraaheem (AS)", "questionType": "TRUE_FALSE", "questionText": "The people made a plan, but Allah's Plan is what happened.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 149, "chapterNumber": 13, "chapterTitle": "Prophet Muhammad (PBUH) - Visiting Mount Hira", "questionType": "FILL_IN_BLANK", "questionText": "The Prophet (PBUH) felt a ______ joy in this solitude.", "options": null, "matchingPairs": null, "correctAnswer": ["great / unique"], "answerSpaceLines": null}, {"id": 150, "chapterNumber": 13, "chapterTitle": "Prophet Muhammad (PBUH) - Visiting Mount Hira", "questionType": "FILL_IN_BLANK", "questionText": "During this time, he would think deeply about Allah's ______ and would ______ and ______ Him.", "options": null, "matchingPairs": null, "correctAnswer": ["Powers", "glorify", "praise"], "answerSpaceLines": null}, {"id": 151, "chapterNumber": 13, "chapterTitle": "Prophet Muhammad (PBUH) - Visiting Mount Hira", "questionType": "FILL_IN_BLANK", "questionText": "During those days, the Prophet (PBUH) had true ______.", "options": null, "matchingPairs": null, "correctAnswer": ["dreams"], "answerSpaceLines": null}, {"id": 152, "chapterNumber": 13, "chapterTitle": "Prophet Muhammad (PBUH) - Visiting Mount Hira", "questionType": "TRUE_FALSE", "questionText": "The dreams of Prophets are true.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 153, "chapterNumber": 13, "chapterTitle": "Prophet Muhammad (PBUH) - Visiting Mount Hira", "questionType": "TRUE_FALSE", "questionText": "Prophet (PBUH) used to go to Cave Hira so that people could call him a saint.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 154, "chapterNumber": 13, "chapterTitle": "Prophet Muhammad (PBUH) - Visiting Mount Hira", "questionType": "TRUE_FALSE", "questionText": "Prophet (PBUH) never worshipped any idol.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 155, "chapterNumber": 13, "chapterTitle": "Prophet Muhammad (PBUH) - Visiting Mount Hira", "questionType": "TRUE_FALSE", "questionText": "We should worship the Lord only in solitude, away from the whole world.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 156, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "MULTIPLE_CHOICE", "questionText": "Circle all the words related to Khadeejah (RA). (select all that apply)", "options": ["Noble", "Humble", "Poor", "Believer", "Widow", "Proud", "Rich", "Arrogant", "Polite", "Wife of Prophet", "Affectionate", "Mother of the Believers"], "matchingPairs": null, "correctAnswer": ["Noble", "Believer", "Widow", "Rich", "Polite", "Wife of Prophet", "Affectionate", "Mother of the Believers"], "answerSpaceLines": null}, {"id": 157, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "MATCHING", "questionText": "Match the following.", "options": null, "matchingPairs": [{"left": "Khadeejah (RA) married the Prophet (PBUH)", "right": "at the age of 40"}, {"left": "She was the daughter", "right": "of Khuwaylid"}, {"left": "Muhammad (PBUH) married her", "right": "at the age of 25"}, {"left": "Khadeejah was a", "right": "rich woman"}, {"left": "The Prophet (PBUH) used to", "right": "trade for Khadeejah (RA)"}], "correctAnswer": null, "answerSpaceLines": null}, {"id": 158, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "TRUE_FALSE", "questionText": "Khadeejah (RA) was the second woman to accept Islam.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": null, "answerSpaceLines": null}, {"id": 159, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "TRUE_FALSE", "questionText": "She bore the Prophet (PBUH) 2 sons and 4 daughters.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["True"], "answerSpaceLines": null}, {"id": 160, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "TRUE_FALSE", "questionText": "She was a poor woman.", "options": ["True", "False"], "matchingPairs": null, "correctAnswer": ["False"], "answerSpaceLines": null}, {"id": 161, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "FILL_IN_BLANK", "questionText": "Khadeejah (RA) belonged to the ______ tribe.", "options": null, "matchingPairs": null, "correctAnswer": ["Quraysh"], "answerSpaceLines": null}, {"id": 162, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "FILL_IN_BLANK", "questionText": "Khadeejah (RA) was the ______ wife of the Prophet (PBUH).", "options": null, "matchingPairs": null, "correctAnswer": ["first"], "answerSpaceLines": null}, {"id": 163, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "FILL_IN_BLANK", "questionText": "Khadeejah (RA) got married to the Prophet (PBUH) ______ years before the beginning of the revelation.", "options": null, "matchingPairs": null, "correctAnswer": ["15 (fifteen)"], "answerSpaceLines": null}, {"id": 164, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "FILL_IN_BLANK", "questionText": "Khadeejah (RA) was a ______ widow.", "options": null, "matchingPairs": null, "correctAnswer": ["rich"], "answerSpaceLines": null}, {"id": 165, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "FILL_IN_BLANK", "questionText": "Khadeejah (RA) had ______ wealth and a ______ house in Makkah.", "options": null, "matchingPairs": null, "correctAnswer": ["great", "large"], "answerSpaceLines": null}, {"id": 166, "chapterNumber": 14, "chapterTitle": "Khadeejah bint Khuwaylid (RA)", "questionType": "FILL_IN_BLANK", "questionText": "Khadeejah (RA) was of ______ character.", "options": null, "matchingPairs": null, "correctAnswer": ["noble"], "answerSpaceLines": null}];
 
-const matchPairs2 = [
-  { m: "Allah is the Greatest", a: "اَللهُ اَكْبَرُ" },
-  { m: "The prayer is now ready", a: "قَدْ قَامَتِ الصَّلٰوةُ" },
-  { m: "There is no God except Allah", a: "لَآ اِلٰهَ اِلَّا اللهُ" },
-  { m: "Muhammad ﷺ is the Messenger", a: "اَشْهَدُ اَنَّ مُحَمَّدًا رَّسُوْلُ اللهِ" },
-  { m: "Hasten to prayer", a: "حَىَّ عَلَى الصَّلٰوةِ" },
-  { m: "Hasten to success", a: "حَىَّ عَلَى الْفَلَاحِ" }
-];
+const CHAPTER_TITLES = {};
+ALL_QUESTIONS.forEach(q => { CHAPTER_TITLES[q.chapterNumber] = q.chapterTitle; });
+const CHAPTER_NUMBERS = Object.keys(CHAPTER_TITLES).map(Number).sort((a,b)=>a-b);
 
-let score = 0, correct = 0, attempts = 0;
-let selectedM = null, matchedCount2 = 0;
+let activeQuestions = [];
+let currentIndex = 0;
+let studentAnswers = {}; // id -> answer (string, or array for multi-select)
 
-function updateScore() {
-  document.getElementById('scoreVal').textContent = score;
-  document.getElementById('correctVal').textContent = correct;
-  document.getElementById('attemptVal').textContent = attempts;
-}
-function celebrate(t, m) {
-  document.getElementById('celebTitle').textContent = t;
-  document.getElementById('celebMsg').textContent = m;
-  document.getElementById('celebration').classList.add('show');
-}
-function closeCeleb() { document.getElementById('celebration').classList.remove('show'); }
-function showSection(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
+function normalize(str) {
+  return (str || '').toString().toLowerCase().trim().replace(/[^a-z0-9 ]/g, '');
 }
 
-function renderMCQ(containerId, questions) {
-  const c = document.getElementById(containerId);
-  let html = '';
-  questions.forEach((item, idx) => {
-    html += `<div class="exercise"><h3>Q${idx+1}. ${item.q}</h3>`;
-    html += `<div class="options${item.two ? ' two' : ''}">`;
-    item.opts.forEach(opt => {
-      const isCorrect = (opt === item.ans);
-      html += `<button class="option-btn" onclick="checkMCQ(this, ${isCorrect})">${opt}</button>`;
-    });
-    html += `</div></div>`;
+function buildHome() {
+  const list = document.getElementById('chapter-list');
+  list.innerHTML = '';
+  CHAPTER_NUMBERS.forEach(num => {
+    const count = ALL_QUESTIONS.filter(q => q.chapterNumber === num).length;
+    const div = document.createElement('div');
+    div.className = 'card chapter-card';
+    div.onclick = () => startQuiz(num);
+    div.innerHTML =
+      '<div class="chapter-num">' + num + '</div>' +
+      '<div><div class="chapter-title">' + CHAPTER_TITLES[num] + '</div>' +
+      '<div class="chapter-count">' + count + ' questions</div></div>';
+    list.appendChild(div);
   });
-  c.innerHTML = html;
 }
 
-function checkMCQ(btn, isCorrect) {
-  if (btn.disabled) return;
-  attempts++;
-  const parent = btn.parentElement;
-  parent.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-  if (isCorrect) {
-    btn.classList.add('correct'); correct++; score += 10;
-    celebrate('Correct! ✅', '+10 points!');
-  } else {
-    btn.classList.add('wrong');
-    parent.querySelectorAll('.option-btn').forEach(b => {
-      if (b.getAttribute('onclick').includes('true')) b.classList.add('correct');
-    });
-  }
-  updateScore();
+function goHome() {
+  document.getElementById('screen-home').classList.remove('hidden');
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-results').classList.add('hidden');
 }
 
-function toggleA(btn) {
-  const a = btn.nextElementSibling;
-  a.classList.toggle('show');
-  btn.textContent = a.classList.contains('show') ? '🙈 Hide' : '👀 See Answer';
+function startQuiz(chapterNumber) {
+  activeQuestions = chapterNumber === null
+    ? ALL_QUESTIONS.slice()
+    : ALL_QUESTIONS.filter(q => q.chapterNumber === chapterNumber);
+  currentIndex = 0;
+  studentAnswers = {};
+  document.getElementById('screen-home').classList.add('hidden');
+  document.getElementById('screen-results').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  renderQuestion();
 }
 
-function buildMatch2() {
-  const area = document.getElementById('matchArea2');
+function renderQuestion() {
+  const q = activeQuestions[currentIndex];
+  document.getElementById('progress-bar').style.width =
+    (((currentIndex) / activeQuestions.length) * 100) + '%';
+  document.getElementById('progress-label').textContent =
+    'Question ' + (currentIndex + 1) + ' of ' + activeQuestions.length + '  -  ' + q.chapterTitle;
+  document.getElementById('q-badge').textContent = q.questionType.replace(/_/g, ' ');
+  document.getElementById('q-text').textContent = q.questionText;
+
+  const area = document.getElementById('q-answer-area');
   area.innerHTML = '';
-  const left = document.createElement('div');
-  matchPairs2.forEach(p => {
-    const d = document.createElement('div');
-    d.className = 'match-item'; d.textContent = p.m;
-    d.dataset.type = 'm'; d.dataset.value = p.m;
-    d.onclick = () => selectM(d);
-    left.appendChild(d);
-  });
-  const right = document.createElement('div');
-  [...matchPairs2.map(p => p.a)].sort(() => Math.random() - 0.5).forEach(a => {
-    const d = document.createElement('div');
-    d.className = 'match-item'; d.textContent = a;
-    d.style.direction = 'rtl'; d.style.fontSize = '15px';
-    d.dataset.type = 'a'; d.dataset.value = a;
-    d.onclick = () => selectA(d);
-    right.appendChild(d);
-  });
-  area.appendChild(left); area.appendChild(right);
-}
-function selectM(el) {
-  if (el.classList.contains('matched')) return;
-  document.querySelectorAll('[data-type="m"]').forEach(i => i.classList.remove('selected'));
-  el.classList.add('selected'); selectedM = el;
-}
-function selectA(el) {
-  if (el.classList.contains('matched') || !selectedM) return;
-  attempts++;
-  const pair = matchPairs2.find(p => p.m === selectedM.dataset.value);
-  if (pair && pair.a === el.dataset.value) {
-    selectedM.classList.remove('selected'); selectedM.classList.add('matched');
-    el.classList.add('matched'); matchedCount2++; correct++; score += 10;
-    updateScore();
-    if (matchedCount2 === matchPairs2.length) {
-      celebrate('All matched! 🎉', 'Excellent work!');
-      document.getElementById('matchStatus2').textContent = '🎉 All matched!';
+  const saved = studentAnswers[q.id];
+
+  if (q.questionType === 'TRUE_FALSE') {
+    ['True', 'False'].forEach(choice => {
+      const btn = document.createElement('div');
+      btn.className = 'option' + (saved === choice ? ' selected' : '');
+      btn.textContent = choice;
+      btn.onclick = () => { studentAnswers[q.id] = choice; renderQuestion(); };
+      area.appendChild(btn);
+    });
+  } else if (q.questionType === 'MULTIPLE_CHOICE') {
+    const isMulti = q.correctAnswer && q.correctAnswer.length > 1;
+    const savedArr = Array.isArray(saved) ? saved : (saved ? [saved] : []);
+    (q.options || []).forEach(opt => {
+      const picked = savedArr.includes(opt);
+      const btn = document.createElement('div');
+      btn.className = 'option' + (picked ? ' selected' : '');
+      btn.textContent = opt;
+      btn.onclick = () => {
+        if (isMulti) {
+          let arr = Array.isArray(studentAnswers[q.id]) ? studentAnswers[q.id] : [];
+          if (arr.includes(opt)) arr = arr.filter(x => x !== opt);
+          else arr = arr.concat([opt]);
+          studentAnswers[q.id] = arr;
+        } else {
+          studentAnswers[q.id] = opt;
+        }
+        renderQuestion();
+      };
+      area.appendChild(btn);
+    });
+    if (isMulti) {
+      const note = document.createElement('div');
+      note.className = 'ungraded-note';
+      note.textContent = 'Tap all that apply.';
+      area.appendChild(note);
     }
-    selectedM = null;
+  } else if (q.questionType === 'FILL_IN_BLANK') {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Type your answer here';
+    input.value = saved || '';
+    input.oninput = () => { studentAnswers[q.id] = input.value; };
+    area.appendChild(input);
+  } else if (q.questionType === 'LONG_ANSWER') {
+    const ta = document.createElement('textarea');
+    ta.rows = Math.max(3, q.answerSpaceLines || 4);
+    ta.placeholder = 'Write your answer here';
+    ta.value = saved || '';
+    ta.oninput = () => { studentAnswers[q.id] = ta.value; };
+    area.appendChild(ta);
+    const note = document.createElement('div');
+    note.className = 'ungraded-note';
+    note.textContent = 'This is a writing question - it is not auto-scored.';
+    area.appendChild(note);
+  } else if (q.questionType === 'MATCHING') {
+    (q.matchingPairs || []).forEach(pair => {
+      const row = document.createElement('div');
+      row.className = 'match-row';
+      row.innerHTML = '<span>' + pair.left + '</span><span>&#8596;</span><span>' + pair.right + '</span>';
+      area.appendChild(row);
+    });
+    const note = document.createElement('div');
+    note.className = 'ungraded-note';
+    note.textContent = 'Read the pairs together - they are already matched correctly here for learning.';
+    area.appendChild(note);
+    studentAnswers[q.id] = 'viewed';
+  } else if (q.questionType === 'ORDERING') {
+    (q.options || []).forEach((item, i) => {
+      const row = document.createElement('div');
+      row.className = 'order-row';
+      row.innerHTML = '<span>' + item + '</span>';
+      area.appendChild(row);
+    });
+    const note = document.createElement('div');
+    note.className = 'ungraded-note';
+    note.textContent = 'Try saying these steps in the correct order out loud before moving on.';
+    area.appendChild(note);
+    studentAnswers[q.id] = 'viewed';
+  }
+
+  document.getElementById('btn-back').disabled = currentIndex === 0;
+  document.getElementById('btn-next').textContent =
+    currentIndex === activeQuestions.length - 1 ? 'Finish' : 'Next';
+}
+
+function goBack() {
+  if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+}
+
+function goNext() {
+  if (currentIndex < activeQuestions.length - 1) {
+    currentIndex++;
+    renderQuestion();
   } else {
-    el.style.background = '#ffcdd2';
-    setTimeout(() => { el.style.background = ''; }, 500);
+    showResults();
   }
 }
 
-function resetAll() { if (!confirm('This will reset all scores. Continue?')) return; location.reload(); }
+function isCorrect(q, given) {
+  if (!q.correctAnswer || q.correctAnswer.length === 0) return null; // not gradable
+  if (q.questionType === 'TRUE_FALSE') {
+    return given === q.correctAnswer[0];
+  }
+  if (q.questionType === 'FILL_IN_BLANK') {
+    if (!given) return false;
+    const g = normalize(given);
+    return q.correctAnswer.some(ans =>
+      ans.split(/[\/,()]/).some(part => {
+        const p = normalize(part);
+        return p.length > 0 && (g.includes(p) || p.includes(g));
+      })
+    );
+  }
+  if (q.questionType === 'MULTIPLE_CHOICE') {
+    const givenArr = Array.isArray(given) ? given.slice().sort() : (given ? [given] : []);
+    const correctArr = q.correctAnswer.slice().sort();
+    return JSON.stringify(givenArr) === JSON.stringify(correctArr);
+  }
+  return null;
+}
 
-renderMCQ('q1', Q.q1);
-renderMCQ('q2', Q.q2);
-renderMCQ('q3', Q.q3);
-renderMCQ('q4', Q.q4);
-renderMCQ('q5', Q.q5);
-renderMCQ('q6', Q.q6);
-renderMCQ('q7', Q.q7);
-renderMCQ('q8', Q.q8);
-buildMatch2();
-updateScore();
+function showResults() {
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-results').classList.remove('hidden');
+
+  let correctCount = 0, gradableCount = 0;
+  const reviewList = document.getElementById('review-list');
+  reviewList.innerHTML = '';
+
+  activeQuestions.forEach(q => {
+    const given = studentAnswers[q.id];
+    const result = isCorrect(q, given);
+    if (result !== null) {
+      gradableCount++;
+      if (result) correctCount++;
+    }
+    const item = document.createElement('div');
+    item.className = 'card review-item ' + (result === true ? 'correct' : result === false ? 'wrong' : '');
+    let tagHtml = '';
+    if (result === true) tagHtml = '<span class="review-tag correct">&#10003; Correct</span>';
+    else if (result === false) tagHtml = '<span class="review-tag wrong">&#10007; Try again</span>';
+    else tagHtml = '<span class="review-tag" style="color:#6b6b76;">Not auto-scored</span>';
+
+    let givenText = Array.isArray(given) ? given.join(', ') : (given || '(no answer given)');
+    let correctText = q.correctAnswer ? q.correctAnswer.join(' / ') : 'Not stated in the workbook';
+
+    item.innerHTML =
+      '<div style="font-size:13px;color:#6b6b76;">Ch ' + q.chapterNumber + ' - ' + q.chapterTitle + '</div>' +
+      '<div style="font-weight:600;margin:6px 0;">' + q.questionText + '</div>' +
+      tagHtml +
+      (q.questionType === 'MATCHING' || q.questionType === 'ORDERING' || q.questionType === 'LONG_ANSWER'
+        ? ''
+        : '<div class="review-answer"><span class="label">Your answer:</span> ' + givenText + '<br>' +
+          '<span class="label">Correct answer:</span> ' + correctText + '</div>');
+    reviewList.appendChild(item);
+  });
+
+  document.getElementById('score-big').textContent = correctCount + ' / ' + gradableCount;
+  document.getElementById('score-sub').textContent =
+    'correct on auto-scored questions (Multiple Choice, True/False, Fill in the Blank)';
+}
+
+buildHome();
 </script>
+
 </body>
 </html>
