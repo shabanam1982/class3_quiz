@@ -24,7 +24,16 @@
           "color": "#fd6585",
           "badge": "READY",
           "description": "Nouns, opposites, rhyming words, fill in the blanks, reading story"
-        }
+        },
+	{
+ 	  "id": "grammar",
+  	 "title": "English Grammar",
+  	 "file": "grammar.html",
+  	 "icon": "✏️",
+  	 "color": "#6a4c93",
+  	 "badge": "NEW",
+  	 "description": "10 topics, 607 questions - alphabetical order, sentences, subject & predicate, nouns, articles, antonyms & synonyms, and a full test paper"
+}
       ]
     },
     {
