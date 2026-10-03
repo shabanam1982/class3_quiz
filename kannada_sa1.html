@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Kannada SA1 Practice Quiz — Class 3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFF4E6; --card:#FFFFFF; --ink:#3A2410; --ink-soft:#6B5A4A;
+    --brand:#E8743B; --brand-dark:#C85A20; --teal:#1E8A99;
+    --good:#2FA86A; --good-bg:#E5F7EC; --bad:#D64550; --bad-bg:#FCEAEA;
+    --sun:#FFC145; --line:#F0DFC9;
+    --font-head:'Baloo 2','Comic Sans MS', system-ui, sans-serif;
+    --font-body:'Nunito', system-ui, -apple-system, sans-serif;
+    --font-kn:'Noto Sans Kannada', 'Nunito', sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#241810; --card:#302016; --ink:#F5E8D8; --ink-soft:#C8B49E;
+      --line:#4A3524; --good-bg:#173626; --bad-bg:#3A1E21;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#241810; --card:#302016; --ink:#F5E8D8; --ink-soft:#C8B49E;
+    --line:#4A3524; --good-bg:#173626; --bad-bg:#3A1E21;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.55; }
+  .wrap{ max-width:680px; margin:0 auto; padding:20px 16px 70px; }
+  h1,h2,h3{ font-family:var(--font-head); margin:0 0 8px; line-height:1.2; }
+  h1{ font-size:1.6rem; color:var(--brand-dark); }
+  h2{ font-size:1.25rem; }
+  p{ margin:0 0 12px; color:var(--ink-soft); }
+  .kn{ font-family:var(--font-kn); }
+  .top{ text-align:center; padding:18px 0 6px; }
+  .top .mascot{ font-size:2.4rem; }
+  .card{ background:var(--card); border-radius:18px; padding:20px; box-shadow:0 6px 18px rgba(58,36,16,0.08); border:1px solid var(--line); margin-bottom:16px; }
+  .btn{ font-family:var(--font-head); font-size:1rem; font-weight:700; border:none; border-radius:14px; padding:13px 20px; cursor:pointer; display:inline-block; text-align:center; transition:transform .08s ease; }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{ background:var(--brand); color:#fff; }
+  .btn-primary:hover{ background:var(--brand-dark); }
+  .btn-ghost{ background:transparent; color:var(--teal); border:2px solid var(--teal); }
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .btn-full{ width:100%; }
+  .badge{ display:inline-block; background:var(--sun); color:#5A3E00; font-family:var(--font-head); font-weight:700; font-size:0.78rem; padding:4px 12px; border-radius:999px; margin-bottom:10px; }
+  .progress-track{ height:10px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px; }
+  .progress-fill{ height:100%; background:var(--brand); border-radius:999px; transition:width .25s ease; }
+  .progress-label{ font-size:0.85rem; color:var(--ink-soft); }
+  .option-btn{ display:block; width:100%; text-align:left; background:var(--bg); border:2px solid var(--line); border-radius:14px; padding:13px 16px; margin-bottom:10px; font-family:var(--font-body); font-size:1rem; color:var(--ink); cursor:pointer; }
+  .option-btn.selected{ border-color:var(--brand); background:#FFEADF; }
+  :root[data-theme="dark"] .option-btn.selected{ background:#4A2E1A; }
+  @media (prefers-color-scheme:dark){ .option-btn.selected{ background:#4A2E1A; } }
+  .fill-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .fill-row label{ min-width:90px; font-weight:700; color:var(--ink-soft); font-size:0.9rem; }
+  input[type=text]{ font-family:var(--font-body); font-size:1rem; padding:11px 12px; border:2px solid var(--line); border-radius:12px; background:var(--card); color:var(--ink); width:100%; }
+  details{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px 16px; margin-bottom:12px; }
+  summary{ font-family:var(--font-head); font-weight:700; cursor:pointer; font-size:1.05rem; }
+  .qa{ border-top:1px solid var(--line); padding:12px 0; }
+  .qa:first-of-type{ border-top:none; }
+  .qa .prompt{ font-weight:700; color:var(--ink); margin-bottom:4px; }
+  .tag{ display:inline-block; font-size:0.78rem; font-weight:800; border-radius:8px; padding:2px 9px; margin-right:6px; }
+  .tag.good{ background:var(--good-bg); color:var(--good); }
+  .tag.bad{ background:var(--bad-bg); color:var(--bad); }
+  .tag.note{ background:var(--line); color:var(--ink-soft); }
+  .explain{ font-size:0.92rem; color:var(--ink-soft); margin-top:4px; }
+  .score-big{ font-family:var(--font-head); font-size:2.4rem; color:var(--brand); text-align:center; margin:6px 0; }
+  .score-msg{ text-align:center; font-weight:700; color:var(--ink); }
+  .cat-bar-row{ margin-bottom:12px; }
+  .cat-bar-row .label{ display:flex; justify-content:space-between; font-size:0.9rem; font-weight:700; margin-bottom:4px; }
+  .cat-track{ height:12px; background:var(--line); border-radius:999px; overflow:hidden; }
+  .cat-fill{ height:100%; background:var(--teal); border-radius:999px; }
+  .session-box{ background:var(--good-bg); border:2px dashed var(--good); border-radius:14px; padding:14px; margin-bottom:16px; }
+  .code-chip{ font-family:var(--font-head); font-size:1.3rem; letter-spacing:3px; background:var(--card); border:2px solid var(--brand); color:var(--brand-dark); padding:6px 14px; border-radius:10px; display:inline-block; margin:6px 0; }
+  .hint-box{ background:#FFF9E6; border-left:4px solid var(--sun); border-radius:8px; padding:10px 12px; margin-top:10px; font-size:0.9rem; color:#7F6C00; }
+  :root[data-theme="dark"] .hint-box{ background:#3A3010; color:#F0D878; }
+  @media (prefers-color-scheme:dark){ .hint-box{ background:#3A3010; color:#F0D878; } }
+  .hint-btn{ background:transparent; border:none; color:var(--teal); font-weight:700; cursor:pointer; font-family:var(--font-head); font-size:0.95rem; padding:4px 0; }
+  .instr{ background:var(--card); border:1px dashed var(--teal); border-radius:12px; padding:10px 14px; margin-bottom:12px; font-size:0.92rem; }
+  .instr .instr-kn{ color:var(--brand-dark); font-weight:700; font-family:var(--font-kn); }
+  .instr .instr-en{ color:var(--ink-soft); font-style:italic; }
+  ul.simple{ padding-left:20px; color:var(--ink-soft); }
+  ul.simple li{ margin-bottom:6px; }
+  .foot-note{ text-align:center; font-size:0.8rem; color:var(--ink-soft); margin-top:24px; }
+  .back-link{ display:block; text-align:center; color:var(--teal); text-decoration:none; font-size:0.9rem; margin-bottom:8px; }
+  .back-link:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+/* =========================================================================
+   QUESTIONS — built from your uploaded PDFs:
+   FA1 (vowels, consonants, numbers, kaagunita, baby letters)
+   FA2 (fruits & vegetables)
+   FA3 (word meanings, picture match)
+   Mid-term notes (Chitte poem, Shalita paata, Alilu Eradu, Ottakshara)
+   Every question is bilingual (Kannada + English) with a hint.
+   ========================================================================= */
+const QUESTIONS = [
+  /* ======== VOWELS & CONSONANTS ======== */
+  { id:"k1", cat:"Vowels & Consonants",
+    instructionKn:"ಸರಿಯಾದ ಉತ್ತರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct answer.",
+    type:"mcq",
+    prompt:"ಕನ್ನಡದ ಮೊದಲ ಸ್ವರ ಯಾವುದು? / Which is the FIRST vowel in Kannada?",
+    options:["ಅ (a)","ಕ (ka)","ಔ (au)","ಮ (ma)"], answer:"ಅ (a)",
+    hint:"ಸ್ವರ = vowel. The first one makes the short 'a' sound.",
+    explain:"ಅ is the first vowel. The order is: ಅ, ಆ, ಇ, ಈ, ಉ, ಊ, ಋ, ಎ, ಏ, ಐ, ಒ, ಓ, ಔ, ಅಂ, ಅಃ." },
+  { id:"k2", cat:"Vowels & Consonants",
+    instructionKn:"ಕಾಣೆಯಾದ ಸ್ವರ ಹುಡುಕಿ.",
+    instructionEn:"Find the missing vowel.",
+    type:"mcq",
+    prompt:"ಅ, ___, ಇ, ಈ — ಕಾಣೆಯಾದ ಸ್ವರ?",
+    options:["ಆ","ಉ","ಎ","ಓ"], answer:"ಆ",
+    hint:"After ಅ (short 'a') comes long 'aa'.",
+    explain:"After ಅ comes ಆ (aa). Then ಇ, ಈ, ಉ, ಊ..." },
+  { id:"k3", cat:"Vowels & Consonants",
+    instructionKn:"ಸ್ವರ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Pick the vowel.",
+    type:"mcq",
+    prompt:"ಇವುಗಳಲ್ಲಿ ಯಾವುದು ಸ್ವರ? / Which one is a vowel?",
+    options:["ಕ (ka)","ಇ (i)","ಮ (ma)","ತ (ta)"], answer:"ಇ (i)",
+    hint:"Vowels can be spoken on their own.",
+    explain:"ಇ (i) is a vowel. ಕ, ಮ, ತ are consonants." },
+  { id:"k4", cat:"Vowels & Consonants",
+    instructionKn:"ಸರಿಯಾದ ಉತ್ತರ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct answer.",
+    type:"mcq",
+    prompt:"ಕನ್ನಡದ ಮೊದಲ ವ್ಯಂಜನ ಯಾವುದು? / Which is the FIRST consonant in Kannada?",
+    options:["ಅ (a)","ಕ (ka)","ಪ (pa)","ಟ (ta)"], answer:"ಕ (ka)",
+    hint:"ವ್ಯಂಜನ = consonant. First one makes the 'ka' sound.",
+    explain:"ಕ (ka) is the first consonant." },
+  { id:"k5", cat:"Vowels & Consonants",
+    instructionKn:"ಕಾಣೆಯಾದ ಸ್ವರ ಹುಡುಕಿ.",
+    instructionEn:"Find the missing vowel.",
+    type:"mcq",
+    prompt:"ಇ, ಈ, ___, ಊ",
+    options:["ಆ","ಎ","ಉ","ಓ"], answer:"ಉ",
+    hint:"'u' sound comes between 'ee' and 'oo'.",
+    explain:"The order is ಇ, ಈ, ಉ, ಊ." },
+  { id:"k6", cat:"Vowels & Consonants",
+    instructionKn:"ಸ್ವರ ಅಲ್ಲದ ಅಕ್ಷರ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Pick the letter that is NOT a vowel.",
+    type:"mcq",
+    prompt:"ಯಾವುದು ಸ್ವರ ಅಲ್ಲ? / Which is NOT a vowel?",
+    options:["ಅ","ಇ","ಗ (ga)","ಉ"], answer:"ಗ (ga)",
+    hint:"Three are vowels, one is a consonant.",
+    explain:"ಗ (ga) is a consonant." },
+  { id:"k7", cat:"Vowels & Consonants",
+    instructionKn:"ಸರಿ ಅಥವಾ ತಪ್ಪು.",
+    instructionEn:"True or False.",
+    type:"tf",
+    prompt:"ಅಃ (visarga) ಕನ್ನಡದ ಕೊನೆಯ ಸ್ವರ. / ಅಃ is the last vowel in Kannada.",
+    answer:true,
+    hint:"It's written with two dots after ಅ.",
+    explain:"True. The last two are special: ಅಂ (anusvara) and ಅಃ (visarga)." },
+  { id:"k8", cat:"Vowels & Consonants",
+    instructionKn:"ಸರಿ ಅಥವಾ ತಪ್ಪು.",
+    instructionEn:"True or False.",
+    type:"tf",
+    prompt:"ಕನ್ನಡದಲ್ಲಿ ೧೦ ಸ್ವರಗಳಿವೆ. / Kannada has 10 vowels.",
+    answer:false,
+    hint:"Count: ಅ, ಆ, ಇ, ಈ, ಉ, ಊ, ಋ, ಎ, ಏ, ಐ, ಒ, ಓ, ಔ, ಅಂ, ಅಃ.",
+    explain:"False. Kannada has 15 vowels including ಅಂ and ಅಃ." },
+
+  /* ======== KANNADA NUMBERS ======== */
+  { id:"k9", cat:"Kannada Numbers",
+    instructionKn:"ಕನ್ನಡ ಅಂಕಿಯ ಇಂಗ್ಲೀಷ್ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English name of the Kannada number.",
+    type:"mcq",
+    prompt:"೧ = ?",
+    options:["One / ಒಂದು","Two / ಎರಡು","Three / ಮೂರು","Four / ನಾಲ್ಕು"],
+    answer:"One / ಒಂದು",
+    hint:"The first counting number.",
+    explain:"೧ = 1 = ಒಂದು (ondu) = One." },
+  { id:"k10", cat:"Kannada Numbers",
+    instructionKn:"ಸರಿಯಾದ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct name.",
+    type:"mcq",
+    prompt:"೫ = ?",
+    options:["ನಾಲ್ಕು (Four)","ಐದು (Five)","ಆರು (Six)","ಏಳು (Seven)"],
+    answer:"ಐದು (Five)",
+    hint:"Starts with 'ai' sound.",
+    explain:"೫ = 5 = ಐದು (aidu) = Five." },
+  { id:"k11", cat:"Kannada Numbers",
+    instructionKn:"ಸರಿಯಾದ ಅಂಕಿ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct number.",
+    type:"mcq",
+    prompt:"Ten / ಹತ್ತು = ?",
+    options:["೧","೫","೧೦","೨೦"], answer:"೧೦",
+    hint:"Kannada ೧ followed by ೦.",
+    explain:"೧೦ = 10 = ಹತ್ತು (hattu)." },
+  { id:"k12", cat:"Kannada Numbers",
+    instructionKn:"ಕಾಣೆಯಾದ ಅಂಕಿ ಹುಡುಕಿ.",
+    instructionEn:"Find the missing number.",
+    type:"mcq",
+    prompt:"೧, ೨, ___, ೪, ೫",
+    options:["೩","೬","೭","೮"], answer:"೩",
+    hint:"What comes between 2 and 4?",
+    explain:"೩ = 3 = ಮೂರು." },
+  { id:"k13", cat:"Kannada Numbers",
+    instructionKn:"ಸರಿಯಾದ ಹೊಂದಾಣಿಕೆ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct match.",
+    type:"mcq",
+    prompt:"೭ = ?",
+    options:["ಆರು (6)","ಏಳು (7)","ಎಂಟು (8)","ಒಂಬತ್ತು (9)"],
+    answer:"ಏಳು (7)",
+    hint:"The number right after 6 (ಆರು).",
+    explain:"೭ = 7 = ಏಳು (eelu) = Seven." },
+  { id:"k14", cat:"Kannada Numbers",
+    instructionKn:"ಸರಿಯಾದ ಉತ್ತರ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct answer.",
+    type:"mcq",
+    prompt:"Twenty / ಇಪ್ಪತ್ತು = ?",
+    options:["೧೦","೧೫","೨೦","೨೫"], answer:"೨೦",
+    hint:"Kannada digit 2 followed by 0.",
+    explain:"೨೦ = 20 = ಇಪ್ಪತ್ತು (ippattu)." },
+  { id:"k15", cat:"Kannada Numbers",
+    instructionKn:"ಕಾಣೆಯಾದ ಅಂಕಿಗಳನ್ನು ತುಂಬಿ.",
+    instructionEn:"Fill in the missing numbers.",
+    type:"fill", ordered:true,
+    prompt:"___, ೬, ___, ೮, ___ (type the missing Kannada numbers for 5, 7, 9 — English digits also OK)",
+    labels:["Before ೬","After ೬","After ೮"],
+    answer:["೫","೭","೯"],
+    hint:"The sequence is 5, 6, 7, 8, 9.",
+    explain:"Missing numbers: ೫, ೭, ೯. Both Kannada and English digits are accepted." },
+
+  /* ======== FRUITS & VEGETABLES ======== */
+  { id:"k16", cat:"Fruits & Vegetables",
+    instructionKn:"ಸರಿಯಾದ ಕನ್ನಡ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct Kannada name.",
+    type:"mcq",
+    prompt:"Mango 🥭 = ?",
+    options:["ಬಾಳೆಹಣ್ಣು","ಮಾವಿನ ಹಣ್ಣು","ಸೇಬು","ಪಪ್ಪಾಯಿ"],
+    answer:"ಮಾವಿನ ಹಣ್ಣು",
+    hint:"Sounds like 'maavu' in Kannada.",
+    explain:"Mango = ಮಾವಿನ ಹಣ್ಣು (maavina hannu)." },
+  { id:"k17", cat:"Fruits & Vegetables",
+    instructionKn:"ಸರಿಯಾದ ಕನ್ನಡ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct Kannada name.",
+    type:"mcq",
+    prompt:"Apple 🍎 = ?",
+    options:["ಸೇಬು","ಮಾವಿನ ಹಣ್ಣು","ಕಲ್ಲಂಗಡಿ","ಪಪ್ಪಾಯಿ"],
+    answer:"ಸೇಬು",
+    hint:"Short word sounding like 'sebu'.",
+    explain:"Apple = ಸೇಬು (sebu)." },
+  { id:"k18", cat:"Fruits & Vegetables",
+    instructionKn:"ಸರಿಯಾದ ಕನ್ನಡ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct Kannada name.",
+    type:"mcq",
+    prompt:"Banana 🍌 = ?",
+    options:["ಸೇಬು","ಬಾಳೆಹಣ್ಣು","ಕಲ್ಲಂಗಡಿ","ಗಜ್ಜರಿ"],
+    answer:"ಬಾಳೆಹಣ್ಣು",
+    hint:"'baale...hannu' — baale is the banana tree.",
+    explain:"Banana = ಬಾಳೆಹಣ್ಣು (baalehannu)." },
+  { id:"k19", cat:"Fruits & Vegetables",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English name.",
+    type:"mcq",
+    prompt:"ಪಪ್ಪಾಯಿ = ?",
+    options:["Mango","Papaya","Guava","Orange"], answer:"Papaya",
+    hint:"Sounds the same in both languages.",
+    explain:"ಪಪ್ಪಾಯಿ = Papaya." },
+  { id:"k20", cat:"Fruits & Vegetables",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English name.",
+    type:"mcq",
+    prompt:"ಕಲ್ಲಂಗಡಿ = ?",
+    options:["Mango","Pumpkin","Watermelon","Pineapple"], answer:"Watermelon",
+    hint:"Big green fruit with red juicy inside.",
+    explain:"ಕಲ್ಲಂಗಡಿ (kallangadi) = Watermelon." },
+  { id:"k21", cat:"Fruits & Vegetables",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English name.",
+    type:"mcq",
+    prompt:"ಗಜ್ಜರಿ = ?",
+    options:["Onion","Potato","Carrot","Tomato"], answer:"Carrot",
+    hint:"Orange vegetable rabbits love.",
+    explain:"ಗಜ್ಜರಿ = Carrot." },
+  { id:"k22", cat:"Fruits & Vegetables",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English name.",
+    type:"mcq",
+    prompt:"ಈರುಳ್ಳಿ = ?",
+    options:["Garlic","Onion","Ginger","Chilli"], answer:"Onion",
+    hint:"This vegetable makes your eyes water.",
+    explain:"ಈರುಳ್ಳಿ = Onion." },
+  { id:"k23", cat:"Fruits & Vegetables",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English name.",
+    type:"mcq",
+    prompt:"ಆಲೂಗಡ್ಡೆ = ?",
+    options:["Onion","Carrot","Potato","Garlic"], answer:"Potato",
+    hint:"Used to make chips and fries.",
+    explain:"ಆಲೂಗಡ್ಡೆ = Potato." },
+  { id:"k24", cat:"Fruits & Vegetables",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English name.",
+    type:"mcq",
+    prompt:"ಟೊಮೆಟೊ = ?",
+    options:["Potato","Tomato","Cabbage","Radish"], answer:"Tomato",
+    hint:"Red round vegetable — sounds the same!",
+    explain:"ಟೊಮೆಟೊ = Tomato." },
+  { id:"k25", cat:"Fruits & Vegetables",
+    instructionKn:"ಸರಿಯಾದ ಕನ್ನಡ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct Kannada name.",
+    type:"mcq",
+    prompt:"Radish = ?",
+    options:["ಗಜ್ಜರಿ","ಮೂಲಂಗಿ","ಈರುಳ್ಳಿ","ಆಲೂಗಡ್ಡೆ"], answer:"ಮೂಲಂಗಿ",
+    hint:"White long vegetable, starts with 'moo...'",
+    explain:"Radish = ಮೂಲಂಗಿ (moolangi)." },
+  { id:"k26", cat:"Fruits & Vegetables",
+    instructionKn:"ಸರಿಯಾದ ಇಂಗ್ಲೀಷ್ ಹೆಸರು ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the correct English name.",
+    type:"mcq",
+    prompt:"ಬೆಳ್ಳುಳ್ಳಿ = ?",
+    options:["Onion","Ginger","Garlic","Chilli"], answer:"Garlic",
+    hint:"White bulb — used in cooking, strong smell.",
+    explain:"ಬೆಳ್ಳುಳ್ಳಿ (belluli) = Garlic." },
+
+  /* ======== KAAGUNITA ======== */
+  { id:"k27", cat:"Kaagunita",
+    instructionKn:"ಕಾಗುಣಿತ ಪೂರ್ಣ ಮಾಡಿ.",
+    instructionEn:"Complete the compound letter.",
+    type:"mcq",
+    prompt:"ಕ್ + ಆ = ?",
+    options:["ಕ","ಕಾ","ಕಿ","ಕು"], answer:"ಕಾ",
+    hint:"Consonant + ಆ = long 'aa' sound.",
+    explain:"ಕ್ + ಆ = ಕಾ (kaa)." },
+  { id:"k28", cat:"Kaagunita",
+    instructionKn:"ಕಾಗುಣಿತ ಪೂರ್ಣ ಮಾಡಿ.",
+    instructionEn:"Complete the compound letter.",
+    type:"mcq",
+    prompt:"ಕ್ + ಇ = ?",
+    options:["ಕಾ","ಕು","ಕಿ","ಕೆ"], answer:"ಕಿ",
+    hint:"ಇ makes the 'i' sound.",
+    explain:"ಕ್ + ಇ = ಕಿ (ki)." },
+  { id:"k29", cat:"Kaagunita",
+    instructionKn:"ಕಾಗುಣಿತ ಪೂರ್ಣ ಮಾಡಿ.",
+    instructionEn:"Complete the compound letter.",
+    type:"mcq",
+    prompt:"ಗ್ + ಆ = ?",
+    options:["ಗ","ಗಾ","ಗಿ","ಗೆ"], answer:"ಗಾ",
+    hint:"'ga' + long 'aa'.",
+    explain:"ಗ್ + ಆ = ಗಾ (gaa)." },
+  { id:"k30", cat:"Kaagunita",
+    instructionKn:"ಕಾಗುಣಿತ ಪೂರ್ಣ ಮಾಡಿ.",
+    instructionEn:"Complete the compound letter.",
+    type:"mcq",
+    prompt:"ಚ್ + ಇ = ?",
+    options:["ಚ","ಚಿ","ಚು","ಚೆ"], answer:"ಚಿ",
+    hint:"'cha' + 'i' = 'chi'.",
+    explain:"ಚ್ + ಇ = ಚಿ (chi)." },
+  { id:"k31", cat:"Kaagunita",
+    instructionKn:"ಕಾಗುಣಿತ ಪೂರ್ಣ ಮಾಡಿ.",
+    instructionEn:"Complete the compound letter.",
+    type:"mcq",
+    prompt:"ಟ್ + ಉ = ?",
+    options:["ಟಿ","ಟು","ಟೆ","ಟಾ"], answer:"ಟು",
+    hint:"'ta' + 'u' sound.",
+    explain:"ಟ್ + ಉ = ಟು (tu)." },
+
+  /* ======== WORD MEANINGS (FA3 + Padya 3 notes) ======== */
+  { id:"k32", cat:"Word Meanings",
+    instructionKn:"ಕನ್ನಡ ಪದದ ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಹಯ (ಕುದುರೆ) = ?",
+    options:["Cow","Horse","Dog","Cat"], answer:"Horse",
+    hint:"ಕುದುರೆ in brackets means horse.",
+    explain:"ಹಯ = ಕುದುರೆ = Horse." },
+  { id:"k33", cat:"Word Meanings",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಧನ = ?",
+    options:["Food","Money","Book","House"], answer:"Money",
+    hint:"What we use to buy things.",
+    explain:"ಧನ (dhana) = Money / Wealth." },
+  { id:"k34", cat:"Word Meanings",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಭಟ = ?",
+    options:["Teacher","Doctor","Soldier / Warrior","Farmer"], answer:"Soldier / Warrior",
+    hint:"Someone who fights in a battle.",
+    explain:"ಭಟ (bhata) = Soldier / Warrior." },
+  { id:"k35", cat:"Word Meanings",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕದ = ?",
+    options:["Window","Door","Wall","Floor"], answer:"Door",
+    hint:"We open this to enter a room.",
+    explain:"ಕದ = Door." },
+  { id:"k36", cat:"Word Meanings",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಚಕ್ರ (= ಗಾಲಿ) = ?",
+    options:["Wheel","Chair","Table","Door"], answer:"Wheel",
+    hint:"Round, found on cars and bikes.",
+    explain:"ಚಕ್ರ = ಗಾಲಿ = Wheel." },
+  { id:"k37", cat:"Word Meanings",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಮಗ = ?",
+    options:["Daughter","Son","Mother","Father"], answer:"Son",
+    hint:"A boy child.",
+    explain:"ಮಗ = Son." },
+  { id:"k38", cat:"Word Meanings",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ವಚನ = ?",
+    options:["Song","Dance","Promise / Word","Book"], answer:"Promise / Word",
+    hint:"When we give our word to someone.",
+    explain:"ವಚನ = Promise / Word." },
+  { id:"k39", cat:"Word Meanings",
+    instructionKn:"ಪದ್ಯ ೩ ಪದಗಳ ಅರ್ಥ.",
+    instructionEn:"Poem 3 word meanings.",
+    type:"mcq",
+    prompt:"ವ್ಯಾಪಾರಿ = ?",
+    options:["Teacher","Farmer","Businessman","Doctor"], answer:"Businessman",
+    hint:"Someone who buys and sells goods.",
+    explain:"ವ್ಯಾಪಾರಿ (vyapari) = Businessman." },
+  { id:"k40", cat:"Word Meanings",
+    instructionKn:"ಪದ್ಯ ೩ ಪದಗಳ ಅರ್ಥ.",
+    instructionEn:"Poem 3 word meanings.",
+    type:"mcq",
+    prompt:"ಬಲು (= ಬಹಳ) = ?",
+    options:["Little","Very","Fast","Slow"], answer:"Very",
+    hint:"ಬಹಳ in Kannada = very much.",
+    explain:"ಬಲು = ಬಹಳ = Very." },
+  { id:"k41", cat:"Word Meanings",
+    instructionKn:"ಪದ್ಯ ೩ ಪದಗಳ ಅರ್ಥ.",
+    instructionEn:"Poem 3 word meanings.",
+    type:"mcq",
+    prompt:"ಅಧ್ಯಾಪಕರು (= ಶಿಕ್ಷಕರು) = ?",
+    options:["Doctor","Teacher","Shopkeeper","Policeman"], answer:"Teacher",
+    hint:"The person who teaches in school.",
+    explain:"ಅಧ್ಯಾಪಕರು = ಶಿಕ್ಷಕರು = Teacher." },
+
+  /* ======== BABY LETTERS (OTTAKSHARA) — lesson 1 and 2 ======== */
+  { id:"k42", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಒತ್ತಕ್ಷರ ಗುರುತಿಸಿ.",
+    instructionEn:"Identify the baby letter.",
+    type:"mcq",
+    prompt:"ಅಕ್ಕ (akka = elder sister) — ಒತ್ತಕ್ಷರ?",
+    options:["ಕ್ಕ","ಮ್ಮ","ಪ್ಪ","ನ್ನ"], answer:"ಕ್ಕ",
+    hint:"Say 'akka' — you hear 'k' twice.",
+    explain:"ಅಕ್ಕ has the baby letter ಕ್ಕ." },
+  { id:"k43", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಒತ್ತಕ್ಷರ ಗುರುತಿಸಿ.",
+    instructionEn:"Identify the baby letter.",
+    type:"mcq",
+    prompt:"ಅಜ್ಜ (ajja = grandfather) — ಒತ್ತಕ್ಷರ?",
+    options:["ಕ್ಕ","ಜ್ಜ","ಮ್ಮ","ಟ್ಟ"], answer:"ಜ್ಜ",
+    hint:"Say 'ajja' — double 'j'.",
+    explain:"ಅಜ್ಜ has the baby letter ಜ್ಜ." },
+  { id:"k44", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಒತ್ತಕ್ಷರ ಗುರುತಿಸಿ.",
+    instructionEn:"Identify the baby letter.",
+    type:"mcq",
+    prompt:"ಬೆಟ್ಟ (betta = hill) — ಒತ್ತಕ್ಷರ?",
+    options:["ಟ್ಟ","ಪ್ಪ","ಬ್ಬ","ಕ್ಕ"], answer:"ಟ್ಟ",
+    hint:"Double 't' sound.",
+    explain:"ಬೆಟ್ಟ has the baby letter ಟ್ಟ." },
+  { id:"k45", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕಣ್ಣು = ?",
+    options:["Nose","Mouth","Ear","Eye"], answer:"Eye",
+    hint:"We use these to see.",
+    explain:"ಕಣ್ಣು (kannu) = Eye." },
+  { id:"k46", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕಬ್ಬು = ?",
+    options:["Sugar","Sugarcane","Honey","Jaggery"], answer:"Sugarcane",
+    hint:"Long green plant used to make sugar.",
+    explain:"ಕಬ್ಬು = Sugarcane." },
+  { id:"k47", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಅಮ್ಮ = ?",
+    options:["Father","Mother","Sister","Brother"], answer:"Mother",
+    hint:"The person who takes care of us at home.",
+    explain:"ಅಮ್ಮ = Mother." },
+  { id:"k48", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಬಸ್ಸು = ?",
+    options:["Car","Bike","Bus","Train"], answer:"Bus",
+    hint:"A big vehicle for many children.",
+    explain:"ಬಸ್ಸು = Bus." },
+  { id:"k49", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಬೆಕ್ಕು = ?",
+    options:["Dog","Cat","Rat","Rabbit"], answer:"Cat",
+    hint:"The animal that says 'meow'.",
+    explain:"ಬೆಕ್ಕು = Cat." },
+  { id:"k50", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕತ್ತೆ = ?",
+    options:["Horse","Donkey","Cow","Goat"], answer:"Donkey",
+    hint:"The animal that carries loads with long ears.",
+    explain:"ಕತ್ತೆ (katte) = Donkey." },
+  { id:"k51", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಮೊಟ್ಟೆ = ?",
+    options:["Milk","Egg","Butter","Cheese"], answer:"Egg",
+    hint:"Chickens lay this.",
+    explain:"ಮೊಟ್ಟೆ (motte) = Egg." },
+  { id:"k52", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಪೆಟ್ಟಿಗೆ = ?",
+    options:["Chair","Table","Box","Bed"], answer:"Box",
+    hint:"A square container to keep things in.",
+    explain:"ಪೆಟ್ಟಿಗೆ (pettige) = Box." },
+  { id:"k53", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕಪ್ಪೆ = ?",
+    options:["Fish","Frog","Crab","Snake"], answer:"Frog",
+    hint:"Green animal that hops and lives near water.",
+    explain:"ಕಪ್ಪೆ (kappe) = Frog." },
+  { id:"k54", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಹದ್ದು = ?",
+    options:["Parrot","Eagle","Owl","Peacock"], answer:"Eagle",
+    hint:"Big bird that hunts from the sky.",
+    explain:"ಹದ್ದು (haddu) = Eagle." },
+  { id:"k55", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕಾಮನಬಿಲ್ಲು = ?",
+    options:["Clouds","Rainbow","Thunder","Lightning"], answer:"Rainbow",
+    hint:"Seven colours in the sky after rain.",
+    explain:"ಕಾಮನಬಿಲ್ಲು = Rainbow." },
+  { id:"k56", cat:"Baby Letters (Ottakshara)",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಹಪ್ಪಳ = ?",
+    options:["Pickle","Papad","Chutney","Rice"], answer:"Papad",
+    hint:"The crispy round snack eaten with meals.",
+    explain:"ಹಪ್ಪಳ (happala) = Papad." },
+
+  /* ======== SHALITA PAATA WORD MEANINGS ======== */
+  { id:"k57", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಅನ್ನ = ?",
+    options:["Dal","Rice","Roti","Curry"], answer:"Rice",
+    hint:"The white food eaten with sambar or dal.",
+    explain:"ಅನ್ನ (anna) = Rice." },
+  { id:"k58", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಎಮ್ಮೆ = ?",
+    options:["Cow","Buffalo","Goat","Horse"], answer:"Buffalo",
+    hint:"The big black farm animal that gives milk.",
+    explain:"ಎಮ್ಮೆ (emme) = Buffalo." },
+  { id:"k59", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಬೆಲ್ಲ = ?",
+    options:["Salt","Sugar","Jaggery","Honey"], answer:"Jaggery",
+    hint:"Brown sweet made from sugarcane.",
+    explain:"ಬೆಲ್ಲ (bella) = Jaggery." },
+  { id:"k60", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಉಯ್ಯಾಲೆ = ?",
+    options:["Chair","Swing","Bed","Slide"], answer:"Swing",
+    hint:"Children sit and go back and forth on this.",
+    explain:"ಉಯ್ಯಾಲೆ (uyyale) = Swing." },
+  { id:"k61", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಹಲ್ಲು = ?",
+    options:["Lip","Tongue","Tooth","Chin"], answer:"Tooth",
+    hint:"White things in our mouth we use to chew.",
+    explain:"ಹಲ್ಲು (hallu) = Tooth." },
+  { id:"k62", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಹುತ್ತ = ?",
+    options:["Nest","Anthill","Beehive","Cave"], answer:"Anthill",
+    hint:"A mound of soil where ants live.",
+    explain:"ಹುತ್ತ (hutta) = Anthill." },
+  { id:"k63", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕನ್ನಡಿ = ?",
+    options:["Window","Mirror","Picture","Painting"], answer:"Mirror",
+    hint:"We look at ourselves in this.",
+    explain:"ಕನ್ನಡಿ (kannadi) = Mirror." },
+  { id:"k64", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕತ್ತರಿ = ?",
+    options:["Knife","Scissors","Spoon","Fork"], answer:"Scissors",
+    hint:"Two blades we use to cut paper.",
+    explain:"ಕತ್ತರಿ (kattari) = Scissors." },
+  { id:"k65", cat:"Shalita Paata",
+    instructionKn:"ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕಪ್ಪು = ?",
+    options:["Red","Green","Black Colour","White"], answer:"Black Colour",
+    hint:"The darkest colour.",
+    explain:"ಕಪ್ಪು (kappu) = Black colour." },
+
+  /* ======== CHITTE POEM ======== */
+  { id:"k66", cat:"Chitte Poem",
+    instructionKn:"ಚಿಟ್ಟೆ ಪದ್ಯದ ಬಗ್ಗೆ ಉತ್ತರಿಸಿ.",
+    instructionEn:"Answer about the Chitte (Butterfly) poem.",
+    type:"mcq",
+    prompt:"'ಚಿಟ್ಟೆ' = ?",
+    options:["Bird","Butterfly","Bee","Ant"], answer:"Butterfly",
+    hint:"The colourful flying insect with wings.",
+    explain:"ಚಿಟ್ಟೆ = Butterfly." },
+  { id:"k67", cat:"Chitte Poem",
+    instructionKn:"ಚಿಟ್ಟೆ ಪದ್ಯದ ಬಗ್ಗೆ ಉತ್ತರಿಸಿ.",
+    instructionEn:"Answer about the Chitte poem.",
+    type:"mcq",
+    prompt:"ಚಿಟ್ಟೆ ಪದ್ಯ ಬರೆದವರು ಯಾರು?",
+    options:["ಕುವೆಂಪು","ಡಾ. ಪಿ. ನಾರಾಯಣ ಭಟ್","ಬಸವಣ್ಣ","ದ.ರಾ.ಬೇಂದ್ರೆ"],
+    answer:"ಡಾ. ಪಿ. ನಾರಾಯಣ ಭಟ್",
+    hint:"The poet's name is at the bottom of the poem page.",
+    explain:"Dr. P. Narayana Bhat wrote Chitte. He is from Peraji village in Kodagu district." },
+  { id:"k68", cat:"Chitte Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"'ತಟ್ಟನೆ' = ?",
+    options:["Slowly","Suddenly (ಕೂಡಲೆ)","Happily","Loudly"],
+    answer:"Suddenly (ಕೂಡಲೆ)",
+    hint:"When something happens very fast.",
+    explain:"ತಟ್ಟನೆ = ಕೂಡಲೆ = Suddenly." },
+  { id:"k69", cat:"Chitte Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"'ಗುಟ್ಟು' = ?",
+    options:["Noise","Secret (ರಹಸ್ಯ)","Song","Game"],
+    answer:"Secret (ರಹಸ್ಯ)",
+    hint:"Something private told only to a best friend.",
+    explain:"ಗುಟ್ಟು = ರಹಸ್ಯ = Secret." },
+  { id:"k70", cat:"Chitte Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"'ಪೋರಿ' = ?",
+    options:["Little naughty girl (ತುಂಟಿ)","Old lady","Flower","Bird"],
+    answer:"Little naughty girl (ತುಂಟಿ)",
+    hint:"A sweet word for a small playful girl.",
+    explain:"ಪೋರಿ = ತುಂಟಿ = Naughty little girl." },
+  { id:"k71", cat:"Chitte Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"'ಸುಮ್ಮನೆ' = ?",
+    options:["Just / For no reason","Angrily","Quickly","Always"],
+    answer:"Just / For no reason",
+    hint:"Doing something without a special reason.",
+    explain:"ಸುಮ್ಮನೆ = Just / For no reason." },
+  { id:"k72", cat:"Chitte Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"'ತೋರುವೆ' = ?",
+    options:["Hide","Show","Give","Take"],
+    answer:"Show",
+    hint:"When we let someone see something.",
+    explain:"ತೋರುವೆ = Show." },
+  { id:"k73", cat:"Chitte Poem",
+    instructionKn:"ಪ್ರಾಸ ಪದ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the rhyming word.",
+    type:"mcq",
+    prompt:"ಚಿಟ್ಟೆ - ? (which word rhymes?)",
+    options:["ಹಾರಿ","ಬಟ್ಟೆ","ಜೇನು","ಗುಟ್ಟು"],
+    answer:"ಬಟ್ಟೆ",
+    hint:"Both words end in 'ಟ್ಟೆ'.",
+    explain:"ಚಿಟ್ಟೆ rhymes with ಬಟ್ಟೆ." },
+  { id:"k74", cat:"Chitte Poem",
+    instructionKn:"ಪ್ರಾಸ ಪದ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the rhyming word.",
+    type:"mcq",
+    prompt:"ಹಾರಿ - ? (rhymes with?)",
+    options:["ಸಿಟ್ಟು","ಪೋರಿ","ನಾನು","ಬಟ್ಟೆ"],
+    answer:"ಪೋರಿ",
+    hint:"Both end in 'ರಿ'.",
+    explain:"ಹಾರಿ rhymes with ಪೋರಿ." },
+  { id:"k75", cat:"Chitte Poem",
+    instructionKn:"ಪ್ರಾಸ ಪದ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the rhyming word.",
+    type:"mcq",
+    prompt:"ನಾನು - ?",
+    options:["ಜೇನು","ಚಿಟ್ಟೆ","ಹಾರಿ","ಗುಟ್ಟು"],
+    answer:"ಜೇನು",
+    hint:"Both end in 'ನು'.",
+    explain:"ನಾನು rhymes with ಜೇನು." },
+  { id:"k76", cat:"Chitte Poem",
+    instructionKn:"ಪದ್ಯದ ಬಗ್ಗೆ ಉತ್ತರಿಸಿ.",
+    instructionEn:"Answer about the poem.",
+    type:"mcq",
+    prompt:"ಚಿಟ್ಟೆ ಎಲ್ಲಿ ಕುಳಿತುಕೊಳ್ಳುತ್ತದೆ?",
+    options:["On a tree","Near a flower (ಹೂವಿನ ಹತ್ತಿರ)","In the river","On a stone"],
+    answer:"Near a flower (ಹೂವಿನ ಹತ್ತಿರ)",
+    hint:"Butterflies love colourful flowers.",
+    explain:"The butterfly sits near a flower in the poem." },
+  { id:"k77", cat:"Chitte Poem",
+    instructionKn:"ಪದ್ಯದ ಬಗ್ಗೆ ಉತ್ತರಿಸಿ.",
+    instructionEn:"Answer about the poem.",
+    type:"mcq",
+    prompt:"ಕವಿ ಚಿಟ್ಟೆಗೆ ಏನು ಕೊಡುತ್ತೇನೆಂದು ಹೇಳುತ್ತಾರೆ?",
+    options:["Water and milk","Hot dosa and sweet honey (ಬಿಸಿ ದೋಸೆ, ಸಿಹಿ ಜೇನು)","Flowers and leaves","Chocolate and sweets"],
+    answer:"Hot dosa and sweet honey (ಬಿಸಿ ದೋಸೆ, ಸಿಹಿ ಜೇನು)",
+    hint:"Two tasty foods — one hot, one sweet.",
+    explain:"The poet promises hot dosa and sweet honey to the butterfly." },
+
+  /* ======== ALILU ERADU POEM ======== */
+  { id:"k78", cat:"Alilu Eradu Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"ಕೆದರು (= ಹರಡು) = ?",
+    options:["Collect","Spread Out","Hide","Keep"],
+    answer:"Spread Out",
+    hint:"To scatter things over an area.",
+    explain:"ಕೆದರು = ಹರಡು = Spread Out." },
+  { id:"k79", cat:"Alilu Eradu Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"ಆವೇಶ (= ಕೋಪ) = ?",
+    options:["Happy","Sad","Angry","Shy"],
+    answer:"Angry",
+    hint:"When someone is very upset and shouting.",
+    explain:"ಆವೇಶ = ಕೋಪ = Angry." },
+  { id:"k80", cat:"Alilu Eradu Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"ಕುಂದು (= ಕಡ್ಮೆ) = ?",
+    options:["Increase","Decrease","Stop","Jump"],
+    answer:"Decrease",
+    hint:"When something becomes less.",
+    explain:"ಕುಂದು = ಕಡಿಮೆ = Decrease." },
+  { id:"k81", cat:"Alilu Eradu Poem",
+    instructionKn:"ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the meaning.",
+    type:"mcq",
+    prompt:"ಬಲ (= ಶಕ್ತಿ) = ?",
+    options:["Weakness","Strength","Beauty","Height"],
+    answer:"Strength",
+    hint:"Being powerful or strong.",
+    explain:"ಬಲ = ಶಕ್ತಿ = Strength." },
+
+  /* ======== DICTATION WORDS ======== */
+  { id:"k82", cat:"Dictation Words",
+    instructionKn:"ಪದದ ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕಾಗದ = ?",
+    options:["Pen","Paper","Book","Pencil"], answer:"Paper",
+    hint:"We write and draw on it.",
+    explain:"ಕಾಗದ = Paper." },
+  { id:"k83", cat:"Dictation Words",
+    instructionKn:"ಪದದ ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕಿವಿ = ?",
+    options:["Nose","Mouth","Ear","Eye"], answer:"Ear",
+    hint:"We use it to listen.",
+    explain:"ಕಿವಿ = Ear." },
+  { id:"k84", cat:"Dictation Words",
+    instructionKn:"ಪದದ ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕುರಿ = ?",
+    options:["Sheep","Goat","Cow","Pig"], answer:"Sheep",
+    hint:"Woolly white animal.",
+    explain:"ಕುರಿ = Sheep." },
+  { id:"k85", cat:"Dictation Words",
+    instructionKn:"ಪದದ ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಕೋಳಿ = ?",
+    options:["Duck","Hen / Chicken","Peacock","Parrot"], answer:"Hen / Chicken",
+    hint:"The farm bird that gives us eggs.",
+    explain:"ಕೋಳಿ = Hen." },
+  { id:"k86", cat:"Dictation Words",
+    instructionKn:"ಪದದ ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಊರು = ?",
+    options:["City / Village / Hometown","House","School","Park"],
+    answer:"City / Village / Hometown",
+    hint:"The place where we live.",
+    explain:"ಊರು = Village / Hometown." },
+  { id:"k87", cat:"Dictation Words",
+    instructionKn:"ಪದದ ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಗೃಹ = ?",
+    options:["Garden","School","House / Home","Shop"], answer:"House / Home",
+    hint:"The building where our family lives.",
+    explain:"ಗೃಹ = House / Home." },
+  { id:"k88", cat:"Dictation Words",
+    instructionKn:"ಪದದ ಇಂಗ್ಲೀಷ್ ಅರ್ಥ ಆಯ್ಕೆಮಾಡಿ.",
+    instructionEn:"Choose the English meaning.",
+    type:"mcq",
+    prompt:"ಬೀಗ = ?",
+    options:["Key","Lock","Door","Window"], answer:"Lock",
+    hint:"We use this to keep doors closed safely.",
+    explain:"ಬೀಗ = Lock." }
+];
+
+const CATEGORY_ORDER = [
+  "Vowels & Consonants",
+  "Kannada Numbers",
+  "Fruits & Vegetables",
+  "Kaagunita",
+  "Word Meanings",
+  "Baby Letters (Ottakshara)",
+  "Shalita Paata",
+  "Chitte Poem",
+  "Alilu Eradu Poem",
+  "Dictation Words"
+];
+
+/* =========================================================================
+   REJOIN CODE + AUTOSAVE
+   Progress is saved in the browser's localStorage. If the quiz is
+   interrupted (page closed, internet drops), the student can continue
+   using their 6-letter code — on the same device + browser.
+   ========================================================================= */
+const STORAGE_KEY = "kannadaSA1QuizSession";
+function makeCode(){
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let code = ""; for(let i=0;i<6;i++){ code += chars[Math.floor(Math.random()*chars.length)]; }
+  return code;
+}
+function saveSession(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+function loadSession(){ try{ const r = localStorage.getItem(STORAGE_KEY); return r?JSON.parse(r):null; }catch(e){ return null; } }
+function clearSession(){ try{ localStorage.removeItem(STORAGE_KEY); }catch(e){} }
+
+let state = { code:null, index:0, answers:{}, hintsShown:{}, submitted:false };
+const app = document.getElementById("app");
+
+function norm(s){ return (s||"").toString().trim().toLowerCase(); }
+function escapeHtml(s){
+  if(s===undefined || s===null) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+/* Accept Kannada digits OR English digits for number fill-ins */
+const KN_TO_EN = {"೦":"0","೧":"1","೨":"2","೩":"3","೪":"4","೫":"5","೬":"6","೭":"7","೮":"8","೯":"9"};
+function normDigits(s){ s=norm(s); let out=""; for(const ch of s){ out+=KN_TO_EN[ch]||ch; } return out; }
+
+function checkAnswer(q, ans){
+  switch(q.type){
+    case "mcq": return { score:(ans===q.answer)?1:0, max:1 };
+    case "tf":  return { score:((ans===true||ans==="true")===q.answer)?1:0, max:1 };
+    case "fill": {
+      const u = (ans||[]).map(normDigits);
+      const c = q.answer.map(normDigits);
+      let sc=0;
+      if(q.ordered){ c.forEach((x,i)=>{ if(u[i]===x) sc++; }); }
+      else { const rem=[...c]; u.forEach(x=>{ const i=rem.indexOf(x); if(i>-1){ sc++; rem.splice(i,1); } }); }
+      return { score:sc, max:c.length };
+    }
+  }
+  return null;
+}
+
+function collectCurrentAnswer(q){
+  if(q.type==="mcq" || q.type==="tf"){
+    const el = document.querySelector('input[name="r-'+q.id+'"]:checked');
+    return el ? el.value : null;
+  }
+  if(q.type==="fill"){
+    return q.answer.map((_,i)=>{ const el=document.getElementById("f-"+q.id+"-"+i); return el?el.value:""; });
+  }
+  return null;
+}
+
+function renderIntro(){
+  const saved = loadSession();
+  let banner = "";
+  if(saved && saved.code){
+    if(saved.submitted){
+      banner = `<div class="session-box">
+        <strong>Welcome back! 🎉 / ಮತ್ತೊಮ್ಮೆ ಸ್ವಾಗತ!</strong><br>
+        You already finished this quiz (code <span class="code-chip">${saved.code}</span>).
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="reopenResults()">👀 See My Results Again</button>
+          <button class="btn btn-ghost" onclick="startFresh()">🔄 Take It Again</button>
+        </div>
+      </div>`;
+    } else {
+      banner = `<div class="session-box">
+        <strong>We found a saved quiz! / ಉಳಿಸಿದ ಪ್ರಶ್ನೋತ್ತರ ಸಿಕ್ಕಿದೆ!</strong><br>
+        Your code is <span class="code-chip">${saved.code}</span> — Question ${saved.index+1} of ${QUESTIONS.length}.
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="resumeSession()">▶ Resume Quiz</button>
+          <button class="btn btn-ghost" onclick="startFresh()">🔄 Start Fresh</button>
+        </div>
+      </div>`;
+    }
+  }
+  app.innerHTML = `
+    <a href="index.html" class="back-link">⬅ Back to all quizzes</a>
+    <div class="top">
+      <div class="mascot">🪷🦋</div>
+      <h1>Kannada SA1 Practice Quiz</h1>
+      <p><span class="kn">ಕನ್ನಡ ಅಭ್ಯಾಸ</span> • Class 3 • Bilingual (Kannada + English)</p>
+    </div>
+    ${banner}
+    <div class="card">
+      <h2>Before you start / ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು</h2>
+      <p>There are <strong>${QUESTIONS.length} questions</strong> covering vowels, consonants, numbers, kaagunita, baby letters (ottakshara), word meanings, Shalita Paata, Chitte poem, Alilu Eradu poem, and dictation words.</p>
+      <p>Every question is in <strong>Kannada and English</strong> with a <strong>💡 hint</strong> for beginners.</p>
+      <p>When you click Start, you'll get a <strong>6-letter Session Code</strong>. Write it down! If the quiz gets interrupted (page closes, internet drops), come back to this page and the code will let you pick up right where you left off (same device/browser).</p>
+      <button class="btn btn-primary btn-full" onclick="startFresh()">🚀 Start the Quiz / ಪ್ರಾರಂಭಿಸಿ</button>
+    </div>
+    <div class="card">
+      <h3>Have a rejoin code? / ಕೋಡ್ ಇದೆಯೇ?</h3>
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="rejoin-input" placeholder="e.g. AB3X9K" maxlength="6" style="text-transform:uppercase;">
+        <button class="btn btn-ghost" onclick="tryRejoin()">Go</button>
+      </div>
+      <p id="rejoin-msg" style="margin-top:8px;"></p>
+    </div>
+  `;
+}
+
+function tryRejoin(){
+  const typed = document.getElementById("rejoin-input").value.trim().toUpperCase();
+  const saved = loadSession();
+  const msg = document.getElementById("rejoin-msg");
+  if(saved && saved.code === typed){
+    if(saved.submitted){ reopenResults(); } else { resumeSession(); }
+  } else {
+    msg.textContent = "We couldn't find that code on this device. Codes only work on the same device/browser you started on.";
+    msg.style.color = "var(--bad)";
+  }
+}
+
+function startFresh(){
+  state = { code:makeCode(), index:0, answers:{}, hintsShown:{}, submitted:false };
+  saveSession(); renderQuiz();
+}
+function resumeSession(){ const s=loadSession(); if(s){ state=s; if(!state.hintsShown) state.hintsShown={}; } renderQuiz(); }
+function reopenResults(){ const s=loadSession(); if(s){ state=s; } renderResults(); }
+
+function renderQuiz(){
+  const q = QUESTIONS[state.index];
+  const pct = Math.round((state.index)/QUESTIONS.length*100);
+  let body = "";
+  if(q.type==="mcq" || q.type==="tf"){
+    const opts = q.type==="tf" ? ["True / ಸರಿ","False / ತಪ್ಪು"] : q.options;
+    const sv = state.answers[q.id];
+    body = opts.map(opt=>{
+      const val = q.type==="tf" ? (opt.startsWith("True")?"true":"false") : opt;
+      const checked = sv===val ? "checked" : "";
+      return `<label class="option-btn ${sv===val?'selected':''}">
+                <input type="radio" name="r-${q.id}" value="${escapeHtml(val)}" ${checked} style="margin-right:8px;" onchange="onAnswerChange('${q.id}')">
+                ${escapeHtml(opt)}
+              </label>`;
+    }).join("");
+  } else if(q.type==="fill"){
+    const sv = state.answers[q.id] || [];
+    body = q.answer.map((_,i)=>{
+      const label = q.labels ? q.labels[i] : ("Answer "+(i+1));
+      const v = sv[i] || "";
+      return `<div class="fill-row"><label>${escapeHtml(label)}</label><input type="text" id="f-${q.id}-${i}" value="${escapeHtml(v)}" placeholder="Type here" oninput="onFillChange('${q.id}')"></div>`;
+    }).join("");
+  }
+  const isLast = state.index === QUESTIONS.length - 1;
+  const hs = state.hintsShown && state.hintsShown[q.id];
+  app.innerHTML = `
+    <div class="top" style="text-align:left; display:flex; justify-content:space-between; align-items:center;">
+      <span class="progress-label">Question ${state.index+1} of ${QUESTIONS.length}</span>
+      <span class="progress-label">Code: <strong>${state.code}</strong></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="card">
+      <span class="badge">${escapeHtml(q.cat)}</span>
+      <div class="instr">
+        <div class="instr-kn">ಕನ್ನಡ: ${escapeHtml(q.instructionKn)}</div>
+        <div class="instr-en">English: ${escapeHtml(q.instructionEn)}</div>
+      </div>
+      <h2>${escapeHtml(q.prompt)}</h2>
+      ${body}
+      <button class="hint-btn" onclick="toggleHint('${q.id}')">💡 ${hs?'Hide':'Show'} Hint</button>
+      <div class="hint-box" style="display:${hs?'block':'none'};">💡 ${escapeHtml(q.hint)}</div>
+    </div>
+    <div class="btn-row">
+      ${state.index>0 ? `<button class="btn btn-ghost" onclick="goTo(${state.index-1})">← Back</button>` : ""}
+      <button class="btn btn-primary" onclick="goNext()">${isLast ? "🏁 See My Results" : "Next →"}</button>
+    </div>
+    <p class="foot-note">Your progress is saved automatically on this device. / ನಿಮ್ಮ ಉತ್ತರಗಳು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಉಳಿಸಲ್ಪಡುತ್ತವೆ.</p>
+  `;
+}
+
+function onAnswerChange(qid){
+  const q = QUESTIONS.find(x=>x.id===qid);
+  state.answers[qid] = collectCurrentAnswer(q);
+  saveSession(); renderQuiz();
+}
+function onFillChange(qid){
+  const q = QUESTIONS.find(x=>x.id===qid);
+  state.answers[qid] = collectCurrentAnswer(q);
+  saveSession();
+}
+function toggleHint(qid){
+  if(!state.hintsShown) state.hintsShown = {};
+  state.hintsShown[qid] = !state.hintsShown[qid];
+  const q = QUESTIONS.find(x=>x.id===qid);
+  const cur = collectCurrentAnswer(q);
+  if(cur !== null) state.answers[qid] = cur;
+  saveSession(); renderQuiz();
+}
+function goTo(i){
+  const q = QUESTIONS[state.index];
+  state.answers[q.id] = collectCurrentAnswer(q);
+  state.index = i; saveSession(); renderQuiz();
+}
+function goNext(){
+  const q = QUESTIONS[state.index];
+  state.answers[q.id] = collectCurrentAnswer(q);
+  if(state.index < QUESTIONS.length-1){ state.index++; saveSession(); renderQuiz(); }
+  else { submitQuiz(); }
+}
+function submitQuiz(){ state.submitted=true; saveSession(); renderResults(); }
+
+function renderResults(){
+  const catTotals = {};
+  CATEGORY_ORDER.forEach(c=>catTotals[c]={score:0,max:0});
+  let total=0, max=0;
+  QUESTIONS.forEach(q=>{
+    const r = checkAnswer(q, state.answers[q.id]);
+    if(r){ catTotals[q.cat].score+=r.score; catTotals[q.cat].max+=r.max; total+=r.score; max+=r.max; }
+  });
+  const pct = max ? Math.round((total/max)*100) : 0;
+  const msg = pct>=90 ? "🌟 ಅದ್ಭುತ! Superstar! You really know your Kannada!" :
+              pct>=70 ? "🎉 ಬಹಳ ಒಳ್ಳೆಯದು! Great job!" :
+              pct>=50 ? "👍 ಒಳ್ಳೆಯ ಪ್ರಯತ್ನ! Good effort! A little more practice." :
+                        "💪 ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ! Keep practising — you'll get there.";
+  const catBars = CATEGORY_ORDER.map(c=>{
+    const t = catTotals[c]; if(t.max===0) return "";
+    const p = Math.round((t.score/t.max)*100);
+    const note = p>=80 ? "Great work here!" : p>=50 ? "Good — a little more practice will help." : "Let's review this together.";
+    return `<div class="cat-bar-row">
+              <div class="label"><span>${escapeHtml(c)}</span><span>${t.score}/${t.max}</span></div>
+              <div class="cat-track"><div class="cat-fill" style="width:${p}%"></div></div>
+              <div class="explain">${note}</div>
+            </div>`;
+  }).join("");
+  const answerKey = CATEGORY_ORDER.map(cat=>{
+    const qs = QUESTIONS.filter(q=>q.cat===cat); if(qs.length===0) return "";
+    const items = qs.map(q=>{
+      const r = checkAnswer(q, state.answers[q.id]);
+      const ua = formatAnswer(q, state.answers[q.id]);
+      const ca = formatCorrect(q);
+      let tag = `<span class="tag note">💭 Not answered</span>`;
+      if(r){
+        if(r.score===r.max) tag = `<span class="tag good">✅ Correct</span>`;
+        else if(r.score===0) tag = `<span class="tag bad">❌ Try again</span>`;
+        else tag = `<span class="tag note">➗ ${r.score}/${r.max} correct</span>`;
+      }
+      return `<div class="qa">
+                <div class="prompt">${escapeHtml(q.prompt)}</div>
+                ${tag}
+                <div class="explain"><strong>Your answer:</strong> ${ua || "<em>(no answer)</em>"}</div>
+                <div class="explain"><strong>Correct answer:</strong> ${escapeHtml(ca)}</div>
+                <div class="explain">${escapeHtml(q.explain||"")}</div>
+              </div>`;
+    }).join("");
+    return `<details><summary>${escapeHtml(cat)}</summary>${items}</details>`;
+  }).join("");
+  app.innerHTML = `
+    <a href="index.html" class="back-link">⬅ Back to all quizzes</a>
+    <div class="top"><div class="mascot">🏆</div><h1>Your Results / ನಿಮ್ಮ ಫಲಿತಾಂಶ</h1></div>
+    <div class="card">
+      <div class="score-big">${total} / ${max}</div>
+      <div class="score-msg">${pct}% — ${msg}</div>
+    </div>
+    <div class="card">
+      <h2>Score by Topic / ವಿಷಯವಾರು ಅಂಕಗಳು</h2>
+      ${catBars}
+    </div>
+    <div class="card">
+      <h2>📖 Full Answer Key &amp; Explanations</h2>
+      <p>Tap any topic below to see every question, your answer, and the correct answer.</p>
+      ${answerKey}
+    </div>
+    <div class="card">
+      <h2>🎨 Try These At Home! (just for fun)</h2>
+      <ul class="simple">
+        <li>Write Kannada numbers ೧ to ೨೦ on paper with coloured pens.</li>
+        <li>Say the ಚಿಟ್ಟೆ poem out loud — ask amma or ajji to listen!</li>
+        <li>Make flashcards for the fruit &amp; vegetable Kannada names.</li>
+        <li>Write 5 words that have an ಒತ್ತಕ್ಷರ (baby letter) in your notebook.</li>
+      </ul>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary btn-full" onclick="startFresh()">🔄 Take the Quiz Again / ಮತ್ತೊಮ್ಮೆ</button>
+    </div>
+  `;
+}
+function formatAnswer(q, a){
+  if(a===undefined||a===null||a==="") return "";
+  if(q.type==="tf") return a==="true"||a===true ? "True" : "False";
+  if(q.type==="fill") return escapeHtml((a||[]).join(", "));
+  return escapeHtml(a);
+}
+function formatCorrect(q){
+  if(q.type==="tf") return q.answer ? "True" : "False";
+  if(q.type==="fill") return q.answer.join(", ");
+  return q.answer;
+}
+
+renderIntro();
+</script>
+</body>
+</html>
