@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Class 3 Practice — Home</title>
+<title>Class 3 Practice Hub</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
@@ -30,11 +30,20 @@
   }
   .brand h1 { font-size: 18px; color: #4a2d6b; font-weight: 700; margin-bottom: 2px; }
   .brand p { font-size: 12px; color: #666; }
-  .nav-links { display: flex; gap: 16px; font-size: 14px; font-weight: 600; }
-  .nav-links a { text-decoration: none; color: #764ba2; transition: opacity 0.1s; }
-  .nav-links a:hover { opacity: 0.8; }
+  .nav-btn {
+    background: #f0f2f5;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    display: none;
+  }
+  .nav-btn.visible { display: inline-block; }
 
-  /* Section Title */
+  /* Titles */
   .section-title {
     text-align: center;
     font-size: 20px;
@@ -43,20 +52,18 @@
     margin-bottom: 16px;
   }
 
-  /* Grid Layout for Subjects */
+  /* Subjects Grid */
   .subjects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
     margin-bottom: 30px;
   }
-
   .subject-card {
     background: #fff;
     border-radius: 16px;
     padding: 20px;
-    text-decoration: none;
-    color: #333;
+    cursor: pointer;
     box-shadow: 0 4px 14px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
@@ -65,101 +72,54 @@
     border-top: 5px solid #764ba2;
     min-height: 150px;
   }
-  .subject-card:active, .subject-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  }
+  .subject-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+  
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+  .card-icon { font-size: 28px; background: #f3eff9; padding: 10px; border-radius: 12px; }
+  .quiz-count { font-size: 12px; font-weight: 600; color: #777; background: #f7f7f7; padding: 4px 8px; border-radius: 8px; }
+  .card-body h3 { font-size: 17px; color: #2c2c2c; margin-bottom: 4px; font-weight: 700; }
+  .explore-link { font-size: 13px; font-weight: 600; color: #764ba2; display: flex; align-items: center; gap: 4px; margin-top: 8px; }
 
-  .card-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-  .card-icon {
-    font-size: 28px;
-    background: #f3eff9;
-    padding: 10px;
-    border-radius: 12px;
-  }
-  .quiz-count {
-    font-size: 12px;
-    font-weight: 600;
-    color: #777;
-    background: #f7f7f7;
-    padding: 4px 8px;
-    border-radius: 8px;
-  }
+  /* Subject Accent Colors */
+  .card-computer { border-top-color: #4a00e0; } .card-computer .explore-link { color: #4a00e0; }
+  .card-science  { border-top-color: #11998e; } .card-science .explore-link { color: #11998e; }
+  .card-social   { border-top-color: #56ab2f; } .card-social .explore-link { color: #56ab2f; }
+  .card-kannada  { border-top-color: #e91e63; } .card-kannada .explore-link { color: #e91e63; }
+  .card-english  { border-top-color: #fd6585; } .card-english .explore-link { color: #fd6585; }
+  .card-math     { border-top-color: #8e2de2; } .card-math .explore-link { color: #6a1bb5; }
+  .card-islamic  { border-top-color: #134e5e; } .card-islamic .explore-link { color: #0f3f4c; }
 
-  .card-body h3 {
-    font-size: 17px;
-    color: #2c2c2c;
-    margin-bottom: 4px;
-    font-weight: 700;
-  }
-  .explore-link {
-    font-size: 13px;
-    font-weight: 600;
-    color: #764ba2;
+  /* Quiz View Container (Hidden by default) */
+  .quiz-view { display: none; }
+  .quiz-view.active { display: block; }
+  
+  .quiz-list { display: flex; flex-direction: column; gap: 12px; }
+  .quiz-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     display: flex;
     align-items: center;
-    gap: 4px;
-    margin-top: 8px;
+    justify-content: space-between;
+    border-left: 5px solid #764ba2;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
   }
-
-  /* Subject Color Accents */
-  .card-computer { border-top-color: #4a00e0; }
-  .card-computer .explore-link { color: #4a00e0; }
-  .card-science  { border-top-color: #11998e; }
-  .card-science .explore-link { color: #11998e; }
-  .card-social   { border-top-color: #56ab2f; }
-  .card-social .explore-link { color: #56ab2f; }
-  .card-kannada  { border-top-color: #e91e63; }
-  .card-kannada .explore-link { color: #e91e63; }
-  .card-english  { border-top-color: #fd6585; }
-  .card-english .explore-link { color: #fd6585; }
-  .card-math     { border-top-color: #8e2de2; }
-  .card-math .explore-link { color: #6a1bb5; }
-  .card-islamic  { border-top-color: #134e5e; }
-  .card-islamic .explore-link { color: #0f3f4c; }
-
-  /* Recent / Popular Filter Section */
-  .recent-section {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-  }
-  .filter-tabs {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
-  .filter-btn {
-    background: #f0f2f5;
-    border: none;
-    padding: 8px 16px;
+  .quiz-item:hover { transform: translateX(2px); box-shadow: 0 6px 16px rgba(0,0,0,0.07); }
+  .quiz-info h3 { font-size: 16px; font-weight: 700; color: #222; margin-bottom: 2px; }
+  .quiz-info p { font-size: 13px; color: #666; }
+  .start-badge {
+    background: #f3eff9;
+    color: #764ba2;
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 13px;
     font-weight: 600;
-    color: #555;
-    cursor: pointer;
-    white-space: nowrap;
-    text-decoration: none;
-    transition: background 0.1s, color 0.1s;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    background: #764ba2;
-    color: #fff;
   }
 
-  .footer {
-    text-align: center;
-    margin-top: 24px;
-    color: #888;
-    font-size: 12px;
-  }
+  .footer { text-align: center; margin-top: 30px; color: #888; font-size: 12px; }
 </style>
 </head>
 <body>
@@ -168,122 +128,168 @@
   <!-- Navbar -->
   <header class="navbar">
     <div class="brand">
-      <h1>Class 3 Practice</h1>
-      <p>Learn • Practice • Improve</p>
+      <h1 id="nav-title">Class 3 Practice Hub</h1>
+      <p id="nav-subtitle">Learn • Practice • Improve</p>
     </div>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="#about" onclick="alert('Class 3 Interactive Learning Hub for students.'); return false;">About</a>
-    </nav>
+    <button id="back-btn" class="nav-btn" onclick="showHome()">← Back to Subjects</button>
   </header>
 
-  <h2 class="section-title">Choose Your Subject</h2>
+  <!-- SUBJECTS SELECTION VIEW -->
+  <div id="home-view">
+    <h2 class="section-title">Choose Your Subject</h2>
+    <div class="subjects-grid">
+      
+      <!-- Computer -->
+      <div class="subject-card card-computer" onclick="openSubject('computer')">
+        <div class="card-top"><div class="card-icon">💻</div><span class="quiz-count">3 Quizzes</span></div>
+        <div class="card-body"><h3>Computer</h3><div class="explore-link">Explore →</div></div>
+      </div>
 
-  <!-- Subjects Grid linking directly to actual repository quiz files -->
-  <div class="subjects-grid">
-    
-    <!-- 1. Computer -->
-    <a href="computer.html" class="subject-card card-computer">
-      <div class="card-top">
-        <div class="card-icon">💻</div>
-        <span class="quiz-count">Interactive</span>
+      <!-- Science -->
+      <div class="subject-card card-science" onclick="openSubject('science')">
+        <div class="card-top"><div class="card-icon">🔬</div><span class="quiz-count">Quizzes</span></div>
+        <div class="card-body"><h3>Science</h3><div class="explore-link">Explore →</div></div>
       </div>
-      <div class="card-body">
-        <h3>Computer</h3>
-        <div class="explore-link">Explore →</div>
-      </div>
-    </a>
 
-    <!-- 2. Science -->
-    <a href="science.html" class="subject-card card-science">
-      <div class="card-top">
-        <div class="icon">🔬</div>
-        <span class="quiz-count">Interactive</span>
+      <!-- Social Science -->
+      <div class="subject-card card-social" onclick="openSubject('social')">
+        <div class="card-top"><div class="card-icon">🌍</div><span class="quiz-count">Quizzes</span></div>
+        <div class="card-body"><h3>Social Science</h3><div class="explore-link">Explore →</div></div>
       </div>
-      <div class="card-body">
-        <h3>Science</h3>
-        <div class="explore-link">Explore →</div>
-      </div>
-    </a>
 
-    <!-- 3. Social Science -->
-    <a href="social.html" class="subject-card card-social">
-      <div class="card-top">
-        <div class="card-icon">🌍</div>
-        <span class="quiz-count">Interactive</span>
+      <!-- Kannada -->
+      <div class="subject-card card-kannada" onclick="openSubject('kannada')">
+        <div class="card-top"><div class="card-icon">ಕ</div><span class="quiz-count">Quizzes</span></div>
+        <div class="card-body"><h3>Kannada</h3><div class="explore-link">Explore →</div></div>
       </div>
-      <div class="card-body">
-        <h3>Social Science</h3>
-        <div class="explore-link">Explore →</div>
-      </div>
-    </a>
 
-    <!-- 4. Kannada -->
-    <a href="kannada.html" class="subject-card card-kannada">
-      <div class="card-top">
-        <div class="card-icon">ಕ</div>
-        <span class="quiz-count">Interactive</span>
+      <!-- English -->
+      <div class="subject-card card-english" onclick="openSubject('english')">
+        <div class="card-top"><div class="card-icon">📖</div><span class="quiz-count">Quizzes</span></div>
+        <div class="card-body"><h3>English</h3><div class="explore-link">Explore →</div></div>
       </div>
-      <div class="card-body">
-        <h3>Kannada</h3>
-        <div class="explore-link">Explore →</div>
-      </div>
-    </a>
 
-    <!-- 5. English -->
-    <a href="english.html" class="subject-card card-english">
-      <div class="card-top">
-        <div class="card-icon">📖</div>
-        <span class="quiz-count">Interactive</span>
+      <!-- Mathematics -->
+      <div class="subject-card card-math" onclick="openSubject('math')">
+        <div class="card-top"><div class="card-icon">➗</div><span class="quiz-count">Quizzes</span></div>
+        <div class="card-body"><h3>Mathematics</h3><div class="explore-link">Explore →</div></div>
       </div>
-      <div class="card-body">
-        <h3>English</h3>
-        <div class="explore-link">Explore →</div>
-      </div>
-    </a>
 
-    <!-- 6. Mathematics -->
-    <a href="math.html" class="subject-card card-math">
-      <div class="card-top">
-        <div class="card-icon">➗</div>
-        <span class="quiz-count">Interactive</span>
+      <!-- Islamic Studies -->
+      <div class="subject-card card-islamic" onclick="openSubject('islamic')">
+        <div class="card-top"><div class="card-icon">🕌</div><span class="quiz-count">Quizzes</span></div>
+        <div class="card-body"><h3>Islamic Studies</h3><div class="explore-link">Explore →</div></div>
       </div>
-      <div class="card-body">
-        <h3>Mathematics</h3>
-        <div class="explore-link">Explore →</div>
-      </div>
-    </a>
 
-    <!-- 7. Islamic Studies -->
-    <a href="islamic.html" class="subject-card card-islamic">
-      <div class="card-top">
-        <div class="card-icon">🕌</div>
-        <span class="quiz-count">Interactive</span>
-      </div>
-      <div class="card-body">
-        <h3>Islamic Studies</h3>
-        <div class="explore-link">Explore →</div>
-      </div>
-    </a>
-
+    </div>
   </div>
 
-  <!-- Recent / Popular Practice Section -->
-  <section class="recent-section">
-    <h3 style="font-size: 15px; color: #444; margin-bottom: 12px;">Recent / Popular Practice</h3>
-    <div class="filter-tabs">
-      <a href="computer_sa1.html" class="filter-btn">Computer SA-1</a>
-      <a href="science_sa1.html" class="filter-btn">Science SA-1</a>
-      <a href="maths_sa1.html" class="filter-btn">Maths SA-1</a>
-      <a href="kannada_sa1.html" class="filter-btn">Kannada SA-1</a>
-      <a href="mixed_word_problem.html" class="filter-btn">Word Problems</a>
+  <!-- QUIZ LIST VIEW (Dynamically populated based on selected subject) -->
+  <div id="quiz-view" class="quiz-view">
+    <h2 id="category-title" class="section-title" style="text-align: left; margin-bottom: 16px;">Subject Quizzes</h2>
+    <div id="quiz-list-container" class="quiz-list">
+      <!-- Dynamically filled quizzes -->
     </div>
-  </section>
+  </div>
 
   <div class="footer">
     Class 3 Interactive Learning Hub ⭐ Mobile Optimized
   </div>
 
 </div>
+
+<script>
+  // Define all quizzes available per subject
+  const subjectData = {
+    computer: {
+      title: "Computer Quizzes",
+      quizzes: [
+        { name: "Computer Mid-Term Exam Practice", desc: "Comprehensive question bank covering syllabus chapters", link: "computer_midterm.html" },
+        { name: "Computer SA-1 Exam Practice", desc: "Summative Assessment 1 preparation test", link: "computer_sa1.html" },
+        { name: "General Computer Practice", desc: "Interactive questions on hardware, software & basics", link: "computer.html" }
+      ]
+    },
+    science: {
+      title: "Science Quizzes",
+      quizzes: [
+        { name: "Science SA-1 Practice", desc: "Practice plant biology, safety rules, and environment", link: "science_sa1.html" },
+        { name: "General Science Quiz", desc: "Core science questions for Class 3", link: "science.html" }
+      ]
+    },
+    math: {
+      title: "Mathematics Quizzes",
+      quizzes: [
+        { name: "Maths SA-1 Practice", desc: "Arithmetic, word problems, and number operations", link: "maths_sa1.html" },
+        { name: "General Mathematics Quiz", desc: "Fun math challenges and puzzles", link: "math.html" }
+      ]
+    },
+    english: {
+      title: "English Quizzes",
+      quizzes: [
+        { name: "English Grammar & Vocabulary", desc: "Practice nouns, verbs, and sentence formation", link: "english.html" }
+      ]
+    },
+    kannada: {
+      title: "Kannada Quizzes",
+      quizzes: [
+        { name: "Kannada SA-1 Practice", desc: "Basic vocabulary and sentence practice", link: "kannada_sa1.html" },
+        { name: "General Kannada Quiz", desc: "Letters and words practice", link: "kannada.html" }
+      ]
+    },
+    social: {
+      title: "Social Science Quizzes",
+      quizzes: [
+        { name: "Social Science Practice", desc: "Our surroundings, community, and maps", link: "social.html" }
+      ]
+    },
+    islamic: {
+      title: "Islamic Studies Quizzes",
+      quizzes: [
+        { name: "Islamic Studies Practice", desc: "Moral values, stories, and basics", link: "islamic.html" }
+      ]
+    }
+  };
+
+  function openSubject(subjectKey) {
+    const data = subjectData[subjectKey];
+    if (!data) return;
+
+    // Update Header
+    document.getElementById('nav-title').innerText = data.title;
+    document.getElementById('nav-subtitle').innerText = "Select a quiz to start practicing";
+    document.getElementById('back-btn').classList.add('visible');
+
+    // Populate List
+    const container = document.getElementById('quiz-list-container');
+    container.innerHTML = '';
+
+    data.quizzes.forEach(q => {
+      container.innerHTML += `
+        <a href="${q.link}" class="quiz-item">
+          <div class="quiz-info">
+            <h3>${q.name}</h3>
+            <p>${q.desc}</p>
+          </div>
+          <div class="start-badge">Start Quiz</div>
+        </a>
+      `;
+    });
+
+    // Switch Views
+    document.getElementById('home-view').classList.remove('active');
+    document.getElementById('quiz-view').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showHome() {
+    document.getElementById('nav-title').innerText = "Class 3 Practice Hub";
+    document.getElementById('nav-subtitle').innerText = "Learn • Practice • Improve";
+    document.getElementById('back-btn').classList.remove('visible');
+
+    document.getElementById('quiz-view').classList.remove('active');
+    document.getElementById('home-view').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
