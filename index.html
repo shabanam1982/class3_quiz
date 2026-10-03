@@ -7,7 +7,7 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
-    font-family: 'Noto Sans Kannada', 'Segoe UI', -apple-system, Roboto, sans-serif;
+    font-family: 'Segoe UI', -apple-system, Roboto, sans-serif;
     background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
     min-height: 100vh;
     padding: 14px;
@@ -19,131 +19,112 @@
   header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
-    padding: 26px 18px;
-    border-radius: 22px;
+    padding: 24px 18px;
+    border-radius: 20px;
     text-align: center;
-    margin-bottom: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   }
-  header h1 { font-size: 24px; margin-bottom: 8px; }
-  header p { font-size: 14px; opacity: 0.95; }
+  header h1 { font-size: 22px; margin-bottom: 6px; }
+  header p { font-size: 13px; opacity: 0.95; }
+  
   .count-strip {
     background: #fff;
-    border-radius: 16px;
-    padding: 12px;
+    border-radius: 14px;
+    padding: 10px;
     margin-bottom: 16px;
     display: flex;
     justify-content: space-around;
     text-align: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   }
-  .count-strip .n { font-size: 22px; font-weight: bold; color: #764ba2; }
+  .count-strip .n { font-size: 20px; font-weight: bold; color: #764ba2; }
   .count-strip .l { font-size: 11px; color: #777; }
-  .group-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #6b4a8f;
-    margin: 18px 4px 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .subjects { display: grid; grid-template-columns: 1fr; gap: 14px; }
-  .card {
+
+  /* Subject Section Container */
+  .subject-section {
     background: #fff;
     border-radius: 18px;
-    padding: 18px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .subject-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5b3a80;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  .subject-header .icon { font-size: 24px; }
+
+  /* Sub-versions Stack */
+  .variants-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card {
+    background: #fdfbf7;
+    border-radius: 12px;
+    padding: 12px 14px;
     text-decoration: none;
     color: #333;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     display: flex;
     align-items: center;
-    gap: 16px;
-    transition: transform 0.15s, box-shadow 0.15s;
-    border-left: 7px solid #764ba2;
-    min-height: 84px;
+    justify-content: space-between;
+    gap: 12px;
+    transition: transform 0.1s, background 0.1s;
+    border-left: 5px solid #764ba2;
   }
-  .card:active { transform: scale(0.98); }
-  .icon { font-size: 40px; flex-shrink: 0; line-height: 1; }
-  .info { flex: 1; min-width: 0; }
-  .info h2 {
-    font-size: 17px;
-    margin-bottom: 5px;
-    color: #5b3a80;
+  .card:active { transform: scale(0.99); background: #f5efe6; }
+  .card-info { flex: 1; min-width: 0; }
+  .card-info h3 {
+    font-size: 15px;
+    color: #4a2d6b;
+    margin-bottom: 3px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
   }
-  .info p { font-size: 13px; color: #666; line-height: 1.45; }
+  .card-info p { font-size: 12px; color: #666; line-height: 1.4; }
+  
   .badge {
     background: #4caf50; color: #fff;
-    font-size: 10px; padding: 3px 9px;
-    border-radius: 12px; font-weight: bold;
-    letter-spacing: 0.3px;
+    font-size: 9px; padding: 2px 7px;
+    border-radius: 10px; font-weight: bold;
   }
-  .badge.new {
-    background: #ff9800;
-    animation: pulse-badge 1.6s ease-in-out infinite;
-  }
-  @keyframes pulse-badge {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-  }
-  /* Per-subject colours */
-  .c-kannada  { border-left-color: #e91e63; }
-  .c-kannada  .info h2 { color: #c2185b; }
-  .c-english  { border-left-color: #fd6585; }
-  .c-english  .info h2 { color: #d4416a; }
-  .c-math     { border-left-color: #8e2de2; }
-  .c-math     .info h2 { color: #6a1bb5; }
-  .c-word     { border-left-color: #ff9a56; }
-  .c-word     .info h2 { color: #d9722f; }
-  .c-maze     { border-left-color: #11a37f; }
-  .c-maze     .info h2 { color: #0c8267; }
-  .c-science  { border-left-color: #11998e; }
-  .c-science  .info h2 { color: #0d7a72; }
-  .c-social   { border-left-color: #56ab2f; }
-  .c-social   .info h2 { color: #45881f; }
-  .c-islamic  { border-left-color: #134e5e; }
-  .c-islamic  .info h2 { color: #0f3f4c; }
-  .c-computer { border-left-color: #4a00e0; }
-  .c-computer .info h2 { color: #3a00b0; }
-  .c-sa1      { border-left-color: #f2a541; }
-  .c-sa1      .info h2 { color: #b8790f; }
+  .badge.new { background: #ff9800; }
+
+  /* Color Accents per Subject */
+  .sec-computer { border-left-color: #4a00e0; }
+  .sec-computer .subject-header { color: #3a00b0; }
+  .sec-english  { border-left-color: #fd6585; }
+  .sec-english .subject-header { color: #d4416a; }
+  .sec-math     { border-left-color: #8e2de2; }
+  .sec-math .subject-header { color: #6a1bb5; }
+  .sec-kannada  { border-left-color: #e91e63; }
+  .sec-kannada .subject-header { color: #c2185b; }
+  .sec-islamic  { border-left-color: #134e5e; }
+  .sec-islamic .subject-header { color: #0f3f4c; }
+  .sec-science  { border-left-color: #11998e; }
+  .sec-science .subject-header { color: #0d7a72; }
+  .sec-social   { border-left-color: #56ab2f; }
+  .sec-social .subject-header { color: #45881f; }
+
   .footer {
     text-align: center;
-    margin-top: 26px;
-    padding: 16px;
+    margin-top: 20px;
+    padding: 12px;
     color: #6b4a3a;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-  }
-  /* Tablet */
-  @media (min-width: 601px) and (max-width: 1024px) {
-    header h1 { font-size: 28px; }
-    .subjects { grid-template-columns: 1fr 1fr; }
-    .card { flex-direction: column; text-align: center; min-height: 150px; }
-    .icon { font-size: 46px; }
-    .info h2 { justify-content: center; font-size: 16px; }
-  }
-  /* Laptop / Desktop */
-  @media (min-width: 1025px) {
-    body { padding: 28px; }
-    header h1 { font-size: 32px; }
-    header p { font-size: 15px; }
-    .subjects { grid-template-columns: 1fr 1fr; }
-    .card { flex-direction: column; text-align: center; min-height: 160px; padding: 22px; }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(0,0,0,0.15); }
-    .icon { font-size: 50px; }
-    .info h2 { justify-content: center; font-size: 17px; }
-  }
-  /* Small phone */
-  @media (max-width: 379px) {
-    header h1 { font-size: 20px; }
-    .icon { font-size: 34px; }
-    .info h2 { font-size: 15px; }
-    .info p { font-size: 12px; }
-    .card { gap: 12px; padding: 15px; }
   }
 </style>
 </head>
@@ -151,126 +132,150 @@
 <div class="container">
   <header>
     <h1>📚 Class 3 Practice</h1>
-    <p>Interactive worksheets for all subjects</p>
+    <p>Interactive Subject Worksheets & Exam Prep</p>
   </header>
+
   <div class="count-strip">
-    <div><div class="n">8</div><div class="l">Subjects</div></div>
+    <div><div class="n">7</div><div class="l">Subjects</div></div>
     <div><div class="n">700+</div><div class="l">Questions</div></div>
-    <div><div class="n">📱💻</div><div class="l">All Devices</div></div>
+    <div><div class="n">📱</div><div class="l">Mobile Optimized</div></div>
   </div>
-  <div class="group-title">🌍 Languages</div>
-  <div class="subjects">
-    <a href="kannada.html" class="card c-kannada">
-      <div class="icon">🌸</div>
-      <div class="info">
-        <h2>ಕನ್ನಡ (Kannada) <span class="badge">READY</span></h2>
-        <p>Vowels, consonants, kagunita, ottakshara, ಚಿಟ್ಟೆ poem + Kannada keyboard</p>
-      </div>
-    </a>
-    <a href="kannada_sa1.html" class="card c-kannada">
-      <div class="icon">🌸</div>
-      <div class="info">
-        <h2>ಕನ್ನಡ (Kannada SA1) <span class="badge new">NEW</span></h2>
-        <p>SA1 practice test and questions for Kannada curriculum</p>
-      </div>
-    </a>
-    <a href="english.html" class="card c-english">
-      <div class="icon">📖</div>
-      <div class="info">
-        <h2>English <span class="badge">READY</span></h2>
-        <p>Nouns, opposites, rhyming words, fill in the blanks, reading story</p>
-      </div>
-    </a>
+
+  <!-- 1. Computer -->
+  <div class="subject-section sec-computer">
+    <div class="subject-header"><span class="icon">💻</span> Computer</div>
+    <div class="variants-list">
+      <a href="computer.html" class="card">
+        <div class="card-info">
+          <h3>Core Units <span class="badge">READY</span></h3>
+          <p>School Newsletter (Unit 2), Class Calendar Chronicle (Unit 3)</p>
+        </div>
+      </a>
+      <a href="computer_sa1.html" class="card">
+        <div class="card-info">
+          <h3>SA1 Practice <span class="badge new">NEW</span></h3>
+          <p>Exercise-by-exercise practice for Units 2–3</p>
+        </div>
+      </a>
+      <a href="computer_midterm.html" class="card">
+        <div class="card-info">
+          <h3>Midterm Practice <span class="badge new">NEW</span></h3>
+          <p>Comprehensive review covering Units 2–5</p>
+        </div>
+      </a>
+    </div>
   </div>
-  <div class="group-title">🔢 Mathematics</div>
-  <div class="subjects">
-    <a href="math.html" class="card c-math">
-      <div class="icon">📐</div>
-      <div class="info">
-        <h2>Math — Full Workbook <span class="badge">READY</span></h2>
-        <p>240 questions across 11 chapters, with a scratchpad to show your work</p>
-      </div>
-    </a>
-    <a href="mixed_word_problem.html" class="card c-word">
-      <div class="icon">🧮</div>
-      <div class="info">
-        <h2>Math — Word Problems <span class="badge">READY</span></h2>
-        <p>100 mixed word problems, number properties, mental maths, olympiad</p>
-      </div>
-    </a>
-    <a href="math_maze_quest.html" class="card c-maze">
-      <div class="icon">🎮</div>
-      <div class="info">
-        <h2>Math — Maze Quest <span class="badge new">NEW</span></h2>
-        <p>Solve +, −, ×, ÷ word problems and race a chasing Temple Guardian through 10 treasure mazes</p>
-      </div>
-    </a>
-    <a href="maths_sa1.html" class="card c-sa1">
-      <div class="icon">📝</div>
-      <div class="info">
-        <h2>Math — SA1 Practice <span class="badge new">NEW</span></h2>
-        <p>Subtraction, Multiplication, Division, Fractions (Ch 3–6) — exercise by exercise, with full answer key</p>
-      </div>
-    </a>
+
+  <!-- 2. English -->
+  <div class="subject-section sec-english">
+    <div class="subject-header"><span class="icon">📖</span> English</div>
+    <div class="variants-list">
+      <a href="english.html" class="card">
+        <div class="card-info">
+          <h3>Grammar & Reading <span class="badge">READY</span></h3>
+          <p>Nouns, opposites, rhyming words, fill in the blanks, and reading story</p>
+        </div>
+      </a>
+    </div>
   </div>
-  <div class="group-title">🔬 Science & Social</div>
-  <div class="subjects">
-    <a href="science.html" class="card c-science">
-      <div class="icon">🌱</div>
-      <div class="info">
-        <h2>Science <span class="badge">READY</span></h2>
-        <p>Parts of a Plant, Eating Habits of Animals, Birds (Ch 2, 3, 4)</p>
-      </div>
-    </a>
-    <a href="science_sa1.html" class="card c-sa1">
-      <div class="icon">🔬</div>
-      <div class="info">
-        <h2>Science — SA1 Practice <span class="badge new">NEW</span></h2>
-        <p>Plants, Animals, Birds, Human Body, Keeping Safe (Ch 2–6) — exercise by exercise, with full answer key</p>
-      </div>
-    </a>
-    <a href="social.html" class="card c-social">
-      <div class="icon">🌍</div>
-      <div class="info">
-        <h2>Social <span class="badge">READY</span></h2>
-        <p>The Air Around Us, Water We Drink, My Community, Occupations</p>
-      </div>
-    </a>
+
+  <!-- 3. Maths -->
+  <div class="subject-section sec-math">
+    <div class="subject-header"><span class="icon">📐</span> Maths</div>
+    <div class="variants-list">
+      <a href="math.html" class="card">
+        <div class="card-info">
+          <h3>Full Workbook <span class="badge">READY</span></h3>
+          <p>240 questions across 11 chapters with built-in scratchpad</p>
+        </div>
+      </a>
+      <a href="mixed_word_problem.html" class="card">
+        <div class="card-info">
+          <h3>Word Problems <span class="badge">READY</span></h3>
+          <p>100 mixed word problems, number properties, and mental math</p>
+        </div>
+      </a>
+      <a href="math_maze_quest.html" class="card">
+        <div class="card-info">
+          <h3>Maze Quest Game <span class="badge new">NEW</span></h3>
+          <p>Solve +, −, ×, ÷ word problems while navigating 10 treasure mazes</p>
+        </div>
+      </a>
+      <a href="maths_sa1.html" class="card">
+        <div class="card-info">
+          <h3>SA1 Practice (Ch 3–6) <span class="badge new">NEW</span></h3>
+          <p>Subtraction, Multiplication, Division, Fractions exercise-by-exercise</p>
+        </div>
+      </a>
+    </div>
   </div>
-  <div class="group-title">🕌 Islamic & Computer</div>
-  <div class="subjects">
-    <a href="islamic.html" class="card c-islamic">
-      <div class="icon">🕌</div>
-      <div class="info">
-        <h2>Islamic Studies <span class="badge">READY</span></h2>
-        <p>Adhaan, Iqaamah, Adam عليه السلام, Surah Al-Faatihah, Pure Water</p>
-      </div>
-    </a>
-    <a href="computer.html" class="card c-computer">
-      <div class="icon">💻</div>
-      <div class="info">
-        <h2>Computer <span class="badge">READY</span></h2>
-        <p>School Newsletter (Unit 2), Class Calendar Chronicle (Unit 3)</p>
-      </div>
-    </a>
-    <a href="computer_sa1.html" class="card c-sa1">
-      <div class="icon">🗂️</div>
-      <div class="info">
-        <h2>Computer — SA1 Practice <span class="badge new">NEW</span></h2>
-        <p>School Newsletter, Class Calendar Chronicle (Unit 2–3) — exercise by exercise, with full answer key</p>
-      </div>
-    </a>
-    <a href="computer_midterm.html" class="card c-sa1">
-      <div class="icon">🗂️</div>
-      <div class="info">
-        <h2>Computer — Midterm Practice <span class="badge new">NEW</span></h2>
-        <p>School Newsletter, Class Calendar Chronicle (Unit 2–5) — exercise by exercise, with full answer key</p>
-      </div>
-    </a>
+
+  <!-- 4. Kannada -->
+  <div class="subject-section sec-kannada">
+    <div class="subject-header"><span class="icon">🌸</span> Kannada (ಕನ್ನಡ)</div>
+    <div class="variants-list">
+      <a href="kannada.html" class="card">
+        <div class="card-info">
+          <h3>Standard Workbook <span class="badge">READY</span></h3>
+          <p>Vowels, consonants, kagunita, ottakshara, poem + interactive keyboard</p>
+        </div>
+      </a>
+      <a href="kannada_sa1.html" class="card">
+        <div class="card-info">
+          <h3>SA1 Practice Exam <span class="badge new">NEW</span></h3>
+          <p>Targeted practice test and revision questions for Kannada curriculum</p>
+        </div>
+      </a>
+    </div>
   </div>
+
+  <!-- 5. Islamic Studies -->
+  <div class="subject-section sec-islamic">
+    <div class="subject-header"><span class="icon">🕌</span> Islamic Studies</div>
+    <div class="variants-list">
+      <a href="islamic.html" class="card">
+        <div class="card-info">
+          <h3>Lessons & Quizzes <span class="badge">READY</span></h3>
+          <p>Adhaan, Iqaamah, Adam عليه السلام, Surah Al-Faatihah, Pure Water</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 6. Science -->
+  <div class="subject-section sec-science">
+    <div class="subject-header"><span class="icon">🌱</span> Science</div>
+    <div class="variants-list">
+      <a href="science.html" class="card">
+        <div class="card-info">
+          <h3>Core Topics <span class="badge">READY</span></h3>
+          <p>Parts of a Plant, Eating Habits of Animals, Birds (Ch 2, 3, 4)</p>
+        </div>
+      </a>
+      <a href="science_sa1.html" class="card">
+        <div class="card-info">
+          <h3>SA1 Practice (Ch 2–6) <span class="badge new">NEW</span></h3>
+          <p>Plants, Animals, Human Body, Safety rules with full answer key</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 7. Social Science -->
+  <div class="subject-section sec-social">
+    <div class="subject-header"><span class="icon">🌍</span> Social Science</div>
+    <div class="variants-list">
+      <a href="social.html" class="card">
+        <div class="card-info">
+          <h3>Workbook <span class="badge">READY</span></h3>
+          <p>The Air Around Us, Water We Drink, My Community, Occupations</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
   <div class="footer">
-    ⭐ Tap any subject to start practising ⭐<br>
-    Made with love for learning
+    ⭐ Tap any version to start practising ⭐
   </div>
 </div>
 </body>
