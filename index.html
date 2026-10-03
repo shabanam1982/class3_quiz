@@ -3,41 +3,285 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Computer Practice — Class 3</title>
+<title>Class 3 Practice — Home</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); min-height: 100vh; padding: 14px; color: #333; }
-  .container { max-width: 780px; margin: 0 auto; }
-  header { background: linear-gradient(135deg, #4a00e0 0%, #3a00b0 100%); color: #fff; padding: 24px 18px; border-radius: 20px; text-align: center; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
-  header h1 { font-size: 22px; margin-bottom: 6px; }
-  header p { font-size: 13px; opacity: 0.95; }
-  .back-btn { display: inline-block; background: rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; margin-bottom: 12px; }
-  .variants-list { display: flex; flex-direction: column; gap: 12px; }
-  .card { background: #fff; border-radius: 14px; padding: 16px; text-decoration: none; color: #333; box-shadow: 0 4px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 12px; border-left: 6px solid #4a00e0; }
-  .card-info h3 { font-size: 16px; color: #3a00b0; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
-  .card-info p { font-size: 13px; color: #666; line-height: 1.4; }
-  .badge { background: #4caf50; color: #fff; font-size: 9px; padding: 2px 7px; border-radius: 10px; font-weight: bold; }
-  .badge.new { background: #ff9800; }
+  body {
+    font-family: 'Segoe UI', -apple-system, Roboto, sans-serif;
+    background: #f7f9fc;
+    min-height: 100vh;
+    padding: 16px;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Navbar */
+  .navbar {
+    background: #fff;
+    padding: 16px 20px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    margin-bottom: 24px;
+  }
+  .brand h1 { font-size: 18px; color: #4a2d6b; font-weight: 700; margin-bottom: 2px; }
+  .brand p { font-size: 12px; color: #666; }
+  .nav-links { display: flex; gap: 16px; font-size: 14px; font-weight: 600; }
+  .nav-links a { text-decoration: none; color: #764ba2; transition: opacity 0.1s; }
+  .nav-links a:hover { opacity: 0.8; }
+
+  /* Section Title */
+  .section-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+  }
+
+  /* Grid Layout for Subjects */
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  .subject-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border-top: 5px solid #764ba2;
+    min-height: 160px;
+  }
+  .subject-card:active, .subject-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .card-icon {
+    font-size: 28px;
+    background: #f3eff9;
+    padding: 10px;
+    border-radius: 12px;
+  }
+  .quiz-count {
+    font-size: 12px;
+    font-weight: 600;
+    color: #777;
+    background: #f7f7f7;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+
+  .card-body h3 {
+    font-size: 17px;
+    color: #2c2c2c;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  .explore-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: #764ba2;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  /* Subject Color Accents */
+  .card-computer { border-top-color: #4a00e0; }
+  .card-computer .explore-link { color: #4a00e0; }
+  .card-science  { border-top-color: #11998e; }
+  .card-science .explore-link { color: #11998e; }
+  .card-social   { border-top-color: #56ab2f; }
+  .card-social .explore-link { color: #56ab2f; }
+  .card-kannada  { border-top-color: #e91e63; }
+  .card-kannada .explore-link { color: #e91e63; }
+  .card-english  { border-top-color: #fd6585; }
+  .card-english .explore-link { color: #fd6585; }
+  .card-math     { border-top-color: #8e2de2; }
+  .card-math .explore-link { color: #8e2de2; }
+  .card-islamic  { border-top-color: #134e5e; }
+  .card-islamic .explore-link { color: #134e5e; }
+
+  /* Recent / Popular Filter Section */
+  .recent-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+  .filter-tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .filter-btn {
+    background: #f0f2f5;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.1s, color 0.1s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: #764ba2;
+    color: #fff;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    color: #888;
+    font-size: 12px;
+  }
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
-    <a href="index.html" class="back-btn">← Back to All Subjects</a>
-    <h1>💻 Computer</h1>
-    <p>Select a practice version below</p>
+  
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="brand">
+      <h1>Class 3 Practice</h1>
+      <p>Learn • Practice • Improve</p>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#about">About</a>
+    </nav>
   </header>
-  <div class="variants-list">
-    <a href="computer.html" class="card">
-      <div class="card-info"><h3>Core Units <span class="badge">READY</span></h3><p>School Newsletter (Unit 2), Class Calendar Chronicle (Unit 3)</p></div>
+
+  <h2 class="section-title">Choose Your Subject</h2>
+
+  <!-- Subjects Grid -->
+  <div class="subjects-grid">
+    
+    <!-- 1. Computer -->
+    <a href="computer_hub.html" class="subject-card card-computer">
+      <div class="card-top">
+        <div class="card-icon">💻</div>
+        <span class="quiz-count">12 quizzes</span>
+      </div>
+      <div class="card-body">
+        <h3>Computer</h3>
+        <div class="explore-link">Explore →</div>
+      </div>
     </a>
-    <a href="computer_sa1.html" class="card">
-      <div class="card-info"><h3>SA1 Practice <span class="badge new">NEW</span></h3><p>Exercise-by-exercise practice for Units 2–3</p></div>
+
+    <!-- 2. Science -->
+    <a href="science_hub.html" class="subject-card card-science">
+      <div class="card-top">
+        <div class="card-icon">🔬</div>
+        <span class="quiz-count">15 quizzes</span>
+      </div>
+      <div class="card-body">
+        <h3>Science</h3>
+        <div class="explore-link">Explore →</div>
+      </div>
     </a>
-    <a href="computer_midterm.html" class="card">
-      <div class="card-info"><h3>Midterm Practice <span class="badge new">NEW</span></h3><p>Comprehensive review covering Units 2–5</p></div>
+
+    <!-- 3. Social Science -->
+    <a href="social_hub.html" class="subject-card card-social">
+      <div class="card-top">
+        <div class="card-icon">🌍</div>
+        <span class="quiz-count">10 quizzes</span>
+      </div>
+      <div class="card-body">
+        <h3>Social Science</h3>
+        <div class="explore-link">Explore →</div>
+      </div>
     </a>
+
+    <!-- 4. Kannada -->
+    <a href="kannada_hub.html" class="subject-card card-kannada">
+      <div class="card-top">
+        <div class="card-icon">ಕ</div>
+        <span class="quiz-count">10 quizzes</span>
+      </div>
+      <div class="card-body">
+        <h3>Kannada</h3>
+        <div class="explore-link">Explore →</div>
+      </div>
+    </a>
+
+    <!-- 5. English -->
+    <a href="english_hub.html" class="subject-card card-english">
+      <div class="card-top">
+        <div class="card-icon">📖</div>
+        <span class="quiz-count">14 quizzes</span>
+      </div>
+      <div class="card-body">
+        <h3>English</h3>
+        <div class="explore-link">Explore →</div>
+      </div>
+    </a>
+
+    <!-- 6. Mathematics -->
+    <a href="maths_hub.html" class="subject-card card-math">
+      <div class="card-top">
+        <div class="card-icon">➗</div>
+        <span class="quiz-count">18 quizzes</span>
+      </div>
+      <div class="card-body">
+        <h3>Mathematics</h3>
+        <div class="explore-link">Explore →</div>
+      </div>
+    </a>
+
+    <!-- 7. Islamic Studies -->
+    <a href="islamic_hub.html" class="subject-card card-islamic">
+      <div class="card-top">
+        <div class="card-icon">🕌</div>
+        <span class="quiz-count">8 quizzes</span>
+      </div>
+      <div class="card-body">
+        <h3>Islamic Studies</h3>
+        <div class="explore-link">Explore →</div>
+      </div>
+    </a>
+
   </div>
+
+  <!-- Recent / Popular Practice Section -->
+  <section class="recent-section">
+    <h3 style="font-size: 15px; color: #444; margin-bottom: 12px;">Recent / Popular Practice</h3>
+    <div class="filter-tabs">
+      <button class="filter-btn active">SA-1</button>
+      <button class="filter-btn">Midterm</button>
+      <button class="filter-btn">Revision</button>
+      <button class="filter-btn">Word Problems</button>
+    </div>
+  </section>
+
+  <div class="footer">
+    Class 3 Interactive Learning Hub ⭐ Mobile Optimized
+  </div>
+
 </div>
 </body>
 </html>
