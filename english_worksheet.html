@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>English Worksheet — Class 3 Practice</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F0FA; --card:#FFFFFF; --ink:#2B1F3D; --ink-soft:#60537A;
+    --brand:#7C3AED; --brand-dark:#5B21B6; --teal:#1E8A99;
+    --good:#2FA86A; --good-bg:#E5F7EC; --bad:#D64550; --bad-bg:#FCEAEA;
+    --sun:#FFC145; --line:#E5DAF3;
+    --font-head:'Baloo 2','Comic Sans MS', system-ui, sans-serif;
+    --font-body:'Nunito', system-ui, -apple-system, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1A1225; --card:#2A1F3D; --ink:#F0E8FA; --ink-soft:#C4B5D9;
+      --line:#3F3155; --good-bg:#173626; --bad-bg:#3A1E21;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1A1225; --card:#2A1F3D; --ink:#F0E8FA; --ink-soft:#C4B5D9;
+    --line:#3F3155; --good-bg:#173626; --bad-bg:#3A1E21;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.55; }
+  .wrap{ max-width:680px; margin:0 auto; padding:20px 16px 70px; }
+  h1,h2,h3{ font-family:var(--font-head); margin:0 0 8px; line-height:1.2; }
+  h1{ font-size:1.6rem; color:var(--brand-dark); }
+  h2{ font-size:1.25rem; }
+  p{ margin:0 0 12px; color:var(--ink-soft); }
+  .top{ text-align:center; padding:18px 0 6px; }
+  .top .mascot{ font-size:2.4rem; }
+  .card{ background:var(--card); border-radius:18px; padding:20px; box-shadow:0 6px 18px rgba(43,31,61,0.08); border:1px solid var(--line); margin-bottom:16px; }
+  .btn{ font-family:var(--font-head); font-size:1rem; font-weight:700; border:none; border-radius:14px; padding:13px 20px; cursor:pointer; display:inline-block; text-align:center; transition:transform .08s ease; }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{ background:var(--brand); color:#fff; }
+  .btn-primary:hover{ background:var(--brand-dark); }
+  .btn-ghost{ background:transparent; color:var(--teal); border:2px solid var(--teal); }
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .btn-full{ width:100%; }
+  .badge{ display:inline-block; background:var(--sun); color:#5A3E00; font-family:var(--font-head); font-weight:700; font-size:0.78rem; padding:4px 12px; border-radius:999px; margin-bottom:10px; }
+  .progress-track{ height:10px; background:var(--line); border-radius:999px; overflow:hidden; margin:10px 0 4px; }
+  .progress-fill{ height:100%; background:var(--brand); border-radius:999px; transition:width .25s ease; }
+  .progress-label{ font-size:0.85rem; color:var(--ink-soft); }
+  .option-btn{ display:block; width:100%; text-align:left; background:var(--bg); border:2px solid var(--line); border-radius:14px; padding:13px 16px; margin-bottom:10px; font-family:var(--font-body); font-size:1rem; color:var(--ink); cursor:pointer; }
+  .option-btn.selected{ border-color:var(--brand); background:#F0E8FC; }
+  :root[data-theme="dark"] .option-btn.selected{ background:#3F2A5C; }
+  @media (prefers-color-scheme:dark){ .option-btn.selected{ background:#3F2A5C; } }
+  textarea, input[type=text]{ font-family:var(--font-body); font-size:1rem; padding:11px 12px; border:2px solid var(--line); border-radius:12px; background:var(--card); color:var(--ink); width:100%; }
+  textarea{ resize:vertical; min-height:90px; }
+  .fill-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+  .fill-row label{ min-width:120px; font-weight:700; color:var(--ink-soft); font-size:0.9rem; }
+  .fill-row input{ flex:1; min-width:150px; }
+  details{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px 16px; margin-bottom:12px; }
+  summary{ font-family:var(--font-head); font-weight:700; cursor:pointer; font-size:1.05rem; }
+  .qa{ border-top:1px solid var(--line); padding:12px 0; }
+  .qa:first-of-type{ border-top:none; }
+  .qa .prompt{ font-weight:700; color:var(--ink); margin-bottom:4px; }
+  .tag{ display:inline-block; font-size:0.78rem; font-weight:800; border-radius:8px; padding:2px 9px; margin-right:6px; }
+  .tag.good{ background:var(--good-bg); color:var(--good); }
+  .tag.bad{ background:var(--bad-bg); color:var(--bad); }
+  .tag.note{ background:var(--line); color:var(--ink-soft); }
+  .explain{ font-size:0.92rem; color:var(--ink-soft); margin-top:4px; }
+  .score-big{ font-family:var(--font-head); font-size:2.4rem; color:var(--brand); text-align:center; margin:6px 0; }
+  .score-msg{ text-align:center; font-weight:700; color:var(--ink); }
+  .cat-bar-row{ margin-bottom:12px; }
+  .cat-bar-row .label{ display:flex; justify-content:space-between; font-size:0.9rem; font-weight:700; margin-bottom:4px; }
+  .cat-track{ height:12px; background:var(--line); border-radius:999px; overflow:hidden; }
+  .cat-fill{ height:100%; background:var(--teal); border-radius:999px; }
+  .session-box{ background:var(--good-bg); border:2px dashed var(--good); border-radius:14px; padding:14px; margin-bottom:16px; }
+  .code-chip{ font-family:var(--font-head); font-size:1.3rem; letter-spacing:3px; background:var(--card); border:2px solid var(--brand); color:var(--brand-dark); padding:6px 14px; border-radius:10px; display:inline-block; margin:6px 0; }
+  .hint-box{ background:#FFF9E6; border-left:4px solid var(--sun); border-radius:8px; padding:10px 12px; margin-top:10px; font-size:0.9rem; color:#7F6C00; }
+  :root[data-theme="dark"] .hint-box{ background:#3A3010; color:#F0D878; }
+  @media (prefers-color-scheme:dark){ .hint-box{ background:#3A3010; color:#F0D878; } }
+  .hint-btn{ background:transparent; border:none; color:var(--teal); font-weight:700; cursor:pointer; font-family:var(--font-head); font-size:0.95rem; padding:4px 0; }
+  .sample-box{ background:var(--good-bg); border-left:4px solid var(--good); border-radius:8px; padding:10px 12px; margin-top:10px; font-size:0.9rem; white-space:pre-wrap; }
+  .passage-box{ background:#F8F3FD; border-left:4px solid var(--brand); border-radius:8px; padding:14px 16px; margin:10px 0 16px; font-size:0.95rem; line-height:1.6; color:var(--ink); }
+  :root[data-theme="dark"] .passage-box{ background:#3F2A5C; }
+  @media (prefers-color-scheme:dark){ .passage-box{ background:#3F2A5C; } }
+  .passage-title{ font-family:var(--font-head); font-weight:700; color:var(--brand-dark); margin-bottom:8px; display:block; }
+  :root[data-theme="dark"] .passage-title{ color:#E0C9FF; }
+  @media (prefers-color-scheme:dark){ .passage-title{ color:#E0C9FF; } }
+  .word-box{ background:var(--sun); color:#5A3E00; padding:10px 14px; border-radius:10px; font-weight:700; margin:10px 0; text-align:center; letter-spacing:1px; }
+  .back-link{ display:block; text-align:center; color:var(--teal); text-decoration:none; font-size:0.9rem; margin-bottom:8px; }
+  .back-link:hover{ text-decoration:underline; }
+  .foot-note{ text-align:center; font-size:0.8rem; color:var(--ink-soft); margin-top:24px; }
+  ul.simple{ padding-left:20px; color:var(--ink-soft); }
+  ul.simple li{ margin-bottom:6px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+/* =========================================================================
+   ENGLISH WORKSHEET — CLASS 3
+   Part A: Reading Comprehension (2 passages, 10 questions)
+   Part B: Grammar (16 sub-questions across 5 topics)
+   Part C: Creative Writing (1 choice)
+   ========================================================================= */
+
+const PASSAGE_1 = `Sara has a small white kitten named Snowy. Every morning, Snowy jumps on Sara's bed and licks her face to wake her up. After breakfast, Sara pours milk into a little blue bowl for Snowy. The kitten drinks all of it and then purrs happily. In the afternoon, Sara and Snowy play in the garden. Snowy chases butterflies, but she never catches one. At night, Snowy sleeps in a soft basket next to Sara's bed. Sara loves her kitten very much.`;
+
+const PASSAGE_2 = `Honey bees are small insects that live together in a home called a hive. A hive can have thousands of bees. Each bee has its own job. The queen bee lays eggs. The worker bees collect nectar from flowers and turn it into sweet honey. When a bee finds many flowers, it does a special dance to tell the other bees where to go. Bees are very important because they help flowers and plants grow. Without bees, we would have fewer fruits and vegetables.`;
+
+const QUESTIONS = [
+  /* ===== PART A: READING COMPREHENSION ===== */
+  /* Passage 1 — Sara and Her Kitten */
+  { id:"e1", cat:"Part A — Reading Comprehension", type:"long",
+    passage:{title:"Passage 1: Sara and Her Kitten", text:PASSAGE_1},
+    prompt:"1. What is the name of Sara's kitten?",
+    sample:"The kitten's name is Snowy.",
+    hint:"Read the first sentence carefully.",
+    explain:"The passage says 'Sara has a small white kitten named Snowy.'" },
+
+  { id:"e2", cat:"Part A — Reading Comprehension", type:"long",
+    prompt:"2. How does Snowy wake Sara up?",
+    sample:"Snowy jumps on Sara's bed and licks her face to wake her up.",
+    hint:"Look at the second sentence of the passage.",
+    explain:"Snowy wakes Sara up by jumping on her bed and licking her face." },
+
+  { id:"e3", cat:"Part A — Reading Comprehension", type:"mcq",
+    prompt:"3. What does Snowy drink after breakfast?",
+    options:["water","milk","juice"],
+    answer:"milk",
+    hint:"Sara pours something into a little blue bowl.",
+    explain:"Sara pours milk into a little blue bowl for Snowy." },
+
+  { id:"e4", cat:"Part A — Reading Comprehension", type:"long",
+    prompt:"4. Where do Sara and Snowy play in the afternoon?",
+    sample:"Sara and Snowy play in the garden.",
+    hint:"Think about where they go in the afternoon.",
+    explain:"In the afternoon, Sara and Snowy play in the garden." },
+
+  { id:"e5", cat:"Part A — Reading Comprehension", type:"tf",
+    prompt:"5. True or False: Snowy catches a butterfly.",
+    answer:false,
+    hint:"Does Snowy actually catch butterflies, or just chase them?",
+    explain:"False. The passage says 'Snowy chases butterflies, but she never catches one.'" },
+
+  /* Passage 2 — Honey Bees */
+  { id:"e6", cat:"Part A — Reading Comprehension", type:"long",
+    passage:{title:"Passage 2: Honey Bees", text:PASSAGE_2},
+    prompt:"6. What is a bee's home called?",
+    sample:"A bee's home is called a hive.",
+    hint:"Look at the first sentence of Passage 2.",
+    explain:"Honey bees live together in a home called a hive." },
+
+  { id:"e7", cat:"Part A — Reading Comprehension", type:"long",
+    prompt:"7. What is the job of the queen bee?",
+    sample:"The queen bee lays eggs.",
+    hint:"Each bee has a special job. Find the queen bee's job.",
+    explain:"The queen bee's job is to lay eggs." },
+
+  { id:"e8", cat:"Part A — Reading Comprehension", type:"mcq",
+    prompt:"8. What do worker bees collect from flowers?",
+    options:["honey","nectar","eggs"],
+    answer:"nectar",
+    hint:"Worker bees collect something and then turn it into honey.",
+    explain:"Worker bees collect nectar from flowers and turn it into sweet honey." },
+
+  { id:"e9", cat:"Part A — Reading Comprehension", type:"long",
+    prompt:"9. How does a bee tell the other bees where the flowers are?",
+    sample:"The bee does a special dance to tell the other bees where to go.",
+    hint:"Bees have a very special way of communicating.",
+    explain:"When a bee finds many flowers, it does a special dance to tell the other bees." },
+
+  { id:"e10", cat:"Part A — Reading Comprehension", type:"long",
+    prompt:"10. Why are bees important?",
+    sample:"Bees are important because they help flowers and plants grow. Without bees, we would have fewer fruits and vegetables.",
+    hint:"Think about what bees do for plants.",
+    explain:"Bees help flowers and plants grow. Without them, we would have fewer fruits and vegetables." },
+
+  /* ===== PART B: GRAMMAR ===== */
+  /* Question 1 — Subject and Predicate */
+  { id:"e11", cat:"Part B — Grammar", type:"long",
+    prompt:"B1a. Identify the SUBJECT in this sentence: 'The tall boy kicked the ball.'",
+    sample:"The subject is: The tall boy",
+    hint:"The subject tells WHO or WHAT the sentence is about.",
+    explain:"The subject is 'The tall boy' — he is the one doing the action (kicking)." },
+
+  { id:"e12", cat:"Part B — Grammar", type:"long",
+    prompt:"B1b. Identify the PREDICATE in this sentence: 'My mother cooks delicious food.'",
+    sample:"The predicate is: cooks delicious food",
+    hint:"The predicate tells what the subject DOES or IS.",
+    explain:"The predicate is 'cooks delicious food' — this is what the mother is doing." },
+
+  { id:"e13", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B1c. In 'The little birds sing in the tree', what is the SUBJECT?",
+    options:["sing in the tree","The little birds","in the tree","the tree"],
+    answer:"The little birds",
+    hint:"Who is doing the singing?",
+    explain:"The subject is 'The little birds' — they are doing the action of singing." },
+
+  { id:"e14", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B1d. In 'Ahmed and Zayed play football after school', what is the PREDICATE?",
+    options:["Ahmed and Zayed","play football after school","after school","football"],
+    answer:"play football after school",
+    hint:"What are Ahmed and Zayed DOING?",
+    explain:"The predicate is 'play football after school' — this tells us what they do." },
+
+  /* Question 2 — Collective Nouns */
+  { id:"e15", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B2a. A _______ of cows. (Choose the correct collective noun)",
+    options:["flock","herd","team","pack"],
+    answer:"herd",
+    hint:"We use 'herd' for large farm animals like cows and buffaloes.",
+    explain:"A HERD of cows. Herd is used for groups of large animals." },
+
+  { id:"e16", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B2b. A _______ of birds.",
+    options:["flock","herd","class","bunch"],
+    answer:"flock",
+    hint:"We use 'flock' for birds and sheep.",
+    explain:"A FLOCK of birds. Flock is used for birds and sheep." },
+
+  { id:"e17", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B2c. A _______ of bananas.",
+    options:["pack","bunch","team","herd"],
+    answer:"bunch",
+    hint:"Think about how bananas grow together.",
+    explain:"A BUNCH of bananas. Bananas grow in bunches." },
+
+  { id:"e18", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B2d. A _______ of football players.",
+    options:["class","pack","team","herd"],
+    answer:"team",
+    hint:"Players who play together form a...",
+    explain:"A TEAM of football players. We say team for players." },
+
+  { id:"e19", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B2e. A _______ of wolves.",
+    options:["flock","pack","herd","team"],
+    answer:"pack",
+    hint:"We use 'pack' for wolves and dogs.",
+    explain:"A PACK of wolves. Pack is used for wolves and wild dogs." },
+
+  { id:"e20", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B2f. A _______ of students.",
+    options:["pack","herd","class","flock"],
+    answer:"class",
+    hint:"Students who learn together form a...",
+    explain:"A CLASS of students. We say class for a group of students." },
+
+  /* Question 3 — Common and Proper Nouns */
+  { id:"e21", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B3a. Which word is a PROPER noun?",
+    options:["girl","Dubai","teacher","city"],
+    answer:"Dubai",
+    hint:"Proper nouns name special places and start with a CAPITAL letter.",
+    explain:"Dubai is a proper noun — it names a specific city and starts with a capital D." },
+
+  { id:"e22", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B3b. Which word is a COMMON noun?",
+    options:["Monday","Sara","river","Burj Khalifa"],
+    answer:"river",
+    hint:"Common nouns name ANY person, place, or thing (not a special one).",
+    explain:"'River' is a common noun — it names any river, not a specific one." },
+
+  { id:"e23", cat:"Part B — Grammar", type:"long",
+    prompt:"B3c. Rewrite with capital letters correctly: 'fatima visited abu dhabi in december.'",
+    sample:"Fatima visited Abu Dhabi in December.",
+    hint:"Names of people, places, and months need capital letters. The first word of a sentence does too.",
+    explain:"Fatima (name), Abu Dhabi (place), and December (month) all need capital letters." },
+
+  { id:"e24", cat:"Part B — Grammar", type:"long",
+    prompt:"B3d. Rewrite with capital letters correctly: 'my friend rashid has a dog named bruno.'",
+    sample:"My friend Rashid has a dog named Bruno.",
+    hint:"The first word, person names, and pet names all need capitals.",
+    explain:"My (first word), Rashid (person's name), and Bruno (dog's name) need capital letters." },
+
+  /* Question 4 — Alphabetical Order */
+  { id:"e25", cat:"Part B — Grammar", type:"long",
+    prompt:"B4a. Write in alphabetical order: mango, apple, grapes, banana",
+    sample:"apple, banana, grapes, mango",
+    hint:"ABC order — A comes first, then B, then G, then M.",
+    explain:"Apple (A), Banana (B), Grapes (G), Mango (M) — this is ABC order." },
+
+  { id:"e26", cat:"Part B — Grammar", type:"long",
+    prompt:"B4b. Write in alphabetical order: zebra, lion, tiger, elephant",
+    sample:"elephant, lion, tiger, zebra",
+    hint:"E comes before L, then T, then Z.",
+    explain:"Elephant (E), Lion (L), Tiger (T), Zebra (Z)." },
+
+  { id:"e27", cat:"Part B — Grammar", type:"long",
+    prompt:"B4c. (Challenge!) Write in alphabetical order: cat, cap, car, can",
+    sample:"can, cap, car, cat",
+    hint:"All start with CA — look at the THIRD letter: n, p, r, t.",
+    explain:"When words start with the same letters, look at the next letter: can (n), cap (p), car (r), cat (t)." },
+
+  /* Question 5 — Statement or Question */
+  { id:"e28", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B5a. 'where is my school bag' — Is this a Statement or a Question? What punctuation?",
+    options:["Statement + full stop (.)","Question + question mark (?)","Statement + question mark (?)","Question + full stop (.)"],
+    answer:"Question + question mark (?)",
+    hint:"'Where' asks for information. What punctuation ends a question?",
+    explain:"'Where is my school bag?' is a question. Questions end with a question mark (?)." },
+
+  { id:"e29", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B5b. 'the sun rises in the east' — Statement or Question?",
+    options:["Statement + full stop (.)","Question + question mark (?)","Statement + question mark (?)","Question + full stop (.)"],
+    answer:"Statement + full stop (.)",
+    hint:"This tells us a fact. Facts are statements.",
+    explain:"'The sun rises in the east.' is a statement. Statements end with a full stop (.)." },
+
+  { id:"e30", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B5c. 'do you like ice cream' — Statement or Question?",
+    options:["Statement + full stop (.)","Question + question mark (?)","Statement + question mark (?)","Question + full stop (.)"],
+    answer:"Question + question mark (?)",
+    hint:"'Do you...' is asking something.",
+    explain:"'Do you like ice cream?' is a question. It ends with a question mark." },
+
+  { id:"e31", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B5d. 'we went to the park yesterday' — Statement or Question?",
+    options:["Statement + full stop (.)","Question + question mark (?)","Statement + question mark (?)","Question + full stop (.)"],
+    answer:"Statement + full stop (.)",
+    hint:"This tells us what happened. It's not asking anything.",
+    explain:"'We went to the park yesterday.' is a statement that tells us what happened." },
+
+  { id:"e32", cat:"Part B — Grammar", type:"mcq",
+    prompt:"B5e. 'what is your name' — Statement or Question?",
+    options:["Statement + full stop (.)","Question + question mark (?)","Statement + question mark (?)","Question + full stop (.)"],
+    answer:"Question + question mark (?)",
+    hint:"'What' is a question word.",
+    explain:"'What is your name?' is a question. It ends with a question mark." },
+
+  /* ===== PART C: CREATIVE WRITING ===== */
+  { id:"e33", cat:"Part C — Creative Writing", type:"long", longStory:true,
+    prompt:"CHOOSE ONE topic and write at least 5 sentences:\n\n📝 Topic A: My Best Day Ever\nWhere were you? Who was with you? What did you do? How did you feel?\n\n✏️ Topic B: The Magic Pencil\nYou find a pencil that brings everything you draw to life. What do you draw? What happens next?\n\nRemember: Start with a capital letter, end each sentence with a full stop, and write at least 5 sentences!",
+    sample:"Example for Topic A (My Best Day Ever):\n\nMy best day ever was last Sunday at the beach. I went there with my mother, father, and my little brother. We played in the soft golden sand and built a big castle together. After that, we swam in the cool blue water and ate ice cream. I felt so happy and I want to go back soon!\n\n(Remember: Your story should have YOUR own ideas, not the example!)",
+    hint:"Think about who, where, what, and how you felt. Use capital letters and full stops!",
+    explain:"A good paragraph has: a title, a beginning (where/when), a middle (what happened), and an ending (how you felt). Use at least 5 sentences." }
+];
+
+const CATEGORY_ORDER = [
+  "Part A — Reading Comprehension",
+  "Part B — Grammar",
+  "Part C — Creative Writing"
+];
+
+/* =========================================================================
+   REJOIN CODE + AUTOSAVE
+   ========================================================================= */
+const STORAGE_KEY = "englishWorksheetSession";
+function makeCode(){
+  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  let code = ""; for(let i=0;i<6;i++){ code += chars[Math.floor(Math.random()*chars.length)]; }
+  return code;
+}
+function saveSession(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+function loadSession(){ try{ const r = localStorage.getItem(STORAGE_KEY); return r?JSON.parse(r):null; }catch(e){ return null; } }
+
+let state = { code:null, index:0, answers:{}, hintsShown:{}, samplesShown:{}, submitted:false };
+const app = document.getElementById("app");
+
+function escapeHtml(s){
+  if(s===undefined || s===null) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function checkAnswer(q, ans){
+  switch(q.type){
+    case "mcq": return { score:(ans===q.answer)?1:0, max:1 };
+    case "tf":  return { score:((ans===true||ans==="true")===q.answer)?1:0, max:1 };
+    case "long": return null;
+  }
+  return null;
+}
+
+function collectCurrentAnswer(q){
+  if(q.type==="mcq" || q.type==="tf"){
+    const el = document.querySelector('input[name="r-'+q.id+'"]:checked');
+    return el ? el.value : null;
+  }
+  if(q.type==="long"){
+    const el = document.getElementById("t-"+q.id);
+    return el ? el.value : "";
+  }
+  return null;
+}
+
+function renderIntro(){
+  const saved = loadSession();
+  let banner = "";
+  if(saved && saved.code){
+    if(saved.submitted){
+      banner = `<div class="session-box">
+        <strong>Welcome back! 🎉</strong><br>
+        You already finished this worksheet (code <span class="code-chip">${saved.code}</span>).
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="reopenResults()">👀 See My Results Again</button>
+          <button class="btn btn-ghost" onclick="startFresh()">🔄 Try It Again</button>
+        </div>
+      </div>`;
+    } else {
+      banner = `<div class="session-box">
+        <strong>We found a saved worksheet in progress!</strong><br>
+        Your code is <span class="code-chip">${saved.code}</span> — Question ${saved.index+1} of ${QUESTIONS.length}.
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="resumeSession()">▶ Resume Worksheet</button>
+          <button class="btn btn-ghost" onclick="startFresh()">🔄 Start Fresh</button>
+        </div>
+      </div>`;
+    }
+  }
+  app.innerHTML = `
+    <a href="index.html" class="back-link">⬅ Back to all quizzes</a>
+    <div class="top">
+      <div class="mascot">📚✏️</div>
+      <h1>Grade 3 English Worksheet</h1>
+      <p>Reading • Grammar • Writing • ${QUESTIONS.length} Questions</p>
+    </div>
+    ${banner}
+    <div class="card">
+      <h2>Before you start</h2>
+      <p>This worksheet has <strong>${QUESTIONS.length} questions</strong> in three parts:</p>
+      <ul class="simple">
+        <li><strong>Part A — Reading Comprehension</strong>: Read 2 passages and answer questions</li>
+        <li><strong>Part B — Grammar</strong>: Subject &amp; Predicate, Nouns, Alphabetical Order, Punctuation</li>
+        <li><strong>Part C — Creative Writing</strong>: Choose a topic and write your own story!</li>
+      </ul>
+      <p>Some questions have one right answer. Others ask you to WRITE your answer, then compare it with a sample.</p>
+      <p>When you click Start, you'll get a <strong>6-letter Session Code</strong>. Write it down! If the worksheet gets interrupted, come back and use the code to pick up where you left off.</p>
+      <button class="btn btn-primary btn-full" onclick="startFresh()">🚀 Start the Worksheet</button>
+    </div>
+    <div class="card">
+      <h3>Have a rejoin code?</h3>
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="rejoin-input" placeholder="e.g. AB3X9K" maxlength="6" style="text-transform:uppercase;">
+        <button class="btn btn-ghost" onclick="tryRejoin()">Go</button>
+      </div>
+      <p id="rejoin-msg" style="margin-top:8px;"></p>
+    </div>
+  `;
+}
+
+function tryRejoin(){
+  const typed = document.getElementById("rejoin-input").value.trim().toUpperCase();
+  const saved = loadSession();
+  const msg = document.getElementById("rejoin-msg");
+  if(saved && saved.code === typed){
+    if(saved.submitted){ reopenResults(); } else { resumeSession(); }
+  } else {
+    msg.textContent = "We couldn't find that code on this device. Codes only work on the same device/browser you started on.";
+    msg.style.color = "var(--bad)";
+  }
+}
+
+function startFresh(){
+  state = { code:makeCode(), index:0, answers:{}, hintsShown:{}, samplesShown:{}, submitted:false };
+  saveSession(); renderQuiz();
+}
+function resumeSession(){
+  const s=loadSession();
+  if(s){ state=s; if(!state.hintsShown) state.hintsShown={}; if(!state.samplesShown) state.samplesShown={}; }
+  renderQuiz();
+}
+function reopenResults(){ const s=loadSession(); if(s){ state=s; } renderResults(); }
+
+function renderQuiz(){
+  const q = QUESTIONS[state.index];
+  const pct = Math.round((state.index)/QUESTIONS.length*100);
+  let body = "";
+  if(q.type==="mcq" || q.type==="tf"){
+    const opts = q.type==="tf" ? ["True","False"] : q.options;
+    const sv = state.answers[q.id];
+    body = opts.map(opt=>{
+      const val = q.type==="tf" ? (opt==="True"?"true":"false") : opt;
+      const checked = sv===val ? "checked" : "";
+      return `<label class="option-btn ${sv===val?'selected':''}">
+                <input type="radio" name="r-${q.id}" value="${escapeHtml(val)}" ${checked} style="margin-right:8px;" onchange="onAnswerChange('${q.id}')">
+                ${escapeHtml(opt)}
+              </label>`;
+    }).join("");
+  } else if(q.type==="long"){
+    const v = state.answers[q.id] || "";
+    const rows = q.longStory ? 'style="min-height:180px;"' : "";
+    body = `<textarea id="t-${q.id}" placeholder="Write your answer here..." oninput="onLongChange('${q.id}')" ${rows}>${escapeHtml(v)}</textarea>`;
+  }
+  const passageHtml = q.passage ? `<div class="passage-box"><span class="passage-title">${escapeHtml(q.passage.title)}</span>${escapeHtml(q.passage.text)}</div>` : "";
+  const isLast = state.index === QUESTIONS.length - 1;
+  const hs = state.hintsShown && state.hintsShown[q.id];
+  const ss = state.samplesShown && state.samplesShown[q.id];
+  const sampleBtn = q.type==="long" ? `<button class="hint-btn" onclick="toggleSample('${q.id}')" style="margin-left:10px;">👀 ${ss?'Hide':'Show'} Sample Answer</button>` : "";
+  const sampleBox = q.type==="long" ? `<div class="sample-box" style="display:${ss?'block':'none'};"><strong>Sample Answer:</strong>\n${escapeHtml(q.sample)}</div>` : "";
+
+  app.innerHTML = `
+    <div class="top" style="text-align:left; display:flex; justify-content:space-between; align-items:center;">
+      <span class="progress-label">Question ${state.index+1} of ${QUESTIONS.length}</span>
+      <span class="progress-label">Code: <strong>${state.code}</strong></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="card">
+      <span class="badge">${escapeHtml(q.cat)}</span>
+      ${passageHtml}
+      <h2>${escapeHtml(q.prompt)}</h2>
+      ${body}
+      <div>
+        <button class="hint-btn" onclick="toggleHint('${q.id}')">💡 ${hs?'Hide':'Show'} Hint</button>
+        ${sampleBtn}
+      </div>
+      <div class="hint-box" style="display:${hs?'block':'none'};">💡 ${escapeHtml(q.hint)}</div>
+      ${sampleBox}
+    </div>
+    <div class="btn-row">
+      ${state.index>0 ? `<button class="btn btn-ghost" onclick="goTo(${state.index-1})">← Back</button>` : ""}
+      <button class="btn btn-primary" onclick="goNext()">${isLast ? "🏁 See My Results" : "Next →"}</button>
+    </div>
+    <p class="foot-note">Your progress is saved automatically on this device.</p>
+  `;
+}
+
+function onAnswerChange(qid){
+  const q = QUESTIONS.find(x=>x.id===qid);
+  state.answers[qid] = collectCurrentAnswer(q);
+  saveSession(); renderQuiz();
+}
+function onLongChange(qid){
+  const q = QUESTIONS.find(x=>x.id===qid);
+  state.answers[qid] = collectCurrentAnswer(q);
+  saveSession();
+}
+function toggleHint(qid){
+  if(!state.hintsShown) state.hintsShown = {};
+  state.hintsShown[qid] = !state.hintsShown[qid];
+  const q = QUESTIONS.find(x=>x.id===qid);
+  const cur = collectCurrentAnswer(q);
+  if(cur !== null) state.answers[qid] = cur;
+  saveSession(); renderQuiz();
+}
+function toggleSample(qid){
+  if(!state.samplesShown) state.samplesShown = {};
+  state.samplesShown[qid] = !state.samplesShown[qid];
+  const q = QUESTIONS.find(x=>x.id===qid);
+  const cur = collectCurrentAnswer(q);
+  if(cur !== null) state.answers[qid] = cur;
+  saveSession(); renderQuiz();
+}
+function goTo(i){
+  const q = QUESTIONS[state.index];
+  state.answers[q.id] = collectCurrentAnswer(q);
+  state.index = i; saveSession(); renderQuiz();
+}
+function goNext(){
+  const q = QUESTIONS[state.index];
+  state.answers[q.id] = collectCurrentAnswer(q);
+  if(state.index < QUESTIONS.length-1){ state.index++; saveSession(); renderQuiz(); }
+  else { submitQuiz(); }
+}
+function submitQuiz(){ state.submitted=true; saveSession(); renderResults(); }
+
+function renderResults(){
+  const catTotals = {};
+  CATEGORY_ORDER.forEach(c=>catTotals[c]={score:0,max:0});
+  let total=0, max=0;
+  QUESTIONS.forEach(q=>{
+    const r = checkAnswer(q, state.answers[q.id]);
+    if(r){ catTotals[q.cat].score+=r.score; catTotals[q.cat].max+=r.max; total+=r.score; max+=r.max; }
+  });
+  const pct = max ? Math.round((total/max)*100) : 0;
+  const msg = pct>=90 ? "🌟 Superstar! Your English is excellent!" :
+              pct>=70 ? "🎉 Great job!" :
+              pct>=50 ? "👍 Good effort! A little more practice." :
+                        "💪 Nice try! Keep practising.";
+
+  const catBars = CATEGORY_ORDER.map(c=>{
+    const t = catTotals[c];
+    const longInCat = QUESTIONS.filter(q=>q.cat===c && q.type==="long").length;
+    if(t.max===0){
+      return `<div class="cat-bar-row">
+                <div class="label"><span>${escapeHtml(c)}</span><span>${longInCat} written answers</span></div>
+                <div class="explain">Compare your written answers with the samples in the answer key below.</div>
+              </div>`;
+    }
+    const p = Math.round((t.score/t.max)*100);
+    const note = p>=80 ? "Great work here!" : p>=50 ? "Good — a little more practice will help." : "Let's review this together.";
+    return `<div class="cat-bar-row">
+              <div class="label"><span>${escapeHtml(c)}</span><span>${t.score}/${t.max} auto-scored</span></div>
+              <div class="cat-track"><div class="cat-fill" style="width:${p}%"></div></div>
+              <div class="explain">${note}</div>
+            </div>`;
+  }).join("");
+
+  const answerKey = CATEGORY_ORDER.map(cat=>{
+    const qs = QUESTIONS.filter(q=>q.cat===cat); if(qs.length===0) return "";
+    const items = qs.map(q=>{
+      const r = checkAnswer(q, state.answers[q.id]);
+      const ua = formatAnswer(q, state.answers[q.id]);
+      const ca = formatCorrect(q);
+      let tag = `<span class="tag note">💭 Not answered</span>`;
+      if(r){
+        if(r.score===r.max) tag = `<span class="tag good">✅ Correct</span>`;
+        else if(r.score===0) tag = `<span class="tag bad">❌ Try again</span>`;
+      } else if(q.type==="long" && state.answers[q.id]){
+        tag = `<span class="tag note">💭 Your answer (compare with sample)</span>`;
+      }
+      const correctOrSample = q.type==="long"
+        ? `<div class="explain"><strong>Sample answer:</strong> ${escapeHtml(q.sample)}</div>`
+        : `<div class="explain"><strong>Correct answer:</strong> ${escapeHtml(ca)}</div>`;
+      return `<div class="qa">
+                <div class="prompt">${escapeHtml(q.prompt)}</div>
+                ${tag}
+                <div class="explain"><strong>Your answer:</strong> ${ua || "<em>(no answer)</em>"}</div>
+                ${correctOrSample}
+                <div class="explain">${escapeHtml(q.explain||"")}</div>
+              </div>`;
+    }).join("");
+    return `<details><summary>${escapeHtml(cat)}</summary>${items}</details>`;
+  }).join("");
+
+  const longCount = QUESTIONS.filter(q=>q.type==="long").length;
+  const longNote = `<p style="font-size:0.9rem; color:var(--ink-soft); margin-top:8px;"><em>Note: ${longCount} written-answer questions are not auto-scored — ask a parent or teacher to check them, or compare with the sample answers below.</em></p>`;
+
+  app.innerHTML = `
+    <a href="index.html" class="back-link">⬅ Back to all quizzes</a>
+    <div class="top"><div class="mascot">🏆</div><h1>Your Results</h1></div>
+    <div class="card">
+      <div class="score-big">${total} / ${max}</div>
+      <div class="score-msg">${pct}% — ${msg}</div>
+      ${longNote}
+    </div>
+    <div class="card">
+      <h2>Score by Part</h2>
+      ${catBars}
+    </div>
+    <div class="card">
+      <h2>📖 Full Answer Key &amp; Sample Answers</h2>
+      <p>Tap any part below to see every question, your answer, and the correct/sample answer.</p>
+      ${answerKey}
+    </div>
+    <div class="card">
+      <h2>🎨 Try These At Home!</h2>
+      <ul class="simple">
+        <li>Read a short story every day and tell your parent what happened.</li>
+        <li>Look at everyday things (people, places, animals) and say if they are common or proper nouns.</li>
+        <li>Write a short diary entry about your day using capital letters and full stops.</li>
+        <li>Make flashcards for collective nouns (herd, flock, pack, team, etc.).</li>
+      </ul>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary btn-full" onclick="startFresh()">🔄 Try the Worksheet Again</button>
+    </div>
+  `;
+}
+function formatAnswer(q, a){
+  if(a===undefined||a===null||a==="") return "";
+  if(q.type==="tf") return a==="true"||a===true ? "True" : "False";
+  return escapeHtml(a);
+}
+function formatCorrect(q){
+  if(q.type==="tf") return q.answer ? "True" : "False";
+  if(q.type==="long") return "";
+  return q.answer;
+}
+
+renderIntro();
+</script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Class 3 Practice Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F8FC;
+    --surface:#FFFFFF;
+    --ink:#15223D;
+    --ink-soft:#5A6B85;
+    --ink-light:#8A99B3;
+    --line:#E6ECF4;
+    --brand:#5B4FE6;
+    --brand-dark:#4538C8;
+    --accent:#FF6B4A;
+    --gold:#F5B800;
+    --shadow:0 4px 20px rgba(21,34,61,0.06);
+    --shadow-lg:0 10px 40px rgba(21,34,61,0.12);
+    --radius:16px;
+    --radius-sm:10px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0E1424;
+      --surface:#1A2238;
+      --ink:#F2F5FB;
+      --ink-soft:#B8C3D9;
+      --ink-light:#8290AD;
+      --line:#2A3350;
+      --shadow:0 4px 20px rgba(0,0,0,0.3);
+      --shadow-lg:0 10px 40px rgba(0,0,0,0.5);
+    }
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Inter', -apple-system, Segoe UI, Roboto, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+    min-height:100vh;
+    padding:16px;
+    padding-top:max(16px, env(safe-area-inset-top));
+    padding-bottom:max(32px, env(safe-area-inset-bottom));
+  }
+  .container{ max-width:960px; margin:0 auto; }
+
+  .header{
+    background:linear-gradient(135deg, #5B4FE6 0%, #7C3AED 50%, #FF6B4A 100%);
+    border-radius:20px;
+    padding:24px 20px;
+    margin-bottom:20px;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow-lg);
+  }
+  .header::before{
+    content:""; position:absolute; top:-40px; right:-40px;
+    width:160px; height:160px; background:rgba(255,255,255,0.1); border-radius:50%;
+  }
+  .header::after{
+    content:""; position:absolute; bottom:-30px; left:-20px;
+    width:120px; height:120px; background:rgba(255,255,255,0.08); border-radius:50%;
+  }
+  .header-content{ position:relative; z-index:2; }
+  .header-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(255,255,255,0.22); backdrop-filter:blur(10px);
+    padding:5px 12px; border-radius:999px;
+    font-size:11px; font-weight:700; letter-spacing:0.5px;
+    text-transform:uppercase; margin-bottom:10px;
+  }
+  .header h1{
+    font-family:'Baloo 2', sans-serif; font-size:28px; font-weight:800;
+    margin-bottom:6px; line-height:1.15;
+  }
+  .header p{ font-size:14px; opacity:0.95; max-width:400px; }
+
+  .stats{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:24px;
+  }
+  .stat{
+    background:var(--surface); border-radius:var(--radius-sm); padding:14px 10px;
+    text-align:center; border:1px solid var(--line); box-shadow:var(--shadow);
+  }
+  .stat-num{
+    font-family:'Baloo 2', sans-serif; font-size:22px; font-weight:800;
+    color:var(--brand); line-height:1; margin-bottom:4px;
+  }
+  .stat-label{
+    font-size:11px; color:var(--ink-soft); font-weight:600;
+    text-transform:uppercase; letter-spacing:0.3px;
+  }
+
+  .section-title{
+    font-family:'Baloo 2', sans-serif; font-size:18px; font-weight:700;
+    color:var(--ink); margin:28px 0 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-title::before{
+    content:""; width:4px; height:20px; background:var(--brand); border-radius:2px;
+  }
+
+  .subject-card{
+    background:var(--surface); border-radius:var(--radius); overflow:hidden;
+    margin-bottom:14px; border:1px solid var(--line); box-shadow:var(--shadow);
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .subject-card:hover{ transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+  .subject-head{
+    display:flex; align-items:center; gap:14px; padding:16px 18px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg, var(--subject-tint, #F0F2FB) 0%, transparent 60%);
+  }
+  .subject-icon{
+    width:48px; height:48px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; background:var(--subject-color, var(--brand));
+    color:#fff; flex-shrink:0; box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  }
+  .subject-meta h2{
+    font-family:'Baloo 2', sans-serif; font-size:17px; font-weight:700;
+    color:var(--ink); margin-bottom:2px;
+  }
+  .subject-meta p{ font-size:12px; color:var(--ink-soft); }
+  .quiz-count{
+    margin-left:auto; background:var(--line); color:var(--ink-soft);
+    font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px;
+  }
+
+  .quiz-list{ padding:8px; }
+  .quiz-item{
+    display:flex; align-items:center; gap:12px; padding:12px 14px;
+    text-decoration:none; color:var(--ink); border-radius:var(--radius-sm);
+    transition:background 0.12s ease;
+  }
+  .quiz-item:hover, .quiz-item:active{ background:var(--bg); }
+  .quiz-item + .quiz-item{ border-top:1px solid var(--line); }
+  .quiz-dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--subject-color, var(--brand)); flex-shrink:0;
+  }
+  .quiz-info{ flex:1; min-width:0; }
+  .quiz-name{
+    font-size:14px; font-weight:600; color:var(--ink); margin-bottom:2px;
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  }
+  .quiz-tag{
+    font-size:9px; font-weight:800; letter-spacing:0.3px;
+    padding:2px 6px; border-radius:4px; text-transform:uppercase;
+  }
+  .quiz-tag.new{ background:#E8F7EE; color:#1E8E4A; }
+  .quiz-tag.sa1{ background:#FFF1E8; color:#C85A20; }
+  .quiz-tag.worksheet{ background:#F0E8FC; color:#5B21B6; }
+  @media (prefers-color-scheme: dark){
+    .quiz-tag.new{ background:#1A3A28; color:#5BD98B; }
+    .quiz-tag.sa1{ background:#3A2418; color:#FF9A6A; }
+    .quiz-tag.worksheet{ background:#2E1F4A; color:#C9A8FF; }
+  }
+  .quiz-desc{
+    font-size:12px; color:var(--ink-soft);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .quiz-arrow{
+    color:var(--ink-light); font-size:18px; flex-shrink:0;
+    transition:transform 0.12s ease;
+  }
+  .quiz-item:hover .quiz-arrow{ transform:translateX(3px); color:var(--brand); }
+
+  .footer{
+    text-align:center; margin-top:32px; padding:20px 0;
+    color:var(--ink-light); font-size:12px;
+  }
+  .footer-brand{
+    font-family:'Baloo 2', sans-serif; font-weight:700;
+    color:var(--ink-soft); margin-bottom:4px;
+  }
+
+  @media (min-width:720px){
+    body{ padding:24px; }
+    .header{ padding:36px 32px; }
+    .header h1{ font-size:36px; }
+    .header p{ font-size:16px; }
+    .stats{ gap:16px; }
+    .stat{ padding:18px 14px; }
+    .stat-num{ font-size:28px; }
+    .section-title{ font-size:22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-content">
+      <span class="header-badge">📚 Class 3 • Grade 3</span>
+      <h1>Practice Hub</h1>
+      <p>Interactive quizzes and practice tests to help you ace every subject.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Subjects</div></div>
+    <div class="stat"><div class="stat-num">17+</div><div class="stat-label">Quizzes</div></div>
+    <div class="stat"><div class="stat-num">550+</div><div class="stat-label">Questions</div></div>
+  </div>
+
+  <!-- SA1 EXAM SECTION -->
+  <h2 class="section-title">🏆 SA1 Exam Preparation</h2>
+
+  <!-- Computer SA1 -->
+  <div class="subject-card" style="--subject-color:#5B4FE6; --subject-tint:#EFEDFC;">
+    <div class="subject-head">
+      <div class="subject-icon">💻</div>
+      <div class="subject-meta">
+        <h2>Computer Studies</h2>
+        <p>Units 2 to 5 • 88 Questions</p>
+      </div>
+      <span class="quiz-count">3 quizzes</span>
+    </div>
+    <div class="quiz-list">
+      <a href="computer_sa1.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Computer SA1 Practice <span class="quiz-tag sa1">SA1</span> <span class="quiz-tag new">Updated</span></div>
+          <div class="quiz-desc">88 questions with save &amp; rejoin code</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+      <a href="computer_midterm.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Computer Mid-Term Practice</div>
+          <div class="quiz-desc">Comprehensive syllabus coverage</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+      <a href="computer.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">General Computer Quiz</div>
+          <div class="quiz-desc">Hardware, software &amp; basics</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Kannada SA1 -->
+  <div class="subject-card" style="--subject-color:#E8743B; --subject-tint:#FDF0E8;">
+    <div class="subject-head">
+      <div class="subject-icon">🪷</div>
+      <div class="subject-meta">
+        <h2>Kannada</h2>
+        <p>Bilingual Quiz • 88 Questions</p>
+      </div>
+      <span class="quiz-count">2 quizzes</span>
+    </div>
+    <div class="quiz-list">
+      <a href="kannada_sa1.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Kannada SA1 Practice <span class="quiz-tag sa1">SA1</span> <span class="quiz-tag new">New</span></div>
+          <div class="quiz-desc">Vowels, numbers, poems &amp; meanings</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+      <a href="kannada.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">General Kannada Quiz</div>
+          <div class="quiz-desc">Letters and words practice</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Math SA1 -->
+  <div class="subject-card" style="--subject-color:#2BA76A; --subject-tint:#E7F6EE;">
+    <div class="subject-head">
+      <div class="subject-icon">🔢</div>
+      <div class="subject-meta">
+        <h2>Mathematics</h2>
+        <p>Arithmetic &amp; Problem Solving</p>
+      </div>
+      <span class="quiz-count">3 quizzes</span>
+    </div>
+    <div class="quiz-list">
+      <a href="maths_sa1.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Maths SA1 Practice <span class="quiz-tag sa1">SA1</span></div>
+          <div class="quiz-desc">Arithmetic &amp; word problems</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+      <a href="math_maze_quest.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Math Maze Quest</div>
+          <div class="quiz-desc">Fun maze-style math challenges</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+      <a href="math.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">General Mathematics Quiz</div>
+          <div class="quiz-desc">Fun math challenges and puzzles</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Science SA1 -->
+  <div class="subject-card" style="--subject-color:#1E8A99; --subject-tint:#E3F4F7;">
+    <div class="subject-head">
+      <div class="subject-icon">🔬</div>
+      <div class="subject-meta">
+        <h2>Science</h2>
+        <p>Nature, Body &amp; Environment</p>
+      </div>
+      <span class="quiz-count">2 quizzes</span>
+    </div>
+    <div class="quiz-list">
+      <a href="science_sa1.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Science SA1 Practice <span class="quiz-tag sa1">SA1</span></div>
+          <div class="quiz-desc">Plants, safety &amp; environment</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+      <a href="science.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">General Science Quiz</div>
+          <div class="quiz-desc">Core science questions</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- OTHER SUBJECTS SECTION -->
+  <h2 class="section-title">📖 Other Subjects</h2>
+
+  <!-- English (now with 3 items including new worksheet) -->
+  <div class="subject-card" style="--subject-color:#7C3AED; --subject-tint:#F2EBFC;">
+    <div class="subject-head">
+      <div class="subject-icon">📝</div>
+      <div class="subject-meta">
+        <h2>English</h2>
+        <p>Reading, Grammar &amp; Writing</p>
+      </div>
+      <span class="quiz-count">3 quizzes</span>
+    </div>
+    <div class="quiz-list">
+      <a href="english_worksheet.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Grade 3 English Worksheet <span class="quiz-tag worksheet">Worksheet</span> <span class="quiz-tag new">New</span></div>
+          <div class="quiz-desc">Reading, grammar &amp; creative writing (33 Qs)</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+      <a href="english.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">English Practice</div>
+          <div class="quiz-desc">Nouns, verbs &amp; sentences</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+      <a href="grammar.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Grammar Quiz</div>
+          <div class="quiz-desc">Grammar rules &amp; practice</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Social Science -->
+  <div class="subject-card" style="--subject-color:#8B5CF6; --subject-tint:#F3EEFC;">
+    <div class="subject-head">
+      <div class="subject-icon">🌍</div>
+      <div class="subject-meta">
+        <h2>Social Science</h2>
+        <p>Surroundings &amp; Community</p>
+      </div>
+      <span class="quiz-count">1 quiz</span>
+    </div>
+    <div class="quiz-list">
+      <a href="social.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Social Science Practice</div>
+          <div class="quiz-desc">Our surroundings, community &amp; maps</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Islamic Studies -->
+  <div class="subject-card" style="--subject-color:#059669; --subject-tint:#E0F3EC;">
+    <div class="subject-head">
+      <div class="subject-icon">🕌</div>
+      <div class="subject-meta">
+        <h2>Islamic Studies</h2>
+        <p>Moral Values &amp; Stories</p>
+      </div>
+      <span class="quiz-count">1 quiz</span>
+    </div>
+    <div class="quiz-list">
+      <a href="islamic.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Islamic Studies Practice</div>
+          <div class="quiz-desc">Values, stories &amp; basics</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Word Problems -->
+  <div class="subject-card" style="--subject-color:#F5B800; --subject-tint:#FEF5D9;">
+    <div class="subject-head">
+      <div class="subject-icon">🧩</div>
+      <div class="subject-meta">
+        <h2>Extra Practice</h2>
+        <p>Mixed Challenges</p>
+      </div>
+      <span class="quiz-count">1 quiz</span>
+    </div>
+    <div class="quiz-list">
+      <a href="mixed_word_problems.html" class="quiz-item">
+        <span class="quiz-dot"></span>
+        <div class="quiz-info">
+          <div class="quiz-name">Mixed Word Problems</div>
+          <div class="quiz-desc">Problem-solving across subjects</div>
+        </div>
+        <span class="quiz-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">Class 3 Practice Hub</div>
+    <div>Made with ❤️ for better learning • By Shabanam</div>
+    <div style="margin-top:8px;"><a href="privacy.html" style="color:var(--ink-light); text-decoration:none;">Privacy Policy</a></div>
+  </div>
+
+</div>
+</body>
+</html>
